@@ -50,7 +50,7 @@
         />
       </div>
 
-        <button type="submit" class="btn btn-primary form-control">
+        <button type="submit" class="btn btn-primary form-control" id="btnsubmit">
           Confirm
         </button>
       </form>
@@ -58,4 +58,39 @@
     </div>
   </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(()=>{
+  LaodData(window.location.href)
+})
 
+var email='';
+async function LaodData(url) {
+var url = new URL(url);
+if (window.location.href.indexOf('?') > 0) {
+     email = url.searchParams.get("email");
+    const data = {
+      ReceiverEmail: email}
+   const result =await AjaxCall( "/SendCode/GetCode",data);
+   const JsonData=JSON.parse(result);
+   const JsonData1=JSON.parse(JsonData);
+    if(JsonData1[0]['VerificationCode']!=''){
+      $('#btnsubmit').attr('data-code',JsonData1[0]['VerificationCode']);
+    }
+    else{
+      alert("Something went wrong");
+    }
+}
+};
+$("#btnsubmit").click(async function (e) {
+  e.preventDefault();
+  var code = parseInt($('#btnsubmit').attr('data-code'));
+  var usercode = parseInt($('input[name="code"]').val());
+  if(code===usercode){
+    window.location.href = `/Register/Index?email=${email}`;
+  }
+  else{
+    alert("Code is not correct");
+  }
+});
+</script>

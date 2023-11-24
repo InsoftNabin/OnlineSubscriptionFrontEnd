@@ -36,6 +36,21 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> GetCode([FromBody] SendCode sc)
+        {
+            try
+            {
+                var result = await ApiCall.ApiCallWithObject("EmailMessaging/GetCode", sc, "POST");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Ok("Error");
+
+            }
+
+        }
 
     }
 }

@@ -63,6 +63,7 @@
           aria-label="email"
           name="Email"
           aria-describedby="email"
+          disabled
         />
       </div>
       <div class="input-group mb-2">
@@ -120,7 +121,24 @@
 </div>
 
 <script type="text/javascript">
-  $(form).submit(function (e) {
+  $(document).ready(()=>{
+    LaodData(window.location.href)
+      
+  
+  })
+  async function LaodData(url) {
+var url = new URL(url);
+if (window.location.href.indexOf('?') > 0) {
+     email = url.searchParams.get("email");
+     $('input[name="Email"]').val(email);
+    }}
+
+
+  $("#registerForm").submit(function (e) {
+    if($(this).find("input[name='Password']").val()!=$(this).find("input[name='ConfirmPassword']").val()){
+      alert("Password and Confirm Password does not match");
+      return false;
+    }
     e.preventDefault();
     const data = {
       Name: $(this).find("input[name='Name']").val(),
@@ -128,7 +146,6 @@
       Contact: $(this).find("input[name='Contact']").val(),
       Address: $(this).find("input[name='Address']").val(),
       Password: $(this).find("input[name='Password']").val(),
-      ConfirmPassword: $(this).find("input[name='ConfirmPassword']").val(),
     };
     const value = AjaxCallWithData("/Register/RegisterUser",data);
     console.log(value)

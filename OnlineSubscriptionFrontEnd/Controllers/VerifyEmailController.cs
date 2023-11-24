@@ -18,6 +18,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
         public IActionResult Index()
         {
+            // var sc = TempData["SendCode"] as SendCode;
             return View();
         }
 
