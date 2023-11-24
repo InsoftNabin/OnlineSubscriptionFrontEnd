@@ -25,7 +25,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             try
             {
-                var newVAl = rg;
+
                 return RedirectToAction("Index", "Login");
 
             }
