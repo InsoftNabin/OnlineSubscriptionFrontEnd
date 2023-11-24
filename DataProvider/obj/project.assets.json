@@ -8,23 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\INSOFT\\.nuget\\packages\\": {},
+    "C:\\Users\\ankit\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+      "projectUniqueName": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
       "projectName": "DataProvider",
-      "projectPath": "D:\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
-      "packagesPath": "C:\\Users\\INSOFT\\.nuget\\packages\\",
-      "outputPath": "D:\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
+      "projectPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+      "packagesPath": "C:\\Users\\ankit\\.nuget\\packages\\",
+      "outputPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\INSOFT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ankit\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -33,7 +33,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

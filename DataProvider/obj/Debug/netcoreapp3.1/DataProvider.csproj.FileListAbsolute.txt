@@ -7,3 +7,12 @@ D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcore
 D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.csproj.CoreCompileInputs.cache
 D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
 D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.deps.json
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.dll
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.pdb
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.GeneratedMSBuildEditorConfig.editorconfig
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfoInputs.cache
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfo.cs
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.csproj.CoreCompileInputs.cache
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
+D:\project insoft\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb

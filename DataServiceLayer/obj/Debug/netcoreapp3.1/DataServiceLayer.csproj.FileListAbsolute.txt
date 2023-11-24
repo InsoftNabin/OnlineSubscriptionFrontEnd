@@ -11,3 +11,16 @@ D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\net
 D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CopyComplete
 D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
 D:\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.dll
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.pdb
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.AssemblyReference.cache
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfoInputs.cache
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfo.cs
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CoreCompileInputs.cache
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CopyComplete
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
