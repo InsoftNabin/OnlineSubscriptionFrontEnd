@@ -43,20 +43,16 @@
         purposes.
       </p>
 
-            <form id="loginForm" action="@Url.Action("VerifyEmail", "SendCode")" method="post">
-      <div class="input-group mb-5">
-        <span class="input-group-text" id="basic-addon1">&#64;</span>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Email"
-          aria-label="Email"
-          name="email"
-          aria-describedby="basic-addon1"
-        />
-      </div>
+            <form id="loginForm" >
+      
+        <div class="fv-row mb-8 fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
+          <!--begin::Email-->
+          <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" id="email">
+          <!--end::Email-->
+        <div class="fv-plugins-message-container invalid-feedback"><div data-field="email" data-validator="regexp">The value is not a valid email address</div></div></div>
+      
 
-        <button type="submit" class="btn btn-primary form-control">
+        <button  type="submit" id="SendCodeButton" class="btn btn-primary form-control">
           Send
         </button>
       </form>
@@ -64,3 +60,80 @@
     </div>
   </div>
 </div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+  
+  const generateOTP = (length = 6) => {
+    let otp = ''
+
+    for (let i = 0; i < length; i++) {
+        otp += Math.floor(Math.random() * 10)
+    }
+
+    return otp
+}
+    $("#SendCodeButton").click(async function (e) {
+      code = generateOTP();
+      var codeBody = `
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+      <div class="card-body d-flex flex-center flex-column py-9 px-5 w-500px">
+  <div class="card-body p-0">
+    <div class="card-px text-center my-10">
+      <div class="py-10 text-center">
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-150px"
+          alt=""
+        />
+      </div>
+      <h2 class="fs-2x fw-bold mb-5">Create New Account</h2>
+      <p class="text-gray-400 fs-4 fw-semibold mb-10">
+        Thank Yor for Choosing us.Please use the code below to start Creating your account.
+      </p>
+      <div style="font-size: 14px; font-weight: 500; margin:0 60px 30px 60px; font-family:Arial,Helvetica,sans-serif">
+        <p style="color:#181C32; font-size: 28px; font-weight:700; line-height:1.4; margin-bottom:24px" id="Code">
+          `+code+`
+        </p>
+      </div>
+            
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
+      `
+      e.preventDefault();
+      
+      const data={
+        ReceiverEmail:$("#email").val(),
+        Subject:"No Reply",
+        EmailBody:codeBody
+      }
+      try {
+        const result = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data, "POST")
+        console.log(result);
+        if(result =="success"){
+          console.log(result)
+          window.location.href = "/VerifyEmail/Index";
+        }
+        else{
+          alert("not successful",result)
+        }
+      } catch (error) {
+        alert("Something went wrong")
+        
+      }
+      console.log(data)
+    });
+ 
+
+</script>

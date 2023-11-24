@@ -6,6 +6,8 @@ using DataProvider;
 using DataServiceLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnlineSubscriptionFrontEnd.Classes;
+using OnlineSubscriptionFrontEnd.Models;
 
 
 namespace OnlineSubscriptionFrontEnd.Controllers
@@ -18,43 +20,20 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> Index(LoginValidator login)
+        public async Task<IActionResult> VerifyEmailAndSendCode([FromBody] SendCode sc)
         {
             try
             {
-                SLLogin sl = new SLLogin();
-                SelectLoginInfo li = (SelectLoginInfo)await sl.GetLoginInfo(login);
-                if (li.Status == 200)
-                {
-                    HttpContext.Session.SetString("TokenNo", li.TokenNo);
-                    return RedirectToAction("Index", "Dashboard");
-                }
-                else
-                {
-                    TempData["MessageType"] = "Ërror";
-                    TempData["Message"] = "Invalid UserName Or Password";
-                    return View("Index");
-                }
+                var mail = new System.Net.Mail.MailAddress(sc.ReceiverEmail);
+                var result = await ApiCall.ApiCallWithObject("EmailMessaging/SendReceiptInEmail", sc, "POST");
+                return Ok(result);
             }
-            catch (Exception ex)
+            catch (FormatException)
             {
-                throw ex;
-            }
-        }
+                return Ok("Invalid email address.");
 
-
-        [HttpPost]
-        public async Task<IActionResult> VerifyEmail(string email)
-        {
-            try
-            {
-
-                return RedirectToAction("Index", "VerifyEmail", new { email = email });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 
