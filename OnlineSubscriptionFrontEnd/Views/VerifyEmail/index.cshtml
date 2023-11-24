@@ -1,0 +1,61 @@
+@{ ViewData["Title"] = "Index"; }
+
+<div  class=" py-3 py-lg-6">
+  <div
+   
+    class=" container-xxl d-flex flex-stack"
+  >
+    <div
+      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
+    >
+      <h1
+        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+      >
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-100px"
+          alt=""
+        />
+      </h1>
+    </div>
+   
+
+  </div>
+</div>
+<div class="container w-500px p-0">
+  <div class="card-body p-0">
+    <div class="card-px text-center my-10">
+      <div class="py-10 text-center">
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-150px"
+          alt=""
+        />
+      </div>
+      <h2 class="fs-2x fw-bold mb-10">Enter Code</h2>
+      <p class="text-gray-400 fs-4 fw-semibold mb-10">
+        Enter the code sent to your email.
+      </p>
+
+            <form id="loginForm" action="@Url.Action("VerifyCode", "VerifyEmail")" method="post">
+      <div class="input-group mb-5">
+       
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Code"
+          aria-label="code"
+          name="code"
+          aria-describedby="confirm-code"
+        />
+      </div>
+
+        <button type="submit" class="btn btn-primary form-control">
+          Confirm
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>
+

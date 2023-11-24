@@ -1,0 +1,137 @@
+@{ ViewData["Title"] = "Index"; }
+
+<div  class=" py-3 py-lg-6">
+  <div
+   
+    class=" container-xxl d-flex flex-stack"
+  >
+    <div
+      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
+    >
+      <h1
+        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+      >
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-100px"
+          alt=""
+        />
+      </h1>
+    </div>
+    <div class="d-flex">
+      <h3 class="fs-xl fw-bold mb-4 lead">
+        Already have an account?
+        <a href="@Url.Action("Index", "Login")"> Sign In </a>
+      </h3>
+    </div>
+
+  </div>
+</div>
+<div class="container w-500px p-0">
+  <div class="card-body p-0">
+    <div class="card-px text-center my-10">
+      <div class="py-10 text-center">
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-150px"
+          alt=""
+        />
+      </div>
+      <h2 class="fs-2x fw-bold mb-10">Create New Account</h2>
+      <p class="text-gray-400 fs-4 fw-semibold mb-10">
+       Enter your Credentials to create an account.
+      </p>
+
+            <form id="registerForm" >
+      <div class="input-group mb-5">
+       
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Username"
+          aria-label="Username"
+          name="Name"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <div class="input-group mb-5">
+       
+        <input
+          type="text"
+          class="form-control"
+          placeholder="email"
+          aria-label="email"
+          name="Email"
+          aria-describedby="email"
+        />
+      </div>
+      <div class="input-group mb-5">
+       
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Contact"
+          aria-label="Contact"
+          name="Contact"
+          aria-describedby="contact"
+        />
+      </div>
+      <div class="input-group mb-5">
+       
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Address"
+          aria-label="Address"
+          name="Address"
+          aria-describedby="address"
+        />
+      </div>
+      <div class="input-group mb-5">
+       
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          aria-label="Password"
+          name="Password"
+          aria-describedby="password"
+        />
+      </div>
+      <div class="input-group mb-5">
+       
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Retype Password"
+          aria-label="Retype-password"
+          name="ConfirmPassword"
+          aria-describedby="retype-password"
+        />
+      </div>
+
+        <a type="button"  class="btn btn-primary form-control" href="@Url.Action("Index", "Login")">
+          Add User
+        </a>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script type="javascript">
+  $(form).submit(function (e) {
+    e.preventDefault();
+    const data = {
+      Name: $(this).find("input[name='Name']").val(),
+      Email: $(this).find("input[name='Email']").val(),
+      Contact: $(this).find("input[name='Contact']").val(),
+      Address: $(this).find("input[name='Address']").val(),
+      Password: $(this).find("input[name='Password']").val(),
+      ConfirmPassword: $(this).find("input[name='ConfirmPassword']").val(),
+    };
+    const value = AjaxCallWithData("/Register/RegisterUser",data);
+    console.log(value)
+  })
+</script>
+

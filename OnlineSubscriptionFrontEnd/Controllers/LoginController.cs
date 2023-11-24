@@ -6,11 +6,13 @@ using DataProvider;
 using DataServiceLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnlineSubscriptionFrontEnd.Models;
+using OnlineSubscriptionFrontEnd.Classes;
 
 
 namespace OnlineSubscriptionFrontEnd.Controllers
 {
-    
+
     public class LoginController : Controller
     {
         string baseurl = Startup.baseapiurl;
@@ -19,7 +21,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Index(LoginValidator login)
+        public async Task<IActionResult> VerifyUser([FromBody] LoginValidator login)
         {
             try
             {
@@ -28,7 +30,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 if (li.Status == 200)
                 {
                     HttpContext.Session.SetString("TokenNo", li.TokenNo);
-                    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -42,5 +44,9 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 throw ex;
             }
         }
+
+
     }
 }
+
+
