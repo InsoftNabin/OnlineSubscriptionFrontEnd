@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {}
+    "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {}
   },
   "projects": {
     "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
@@ -63,14 +63,14 @@
         }
       }
     },
-    "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {
+    "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+        "projectUniqueName": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
         "projectName": "DataServiceLayer",
-        "projectPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+        "projectPath": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
         "packagesPath": "C:\\Users\\ankit\\.nuget\\packages\\",
-        "outputPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
+        "outputPath": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

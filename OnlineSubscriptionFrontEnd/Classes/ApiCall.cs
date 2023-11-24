@@ -25,7 +25,7 @@ namespace OnlineSubscriptionFrontEnd.Classes
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string baseurl = Startup.gpsapiurl;
+            string baseurl = Startup.baseapiurl;
             client.BaseAddress = new Uri(baseurl);
             return client;
         }

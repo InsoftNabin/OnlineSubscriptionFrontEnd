@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataProvider\DataProvider.csproj" />
+    <ProjectReference Include="..\DataServiceLayer\DataServiceLayer.csproj" />
   </ItemGroup>
 
 </Project>

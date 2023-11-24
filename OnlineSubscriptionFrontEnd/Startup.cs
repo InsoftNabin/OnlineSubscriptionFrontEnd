@@ -13,6 +13,7 @@ namespace OnlineSubscriptionFrontEnd
     public class Startup
     {
         public static string baseapiurl;
+        public static string gpsapiurl;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -81,7 +82,7 @@ namespace OnlineSubscriptionFrontEnd
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=Index}");
+                    pattern: "{controller=SendCode}/{action=Index}");
             });
 
             app.UseCookiePolicy();
