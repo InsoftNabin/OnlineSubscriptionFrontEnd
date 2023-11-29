@@ -16,7 +16,15 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var token = HttpContext.Session.GetString("TokenNo");
+            if (token != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
         }
 
 

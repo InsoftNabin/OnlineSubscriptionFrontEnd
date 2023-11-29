@@ -11,17 +11,23 @@
       href="~/assets/css/style.bundle.css"
       asp-append-version="true"
     />
-
+    <link
+      href="~/assets/plugins/global/plugins.bundle.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="Main">
       <main role="main" class="pb-3">@RenderBody()</main>
     </div>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/custom.js" asp-append-version="true"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 
     <script

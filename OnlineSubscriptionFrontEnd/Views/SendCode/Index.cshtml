@@ -1,4 +1,5 @@
-@{ ViewData["Title"] = "Index"; }
+@{ ViewData["Title"] = "Index";
+Layout = "_Layout"; }
 
 <div  class=" py-3 py-lg-6">
   <div
@@ -49,8 +50,7 @@
           <!--begin::Email-->
           <input type="email" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" id="email">
           <!--end::Email-->
-        <div class="fv-plugins-message-container invalid-feedback"><div data-field="email" data-validator="regexp">The value is not a valid email address</div></div></div>
-      
+        </div>
 
         <button  type="submit" id="SendCodeButton" class="btn btn-primary form-control">
           Send
@@ -61,7 +61,7 @@
   </div>
 </div>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
 <script type="text/javascript">
   
   const generateOTP = (length = 6) => {
@@ -74,6 +74,11 @@
     return otp
 }
     $("#SendCodeButton").click(async function (e) {
+      e.preventDefault();
+      if($("#email").val() === ""){
+       toastr.warning("Invalid Email.")
+       
+    }else{
       code = generateOTP();
       var codeBody = `
       <!DOCTYPE html>
@@ -111,7 +116,6 @@
 
 </html>
       `
-      e.preventDefault();
       var email = $("#email").val();
       const data={
         ReceiverEmail:email,
@@ -119,55 +123,28 @@
         EmailBody:codeBody,
         Gcode:code
       }
-      try {
+      // try {
 
         const returnData = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data)
-        const result = JSON.parse(returnData);
-        console.log(result);
-        if(result =="Success"){
-          console.log(result)
+        const result = JSON.parse(JSON.parse(returnData));
+        console.log(result.Status);
+        if(result.Status ==="Success"){
           const data={
             ReceiverEmail:email,
             Code:code
           }
           window.location.href = "/VerifyEmail/Index?email="+email;
         }
-        else if(result =="AlreadyExists"){
+        else if(result.Status ==="AlreadyExists"){
           console.log(result);
-          swal.fire({
-        text: "User Already exists ! Please try again.",
-        icon: "error",
-        buttonsStyling: false,
-        confirmButtonText: "Ok, got it!",
-        customClass: {
-            confirmButton: "btn fw-bold btn-light-primary"
-        }
-    })
+          toastr.error("User Already exists ! Please try again.")
+          
   }else{
-    swal.fire({
-        text: "Invalid Email ! Please try again.",
-        icon: "error",
-        buttonsStyling: false,
-        confirmButtonText: "Ok, got it!",
-        customClass: {
-            confirmButton: "btn fw-bold btn-light-primary"
-        }
-    })
+    console.log(result.Status);
+    toastr.warning("Invalid Email ! Please try again.")
+ 
   }
-        
-  
-      } catch (error) {
-        swal.fire({
-        text: "Something went wrong ! Please try again.",
-        icon: "error",
-        buttonsStyling: false,
-        confirmButtonText: "Ok, got it!",
-        customClass: {
-            confirmButton: "btn fw-bold btn-light-primary"
-        }
-    })
-        
-      }
+}
       
     });
  

@@ -62,7 +62,7 @@
           name="Password"
           aria-describedby="password"
         />
-        <div class="fv-plugins-message-container invalid-feedback"><div data-field="email">Email address is required</div></div>
+</div>
       </div>
 
         <button id="LoginBtn" class="btn btn-primary form-control">
@@ -89,15 +89,8 @@ e.preventDefault();
  }
  else{
   console.log(result);
-  swal.fire({
-        text: "Invalid UserName Or Password ! Please try again.",
-        icon: "error",
-        buttonsStyling: false,
-        confirmButtonText: "Ok, got it!",
-        customClass: {
-            confirmButton: "btn fw-bold btn-light-primary"
-        }
-    })
+  toastr.error("Invalid UserName Or Password ! Please try again.")
+  
  }
 });
 </script>

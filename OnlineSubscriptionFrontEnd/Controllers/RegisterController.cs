@@ -25,13 +25,13 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             try
             {
-
-                return RedirectToAction("Index", "Login");
+                var result = await ApiCall.ApiCallWithObject("User/Register", rg, "POST");
+                return Ok(result);
 
             }
             catch (Exception ex)
             {
-                return Ok("error");
+                return Ok("Error");
             }
         }
 

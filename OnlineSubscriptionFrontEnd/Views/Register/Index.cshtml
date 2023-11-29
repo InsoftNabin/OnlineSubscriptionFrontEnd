@@ -111,9 +111,9 @@
         />
       </div>
 
-        <a type="button"  class="btn btn-primary form-control" href="@Url.Action("Index", "Login")">
+        <button  type="submit" class="btn btn-primary form-control" id="registerButton">
           Add User
-        </a>
+        </button>
       </form>
 
     </div>
@@ -131,23 +131,28 @@ var url = new URL(url);
 if (window.location.href.indexOf('?') > 0) {
      email = url.searchParams.get("email");
      $('input[name="Email"]').val(email);
-    }}
+    }else{
+      window.location.href = "/";
+    }
+  }
 
 
   $("#registerForm").submit(function (e) {
     if($(this).find("input[name='Password']").val()!=$(this).find("input[name='ConfirmPassword']").val()){
-      alert("Password and Confirm Password does not match");
+      toastr.warning("Password doesnot match ! Please try again")
+     
       return false;
     }
     e.preventDefault();
     const data = {
       Name: $(this).find("input[name='Name']").val(),
-      Email: $(this).find("input[name='Email']").val(),
+      Email: email,
       Contact: $(this).find("input[name='Contact']").val(),
       Address: $(this).find("input[name='Address']").val(),
       Password: $(this).find("input[name='Password']").val(),
     };
-    const value = AjaxCallWithData("/Register/RegisterUser",data);
+    debugger
+    const value = AjaxCall("/Register/RegisterUser",data);
     console.log(value)
   })
 </script>
