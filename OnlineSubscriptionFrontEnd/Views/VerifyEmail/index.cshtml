@@ -83,7 +83,7 @@ $("#btnsubmit").click(async function (e) {
   var JsonData =JSON.parse(JSON.parse(result));
   debugger;
   if(JsonData[0].VerificationCode =="true"){
-    window.location.href = "/Register/Index";
+    window.location.href = "/Register/Index?email="+email;
   }
   else{
     alert("Invalid Code");

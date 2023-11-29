@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSubscriptionFrontEnd.Models;
 using OnlineSubscriptionFrontEnd.Classes;
+using Newtonsoft.Json; // Added for JsonConvert
 
 
 namespace OnlineSubscriptionFrontEnd.Controllers
@@ -21,27 +22,27 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> VerifyUser([FromBody] LoginValidator login)
+        public async Task<IActionResult> VerifyUser([FromBody] Login login)
         {
             try
             {
-                SLLogin sl = new SLLogin();
-                SelectLoginInfo li = (SelectLoginInfo)await sl.GetLoginInfo(login);
-                if (li.Status == 200)
+                var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUser", login, "Post");
+                var result = JsonConvert.DeserializeObject<loginValidator>(value);
+                if (result.status == 200)
                 {
-                    HttpContext.Session.SetString("TokenNo", li.TokenNo);
-                    return RedirectToAction("Index", "Home");
+                    HttpContext.Session.SetString("TokenNo", result.tokenNo);
+                    return Ok("Success");
                 }
                 else
                 {
-                    TempData["MessageType"] = "Ërror";
-                    TempData["Message"] = "Invalid UserName Or Password";
-                    return View("Index");
+                    // TempData["MessageType"] = "Ërror";
+                    // TempData["Message"] = "Invalid UserName Or Password";
+                    return Ok("Error");
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                return Ok("error");
             }
         }
 

@@ -1,1 +1,334 @@
 @{ ViewData["Title"] = "Index"; }
+
+<div class="py-3 py-lg-6">
+  <div class="container-xxl d-flex flex-stack">
+    <div
+      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
+    >
+      <h1
+        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+      >
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-100px"
+          alt=""
+        />
+      </h1>
+    </div>
+    <div class="d-flex">
+      <h3 class="fs-xl fw-bold mb-4 lead">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          <span class="svg-icon svg-icon-2">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                opacity="0.5"
+                x="11.364"
+                y="20.364"
+                width="16"
+                height="2"
+                rx="1"
+                transform="rotate(-90 11.364 20.364)"
+                fill="currentColor"
+              ></rect>
+              <rect
+                x="4.36396"
+                y="11.364"
+                width="16"
+                height="2"
+                rx="1"
+                fill="currentColor"
+              ></rect>
+            </svg>
+          </span>
+          Add New Organization
+        </button>
+      </h3>
+    </div>
+  </div>
+</div>
+<div class="container w-500px p-0">
+  <div class="card-body p-0">
+    <div class="card-px text-center my-10">
+      <div class="py-10 text-center">
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-150px"
+          alt=""
+        />
+      </div>
+      <h2 class="fs-2x fw-bold mb-10">There are no Organizations added</h2>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        <span class="svg-icon svg-icon-2">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              opacity="0.5"
+              x="11.364"
+              y="20.364"
+              width="16"
+              height="2"
+              rx="1"
+              transform="rotate(-90 11.364 20.364)"
+              fill="currentColor"
+            ></rect>
+            <rect
+              x="4.36396"
+              y="11.364"
+              width="16"
+              height="2"
+              rx="1"
+              fill="currentColor"
+            ></rect>
+          </svg>
+        </span>
+        Add New Organization
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Add Your Organization details
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="companyName" class="form-label">Company Name</label>
+            <input
+              type="email"
+              class="form-control"
+              id="companyName"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="displayName" class="form-label">Display Name</label>
+            <input type="text" class="form-control" id="displayName" />
+          </div>
+          <div class="mb-3">
+            <label for="initial" class="form-label">Initial</label>
+            <input type="text" class="form-control" id="initial" />
+          </div>
+          <div class="mb-3">
+            <label for="vat" class="form-label">vat/pan</label>
+            <input type="text" class="form-control" id="vat" />
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone No.</label>
+            <input type="text" class="form-control" id="phone" />
+          </div>
+          <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="Email" />
+          </div>
+          <div class="mb-3">
+            <label for="Website" class="form-label">Website</label>
+            <input type="text" class="form-control" id="Website" />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div
+      id="kt_app_toolbar_container"
+      class="app-container container-xxl d-flex flex-stack"
+    >
+      <!--begin::Page title-->
+      <div
+        class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
+      >
+        <!--begin::Title-->
+        <h1
+          class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+        >
+          <img
+            src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+            class="theme-light-show w-100px"
+            alt=""
+          />
+        </h1>
+        <!--end::Title-->
+      </div>
+      <!--end::Page title-->
+      <!--begin::Actions-->
+      <div class="d-flex align-items-center gap-2 gap-lg-3">
+        <!--begin::Filter menu-->
+        <div class="d-flex">
+          <a
+            href="#"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+            <span class="svg-icon svg-icon-2">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  opacity="0.5"
+                  x="11.364"
+                  y="20.364"
+                  width="16"
+                  height="2"
+                  rx="1"
+                  transform="rotate(-90 11.364 20.364)"
+                  fill="currentColor"
+                ></rect>
+                <rect
+                  x="4.36396"
+                  y="11.364"
+                  width="16"
+                  height="2"
+                  rx="1"
+                  fill="currentColor"
+                ></rect>
+              </svg>
+            </span>
+            Add New Organization
+            <!--end::Svg Icon-->
+          </a>
+        </div>
+        <!--end::Filter menu-->
+        <!--begin::Secondary button-->
+        <!--end::Secondary button-->
+        <!--begin::Primary button-->
+        <!--end::Primary button-->
+      </div>
+      <!--end::Actions-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Sitemap main-->
+      <div class="d-flex flex-column flex-xl-row">
+        <!--begin::Content-->
+        <div class="card bg-body flex-row-fluid mb-9 mb-xl-0 me-xl-9">
+          <div class="card-body">
+            <!--begin::Form-->
+
+            <!--begin::Title-->
+            <div class="d-flex flex-column mb-9 fv-row">
+              <h1 class="fw-bold text-dark mb-7">Hi this is left part</h1>
+              <span class="fs-4 fw-semibold text-gray-600 d-block"
+                >You can view all your Organizations below</span
+              >
+            </div>
+            <!--end::Title-->
+          </div>
+        </div>
+        <!--end::Content-->
+        <!--begin::Sidebar-->
+        <div class="flex-column flex-lg-row-auto w-100 w-xl-350px">
+          <!--begin::Support-->
+          <div class="card card-flush bg-body mb-9">
+            <!--begin::Card header-->
+            <div class="card-header">
+              <h2 class="card-title fs-2 fw-bold text-dark">Your Info</h2>
+              <div class="card-toolbar">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-icon btn-color-primary"
+                >
+                  <i class="bi bi-telephone-fill fs-1"></i>
+                </button>
+              </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-2">
+              <!--begin::Items-->
+              <div class="mb-5">
+                <!--begin::Item-->
+                <div class="d-flex flex-stack mb-5">
+                  <span class="text-gray-400 fs-4 fw-bold">Name</span>
+                  <span class="text-gray-700 fs-4 fw-bold">Your name</span>
+                </div>
+                <div class="d-flex flex-stack mb-5">
+                  <span class="text-gray-400 fs-4 fw-bold">Email</span>
+                  <span class="text-gray-700 fs-4 fw-bold">Your Email</span>
+                </div>
+                <div class="d-flex flex-stack mb-5">
+                  <span class="text-gray-400 fs-4 fw-bold">Contact</span>
+                  <span class="text-gray-700 fs-4 fw-bold">Your Contact</span>
+                </div>
+                <div class="d-flex flex-stack mb-5">
+                  <span class="text-gray-400 fs-4 fw-bold">Address</span>
+                  <span class="text-gray-700 fs-4 fw-bold">Your Address</span>
+                </div>
+              </div>
+              <!--end::Items-->
+            </div>
+            <!--end::Support-->
+          </div>
+          <!--end::Sidebar-->
+        </div>
+        <!--end::Sitemap main-->
+      </div>
+      <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+  </div>
+</div>

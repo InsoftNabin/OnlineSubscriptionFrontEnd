@@ -47,7 +47,7 @@
       
         <div class="fv-row mb-8 fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
           <!--begin::Email-->
-          <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" id="email">
+          <input type="email" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" id="email">
           <!--end::Email-->
         <div class="fv-plugins-message-container invalid-feedback"><div data-field="email" data-validator="regexp">The value is not a valid email address</div></div></div>
       
@@ -120,9 +120,11 @@
         Gcode:code
       }
       try {
-        const result = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data)
+
+        const returnData = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data)
+        const result = JSON.parse(returnData);
         console.log(result);
-        if(result ==1){
+        if(result =="Success"){
           console.log(result)
           const data={
             ReceiverEmail:email,
@@ -130,14 +132,43 @@
           }
           window.location.href = "/VerifyEmail/Index?email="+email;
         }
-        else{
-          alert("not successful",result)
+        else if(result =="AlreadyExists"){
+          console.log(result);
+          swal.fire({
+        text: "User Already exists ! Please try again.",
+        icon: "error",
+        buttonsStyling: false,
+        confirmButtonText: "Ok, got it!",
+        customClass: {
+            confirmButton: "btn fw-bold btn-light-primary"
         }
+    })
+  }else{
+    swal.fire({
+        text: "Invalid Email ! Please try again.",
+        icon: "error",
+        buttonsStyling: false,
+        confirmButtonText: "Ok, got it!",
+        customClass: {
+            confirmButton: "btn fw-bold btn-light-primary"
+        }
+    })
+  }
+        
+  
       } catch (error) {
-        alert("Something went wrong")
+        swal.fire({
+        text: "Something went wrong ! Please try again.",
+        icon: "error",
+        buttonsStyling: false,
+        confirmButtonText: "Ok, got it!",
+        customClass: {
+            confirmButton: "btn fw-bold btn-light-primary"
+        }
+    })
         
       }
-      console.log(data)
+      
     });
  
 

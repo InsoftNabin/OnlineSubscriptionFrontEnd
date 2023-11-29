@@ -32,7 +32,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             }
             catch (FormatException)
             {
-                return Ok("Invalid email address.");
+                return Ok("Error");
 
             }
         }

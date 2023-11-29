@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-var KTSignupGeneral = function() {
+var KTSignupGeneral = function () {
     // Elements
     var form;
     var submitButton;
@@ -9,37 +9,37 @@ var KTSignupGeneral = function() {
     var passwordMeter;
 
     // Handle form
-    var handleForm  = function(e) {
+    var handleForm = function (e) {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         validator = FormValidation.formValidation(
-			form,
-			{
-				fields: {
-					'first-name': {
-						validators: {
-							notEmpty: {
-								message: 'First Name is required'
-							}
-						}
+            form,
+            {
+                fields: {
+                    'first-name': {
+                        validators: {
+                            notEmpty: {
+                                message: 'First Name is required'
+                            }
+                        }
                     },
                     'last-name': {
-						validators: {
-							notEmpty: {
-								message: 'Last Name is required'
-							}
-						}
-					},
-					'email': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Last Name is required'
+                            }
+                        }
+                    },
+                    'email': {
                         validators: {
                             regexp: {
                                 regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                                 message: 'The value is not a valid email address',
                             },
-							notEmpty: {
-								message: 'Email address is required'
-							}
-						}
-					},
+                            notEmpty: {
+                                message: 'Email address is required'
+                            }
+                        }
+                    },
                     'password': {
                         validators: {
                             notEmpty: {
@@ -47,7 +47,7 @@ var KTSignupGeneral = function() {
                             },
                             callback: {
                                 message: 'Please enter valid password',
-                                callback: function(input) {
+                                callback: function (input) {
                                     if (input.value.length > 0) {
                                         return validatePassword();
                                     }
@@ -61,7 +61,7 @@ var KTSignupGeneral = function() {
                                 message: 'The password confirmation is required'
                             },
                             identical: {
-                                compare: function() {
+                                compare: function () {
                                     return form.querySelector('[name="password"]').value;
                                 },
                                 message: 'The password and its confirm are not the same'
@@ -75,21 +75,21 @@ var KTSignupGeneral = function() {
                             }
                         }
                     }
-				},
-				plugins: {
-					trigger: new FormValidation.plugins.Trigger({
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger({
                         event: {
                             password: false
-                        }  
+                        }
                     }),
-					bootstrap: new FormValidation.plugins.Bootstrap5({
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
                         rowSelector: '.fv-row',
                         eleInvalidClass: '',  // comment to enable invalid state icons
                         eleValidClass: '' // comment to enable valid state icons
                     })
-				}
-			}
-		);
+                }
+            }
+        );
 
         // Handle form submit
         submitButton.addEventListener('click', function (e) {
@@ -97,8 +97,8 @@ var KTSignupGeneral = function() {
 
             validator.revalidateField('password');
 
-            validator.validate().then(function(status) {
-		        if (status == 'Valid') {
+            validator.validate().then(function (status) {
+                if (status == 'Valid') {
                     // Show loading indication
                     submitButton.setAttribute('data-kt-indicator', 'on');
 
@@ -106,7 +106,7 @@ var KTSignupGeneral = function() {
                     submitButton.disabled = true;
 
                     // Simulate ajax request
-                    setTimeout(function() {
+                    setTimeout(function () {
                         // Hide loading indication
                         submitButton.removeAttribute('data-kt-indicator');
 
@@ -123,7 +123,7 @@ var KTSignupGeneral = function() {
                                 confirmButton: "btn btn-primary"
                             }
                         }).then(function (result) {
-                            if (result.isConfirmed) { 
+                            if (result.isConfirmed) {
                                 form.reset();  // reset form                    
                                 passwordMeter.reset();  // reset password meter
                                 //form.submit();
@@ -135,7 +135,7 @@ var KTSignupGeneral = function() {
                                 }
                             }
                         });
-                    }, 1500);   						
+                    }, 1500);
                 } else {
                     // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                     Swal.fire({
@@ -148,11 +148,11 @@ var KTSignupGeneral = function() {
                         }
                     });
                 }
-		    });
+            });
         });
 
         // Handle password input
-        form.querySelector('input[name="password"]').addEventListener('input', function() {
+        form.querySelector('input[name="password"]').addEventListener('input', function () {
             if (this.value.length > 0) {
                 validator.updateFieldStatus('password', 'NotValidated');
             }
@@ -160,25 +160,25 @@ var KTSignupGeneral = function() {
     }
 
     // Password input validation
-    var validatePassword = function() {
+    var validatePassword = function () {
         return (passwordMeter.getScore() === 100);
     }
 
     // Public functions
     return {
         // Initialization
-        init: function() {
+        init: function () {
             // Elements
             form = document.querySelector('#kt_sign_up_form');
             submitButton = document.querySelector('#kt_sign_up_submit');
             passwordMeter = KTPasswordMeter.getInstance(form.querySelector('[data-kt-password-meter="true"]'));
 
-            handleForm ();
+            handleForm();
         }
     };
 }();
 
 // On document ready
-KTUtil.onDOMContentLoaded(function() {
+KTUtil.onDOMContentLoaded(function () {
     KTSignupGeneral.init();
 });

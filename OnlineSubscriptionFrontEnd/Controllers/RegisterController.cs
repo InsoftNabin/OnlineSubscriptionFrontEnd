@@ -31,7 +31,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return Ok("error");
             }
         }
 

@@ -62,6 +62,7 @@
           name="Password"
           aria-describedby="password"
         />
+        <div class="fv-plugins-message-container invalid-feedback"><div data-field="email">Email address is required</div></div>
       </div>
 
         <button id="LoginBtn" class="btn btn-primary form-control">
@@ -72,10 +73,10 @@
     </div>
   </div>
 </div>
-<script src="/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
   
 $("#LoginBtn").on("click",async  (e)=> {
+  
   const data = {
     UserName: $("input[name='Email']").val(),
     Password: $("input[name='Password']").val(),
@@ -83,6 +84,20 @@ $("#LoginBtn").on("click",async  (e)=> {
   console.log(data);
 e.preventDefault();
  const result = await AjaxCall("/Login/VerifyUser", data);
- console.log(result);
+ if(result == 'Success'){
+  window.location.href = "/Home/Index";
+ }
+ else{
+  console.log(result);
+  swal.fire({
+        text: "Invalid UserName Or Password ! Please try again.",
+        icon: "error",
+        buttonsStyling: false,
+        confirmButtonText: "Ok, got it!",
+        customClass: {
+            confirmButton: "btn fw-bold btn-light-primary"
+        }
+    })
+ }
 });
 </script>
