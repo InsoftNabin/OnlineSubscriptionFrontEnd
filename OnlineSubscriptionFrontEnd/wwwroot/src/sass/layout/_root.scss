@@ -1,0 +1,57 @@
+//
+// Root
+//
+
+// Light mode
+@include color-mode(light) {
+    // Header base
+    --#{$prefix}app-header-base-menu-link-bg-color-active: #{$app-header-base-menu-link-bg-color-active};     
+
+    // Header light
+    --#{$prefix}app-header-light-separator-color: #{$app-header-light-separator-color};
+ 
+    // Sidebar light
+    --#{$prefix}app-sidebar-light-bg-color: #{$app-sidebar-light-bg-color};
+    --#{$prefix}app-sidebar-light-box-shadow: #{$app-sidebar-light-box-shadow};    
+    --#{$prefix}app-sidebar-light-scrollbar-color: #{$app-sidebar-light-scrollbar-color};
+    --#{$prefix}app-sidebar-light-scrollbar-color-hover: #{$app-sidebar-light-scrollbar-color-hover};
+    --#{$prefix}app-sidebar-light-menu-heading-color: #{$app-sidebar-light-menu-heading-color};
+    --#{$prefix}app-sidebar-light-menu-link-bg-color-active: #{$app-sidebar-light-menu-link-bg-color-active};
+    --#{$prefix}app-sidebar-light-header-menu-link-bg-color-active: #{$app-sidebar-light-header-menu-link-bg-color-active};
+
+    // Sidebar dark
+    --#{$prefix}app-sidebar-dark-bg-color: #{$app-sidebar-dark-bg-color};
+    --#{$prefix}app-sidebar-dark-separator-color: #{$app-sidebar-dark-separator-color};
+    --#{$prefix}app-sidebar-dark-menu-heading-color: #{$app-sidebar-dark-menu-heading-color};
+    --#{$prefix}app-sidebar-dark-toggle-btn-bg-color: #{$app-sidebar-dark-toggle-btn-bg-color};
+ 
+    // Layout builder toggle(used for Demo purposes only)
+    --#{$prefix}app-layout-builder-toggle-bg-color: #{$app-layout-builder-toggle-bg-color};    
+}
+
+// Dark mode
+@include color-mode(dark) {
+    // Header base
+    --#{$prefix}app-header-base-menu-link-bg-color-active: #{$app-header-base-menu-link-bg-color-active-dark};
+
+    // Header light
+    --#{$prefix}app-header-light-separator-color: #{$app-header-light-separator-color-dark};
+
+    // Sidebar dark
+    --#{$prefix}app-sidebar-dark-bg-color: #{$app-sidebar-dark-bg-color-dark};
+    --#{$prefix}app-sidebar-dark-separator-color: #{$app-sidebar-dark-separator-color-dark};
+    --#{$prefix}app-sidebar-dark-menu-heading-color: #{$app-sidebar-dark-menu-heading-color-dark};
+    --#{$prefix}app-sidebar-dark-toggle-btn-bg-color: #{$app-sidebar-dark-toggle-btn-bg-color-dark};
+ 
+    // Sidebar light
+    --#{$prefix}app-sidebar-light-bg-color: #{$app-sidebar-light-bg-color-dark};
+    --#{$prefix}app-sidebar-light-box-shadow: #{$app-sidebar-light-box-shadow-dark};     
+    --#{$prefix}app-sidebar-light-scrollbar-color: #{$app-sidebar-light-scrollbar-color-dark};
+    --#{$prefix}app-sidebar-light-scrollbar-color-hover: #{$app-sidebar-light-scrollbar-color-hover-dark};
+    --#{$prefix}app-sidebar-light-menu-heading-color: #{$app-sidebar-light-menu-heading-color-dark};
+    --#{$prefix}app-sidebar-light-menu-link-bg-color-active: #{$app-sidebar-light-menu-link-bg-color-active-dark};
+    --#{$prefix}app-sidebar-light-header-menu-link-bg-color-active: #{$app-sidebar-light-header-menu-link-bg-color-active-dark};
+ 
+    // Layout builder toggle(used for Demo purposes only)
+    --#{$prefix}app-layout-builder-toggle-bg-color: #{$app-layout-builder-toggle-bg-color-dark}; 
+}

@@ -3,351 +3,383 @@
 <script type="text/javascript">
   var isValue = false;
   var body = `
-  <!-- Modal -->
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog  modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
-          Add Your Organization details
-        </h2>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="row mb-3">
-          <div class="col-6">
-            <label for="companyName" class=" required form-label mb-3">Company Name</label>
-            <input
-              type="email"
-              class="form-control form-control-lg  "
-              id="companyName"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="col-6">
-            <label for="companyName" class=" required form-label mb-3">Company Logo:</label>
-          <div class="d-block">
-            <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
-              <!--begin::Preview existing avatar-->
-              <div class="image-input-wrapper w-125px h-50px">
-                <img
-                src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
-                class="theme-light-show w-100px"
-                alt=""
+
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog  modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+            Add Your Organization details
+          </h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row mb-3">
+            <div class="col-6">
+              <label for="companyName" class=" required form-label mb-3">Company Name</label>
+              <input
+                type="email"
+                class="form-control form-control-sm border border-dark rounded  "
+                id="companyName"
+                aria-describedby="emailHelp"
               />
+            </div>
+            <div class="col-6">
+              <label for="companyName" class=" required form-label mb-3">Company Logo:</label>
+            <div class="d-block">
+              <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+                <div class="image-input-wrapper w-125px h-50px">
+                  <img
+                  src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+                  class="theme-light-show w-100px"
+                  id="logoValue"
+                />
+                  </div>
+                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                  <i class="bi bi-pencil-fill fs-7"></i>
+                  <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
+                  <input type="hidden" name="avatar_remove">
+                </label>
+
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                  <i class="bi bi-x fs-2"></i>
+                </span>
+
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                  <i class="bi bi-x fs-2"></i>
+                </span>
+
+              </div>
+              </div>
+            </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+              <label for="displayName" class="required form-label mb-3">Display Name</label>
+              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="displayName" />
+            </div>
+            <div class="col-6">
+              <label for="initial" class="required form-label mb-3">Initial</label>
+              <div class="row">
+                <div class="col-4 mr-n3">
+                    <input type="text" class="form-control form-control-sm border border-dark rounded " id="initial" />
                 </div>
-              <!--end::Preview existing avatar-->
-              <!--begin::Label-->
-              <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
-                <i class="bi bi-pencil-fill fs-7"></i>
-                <!--begin::Inputs-->
-                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" >
-                <input type="hidden" name="avatar_remove">
-                <!--end::Inputs-->
-              </label>
-              <!--end::Label-->
-              <!--begin::Cancel-->
-              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
-                <i class="bi bi-x fs-2"></i>
-              </span>
-              <!--end::Cancel-->
-              <!--begin::Remove-->
-              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
-                <i class="bi bi-x fs-2"></i>
-              </span>
-              <!--end::Remove-->
-            </div>
-            </div>
-          </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-6">
-            <label for="displayName" class="required form-label mb-3">Display Name</label>
-            <input type="text" class="form-control form-control-lg  " id="displayName" />
-          </div>
-          <div class="col-6">
-            <label for="initial" class="required form-label mb-3">Initial</label>
-            <div class="row">
-              <div class="col-4 mx-n3">
-                  <input type="text" class="form-control form-control-lg" id="initial" />
+                <div class="col-8 mx-n3">
+                    <input type="text" class="form-control form-control-sm" disabled value="Default value" id="initial" />
+                </div>
               </div>
-              <div class="col-8 mx-n3">
-                  <input type="text" class="form-control form-control-lg" disabled value="Default value" id="initial" />
-              </div>
+
+            </div>
             </div>
 
-          </div>
-          </div>
+            <div class="row mb-3">
+              <div class="col-6">
+              <label for="vat" class="required form-label mb-3">Vat/Pan</label>
+              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="vat" />
+            </div>
+            <div class="col-6">
+              <label for="address" class="required form-label mb-3">Address</label>
+              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="address" />
+            </div>
 
-          <div class="row mb-3">
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+              <label for="phone" class="required form-label mb-3">Phone No.</label>
+              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="phone" />
+            </div>
             <div class="col-6">
-            <label for="vat" class="required form-label mb-3">Vat/Pan</label>
-            <input type="text" class="form-control form-control-lg  " id="vat" />
-          </div>
-          <div class="col-6">
-            <label for="address" class="required form-label mb-3">Address</label>
-            <input type="text" class="form-control form-control-lg  " id="address" />
-          </div>
-         
-          </div>
-          
-          <div class="row mb-3">
-            <div class="col-6">
-            <label for="phone" class="required form-label mb-3">Phone No.</label>
-            <input type="text" class="form-control form-control-lg  " id="phone" />
-          </div>
-          <div class="col-6">
-            <label for="Email" class="required form-label mb-3">Email</label>
-            <input type="email" class="form-control form-control-lg  " id="Email" />
-          </div>
-         
-          </div>
-          <div class="col-12">
-            <label for="Website" class="form-label mb-3">Website</label>
-            <input type="text" class="form-control form-control-lg " id="Website" />
-          </div>
-          <div class="d-flex flex-stack pt-10">
-									<!--begin::Wrapper-->
-									<div class="me-2">
-										<button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
-          aria-label="Close">
-										<!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
-										<span class="svg-icon svg-icon-3 me-1">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
-												<path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
-											</svg>
-										</span>
-										<!--end::Svg Icon-->Back</button>
-									</div>
-									<!--end::Wrapper-->
-									<!--begin::Wrapper-->
-									<div>
-										<button type="button" class="btn btn-lg btn-primary d-inline-block" id="submitDetails">
-											<span class="indicator-label">Submit
-											<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-											<span class="svg-icon svg-icon-3 ms-2 me-0">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-													<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-													<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-												</svg>
-											</span>
-											<!--end::Svg Icon--></span>
-											<span class="indicator-progress">Please wait...
-											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-										</button>
-										<button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
-										<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-										<span class="svg-icon svg-icon-3 ms-1 me-0">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-												<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-											</svg>
-										</span>
-										<!--end::Svg Icon--></button>
-									</div>
-									<!--end::Wrapper-->
-								</div>
-        </form>
+              <label for="Email" class="required form-label mb-3">Email</label>
+              <input type="email" class="form-control form-control-sm border border-dark rounded  " id="Email" />
+            </div>
+
+            </div>
+            <div class="col-12">
+              <label for="Website" class="form-label mb-3">Website</label>
+              <input type="text" class="form-control form-control-sm border border-dark rounded " id="Website" />
+            </div>
+            <div class="d-flex flex-stack pt-10">
+  									<div class="me-2">
+  										<button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+            aria-label="Close">
+  										<span class="svg-icon svg-icon-3 me-1">
+  											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  												<rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+  												<path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+  											</svg>
+  										</span>
+  									</div>
+
+  									<div>
+  										<button type="button" class="btn btn-lg btn-primary d-inline-block" id="submitDetails">
+  											<span class="indicator-label">Submit
+  											<span class="svg-icon svg-icon-3 ms-2 me-0">
+  												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  													<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+  													<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+  												</svg>
+  											</span>
+  											<span class="indicator-progress">Please wait...
+  											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+  										</button>
+  										<button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
+  										<span class="svg-icon svg-icon-3 ms-1 me-0">
+  											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  												<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+  												<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+  											</svg>
+  										</span>
+  									</div>
+  								</div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-  `;
+    `;
 
   if (isValue == true) {
     console.log("true");
     body += `
-        <div class="d-flex flex-column flex-column-fluid">
-      <!--begin::Toolbar-->
-      <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
-        <!--begin::Toolbar container-->
-        <div
-          id="kt_app_toolbar_container"
-          class="app-container container-xxl d-flex flex-stack"
-        >
-          <!--begin::Page title-->
+          <div class="d-flex flex-column flex-column-fluid">
+        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
           <div
-            class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
+            id="kt_app_toolbar_container"
+            class="app-container container-xxl d-flex flex-stack"
           >
-            <!--begin::Title-->
-            <h1
-              class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+            <div
+              class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
             >
-              <img
-                src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
-                class="theme-light-show w-100px"
-                alt=""
-              />
-            </h1>
-            <!--end::Title-->
-          </div>
-          <!--end::Page title-->
-          <!--begin::Actions-->
-          <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <!--begin::Filter menu-->
-            <div class="d-flex">
-              <a
-                href="#"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
+              <h1
+                class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
               >
-                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                <span class="svg-icon svg-icon-2">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      opacity="0.5"
-                      x="11.364"
-                      y="20.364"
-                      width="16"
-                      height="2"
-                      rx="1"
-                      transform="rotate(-90 11.364 20.364)"
-                      fill="currentColor"
-                    ></rect>
-                    <rect
-                      x="4.36396"
-                      y="11.364"
-                      width="16"
-                      height="2"
-                      rx="1"
-                      fill="currentColor"
-                    ></rect>
-                  </svg>
-                </span>
-                Add New Organization
-                <!--end::Svg Icon-->
-              </a>
+                <img
+                  src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+                  class="theme-light-show w-100px"
+                  alt=""
+                />
+              </h1>
+              <!--end::Title-->
             </div>
-            <!--end::Filter menu-->
-            <!--begin::Secondary button-->
-            <!--end::Secondary button-->
-            <!--begin::Primary button-->
-            <!--end::Primary button-->
-          </div>
-          <!--end::Actions-->
-        </div>
-        <!--end::Toolbar container-->
-      </div>
-      <!--end::Toolbar-->
-      <!--begin::Content-->
-      <div id="kt_app_content" class="app-content flex-column-fluid">
-        <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container container-xxl">
-          <!--begin::Sitemap main-->
-          <div class="d-flex flex-column flex-xl-row">
-            <!--begin::Content-->
-            <div class="card bg-body flex-row-fluid mb-9 mb-xl-0 me-xl-9">
-              <div class="card-body">
-                <!--begin::Form-->
-
-                <!--begin::Title-->
-                <div class="d-flex flex-column mb-9 fv-row">
-                  <h1 class="fw-bold text-dark mb-7">Hi this is left part</h1>
-                  <span class="fs-4 fw-semibold text-gray-600 d-block"
-                    >You can view all your Organizations below</span
-                  >
-                </div>
-                <!--end::Title-->
-              </div>
-            </div>
-            <!--end::Content-->
-            <!--begin::Sidebar-->
-            <div class="flex-column flex-lg-row-auto w-100 w-xl-350px">
-              <!--begin::Support-->
-              <div class="card card-flush bg-body mb-9">
-                <!--begin::Card header-->
-                <div class="card-header">
-                  <h2 class="card-title fs-2 fw-bold text-dark">Your Info</h2>
-                  <div class="card-toolbar">
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-icon btn-color-primary"
+            <!--end::Page title-->
+            <!--begin::Actions-->
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+              <!--begin::Filter menu-->
+              <div class="d-flex">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                  <span class="svg-icon svg-icon-2">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <i class="bi bi-telephone-fill fs-1"></i>
-                    </button>
-                  </div>
-                </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
-                <div class="card-body pt-2">
-                  <!--begin::Items-->
-                  <div class="mb-5">
-                    <!--begin::Item-->
-                    <div class="d-flex flex-stack mb-5">
-                      <span class="text-gray-400 fs-4 fw-bold">Name</span>
-                      <span class="text-gray-700 fs-4 fw-bold">Your name</span>
-                    </div>
-                    <div class="d-flex flex-stack mb-5">
-                      <span class="text-gray-400 fs-4 fw-bold">Email</span>
-                      <span class="text-gray-700 fs-4 fw-bold">Your Email</span>
-                    </div>
-                    <div class="d-flex flex-stack mb-5">
-                      <span class="text-gray-400 fs-4 fw-bold">Contact</span>
-                      <span class="text-gray-700 fs-4 fw-bold">Your Contact</span>
-                    </div>
-                    <div class="d-flex flex-stack mb-5">
-                      <span class="text-gray-400 fs-4 fw-bold">Address</span>
-                      <span class="text-gray-700 fs-4 fw-bold">Your Address</span>
-                    </div>
-                  </div>
-                  <!--end::Items-->
-                </div>
-                <!--end::Support-->
+                      <rect
+                        opacity="0.5"
+                        x="11.364"
+                        y="20.364"
+                        width="16"
+                        height="2"
+                        rx="1"
+                        transform="rotate(-90 11.364 20.364)"
+                        fill="currentColor"
+                      ></rect>
+                      <rect
+                        x="4.36396"
+                        y="11.364"
+                        width="16"
+                        height="2"
+                        rx="1"
+                        fill="currentColor"
+                      ></rect>
+                    </svg>
+                  </span>
+                  Add New Organization
+                  <!--end::Svg Icon-->
+                </a>
               </div>
-              <!--end::Sidebar-->
+              <!--end::Filter menu-->
+              <!--begin::Secondary button-->
+              <!--end::Secondary button-->
+              <!--begin::Primary button-->
+              <!--end::Primary button-->
             </div>
-            <!--end::Sitemap main-->
+            <!--end::Actions-->
           </div>
-          <!--end::Content container-->
+          <!--end::Toolbar container-->
         </div>
-        <!--end::Content-->
+        <!--end::Toolbar-->
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+          <!--begin::Content container-->
+          <div id="kt_app_content_container" class="app-container container-xxl">
+            <!--begin::Sitemap main-->
+            <div class="d-flex flex-column flex-xl-row">
+              <!--begin::Content-->
+              <div class="card bg-body flex-row-fluid mb-9 mb-xl-0 me-xl-9">
+                <div class="card-body">
+                  <!--begin::Form-->
+
+                  <!--begin::Title-->
+                  <div class="d-flex flex-column mb-9 fv-row">
+                    <h1 class="fw-bold text-dark mb-7">Hi this is left part</h1>
+                    <span class="fs-4 fw-semibold text-gray-600 d-block"
+                      >You can view all your Organizations below</span
+                    >
+                  </div>
+                  <!--end::Title-->
+                </div>
+              </div>
+              <!--end::Content-->
+              <!--begin::Sidebar-->
+              <div class="flex-column flex-lg-row-auto w-100 w-xl-350px">
+                <!--begin::Support-->
+                <div class="card card-flush bg-body mb-9">
+                  <!--begin::Card header-->
+                  <div class="card-header">
+                    <h2 class="card-title fs-2 fw-bold text-dark">Your Info</h2>
+                    <div class="card-toolbar">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-icon btn-color-primary"
+                      >
+                        <i class="bi bi-telephone-fill fs-1"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!--end::Card header-->
+                  <!--begin::Card body-->
+                  <div class="card-body pt-2">
+                    <!--begin::Items-->
+                    <div class="mb-5">
+                      <!--begin::Item-->
+                      <div class="d-flex flex-stack mb-5">
+                        <span class="text-gray-400 fs-4 fw-bold">Name</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Your name</span>
+                      </div>
+                      <div class="d-flex flex-stack mb-5">
+                        <span class="text-gray-400 fs-4 fw-bold">Email</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Your Email</span>
+                      </div>
+                      <div class="d-flex flex-stack mb-5">
+                        <span class="text-gray-400 fs-4 fw-bold">Contact</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Your Contact</span>
+                      </div>
+                      <div class="d-flex flex-stack mb-5">
+                        <span class="text-gray-400 fs-4 fw-bold">Address</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Your Address</span>
+                      </div>
+                    </div>
+                    <!--end::Items-->
+                  </div>
+                  <!--end::Support-->
+                </div>
+                <!--end::Sidebar-->
+              </div>
+              <!--end::Sitemap main-->
+            </div>
+            <!--end::Content container-->
+          </div>
+          <!--end::Content-->
+        </div>
       </div>
-    </div>
-        `;
+          `;
   } else {
     console.log("false");
     body += `
-  <div class="py-3 py-lg-6">
-    <div class="container-xxl d-flex flex-stack">
-      <div
-        class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
-      >
-        <h1
-          class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+    <div class="py-3 py-lg-6">
+      <div class="container-xxl d-flex flex-stack">
+        <div
+          class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
         >
-          <img
-            src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
-            class="theme-light-show w-100px"
-            alt=""
-          />
-        </h1>
+          <h1
+            class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+          >
+            <img
+              src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+              class="theme-light-show w-100px"
+              alt=""
+            />
+          </h1>
+        </div>
+        <div class="d-flex">
+          <h3 class="fs-xl fw-bold mb-4 lead">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              <span class="svg-icon svg-icon-2">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    opacity="0.5"
+                    x="11.364"
+                    y="20.364"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    transform="rotate(-90 11.364 20.364)"
+                    fill="currentColor"
+                  ></rect>
+                  <rect
+                    x="4.36396"
+                    y="11.364"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    fill="currentColor"
+                  ></rect>
+                </svg>
+              </span>
+              Add New Organization
+            </button>
+          </h3>
+        </div>
       </div>
-      <div class="d-flex">
-        <h3 class="fs-xl fw-bold mb-4 lead">
+    </div>
+    <div class="container w-500px p-0">
+      <div class="card-body p-0">
+        <div class="card-px text-center my-10">
+          <div class="py-10 text-center">
+            <img
+              src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+              class="theme-light-show w-150px"
+              alt=""
+            />
+          </div>
+          <h2 class="fs-2x fw-bold mb-10">There are no Organizations added</h2>
+
           <button
             type="button"
             class="btn btn-primary"
@@ -384,66 +416,18 @@
             </span>
             Add New Organization
           </button>
-        </h3>
-      </div>
-    </div>
-  </div>
-  <div class="container w-500px p-0">
-    <div class="card-body p-0">
-      <div class="card-px text-center my-10">
-        <div class="py-10 text-center">
-          <img
-            src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
-            class="theme-light-show w-150px"
-            alt=""
-          />
         </div>
-        <h2 class="fs-2x fw-bold mb-10">There are no Organizations added</h2>
-
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-        >
-          <span class="svg-icon svg-icon-2">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                opacity="0.5"
-                x="11.364"
-                y="20.364"
-                width="16"
-                height="2"
-                rx="1"
-                transform="rotate(-90 11.364 20.364)"
-                fill="currentColor"
-              ></rect>
-              <rect
-                x="4.36396"
-                y="11.364"
-                width="16"
-                height="2"
-                rx="1"
-                fill="currentColor"
-              ></rect>
-            </svg>
-          </span>
-          Add New Organization
-        </button>
       </div>
     </div>
-  </div>
 
-        `;
+          `;
   }
 
   $(document).ready(function () {
     $("#Main").html(body);
+  });
+  $(document).on("#inputLogo change", function () {
+    var newVal = $(this).find("input[type=file]").val();
+    $(this).find("#logoValue").attr("src", newVal);
   });
 </script>
