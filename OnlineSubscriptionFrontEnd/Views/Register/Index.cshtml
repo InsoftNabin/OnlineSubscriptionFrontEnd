@@ -123,8 +123,7 @@
 <script type="text/javascript">
   $(document).ready(()=>{
     LaodData(window.location.href)
-      
-  
+
   })
   async function LaodData(url) {
 var url = new URL(url);
@@ -152,8 +151,15 @@ if (window.location.href.indexOf('?') > 0) {
       Password: $(this).find("input[name='Password']").val(),
     };
     debugger
-    const value = AjaxCall("/Register/RegisterUser",data);
-    console.log(value)
+    const result = AjaxCall("/Register/RegisterUser",data);
+    if(result == 'Success'){
+  window.location.href = "/Home/Index?msg=registerSuccess";
+ }
+ else{
+ 
+  toastr.error("Invalid Credentials ! Please try again.")
+  
+ }
   })
 </script>
 

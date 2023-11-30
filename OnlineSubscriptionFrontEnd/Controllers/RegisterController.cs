@@ -26,7 +26,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             try
             {
                 var result = await ApiCall.ApiCallWithObject("User/Register", rg, "POST");
-                return Ok(result);
+                return Ok("Success");
 
             }
             catch (Exception ex)

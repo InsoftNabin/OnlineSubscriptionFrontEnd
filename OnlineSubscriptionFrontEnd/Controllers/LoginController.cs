@@ -21,6 +21,10 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             return View();
         }
+        public IActionResult Admin()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> VerifyUser([FromBody] Login login)
         {

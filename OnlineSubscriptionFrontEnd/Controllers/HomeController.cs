@@ -23,7 +23,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
 
