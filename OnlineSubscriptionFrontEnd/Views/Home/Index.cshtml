@@ -1,262 +1,566 @@
 @{ ViewData["Title"] = "Index"; }
 
-<script type="text/javascript">
-  var isValue = false;
-  var body = `
-
-  <div
-    class="modal fade"
-    id="staticBackdrop"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog  modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
-            Add Your Organization details
-          </h2>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="row mb-3">
-            <div class="col-6">
-              <label for="companyName" class=" required form-label mb-3">Company Name</label>
-              <input
-                type="email"
-                class="form-control form-control-sm border border-dark rounded  "
-                id="companyName"
-                aria-describedby="emailHelp"
+<div
+  class="modal fade"
+  id="updateOrganization"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="kt_modal_update_Organization"
+  aria-hidden="true"
+>
+  <div class="modal-dialog  modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+          Edit Your Organization details
+        </h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row mb-3">
+          <div class="col-6">
+            <label for="companyName" class=" required form-label mb-3">Company Name</label>
+            <input
+              type="email"
+              class="form-control form-control-sm border border-dark rounded  "
+              id="newcompanyName"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="col-6">
+            <label for="companyName" class=" required form-label mb-3">Company Logo:</label>
+          <div class="d-block">
+            <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+              <div class="image-input-wrapper w-125px h-125px rounded">
+                <img
+               
+                src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+                class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
               />
+                </div>
+              <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                <i class="bi bi-pencil-fill fs-7"></i>
+                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
+                <input type="hidden" name="avatar_remove">
+              </label>
+
+              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                <i class="bi bi-x fs-2"></i>
+              </span>
+
+              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                <i class="bi bi-x fs-2"></i>
+              </span>
+
             </div>
+            </div>
+          </div>
+          </div>
+          <div class="col-6">
+
+            <label for="contact" class="required form-label mb-3">Contact No.</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newContactNumber" />
+            </div>
+          <div class="row mb-3">
             <div class="col-6">
-              <label for="companyName" class=" required form-label mb-3">Company Logo:</label>
-            <div class="d-block">
-              <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
-                <div class="image-input-wrapper w-125px h-50px">
-                  <img
-                  src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
-                  class="theme-light-show w-100px"
-                  id="logoValue"
-                />
+            <label for="displayName" class="required form-label mb-3">Display Name</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newdisplayName" />
+          </div>
+          <div class="col-6">
+            <label for="initial" class="required form-label mb-3">Initial</label>
+            <div class="row">
+              <div class="col-3 mr-n3">
+                  <input  type="text" class="form-control form-control-sm border border-dark rounded " id="newinitial" />
                   </div>
-                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
-                  <i class="bi bi-pencil-fill fs-7"></i>
-                  <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
-                  <input type="hidden" name="avatar_remove">
-                </label>
-
-                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
-                  <i class="bi bi-x fs-2"></i>
-                </span>
-
-                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
-                  <i class="bi bi-x fs-2"></i>
-                </span>
-
+                  <div class="col-5 mr-n3">
+                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark" id="defaultValue" value=".intradeplus.com"/>
+                 
               </div>
+              <div class="col-4 mx-n3">
+                 <select class="form-select form-select-sm border border-dark rounded " id="newmoduleSelect">
+
+                  </select>
               </div>
             </div>
-            </div>
 
-            <div class="row mb-3">
-              <div class="col-6">
-              <label for="displayName" class="required form-label mb-3">Display Name</label>
-              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="displayName" />
-            </div>
+          </div>
+          </div>
+
+          <div class="row mb-3">
             <div class="col-6">
-              <label for="initial" class="required form-label mb-3">Initial</label>
-              <div class="row">
-                <div class="col-4 mr-n3">
-                    <input type="text" class="form-control form-control-sm border border-dark rounded " id="initial" />
+            <label for="vat" class="required form-label mb-3">Vat/Pan</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newvat" />
+          </div>
+          <div class="col-6">
+            <label for="address" class="required form-label mb-3">Address</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newaddress" />
+          </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+            <label for="phone" class="required form-label mb-3">Phone No.</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newphone" />
+          </div>
+          <div class="col-6">
+            <label for="Email" class="required form-label mb-3">Email</label>
+            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="newEmail" />
+          </div>
+
+          </div>
+          <div class="row">
+            <div class="col-6">
+            <label for="motto" class="required form-label mb-3">Organization Motto</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newmotto" />
+          </div>
+          <div class="col-6">
+            <label for="Website" class="form-label mb-3">Website</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newWebsite" />
+          </div>
+          </div>
+          <div class="d-flex flex-stack pt-10">
+                  <div class="me-2">
+                    <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+          aria-label="Close">
+                    <span class="svg-icon svg-icon-3 me-1">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                      </svg>
+                    </span>
+                    Back
+                    </button>
+                  </div>
+
+                  <div>
+                    <button type="button" class="btn btn-lg btn-primary d-inline-block" id="submitDetails">
+                      <span class="indicator-label">Update
+                      <span class="svg-icon svg-icon-3 ms-2 me-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                          <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                        </svg>
+                      </span>
+                      <span class="indicator-progress">Please wait...
+                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                    <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
+                    <span class="svg-icon svg-icon-3 ms-1 me-0">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                      </svg>
+                    </span>
+                  </div>
                 </div>
-                <div class="col-8 mx-n3">
-                    <input type="text" class="form-control form-control-sm" disabled value="Default value" id="initial" />
-                </div>
-              </div>
-
-            </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-6">
-              <label for="vat" class="required form-label mb-3">Vat/Pan</label>
-              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="vat" />
-            </div>
-            <div class="col-6">
-              <label for="address" class="required form-label mb-3">Address</label>
-              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="address" />
-            </div>
-
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-6">
-              <label for="phone" class="required form-label mb-3">Phone No.</label>
-              <input type="text" class="form-control form-control-sm border border-dark rounded  " id="phone" />
-            </div>
-            <div class="col-6">
-              <label for="Email" class="required form-label mb-3">Email</label>
-              <input type="email" class="form-control form-control-sm border border-dark rounded  " id="Email" />
-            </div>
-
-            </div>
-            <div class="col-12">
-              <label for="Website" class="form-label mb-3">Website</label>
-              <input type="text" class="form-control form-control-sm border border-dark rounded " id="Website" />
-            </div>
-            <div class="d-flex flex-stack pt-10">
-  									<div class="me-2">
-  										<button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
-            aria-label="Close">
-  										<span class="svg-icon svg-icon-3 me-1">
-  											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  												<rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
-  												<path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
-  											</svg>
-  										</span>
-  									</div>
-
-  									<div>
-  										<button type="button" class="btn btn-lg btn-primary d-inline-block" id="submitDetails">
-  											<span class="indicator-label">Submit
-  											<span class="svg-icon svg-icon-3 ms-2 me-0">
-  												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  													<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-  													<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-  												</svg>
-  											</span>
-  											<span class="indicator-progress">Please wait...
-  											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-  										</button>
-  										<button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
-  										<span class="svg-icon svg-icon-3 ms-1 me-0">
-  											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  												<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-  												<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-  											</svg>
-  										</span>
-  									</div>
-  								</div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   </div>
-
-    `;
-
-  if (isValue == true) {
-    console.log("true");
-    body += `
-          <div class="d-flex flex-column flex-column-fluid">
-        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
-          <div
-            id="kt_app_toolbar_container"
-            class="app-container container-xxl d-flex flex-stack"
-          >
-            <div
-              class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
-            >
-              <h1
-                class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
-              >
-                <img
-                  src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
-                  class="theme-light-show w-100px"
-                  alt=""
-                />
-              </h1>
-              <!--end::Title-->
-            </div>
-            <!--end::Page title-->
-            <!--begin::Actions-->
-            <div class="d-flex align-items-center gap-2 gap-lg-3">
-              <!--begin::Filter menu-->
-              <div class="d-flex">
-                <a
-                  href="#"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                  <span class="svg-icon svg-icon-2">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        opacity="0.5"
-                        x="11.364"
-                        y="20.364"
-                        width="16"
-                        height="2"
-                        rx="1"
-                        transform="rotate(-90 11.364 20.364)"
-                        fill="currentColor"
-                      ></rect>
-                      <rect
-                        x="4.36396"
-                        y="11.364"
-                        width="16"
-                        height="2"
-                        rx="1"
-                        fill="currentColor"
-                      ></rect>
-                    </svg>
-                  </span>
-                  Add New Organization
-                  <!--end::Svg Icon-->
-                </a>
-              </div>
-              <!--end::Filter menu-->
-              <!--begin::Secondary button-->
-              <!--end::Secondary button-->
-              <!--begin::Primary button-->
-              <!--end::Primary button-->
-            </div>
-            <!--end::Actions-->
+</div>
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog  modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+          Add Your Organization details
+        </h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row mb-3">
+          <div class="col-6">
+            <label for="companyName" class=" required form-label mb-3">Company Name</label>
+            <input
+              type="email"
+              class="form-control form-control-sm border border-dark rounded  "
+              id="companyName"
+              aria-describedby="emailHelp"
+            />
           </div>
-          <!--end::Toolbar container-->
-        </div>
-        <!--end::Toolbar-->
+          <div class="col-6">
+            <label for="companyName" class=" required form-label mb-3">Company Logo:</label>
+          <div class="d-block">
+            <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+              <div class="image-input-wrapper w-125px h-125px rounded">
+                <img
+               
+                src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+                class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
+                
+              />
+                </div>
+              <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                <i class="bi bi-pencil-fill fs-7"></i>
+                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
+                <input type="hidden" name="avatar_remove">
+              </label>
+
+              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                <i class="bi bi-x fs-2"></i>
+              </span>
+
+              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                <i class="bi bi-x fs-2"></i>
+              </span>
+
+            </div>
+            </div>
+          </div>
+          </div>
+          <div class="col-6">
+
+            <label for="contact" class="required form-label mb-3">Contact No.</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
+            </div>
+          <div class="row mb-3">
+            <div class="col-6">
+            <label for="displayName" class="required form-label mb-3">Display Name</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="displayName" />
+          </div>
+          <div class="col-6">
+            <label for="initial" class="required form-label mb-3">Initial</label>
+            <div class="row">
+              <div class="col-3 mr-n3">
+                  <input  type="text" class="form-control form-control-sm border border-dark rounded " id="initial" />
+                  </div>
+                  <div class="col-5 mr-n3">
+                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark" id="defaultValue" value=".intradeplus.com"/>
+                 
+              </div>
+              <div class="col-4 mx-n3">
+                 <select class="form-select form-select-sm border border-dark rounded moduleSelect" >
+
+                  </select>
+              </div>
+            </div>
+
+          </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+            <label for="vat" class="required form-label mb-3">Vat/Pan</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="vat" />
+          </div>
+          <div class="col-6">
+            <label for="address" class="required form-label mb-3">Address</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="address" />
+          </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+            <label for="phone" class="required form-label mb-3">Phone No.</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="phone" />
+          </div>
+          <div class="col-6">
+            <label for="Email" class="required form-label mb-3">Email</label>
+            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="Email" />
+          </div>
+
+          </div>
+          <div class="row">
+            <div class="col-6">
+            <label for="motto" class="required form-label mb-3">Organization Motto</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="motto" />
+          </div>
+          <div class="col-6">
+            <label for="Website" class="form-label mb-3">Website</label>
+            <input type="text" class="form-control form-control-sm border border-dark rounded " id="Website" />
+          </div>
+          </div>
+          <div class="d-flex flex-stack pt-10">
+                  <div class="me-2">
+                    <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+          aria-label="Close">
+                    <span class="svg-icon svg-icon-3 me-1">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                      </svg>
+                    </span>
+                    Back
+                    </button>
+                  </div>
+
+                  <div>
+                    <button type="button" class="btn btn-lg btn-primary d-inline-block" id="submitDetails">
+                      <span class="indicator-label">Submit
+                      <span class="svg-icon svg-icon-3 ms-2 me-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                          <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                        </svg>
+                      </span>
+                      <span class="indicator-progress">Please wait...
+                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                    <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
+                    <span class="svg-icon svg-icon-3 ms-1 me-0">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-3 py-lg-6">
+  <div class="container-xxl d-flex flex-stack">
+    <div
+      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
+    >
+      <h1
+        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+      >
+        <img
+          src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+          class="theme-light-show w-100px"
+          alt=""
+        />
+      </h1>
+    </div>
+    <div class="d-flex">
+      <h3 class="fs-xl fw-bold mb-4 lead">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          <span class="svg-icon svg-icon-2">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                opacity="0.5"
+                x="11.364"
+                y="20.364"
+                width="16"
+                height="2"
+                rx="1"
+                transform="rotate(-90 11.364 20.364)"
+                fill="currentColor"
+              ></rect>
+              <rect
+                x="4.36396"
+                y="11.364"
+                width="16"
+                height="2"
+                rx="1"
+                fill="currentColor"
+              ></rect>
+            </svg>
+          </span>
+          Add New Organization
+        </button>
+      </h3>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+ var body = ``;
+    async function GetOrganizations() {
+    const result = await AjaxCall("/Home/GetOrganizations");
+    let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
+    // while (1) {
+    //   try {
+    //     if (typeof IncludeData == "object") {
+    //       break;
+    //     } else {
+    //       IncludeData = JSON.parse(result);
+    //     }
+    //   } catch (error) {
+    //     break;
+    //   }
+    // }
+    if (IncludeData.length > 0) {
+      body += `
+          <div class="d-flex flex-column flex-column-fluid">
+            
+
         <!--begin::Content-->
         <div id="kt_app_content" class="app-content flex-column-fluid">
           <!--begin::Content container-->
           <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Sitemap main-->
-            <div class="d-flex flex-column flex-xl-row">
+            <div class="d-flex flex-column flex-xl-row gap-4">
+              `;
+      for (var i = 0; i < IncludeData.length; i++) {
+        var byteArray = new Uint8Array(IncludeData[i].ImageData); //.data
+        var imageData = btoa(String.fromCharCode.apply(null, byteArray));
+       
+              body +=`
               <!--begin::Content-->
-              <div class="card bg-body flex-row-fluid mb-9 mb-xl-0 me-xl-9">
-                <div class="card-body">
-                  <!--begin::Form-->
-
-                  <!--begin::Title-->
-                  <div class="d-flex flex-column mb-9 fv-row">
-                    <h1 class="fw-bold text-dark mb-7">Hi this is left part</h1>
-                    <span class="fs-4 fw-semibold text-gray-600 d-block"
-                      >You can view all your Organizations below</span
-                    >
-                  </div>
-                  <!--end::Title-->
-                </div>
-              </div>
-              <!--end::Content-->
+              <div class="col">
+              <div class="card my-4">
+                <div class="d-flex flex-center flex-column mb-5">
+														<!--begin::Avatar-->
+														<div class="image-input-wrapper w-125px h-125px rounded py-4">
+															<img src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png" alt="image">
+														</div>
+														<!--end::Avatar-->
+														<!--begin::Name-->
+														<a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
+														<!--end::Name-->
+														<div class="fs-5 fw-semibold  mb-6">${IncludeData[i].OrganizationMotto}</div>
+														<!--begin::Info-->
+														<div class="d-flex flex-wrap flex-center">
+															<!--begin::Stats-->
+															<div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
+																<div class="fs-4 fw-bold text-gray-700">
+																	<span class="w-75px">${IncludeData[i].Initial}</span>
+																	
+																</div>
+																<div class="fw-semibold ">Initial</div>
+															</div>
+															<!--end::Stats-->
+															<!--begin::Stats-->
+															<div class="border border-gray-300 border-dashed rounded py-3 px-3 mx-4 mb-3">
+																<div class="fs-4 fw-bold text-gray-700 text-center">`;
+                                  if(IncludeData[i].IsVerified == 1){
+                                    body += `
+                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <circle fill="#a6f2a6" opacity="0.3" cx="12" cy="12" r="10"/>
+          <path d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z" fill="#00ff00" fill-rule="nonzero"/>
+      </g>
+  </svg>
+</span>`;
+                                  }else{
+                                    body +=`
+                                    <span class="ml-2 svg-icon svg-icon-danger svg-icon-2x">
+   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+           
+           <circle fill="#FF0000" opacity="0.3" cx="12" cy="12" r="10"/>
+           <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#FF0000"/>
+       </g>
+   </svg>
+</span>
+                                    `;
+                                  }
+                                  body +=`
+																	
+																</div>
+																<div class="fw-semibold ">Verified</div>
+															</div>
+															<!--end::Stats-->
+															<!--begin::Stats-->
+															<div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
+																<div class="fs-4 fw-bold text-gray-700">
+																	<span class="w-50px">${IncludeData[i].Initial}</span>
+																	
+																</div>
+																<div class="fw-semibold ">Initial</div>
+															</div>
+															<!--end::Stats-->
+														</div>
+														<!--end::Info-->
+													</div>
+                          <div class="d-flex flex-stack fs-4 py-3 card-body">
+														<div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
+														<span class="ms-2 rotate-180">
+															<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+															<span class="svg-icon svg-icon-3">
+																<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
+																</svg>
+															</span>
+															<!--end::Svg Icon-->
+														</span></div>
+														<span>
+                              <button
+          type="button"
+          class="btn btn-sm btn-primary"
+          
+          data-token="${IncludeData[i].Token}"
+          id="editBtn"
+        >Edit</button>
+                              </span>
+                            
+													</div>
+                          <div id="kt_customer_view_details_${i}" class="collapse p-4" style="">
+														<div class="py-5 fs-6">
+															<!--begin::Badge-->
+															<div class="badge badge-light-info d-inline">Premium user</div>
+															<!--begin::Badge-->
+															<!--begin::Details item-->
+															<div class="fw-bold mt-5">Display Name</div>
+															<div class="text-gray-700">${IncludeData[i].DisplayName}</div>
+															<!--begin::Details item-->
+															<!--begin::Details item-->
+															<div class="fw-bold mt-5">Email</div>
+															<div class="text-gray-700">
+																<a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+															</div>
+															<!--begin::Details item-->
+															<!--begin::Details item-->
+															<div class="fw-bold mt-5">Address</div>
+															<div class="text-gray-700"> ${IncludeData[i].Address}</div>
+															<!--begin::Details item-->
+															<!--begin::Details item-->
+															<div class="fw-bold mt-5">PAN/VAT</div>
+															<div class="text-gray-700">${IncludeData[i].PanVatNo}</div>
+															<!--begin::Details item-->
+															<!--begin::Details item-->
+															<div class="fw-bold mt-5">Phone No.</div>
+															<div class="text-gray-700">${IncludeData[i].PhoneNo}</div>
+															<!--begin::Details item-->
+															<!--begin::Details item-->
+															<div class="fw-bold mt-5">Contact No.</div>
+															<div class="text-gray-700">${IncludeData[i].ContactMobile}</div>
+															<!--begin::Details item-->
+															<!--begin::Details item-->
+															<div class="fw-bold mt-5">Website</div>
+															<div class="text-gray-700"><a href="${IncludeData[i].Website }"> ${IncludeData[i].Website}</a></div>
+															<!--begin::Details item-->
+															
+														</div>
+													</div>
+                          
+                          </div>
+                          `;
+                        }
+                        body +=  `
+                        </div>
+                        </div>
               <!--begin::Sidebar-->
-              <div class="flex-column flex-lg-row-auto w-100 w-xl-350px">
+              <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
                 <!--begin::Support-->
                 <div class="card card-flush bg-body mb-9">
                   <!--begin::Card header-->
@@ -278,19 +582,19 @@
                     <div class="mb-5">
                       <!--begin::Item-->
                       <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-400 fs-4 fw-bold">Name</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Name</span>
                         <span class="text-gray-700 fs-4 fw-bold">Your name</span>
                       </div>
                       <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-400 fs-4 fw-bold">Email</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Email</span>
                         <span class="text-gray-700 fs-4 fw-bold">Your Email</span>
                       </div>
                       <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-400 fs-4 fw-bold">Contact</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Contact</span>
                         <span class="text-gray-700 fs-4 fw-bold">Your Contact</span>
                       </div>
                       <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-400 fs-4 fw-bold">Address</span>
+                        <span class="text-gray-700 fs-4 fw-bold">Address</span>
                         <span class="text-gray-700 fs-4 fw-bold">Your Address</span>
                       </div>
                     </div>
@@ -308,66 +612,9 @@
         </div>
       </div>
           `;
-  } else {
-    console.log("false");
-    body += `
-    <div class="py-3 py-lg-6">
-      <div class="container-xxl d-flex flex-stack">
-        <div
-          class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
-        >
-          <h1
-            class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
-          >
-            <img
-              src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
-              class="theme-light-show w-100px"
-              alt=""
-            />
-          </h1>
-        </div>
-        <div class="d-flex">
-          <h3 class="fs-xl fw-bold mb-4 lead">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-            >
-              <span class="svg-icon svg-icon-2">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    opacity="0.5"
-                    x="11.364"
-                    y="20.364"
-                    width="16"
-                    height="2"
-                    rx="1"
-                    transform="rotate(-90 11.364 20.364)"
-                    fill="currentColor"
-                  ></rect>
-                  <rect
-                    x="4.36396"
-                    y="11.364"
-                    width="16"
-                    height="2"
-                    rx="1"
-                    fill="currentColor"
-                  ></rect>
-                </svg>
-              </span>
-              Add New Organization
-            </button>
-          </h3>
-        </div>
-      </div>
-    </div>
+    } else {
+      body += `
+   
     <div class="container w-500px p-0">
       <div class="card-body p-0">
         <div class="card-px text-center my-10">
@@ -421,13 +668,99 @@
     </div>
 
           `;
+    }
   }
+  $(document).ready(async function () {
+    await GetOrganizations();
+    await getModuleValues();
+    await $("#Main").append(body);
+  });
+  $(document).on("change", "#inputLogo", function () {
+    if (this.files && this.files[0]) {
+      var name = this.files[0].name;
+      var type = this.files[0].type;
+      var readerForDataURL = new FileReader();
+      readerForDataURL.onloadend = function () {
+        $(".logoValue").attr("src", readerForDataURL.result);
+        $(".logoValue").attr("data-name", name);
+        $(".logoValue").attr("data-type", type);
+      };
+      readerForDataURL.readAsDataURL(this.files[0]);
+    }
+  });
 
-  $(document).ready(function () {
-    $("#Main").html(body);
+  async function getModuleValues() {
+    const result = await AjaxCallWithoutData("/Home/GetModuleValues");
+
+    var data = JSON.parse(JSON.parse(JSON.parse(result)));
+    var html = "";
+    for (var i = 0; i < data.length; i++) {
+      html += `<option data-site="${data[i].SiteName}" value="${data[i].UkId}">${data[i].Name}</option>`;
+    }
+    $(".moduleSelect").append(html);
+  }
+  $(document).on("change", ".moduleSelect", function () {
+    $(".defaultValue").val($(this).find("option:selected").attr("data-site"));
   });
-  $(document).on("#inputLogo change", function () {
-    var newVal = $(this).find("input[type=file]").val();
-    $(this).find("#logoValue").attr("src", newVal);
+
+  $(document).on("click", "#editBtn",async function () {
+    var token = $(this).attr("data-token");
+    var result =await AjaxCall("/Home/GetSingleOrganization", { Token: token});
+    var data = JSON.parse(JSON.parse(JSON.parse(result)));
+    console.log(data[0].companyName);
+    $("#updateOrganization").find("#newcompanyName").text(data[0].CompanyName);
+    $("#newdisplayName").val(data[0].DisplayName);
+    $("#newinitial").val(data[0].Initial);
+    $("#newvat").val(data[0].PanVatNo);
+    $("#newaddress").val(data[0].Address);
+    $("#newphone").val(data[0].PhoneNo);
+    $("#newContactNumber").val(data[0].ContactMobile);
+    $("#newEmail").val(data[0].OrganizationMail);
+    $("#newWebsite").val(data[0].Website);
+    $("#newmotto").val(data[0].OrganizationMotto);
+    $(".moduleSelect").val(data[0].Module);
+    ;
+$("#updateOrganization").modal("show");
   });
+ 
+  $(document).on("click", "#submitDetails", async () => {
+    var companyName = $("#companyName").val();
+    var displayName = $("#displayName").val();
+    var initial = $("#initial").val();
+    var vat = $("#vat").val();
+    var address = $("#address").val();
+    var phone = $("#phone").val();
+    var contact = $("#ContactNumber").val();
+    var Email = $("#Email").val();
+    var Website = $("#Website").val();
+    var motto = $("#motto").val();
+    var logo = $(".logoValue").attr("src");
+    var module = $(".moduleSelect").val();
+    var imgName = $(".logoValue").attr("data-name");
+    var imgType = $(".logoValue").attr("data-type");
+    var data = {
+      CompanyName: companyName,
+      DisplayName: displayName,
+      ContactMobile: contact,
+      Initial: initial,
+      PanVatNo: vat,
+      Address: address,
+      PhoneNo: phone,
+      Module: parseInt(module),
+      OrganizationMail: Email,
+      Website: Website,
+      ImageName: imgName,
+      ImageType: imgType,
+      ImageData: logo,
+      OrganizationMotto: motto,
+      Token: "",
+    };
+    var result = await AjaxCall("/Home/UploadOrganizationData", data);
+    if (parseInt(result) == 1) {
+      toastr.success("Organization Added Successfully");
+    } else {
+      toastr.error("Something went wrong");
+    }
+  });
+  
 </script>

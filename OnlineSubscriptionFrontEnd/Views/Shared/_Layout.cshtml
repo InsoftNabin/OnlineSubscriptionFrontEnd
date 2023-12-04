@@ -11,39 +11,17 @@
       href="~/assets/css/style.bundle.css"
       asp-append-version="true"
     />
-    <link
-      href="~/assets/plugins/custom/datatables/datatables.bundle.css"
-      rel="stylesheet"
-      type="text/css"
-    />
 
-    <link
-      href="~/assets/plugins/global/plugins.bundle.css"
-      rel="stylesheet"
-      type="text/css"
-    />
     <script src="~/src/js/components/util.js"></script>
     <script src="~/src/js/components/image-input.js"></script>
 
-    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/assets/js/custom/apps/customers/view/add-payment.js"></script>
-    <script src="~/assets/js/custom/apps/customers/view/adjust-balance.js"></script>
-    <script src="~/assets/js/custom/apps/customers/view/invoices.js"></script>
-    <script src="~/assets/js/custom/apps/customers/view/payment-method.js"></script>
-    <script src="~/assets/js/custom/apps/customers/view/payment-table.js"></script>
-    <script src="~/assets/js/custom/apps/customers/view/statement.js"></script>
-    <script src="~/assets/js/custom/apps/customers/update.js"></script>
+
     <script src="~/assets/js/widgets.bundle.js"></script>
-    <script src="~/assets/js/custom/apps/chat/chat.js"></script>
-    <script src="~/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
-    <script src="~/assets/js/custom/utilities/modals/create-campaign.js"></script>
-    <script src="~/assets/js/custom/utilities/modals/new-card.js"></script>
-    <script src="~/assets/js/custom/utilities/modals/users-search.js"></script>
   </head>
   <body>
-    <div class="container" id="Main">
-      <main role="main" class="pb-3">@RenderBody()</main>
+    <div class="container">
+      <main role="main" class="pb-3" id="Main">@RenderBody()</main>
     </div>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
