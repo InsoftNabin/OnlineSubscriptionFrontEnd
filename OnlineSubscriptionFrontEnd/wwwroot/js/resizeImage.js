@@ -1,8 +1,8 @@
 
 $.fn.resizeImg = function (options) {
     let defaults = {
-        mode: 0,
-        val: 400,
+        mode: 1,
+        val: 500,
         type: "image/jpeg",
         quality: 0.8,
         capture: true,

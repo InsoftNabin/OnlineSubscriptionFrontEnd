@@ -15,6 +15,7 @@ namespace OnlineSubscriptionFrontEnd.Models
         public string OrganizationMotto { get; set; }
         public string Website { get; set; }
         public string ImageName { get; set; }
+        public string ImageType { get; set; }
         public string ImageData { get; set; }
         public string Token { get; set; }
         public int? Module { get; set; }

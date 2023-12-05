@@ -25,17 +25,26 @@
       <div class="modal-body">
         <form>
           <div class="row mb-3">
+            <div class="col-6">
+              <div class="row-12 mb-3">
+  
+                <label for="newcompanyName" class=" required form-label mb-3">Company Name</label>
+                <input
+                  type="email"
+                  class="form-control form-control-sm border border-dark rounded  "
+                  id="newcompanyName"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+              <div class="row-12">
+                
+                  <label for="contact" class="required form-label mb-3">Contact No.</label>
+                  <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
+                  
+              </div>
+            </div>
           <div class="col-6">
-            <label for="companyName" class=" required form-label mb-3">Company Name</label>
-            <input
-              type="email"
-              class="form-control form-control-sm border border-dark rounded  "
-              id="newcompanyName"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="col-6">
-            <label for="companyName" class=" required form-label mb-3">Company Logo:</label>
+            <label for="newcompanyLogo" class=" required form-label mb-3">Company Logo:</label>
           <div class="d-block">
             <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
               <div class="image-input-wrapper w-125px h-125px rounded">
@@ -63,11 +72,7 @@
             </div>
           </div>
           </div>
-          <div class="col-6">
-
-            <label for="contact" class="required form-label mb-3">Contact No.</label>
-            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newContactNumber" />
-            </div>
+       
           <div class="row mb-3">
             <div class="col-6">
             <label for="displayName" class="required form-label mb-3">Display Name</label>
@@ -84,7 +89,7 @@
                  
               </div>
               <div class="col-4 mx-n3">
-                 <select class="form-select form-select-sm border border-dark rounded " id="newmoduleSelect">
+                 <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="newmoduleSelect">
 
                   </select>
               </div>
@@ -192,16 +197,25 @@
         <form>
           <div class="row mb-3">
           <div class="col-6">
-            <label for="companyName" class=" required form-label mb-3">Company Name</label>
-            <input
-              type="email"
-              class="form-control form-control-sm border border-dark rounded  "
-              id="companyName"
-              aria-describedby="emailHelp"
-            />
+            <div class="row-12 mb-3">
+
+              <label for="companyName" class=" required form-label mb-3">Company Name</label>
+              <input
+                type="email"
+                class="form-control form-control-sm border border-dark rounded  "
+                id="companyName"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="row-12">
+              
+                <label for="contact" class="required form-label mb-3">Contact No.</label>
+                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
+                
+            </div>
           </div>
           <div class="col-6">
-            <label for="companyName" class=" required form-label mb-3">Company Logo:</label>
+            <label for="companyLogo" class=" required form-label mb-3">Company Logo:</label>
           <div class="d-block">
             <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
               <div class="image-input-wrapper w-125px h-125px rounded">
@@ -230,11 +244,7 @@
             </div>
           </div>
           </div>
-          <div class="col-6">
-
-            <label for="contact" class="required form-label mb-3">Contact No.</label>
-            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
-            </div>
+          
           <div class="row mb-3">
             <div class="col-6">
             <label for="displayName" class="required form-label mb-3">Display Name</label>
@@ -427,9 +437,9 @@
               <!--begin::Content-->
               <div class="col">
               <div class="card my-4">
-                <div class="d-flex flex-center flex-column mb-5">
+                <div class="d-flex flex-center flex-column mb-3">
 														<!--begin::Avatar-->
-														<div class="image-input-wrapper w-125px h-125px rounded py-4">
+														<div class="image-input-wrapper w-125px h-125px rounded pt-4">
 															<img src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png" alt="image">
 														</div>
 														<!--end::Avatar-->
@@ -559,6 +569,7 @@
                         body +=  `
                         </div>
                         </div>
+                        </div>
               <!--begin::Sidebar-->
               <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
                 <!--begin::Support-->
@@ -674,20 +685,56 @@
     await GetOrganizations();
     await getModuleValues();
     await $("#Main").append(body);
+   
+  
+        
   });
   $(document).on("change", "#inputLogo", function () {
     if (this.files && this.files[0]) {
-      var name = this.files[0].name;
-      var type = this.files[0].type;
-      var readerForDataURL = new FileReader();
-      readerForDataURL.onloadend = function () {
-        $(".logoValue").attr("src", readerForDataURL.result);
-        $(".logoValue").attr("data-name", name);
-        $(".logoValue").attr("data-type", type);
-      };
-      readerForDataURL.readAsDataURL(this.files[0]);
+        var name = this.files[0].name;
+        var type = this.files[0].type;
+
+        var readerForDataURL = new FileReader();
+        var compressedDataURL;
+
+        readerForDataURL.onloadend = function () {
+            $(".logoValue").attr("data-name", name);
+            $(".logoValue").attr("data-type", type);
+
+            var img = new Image();
+            img.src = readerForDataURL.result;
+
+            // Set the target file size in bytes (500 KB in this example)
+            var targetFileSize = 500 * 1024;
+            var currentFileSize = Number.MAX_SAFE_INTEGER; // Initialize to a large value
+
+            // Initialize compression quality
+            var compressionQuality = 1.0;
+
+            // Iterate until the file size is close to the target
+            while (currentFileSize > targetFileSize && compressionQuality > 0) {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                // Convert canvas to data URL with the current compression quality
+                compressedDataURL = canvas.toDataURL('image/jpeg', compressionQuality);
+
+                // Get the file size of the compressed image
+                currentFileSize = compressedDataURL.length;
+
+                // Reduce compression quality for the next iteration
+                compressionQuality -= 0.1;
+            }
+
+            $(".logoValue").attr("src", compressedDataURL);
+        };
+
+        readerForDataURL.readAsDataURL(this.files[0]);
     }
-  });
+});
 
   async function getModuleValues() {
     const result = await AjaxCallWithoutData("/Home/GetModuleValues");
@@ -707,7 +754,12 @@
     var token = $(this).attr("data-token");
     var result =await AjaxCall("/Home/GetSingleOrganization", { Token: token});
     var data = JSON.parse(JSON.parse(JSON.parse(result)));
-    console.log(data[0].companyName);
+    var type = data[0].ImageType;
+    var byteArray = data[0].ImageData; //.data
+    var base64String = btoa(String.fromCharCode.apply(null, byteArray));
+
+    var dataUrl = "data:" + type + ";base64," + base64String;
+    $(".logoValue").attr("src", dataUrl);
     $("#updateOrganization").find("#newcompanyName").text(data[0].CompanyName);
     $("#newdisplayName").val(data[0].DisplayName);
     $("#newinitial").val(data[0].Initial);
@@ -755,12 +807,14 @@ $("#updateOrganization").modal("show");
       OrganizationMotto: motto,
       Token: "",
     };
+    console.log(data)
     var result = await AjaxCall("/Home/UploadOrganizationData", data);
     if (parseInt(result) == 1) {
+      $("#staticBackdrop").modal("hide");
       toastr.success("Organization Added Successfully");
     } else {
       toastr.error("Something went wrong");
     }
   });
-  
+
 </script>

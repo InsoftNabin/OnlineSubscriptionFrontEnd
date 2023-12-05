@@ -1,23 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using DataProvider;
-using DataServiceLayer;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using OnlineSubscriptionFrontEnd.Classes;
 using OnlineSubscriptionFrontEnd.Models;
-using System.Drawing;
 
 namespace resize_image
 {
-  class Resizer
-  {
-   
-  }
+    class Resizer
+    {
+
+    }
 }
 
 namespace OnlineSubscriptionFrontEnd.Controllers
@@ -25,10 +16,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
     public class HomeController : Controller
     {
-public static Image ResizeImage(Image imgToResize, Size size)
-    {
-        return (Image)(new Bitmap(imgToResize, size));
-    }
+
 
         public IActionResult Index()
         {
@@ -42,31 +30,22 @@ public static Image ResizeImage(Image imgToResize, Size size)
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
-      public byte[]  ImageToByteArray(Image imageIn)
-{
-    using (var ms = new MemoryStream())
-    {
-        imageIn.Save(ms, imageIn.RawFormat);
-        return ms.ToArray();
-    }
-}
+
         [HttpPost]
         public async Task<IActionResult> UploadOrganizationData([FromBody] orgData org)
         {
             var token = HttpContext.Session.GetString("TokenNo");
             if (token != null)
             {
-                var image= org.ImageData;
-                Bitmap mybitmap = new Bitmap(image);
-                var imageVal = ResizeImage(mybitmap, new Size(40, 40));
+
                 var newData = new OrganizationData();
                 newData.Address = org.Address;
                 newData.CompanyName = org.CompanyName;
                 newData.ContactMobile = org.ContactMobile;
                 newData.DisplayName = org.DisplayName;
-                newData.ImageData = ImageToByteArray(imageVal);
-                
+                newData.ImageData = Encoding.Unicode.GetBytes(org.ImageData);
                 newData.ImageName = org.ImageName;
+                newData.ImageType = org.ImageType;
                 newData.Initial = org.Initial;
                 newData.Module = org.Module;
                 newData.OrganizationMail = org.OrganizationMail;
