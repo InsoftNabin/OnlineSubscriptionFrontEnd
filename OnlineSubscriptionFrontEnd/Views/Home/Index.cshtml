@@ -419,7 +419,7 @@
     // }
     if (IncludeData.length > 0) {
       body += `
-          <div class="d-flex flex-column flex-column-fluid">
+         
             
 
         <!--begin::Content-->
@@ -436,7 +436,7 @@
               body +=`
               <!--begin::Content-->
               <div class="col">
-              <div class="card my-4">
+              <div class="card my-4 col-12">
                 <div class="d-flex flex-center flex-column mb-3">
 														<!--begin::Avatar-->
 														<div class="image-input-wrapper w-125px h-125px rounded pt-4">
@@ -513,6 +513,7 @@
 															</span>
 															<!--end::Svg Icon-->
 														</span></div>
+                            <span>
 														<span>
                               <button
           type="button"
@@ -522,7 +523,16 @@
           id="editBtn"
         >Edit</button>
                               </span>
-                            
+														<span>
+                              <button
+          type="button"
+          class="btn btn-sm btn-danger"
+          
+          data-token="${IncludeData[i].Token}"
+          id="deleteBtn"
+        >Delete</button>
+                              </span>
+                            </span>
 													</div>
                           <div id="kt_customer_view_details_${i}" class="collapse p-4" style="">
 														<div class="py-5 fs-6">
@@ -564,12 +574,10 @@
 													</div>
                           
                           </div>
+                          </div>
                           `;
                         }
                         body +=  `
-                        </div>
-                        </div>
-                        </div>
               <!--begin::Sidebar-->
               <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
                 <!--begin::Support-->
@@ -685,9 +693,7 @@
     await GetOrganizations();
     await getModuleValues();
     await $("#Main").append(body);
-   
-  
-        
+       
   });
   $(document).on("change", "#inputLogo", function () {
     if (this.files && this.files[0]) {
@@ -702,40 +708,41 @@
             $(".logoValue").attr("data-type", type);
 
             var img = new Image();
+            img.onload = function() {
+                // Set the target file size in bytes (500 KB in this example)
+                var targetFileSize = 500 * 1024;
+                var currentFileSize = Number.MAX_SAFE_INTEGER; // Initialize to a large value
+
+                // Initialize compression quality
+                var compressionQuality = 1.0;
+
+                // Iterate until the file size is close to the target
+                while (currentFileSize > targetFileSize && compressionQuality > 0) {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                    // Convert canvas to data URL with the current compression quality
+                    compressedDataURL = canvas.toDataURL('image/jpeg', compressionQuality);
+
+                    // Get the file size of the compressed image
+                    currentFileSize = compressedDataURL.length;
+
+                    // Reduce compression quality for the next iteration
+                    compressionQuality -= 0.1;
+                }
+
+                $(".logoValue").attr("src", compressedDataURL);
+            };
+
             img.src = readerForDataURL.result;
-
-            // Set the target file size in bytes (500 KB in this example)
-            var targetFileSize = 500 * 1024;
-            var currentFileSize = Number.MAX_SAFE_INTEGER; // Initialize to a large value
-
-            // Initialize compression quality
-            var compressionQuality = 1.0;
-
-            // Iterate until the file size is close to the target
-            while (currentFileSize > targetFileSize && compressionQuality > 0) {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0, img.width, img.height);
-
-                // Convert canvas to data URL with the current compression quality
-                compressedDataURL = canvas.toDataURL('image/jpeg', compressionQuality);
-
-                // Get the file size of the compressed image
-                currentFileSize = compressedDataURL.length;
-
-                // Reduce compression quality for the next iteration
-                compressionQuality -= 0.1;
-            }
-
-            $(".logoValue").attr("src", compressedDataURL);
         };
 
         readerForDataURL.readAsDataURL(this.files[0]);
     }
 });
-
   async function getModuleValues() {
     const result = await AjaxCallWithoutData("/Home/GetModuleValues");
 
@@ -750,30 +757,40 @@
     $(".defaultValue").val($(this).find("option:selected").attr("data-site"));
   });
 
-  $(document).on("click", "#editBtn",async function () {
+  $(document).on("click", "#editBtn", async function () {
     var token = $(this).attr("data-token");
-    var result =await AjaxCall("/Home/GetSingleOrganization", { Token: token});
+    var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
     var data = JSON.parse(JSON.parse(JSON.parse(result)));
     var type = data[0].ImageType;
     var byteArray = data[0].ImageData; //.data
-    var base64String = btoa(String.fromCharCode.apply(null, byteArray));
+console.log(data);
+console.log(byteArray);
+console.log(typeof byteArray);
+    if (Array.isArray(byteArray)) {
+        var base64String = btoa(String.fromCharCode.apply(null, byteArray));
+        var dataUrl = "data:" + type + ";base64," + base64String;
+        $(".logoValue").attr("src", dataUrl);
+    }
 
-    var dataUrl = "data:" + type + ";base64," + base64String;
-    $(".logoValue").attr("src", dataUrl);
     $("#updateOrganization").find("#newcompanyName").text(data[0].CompanyName);
     $("#newdisplayName").val(data[0].DisplayName);
     $("#newinitial").val(data[0].Initial);
     $("#newvat").val(data[0].PanVatNo);
-    $("#newaddress").val(data[0].Address);
-    $("#newphone").val(data[0].PhoneNo);
-    $("#newContactNumber").val(data[0].ContactMobile);
-    $("#newEmail").val(data[0].OrganizationMail);
-    $("#newWebsite").val(data[0].Website);
-    $("#newmotto").val(data[0].OrganizationMotto);
-    $(".moduleSelect").val(data[0].Module);
-    ;
-$("#updateOrganization").modal("show");
-  });
+});
+  $(document).on("click", "#deleteBtn",async function () {
+    var token = $(this).attr("data-token");
+    var confirmation = confirm("Are you sure you want to delete?");
+    if (confirmation) {
+    var result =await AjaxCall("/Home/DeleteSingleOrganization", { Token: token});
+    var parsedResult = JSON.parse(result);
+    if (parsedResult == 1) {
+      toastr.success("Organization Deleted Successfully");
+      location.reload();
+    } else {
+      toastr.error("Something went wrong");
+    }
+  };
+});
  
   $(document).on("click", "#submitDetails", async () => {
     var companyName = $("#companyName").val();

@@ -424,8 +424,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
-              "projectPath": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
+            "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+              "projectPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
             }
           }
         }
