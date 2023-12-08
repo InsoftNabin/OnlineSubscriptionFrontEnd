@@ -4,8 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OnlineSubscriptionFrontEnd</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- <link
+      rel="stylesheet"
+      href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-append-version="true"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="~/css/site.css"
+      asp-append-version="true"
+      asp-append-version="true"
+    />
     <link
       rel="stylesheet"
       href="~/assets/css/style.bundle.css"
@@ -16,25 +25,42 @@
       rel="stylesheet"
       type="text/css"
     />
-    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/resizeImage.js"></script>
-    <script src="~/js/bugFix.js"></script>
-    <script src="~/src/js/components/util.js"></script>
-    <script src="~/src/js/components/image-input.js"></script>
-
-    <script src="~/assets/js/widgets.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    <script src="~/assets/js/custom/apps/chat/chat.js"></script>
+    <script src="~/assets/js/custom/utilities/modals/users-search.js"></script>
+    <script
+      src="~/assets/plugins/global/plugins.bundle.js"
+      asp-append-version="true"
+    ></script>
+    <script
+      src="~/lib/jquery/dist/jquery.min.js"
+      asp-append-version="true"
+    ></script>
+    <script
+      src="~/src/js/components/util.js"
+      asp-append-version="true"
+    ></script>
+    <script
+      src="~/src/js/components/image-input.js"
+      asp-append-version="true"
+    ></script>
   </head>
   <body>
     <div class="container">
       <main role="main" class="pb-3" id="Main">@RenderBody()</main>
     </div>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script
+      src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+      asp-append-version="true"
+    ></script> -->
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/custom.js" asp-append-version="true"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"
+      asp-append-version="true"
+    ></script>
 
     <script
       src="~/assets/js/scripts.bundle.js"

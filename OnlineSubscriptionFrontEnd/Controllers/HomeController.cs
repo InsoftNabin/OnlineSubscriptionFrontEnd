@@ -126,6 +126,37 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> GetUserDetails()
+        {
+            var tokenval = HttpContext.Session.GetString("TokenNo");
+            if (tokenval != null)
+            {
+                var token = HttpContext.Session.GetString("TokenNo");
+                var sendJson = await ApiCall.ApiCallWithObject("User/GetUserDetails", token, "Post");
+                return Json(sendJson);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
+        public async Task<IActionResult> DeleteSingleOrganization([FromBody] singleOrganization so)
+        {
+            var tokenval = HttpContext.Session.GetString("TokenNo");
+            if (tokenval != null)
+            {
+                so.TokenNo = HttpContext.Session.GetString("TokenNo");
+                var sendJson = await ApiCall.ApiCallWithObject("User/TrashOrganizationsById", so, "Post");
+                return Json(sendJson);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
     }
 
 

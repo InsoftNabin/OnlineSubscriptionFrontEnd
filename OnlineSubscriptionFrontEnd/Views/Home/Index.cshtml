@@ -1,5 +1,7 @@
 @{ ViewData["Title"] = "Index"; }
 
+
+
 <div
   class="modal fade"
   id="updateOrganization"
@@ -406,6 +408,8 @@
     async function GetOrganizations() {
     const result = await AjaxCall("/Home/GetOrganizations");
     let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
+    
+
     // while (1) {
     //   try {
     //     if (typeof IncludeData == "object") {
@@ -423,85 +427,106 @@
             
 
         <!--begin::Content-->
-        <div id="kt_app_content" class="app-content flex-column-fluid">
+        <div id="kt_app_content" class="app-content flex-column-fluid ">
           <!--begin::Content container-->
-          <div id="kt_app_content_container" class="app-container container-xxl">
+          <div id="kt_app_content_container" class="app-container container-xxl ">
             <!--begin::Sitemap main-->
-            <div class="d-flex flex-column flex-xl-row gap-4">
+            <div class="d-flex flex-column flex-xl-row gap-4 ">
+              <div class="row flex-wrap col-8">
               `;
+             
       for (var i = 0; i < IncludeData.length; i++) {
         var byteArray = new Uint8Array(IncludeData[i].ImageData); //.data
         var imageData = btoa(String.fromCharCode.apply(null, byteArray));
        
               body +=`
               <!--begin::Content-->
-              <div class="col">
+              <div class="col-12">
               <div class="card my-4 col-12">
-                <div class="d-flex flex-center flex-column mb-3">
-														<!--begin::Avatar-->
-														<div class="image-input-wrapper w-125px h-125px rounded pt-4">
+                <div class="d-flex p-8 flex-column">
+                            
+                  <div class ="row gap-8">
+														<div class="image-input-wrapper w-125px h-65px rounded pt-4 col-3">
 															<img src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png" alt="image">
 														</div>
-														<!--end::Avatar-->
-														<!--begin::Name-->
-														<a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
-														<!--end::Name-->
-														<div class="fs-5 fw-semibold  mb-6">${IncludeData[i].OrganizationMotto}</div>
-														<!--begin::Info-->
-														<div class="d-flex flex-wrap flex-center">
-															<!--begin::Stats-->
-															<div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
-																<div class="fs-4 fw-bold text-gray-700">
-																	<span class="w-75px">${IncludeData[i].Initial}</span>
-																	
-																</div>
-																<div class="fw-semibold ">Initial</div>
-															</div>
-															<!--end::Stats-->
-															<!--begin::Stats-->
-															<div class="border border-gray-300 border-dashed rounded py-3 px-3 mx-4 mb-3">
-																<div class="fs-4 fw-bold text-gray-700 text-center">`;
-                                  if(IncludeData[i].IsVerified == 1){
+														
+                            <div class="col-7 px-8">
+														<a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1 col-7">${IncludeData[i].CompanyName}</a>
+														
+														<div class="d-flex flex-stack fs-4 my-4">
+
+															<div class="fw-bold">${IncludeData[i].Address}</div>
+                            </div>
+
+                          </div>
+                              `;
+                              if(IncludeData[i].IsVerified == 1){
                                     body += `
-                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
-  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <circle fill="#a6f2a6" opacity="0.3" cx="12" cy="12" r="10"/>
-          <path d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z" fill="#00ff00" fill-rule="nonzero"/>
-      </g>
-  </svg>
-</span>`;
+                                    <div class="card-toolbar col-1">
+														<span class="badge badge-light-success fw-bold me-auto px-4 py-3 fs-3">Verified</span>
+													</div>
+                          
+                          
+                          `
+                          
+                          ;
                                   }else{
                                     body +=`
-                                    <span class="ml-2 svg-icon svg-icon-danger svg-icon-2x">
-   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-           
-           <circle fill="#FF0000" opacity="0.3" cx="12" cy="12" r="10"/>
-           <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#FF0000"/>
-       </g>
-   </svg>
-</span>
-                                    `;
+                                    <div class="card-toolbar col-2">
+														<span class="badge badge-light-danger fw-bold me-auto px-4 py-3 fs-3">UnVerified</span>
+													</div> `;
                                   }
                                   body +=`
-																	
-																</div>
-																<div class="fw-semibold ">Verified</div>
-															</div>
-															<!--end::Stats-->
-															<!--begin::Stats-->
-															<div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
-																<div class="fs-4 fw-bold text-gray-700">
-																	<span class="w-50px">${IncludeData[i].Initial}</span>
-																	
-																</div>
-																<div class="fw-semibold ">Initial</div>
-															</div>
-															<!--end::Stats-->
-														</div>
-														<!--end::Info-->
-													</div>
+                                
+                              
+
+                              </div>
+															
+														
+                          </div>
+                          
+                          `;
+                              if(IncludeData[i].IsVerified == 1){
+                                console.log(IncludeData[i]);
+                                    body += `
+                                    <div class="px-8">
+                                    <span class=" fw-bold fs-5">Your Sitelink:
+								<a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>.
+                </span>
+                <div class="d-flex mt-4">
+                  <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
+                  <!-- Target -->
+<input readonly id="foo" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
+
+<!-- Trigger -->
+<button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo">
+    Copy
+</button>
+                  </div>
+                  <div class="d-flex">
+                    <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
+                  <!-- Target -->
+<input readonly id="foo2" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
+<!-- Trigger -->
+<button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2">
+    Copy
+</button>
+                  </div>
+                <div >
+                  <label class=" fw-bold fs-5 d-block">Remarks:</label>
+
+                  ${IncludeData[i].Remarks}
+                 
+                  </div>
+                          </div>
+                          
+                          `
+                          
+                          ;
+                                  }
+                                  body +=
+                                  `
+  
                           <div class="d-flex flex-stack fs-4 py-3 card-body">
 														<div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
 														<span class="ms-2 rotate-180">
@@ -534,42 +559,39 @@
                               </span>
                             </span>
 													</div>
-                          <div id="kt_customer_view_details_${i}" class="collapse p-4" style="">
+                          <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
 														<div class="py-5 fs-6">
 															<!--begin::Badge-->
 															<div class="badge badge-light-info d-inline">Premium user</div>
 															<!--begin::Badge-->
 															<!--begin::Details item-->
-															<div class="fw-bold mt-5">Display Name</div>
-															<div class="text-gray-700">${IncludeData[i].DisplayName}</div>
-															<!--begin::Details item-->
-															<!--begin::Details item-->
-															<div class="fw-bold mt-5">Email</div>
-															<div class="text-gray-700">
+                              <div class="d-flex flex-row gap-4 mt-5"> 
+															<div class="fw-bold  col-4">Display Name</div>
+															<div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
+															</div>
+                              <div class="d-flex flex-row gap-4 mt-5">
+															<div class="fw-bold col-4">Email</div>
+															<div class="text-gray-700 col-8">
 																<a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
 															</div>
-															<!--begin::Details item-->
-															<!--begin::Details item-->
-															<div class="fw-bold mt-5">Address</div>
-															<div class="text-gray-700"> ${IncludeData[i].Address}</div>
-															<!--begin::Details item-->
-															<!--begin::Details item-->
-															<div class="fw-bold mt-5">PAN/VAT</div>
-															<div class="text-gray-700">${IncludeData[i].PanVatNo}</div>
-															<!--begin::Details item-->
-															<!--begin::Details item-->
-															<div class="fw-bold mt-5">Phone No.</div>
-															<div class="text-gray-700">${IncludeData[i].PhoneNo}</div>
-															<!--begin::Details item-->
-															<!--begin::Details item-->
-															<div class="fw-bold mt-5">Contact No.</div>
-															<div class="text-gray-700">${IncludeData[i].ContactMobile}</div>
-															<!--begin::Details item-->
-															<!--begin::Details item-->
-															<div class="fw-bold mt-5">Website</div>
-															<div class="text-gray-700"><a href="${IncludeData[i].Website }"> ${IncludeData[i].Website}</a></div>
-															<!--begin::Details item-->
-															
+                              </div>
+															 
+                              <div class="d-flex flex-row gap-4 mt-5">
+															<div class="fw-bold col-4">PAN/VAT</div>
+															<div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+															</div>
+                              <div class="d-flex flex-row gap-4 mt-5">
+															<div class="fw-bold col-4">Phone No.</div>
+															<div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+															</div>
+                              <div class="d-flex flex-row gap-4 mt-5">
+															<div class="fw-bold col-4">Contact No.</div>
+															<div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+															</div>
+                              <div class="d-flex flex-row gap-4 mt-5">
+															<div class="fw-bold col-4">Website</div>
+															<div class="text-gray-700 dol-8"><a href="${IncludeData[i].Website }"> ${IncludeData[i].Website}</a></div>
+															</div>
 														</div>
 													</div>
                           
@@ -578,6 +600,7 @@
                           `;
                         }
                         body +=  `
+                        </div>
               <!--begin::Sidebar-->
               <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
                 <!--begin::Support-->
@@ -585,14 +608,6 @@
                   <!--begin::Card header-->
                   <div class="card-header">
                     <h2 class="card-title fs-2 fw-bold text-dark">Your Info</h2>
-                    <div class="card-toolbar">
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-icon btn-color-primary"
-                      >
-                        <i class="bi bi-telephone-fill fs-1"></i>
-                      </button>
-                    </div>
                   </div>
                   <!--end::Card header-->
                   <!--begin::Card body-->
@@ -600,21 +615,21 @@
                     <!--begin::Items-->
                     <div class="mb-5">
                       <!--begin::Item-->
-                      <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold">Name</span>
-                        <span class="text-gray-700 fs-4 fw-bold">Your name</span>
+                      <div class="d-flex row mb-5">
+                        <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
+                        <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
                       </div>
-                      <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold">Email</span>
-                        <span class="text-gray-700 fs-4 fw-bold">Your Email</span>
+                      <div class="d-flex row mb-5">
+                        <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
+                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
                       </div>
-                      <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold">Contact</span>
-                        <span class="text-gray-700 fs-4 fw-bold">Your Contact</span>
+                      <div class="d-flex row mb-5">
+                        <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
+                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
                       </div>
-                      <div class="d-flex flex-stack mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold">Address</span>
-                        <span class="text-gray-700 fs-4 fw-bold">Your Address</span>
+                      <div class="d-flex row mb-5">
+                        <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
+                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
                       </div>
                     </div>
                     <!--end::Items-->
@@ -693,8 +708,19 @@
     await GetOrganizations();
     await getModuleValues();
     await $("#Main").append(body);
-       
+    await GetUserDetails();
+    var clipboard =await new ClipboardJS('.btnCopy');
   });
+  async function GetUserDetails() {
+    const result = await AjaxCallWithoutData("/Home/GetUserDetails");
+    var data = JSON.parse(JSON.parse(JSON.parse(result)));
+    console.log(data[0].UserName)
+    $("#yourName").text(data[0].UserName);
+    $("#yourEmail").text(data[0].UserEmail);
+    $("#yourContact").text(data[0].UserContact);
+    $("#yourAddress").text(data[0].UserAddress);
+
+  }
   $(document).on("change", "#inputLogo", function () {
     if (this.files && this.files[0]) {
         var name = this.files[0].name;
@@ -829,9 +855,12 @@ console.log(typeof byteArray);
     if (parseInt(result) == 1) {
       $("#staticBackdrop").modal("hide");
       toastr.success("Organization Added Successfully");
+      location.reload();
+      return false;
     } else {
       toastr.error("Something went wrong");
     }
   });
+
 
 </script>
