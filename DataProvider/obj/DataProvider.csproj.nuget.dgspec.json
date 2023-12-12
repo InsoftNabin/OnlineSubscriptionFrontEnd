@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {}
+    "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {}
   },
   "projects": {
-    "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+    "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "projectUniqueName": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
         "projectName": "DataProvider",
-        "projectPath": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "projectPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
         "packagesPath": "C:\\Users\\ankit\\.nuget\\packages\\",
-        "outputPath": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
+        "outputPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

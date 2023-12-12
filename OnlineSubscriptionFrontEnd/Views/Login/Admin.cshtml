@@ -103,9 +103,9 @@ $("#LoginBtn").on("click",async  (e)=> {
   };
   console.log(data);
 e.preventDefault();
- const result = await AjaxCall("/Login/VerifyUser", data);
+ const result = await AjaxCall("/Login/VerifyAdmin", data);
  if(result == 'Success'){
-  window.location.href = "/Home/Index";
+  window.location.href = "/Dashboard/Index";
  }
  else{
   console.log(result);

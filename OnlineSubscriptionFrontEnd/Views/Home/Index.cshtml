@@ -41,7 +41,7 @@
               <div class="row-12">
                 
                   <label for="contact" class="required form-label mb-3">Contact No.</label>
-                  <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
+                  <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newContactNumber" />
                   
               </div>
             </div>
@@ -82,7 +82,7 @@
           </div>
           <div class="col-6">
             <label for="initial" class="required form-label mb-3">Initial</label>
-            <div class="row">
+            <div class="row gap-n3">
               <div class="col-3 mr-n3">
                   <input  type="text" class="form-control form-control-sm border border-dark rounded " id="newinitial" />
                   </div>
@@ -148,7 +148,7 @@
                   </div>
 
                   <div>
-                    <button type="button" class="btn btn-lg btn-primary d-inline-block" id="submitDetails">
+                    <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
                       <span class="indicator-label">Update
                       <span class="svg-icon svg-icon-3 ms-2 me-0">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -423,14 +423,9 @@
     // }
     if (IncludeData.length > 0) {
       body += `
-         
-            
 
-        <!--begin::Content-->
         <div id="kt_app_content" class="app-content flex-column-fluid ">
-          <!--begin::Content container-->
           <div id="kt_app_content_container" class="app-container container-xxl ">
-            <!--begin::Sitemap main-->
             <div class="d-flex flex-column flex-xl-row gap-4 ">
               <div class="row flex-wrap col-8">
               `;
@@ -442,7 +437,7 @@
               body +=`
               <!--begin::Content-->
               <div class="col-12">
-              <div class="card my-4 col-12">
+              <div class="card my-4 col-12 shadow">
                 <div class="d-flex p-8 flex-column">
                             
                   <div class ="row gap-8">
@@ -450,7 +445,7 @@
 															<img src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png" alt="image">
 														</div>
 														
-                            <div class="col-7 px-8">
+                            <div class="col-6 px-8">
 														<a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1 col-7">${IncludeData[i].CompanyName}</a>
 														
 														<div class="d-flex flex-stack fs-4 my-4">
@@ -462,13 +457,11 @@
                               `;
                               if(IncludeData[i].IsVerified == 1){
                                     body += `
-                                    <div class="card-toolbar col-1">
+                                    <div class="card-toolbar col-2">
 														<span class="badge badge-light-success fw-bold me-auto px-4 py-3 fs-3">Verified</span>
 													</div>
                           
-                          
                           `
-                          
                           ;
                                   }else{
                                     body +=`
@@ -477,8 +470,6 @@
 													</div> `;
                                   }
                                   body +=`
-                                
-                              
 
                               </div>
 															
@@ -487,7 +478,7 @@
                           
                           `;
                               if(IncludeData[i].IsVerified == 1){
-                                console.log(IncludeData[i]);
+                               
                                     body += `
                                     <div class="px-8">
                                     <span class=" fw-bold fs-5">Your Sitelink:
@@ -495,19 +486,15 @@
                 </span>
                 <div class="d-flex mt-4">
                   <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
-                  <!-- Target -->
 <input readonly id="foo" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
 
-<!-- Trigger -->
 <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo">
     Copy
 </button>
                   </div>
-                  <div class="d-flex">
+                  <div class="d-flex mt-2">
                     <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
-                  <!-- Target -->
 <input readonly id="foo2" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
-<!-- Trigger -->
 <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2">
     Copy
 </button>
@@ -526,24 +513,26 @@
                                   }
                                   body +=
                                   `
-  
                           <div class="d-flex flex-stack fs-4 py-3 card-body">
 														<div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
 														<span class="ms-2 rotate-180">
-															<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
 															<span class="svg-icon svg-icon-3">
 																<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 																	<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
 																</svg>
 															</span>
-															<!--end::Svg Icon-->
 														</span></div>
+                            `;
+                            if (IncludeData[i].IsVerified == 0){
+                            body+=`
                             <span>
 														<span>
                               <button
-          type="button"
-          class="btn btn-sm btn-primary"
           
+          type="button"
+            class="btn btn-primary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#updateOrganization"
           data-token="${IncludeData[i].Token}"
           id="editBtn"
         >Edit</button>
@@ -558,13 +547,14 @@
         >Delete</button>
                               </span>
                             </span>
-													</div>
+                            `
+                          };
+                          body+=`
+                          </div>
                           <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
-														<div class="py-5 fs-6">
-															<!--begin::Badge-->
+														<hr class="bg-dark border-2 border-top border-dark" />
+                            <div class="py-5 fs-6">
 															<div class="badge badge-light-info d-inline">Premium user</div>
-															<!--begin::Badge-->
-															<!--begin::Details item-->
                               <div class="d-flex flex-row gap-4 mt-5"> 
 															<div class="fw-bold  col-4">Display Name</div>
 															<div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
@@ -603,18 +593,11 @@
                         </div>
               <!--begin::Sidebar-->
               <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
-                <!--begin::Support-->
                 <div class="card card-flush bg-body mb-9">
-                  <!--begin::Card header-->
-                  <div class="card-header">
-                    <h2 class="card-title fs-2 fw-bold text-dark">Your Info</h2>
-                  </div>
-                  <!--end::Card header-->
-                  <!--begin::Card body-->
+                    <h2 class="card-title fs-2 fw-bold text-dark py-4 px-8">Your Info</h2>
+                  
                   <div class="card-body pt-2">
-                    <!--begin::Items-->
                     <div class="mb-5">
-                      <!--begin::Item-->
                       <div class="d-flex row mb-5">
                         <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
                         <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
@@ -632,17 +615,11 @@
                         <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
                       </div>
                     </div>
-                    <!--end::Items-->
                   </div>
-                  <!--end::Support-->
                 </div>
-                <!--end::Sidebar-->
               </div>
-              <!--end::Sitemap main-->
             </div>
-            <!--end::Content container-->
           </div>
-          <!--end::Content-->
         </div>
       </div>
           `;
@@ -709,18 +686,18 @@
     await getModuleValues();
     await $("#Main").append(body);
     await GetUserDetails();
-    var clipboard =await new ClipboardJS('.btnCopy');
+    var clipboard =await new ClipboardJS('.btnCopy'); //for copy to clipboard
   });
+  //get the user details
   async function GetUserDetails() {
     const result = await AjaxCallWithoutData("/Home/GetUserDetails");
-    var data = JSON.parse(JSON.parse(JSON.parse(result)));
-    console.log(data[0].UserName)
+    var data = JSON.parse(JSON.parse(JSON.parse(result)));    
     $("#yourName").text(data[0].UserName);
     $("#yourEmail").text(data[0].UserEmail);
     $("#yourContact").text(data[0].UserContact);
     $("#yourAddress").text(data[0].UserAddress);
-
   }
+  //get the image and change it to data url for preview
   $(document).on("change", "#inputLogo", function () {
     if (this.files && this.files[0]) {
         var name = this.files[0].name;
@@ -735,12 +712,12 @@
 
             var img = new Image();
             img.onload = function() {
-                // Set the target file size in bytes (500 KB in this example)
-                var targetFileSize = 500 * 1024;
-                var currentFileSize = Number.MAX_SAFE_INTEGER; // Initialize to a large value
+                
+                var targetFileSize = 500 * 1024; // 500 KB max size for the image
+                var currentFileSize = Number.MAX_SAFE_INTEGER; 
 
                 // Initialize compression quality
-                var compressionQuality = 1.0;
+                var compressionQuality = 1.0; //set the quality to 100%
 
                 // Iterate until the file size is close to the target
                 while (currentFileSize > targetFileSize && compressionQuality > 0) {
@@ -752,7 +729,6 @@
 
                     // Convert canvas to data URL with the current compression quality
                     compressedDataURL = canvas.toDataURL('image/jpeg', compressionQuality);
-
                     // Get the file size of the compressed image
                     currentFileSize = compressedDataURL.length;
 
@@ -769,6 +745,7 @@
         readerForDataURL.readAsDataURL(this.files[0]);
     }
 });
+//get the module values
   async function getModuleValues() {
     const result = await AjaxCallWithoutData("/Home/GetModuleValues");
 
@@ -779,36 +756,47 @@
     }
     $(".moduleSelect").append(html);
   }
+  //change the value when the user changes the module
   $(document).on("change", ".moduleSelect", function () {
     $(".defaultValue").val($(this).find("option:selected").attr("data-site"));
   });
-
+//show the modal where the user updates the data
   $(document).on("click", "#editBtn", async function () {
     var token = $(this).attr("data-token");
     var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
     var data = JSON.parse(JSON.parse(JSON.parse(result)));
+    console.log(data);
     var type = data[0].ImageType;
     var byteArray = data[0].ImageData; //.data
-console.log(data);
-console.log(byteArray);
-console.log(typeof byteArray);
-    if (Array.isArray(byteArray)) {
+
+    if (Array.isArray(byteArray)) {//don't think this works
         var base64String = btoa(String.fromCharCode.apply(null, byteArray));
         var dataUrl = "data:" + type + ";base64," + base64String;
         $(".logoValue").attr("src", dataUrl);
     }
 
-    $("#updateOrganization").find("#newcompanyName").text(data[0].CompanyName);
+    $("#newcompanyName").val(data[0].CompanyName);
     $("#newdisplayName").val(data[0].DisplayName);
     $("#newinitial").val(data[0].Initial);
     $("#newvat").val(data[0].PanVatNo);
+    $("#newaddress").val(data[0].Address);
+    $("#newphone").val(data[0].PhoneNo);
+    $("#newContactNumber").val(data[0].ContactMobile);
+    $("#newEmail").val(data[0].OrganizationMail);
+    $("#newWebsite").val(data[0].Website);
+    $("#newmotto").val(data[0].OrganizationMotto);
+    $("#newmoduleSelect").val(data[0].Module);
+    $("#newdefaultValue").val(data[0].SiteURL);
+    $("#updateDetails").attr("data-token", token);
 });
+//delete the organization
   $(document).on("click", "#deleteBtn",async function () {
     var token = $(this).attr("data-token");
     var confirmation = confirm("Are you sure you want to delete?");
     if (confirmation) {
     var result =await AjaxCall("/Home/DeleteSingleOrganization", { Token: token});
     var parsedResult = JSON.parse(result);
+    //or parsedResult = result.json();
     if (parsedResult == 1) {
       toastr.success("Organization Deleted Successfully");
       location.reload();
@@ -817,7 +805,7 @@ console.log(typeof byteArray);
     }
   };
 });
- 
+ //add the organization
   $(document).on("click", "#submitDetails", async () => {
     var companyName = $("#companyName").val();
     var displayName = $("#displayName").val();
@@ -850,11 +838,57 @@ console.log(typeof byteArray);
       OrganizationMotto: motto,
       Token: "",
     };
-    console.log(data)
     var result = await AjaxCall("/Home/UploadOrganizationData", data);
-    if (parseInt(result) == 1) {
+    if (parseInt(result) == 1) { //sucess
       $("#staticBackdrop").modal("hide");
       toastr.success("Organization Added Successfully");
+      location.reload();
+      return false;
+    } else {//failure
+      toastr.error("Something went wrong");
+    }
+  });
+  //update the organization
+  $(document).on("click", "#updateDetails", async () => {
+    var token = $("#updateDetails").attr("data-token");
+    var companyName = $("#newcompanyName").val();
+    var displayName = $("#newdisplayName").val();
+    var initial = $("#newinitial").val();
+    var vat = $("#newvat").val();
+    var address = $("#newaddress").val();
+    var phone = $("#newphone").val();
+    var contact = $("#newContactNumber").val();
+    var Email = $("#newEmail").val();
+    var Website = $("#newWebsite").val();
+    var motto = $("#newmotto").val();
+    var logo = $(".logoValue").attr("src");
+    var module = $(".moduleSelect").val();
+    var imgName = $(".logoValue").attr("data-name");
+    var imgType = $(".logoValue").attr("data-type");
+    var data = {
+      CompanyName: companyName,
+      DisplayName: displayName,
+      ContactMobile: contact,
+      Initial: initial,
+      PanVatNo: vat,
+      Address: address,
+      PhoneNo: phone,
+      Module: parseInt(module),
+      OrganizationMail: Email,
+      Website: Website,
+      ImageName: imgName,
+      ImageType: imgType,
+      ImageData: logo,
+      OrganizationMotto: motto,
+      Token: token
+    };
+    console.log(data);
+    var result = await AjaxCall("/Home/UploadOrganizationData", data);
+    console.log(result);
+    debugger
+    if (parseInt(result) == 1) {
+      $("#staticBackdrop").modal("hide");
+      toastr.success("Organization updated Successfully");
       location.reload();
       return false;
     } else {

@@ -49,6 +49,30 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return Ok("error");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> VerifyAdmin([FromBody] Login login)
+        {
+            try
+            {
+                var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateAdmin", login, "Post");
+                var result = JsonConvert.DeserializeObject<loginValidator>(value);
+                if (result.status == 200)
+                {
+                    HttpContext.Session.SetString("TokenNo", result.tokenNo);
+                    return Ok("Success");
+                }
+                else
+                {
+                    // TempData["MessageType"] = "Ërror";
+                    // TempData["Message"] = "Invalid UserName Or Password";
+                    return Ok("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Ok("error");
+            }
+        }
 
 
     }

@@ -1,0 +1,475 @@
+@{ ViewData["Title"] = "Index"; }
+<div  class=" py-3 py-lg-6">
+    <div
+     
+      class=" container-xxl d-flex flex-stack"
+    >
+      <div
+        class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
+      >
+        <h1
+          class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
+        >
+          <img
+            src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png"
+            class="theme-light-show w-100px"
+            alt=""
+          />
+        </h1>
+      </div>
+      <div class="d-flex">
+        <h3 class="fs-xl fw-bold mb-4 lead">
+          Don't have an account?
+          <a href="@Url.Action("Index", "SendCode")"> Sign Up </a>
+        </h3>
+      </div>
+  
+    </div>
+  </div>
+
+
+<div id="kt_app_content_container" class="app-container container-xxl mt-4">
+  <!--begin::Card-->
+  <div class="card">
+   
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+      <!--begin::Table-->
+      <div
+        id="kt_customers_table_wrapper"
+        class="dataTables_wrapper dt-bootstrap4 no-footer"
+      >
+        <div class="table-responsive">
+          <table
+            class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
+            id="kt_customers_table"
+          >
+            <!--begin::Table head-->
+            <thead>
+              <!--begin::Table row-->
+              <tr
+                class="text-start text-gray-700 fw-bold fs-7 text-uppercase gs-0"
+              >
+                
+                <th
+                  class="min-w-125px sorting"
+                 
+                  style="width: 128.312px"
+                >
+                  User Name
+                </th>
+                <th
+                  class="min-w-125px sorting"
+                  tabindex="0"
+                  aria-controls="kt_customers_table"
+                  rowspan="1"
+                  colspan="1"
+                  aria-label="Email: activate to sort column ascending"
+                  style="width: 159.312px"
+                >
+                  Email
+                </th>
+                <th
+                  class="min-w-125px sorting"
+                  tabindex="0"
+                  aria-controls="kt_customers_table"
+                  rowspan="1"
+                  colspan="1"
+                  style="width: 159.312px"
+                >
+                  Address
+                </th>
+                <th
+                  class="min-w-125px sorting"
+                  tabindex="0"
+                  aria-controls="kt_customers_table"
+                  rowspan="1"
+                  colspan="1"
+                  aria-label="Email: activate to sort column ascending"
+                  style="width: 159.312px"
+                >
+                  Phone
+                </th>
+                <th
+                  class="min-w-125px sorting"
+                  tabindex="0"
+                  aria-controls="kt_customers_table"
+                  rowspan="1"
+                  colspan="1"
+                  aria-label="Email: activate to sort column ascending"
+                  style="width: 159.312px"
+                >
+                  Organization status
+                </th>
+                
+             
+                
+                <th
+                  class="text-end min-w-70px sorting_disabled"
+                  rowspan="1"
+                  colspan="1"
+                  aria-label="Actions"
+                  style="width: 100.047px"
+                >
+                  Action
+                </th>
+              </tr>
+              <!--end::Table row-->
+            </thead>
+            <!--end::Table head-->
+            <!--begin::Table body-->
+            <tbody class="fw-semibold text-gray-600">
+              
+           
+            </tbody>
+            <!--end::Table body-->
+          </table>
+        </div>
+       
+      </div>
+      <!--end::Table-->
+    </div>
+    <!--end::Card body-->
+  </div>
+  <!--end::Card-->
+ 
+</div>
+
+
+<!--begin::Modal - Upgrade plan-->
+<div class="modal fade" id="kt_modal_upgrade_plan" tabindex="-1" aria-hidden="true">
+  <!--begin::Modal dialog-->
+  <div class="modal-dialog modal-xl">
+    <!--begin::Modal content-->
+    <div class="modal-content rounded">
+      <!--begin::Modal header-->
+      <div class="modal-header justify-content-end border-0 pb-0">
+        <!--begin::Close-->
+        <div class="btn btn-sm btn-icon btn-hover-primary" data-bs-dismiss="modal">
+          <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+          <span class="svg-icon svg-icon-1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+              <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+            </svg>
+          </span>
+          <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+      </div>
+      <!--end::Modal header-->
+      <!--begin::Modal body-->
+      <div class="modal-body pt-0 pb-5 px-5 px-xl-20">
+        <!--begin::Heading-->
+        <div class=" text-center">
+          <h1>UserName</h1>
+          <div class="fw-semibold fs-5">remaining days</div>
+        </div>
+        <!--end::Heading-->
+        <!--begin::Plans-->
+        <div class="d-flex flex-column">
+          
+          <!--begin::Row-->
+          <div class="row mt-10">
+            <!--begin::Col-->
+            <div class="col-lg-6 mb-10 mb-lg-0">
+              <!--begin::Tabs-->
+              <div class="nav flex-column showOrganizations">
+             
+                
+              </div>
+              <!--end::Tabs-->
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-lg-6">
+              <!--begin::Tab content-->
+              <div class="tab-content rounded h-100 bg-light p-10">
+                <!--begin::Tab Pane-->
+                <div class="tab-pane fade show active " id="kt_upgrade_plan_startup">
+                  
+                  
+                  
+                </div>
+                <!--end::Tab Pane-->
+                
+             
+              </div>
+              <!--end::Tab content-->
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Row-->
+        </div>
+        <!--end::Plans-->
+       
+      </div>
+      <!--end::Modal body-->
+    </div>
+    <!--end::Modal content-->
+  </div>
+  <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Upgrade plan-->
+
+<script type="text/javascript">
+$(document).ready(async ()=>{
+  await getUsers();
+})
+
+async function  getUsers() {
+  const data = await AjaxCallWithoutData("/Dashboard/GetUsers");
+  const result =JSON.parse(JSON.parse(JSON.parse(data)));
+  var tbody =``;
+  result.forEach(value => {
+    tbody +=`
+    <tr >
+                
+                <!--begin::Name=-->
+                <td>
+                  <p
+                    class="text-gray-800 text-hover-primary mb-1"
+                    >${value.UserName}</p
+                  >
+                </td>
+                <!--end::Name=-->
+                <!--begin::Email=-->
+                <td>
+                  <p  class="text-gray-600 text-hover-primary mb-1"
+                    >${value.UserEmail}</p
+                  >
+                </td>
+                <!--end::Email=-->
+               
+              
+                <!--begin::Date=-->
+                <td >
+                  ${value.UserAddress}
+                </td>
+               <td>${value.UserContact}</td>
+                <td >
+                  <div class="d-flex">
+
+                  
+                  <span class="badge badge-light-danger fs-base py-2 mx-2">
+                    <div class="d-flex flex-column  ">
+                      <p class="fs-2">${value.UnVerifiedOrg}</p><p>Unverified</p></span>
+                    </div>
+                  </span>
+                  <span class="badge badge-light-success fs-base py-2">
+                    <div class="d-flex flex-column mx-4">
+                      <p class="fs-2">${value.VerifiedOrg}</p><p>Verified</p></span>
+                    </div>
+                    </span>
+                  </div>
+                </td>
+                <!--end::Date=-->
+                <!--begin::Action=-->
+                <td class="text-end  gap-2 align-items-center">
+                  <a href="#" class="btn btn-primary btn-sm btnView"  data-id="${value.UserId}">View</a> 
+                <!--end::Action=-->
+              </tr>
+    `;
+  });
+  $("#kt_customers_table tbody").html(tbody);
+}
+var orgData;
+
+$(document).on("click",".btnView",async (event)=>{
+  $("#kt_modal_upgrade_plan").modal("show");
+  var id = $(event.target).attr("data-id");
+  const data = {
+    CustomerId:parseInt(id)
+  };
+
+    var result = await AjaxCall("/Dashboard/GetAllRegisteredOrg",data);
+  var value = JSON.parse(JSON.parse(JSON.parse(result)));
+  orgData = value;
+  var showOrg = ``;
+  value.forEach((element,Index)=>{
+    showOrg += `
+    <label class=" nav-link btn btn-outline btn-outline-dashed btn-color-dark  d-flex flex-stack text-start p-6 active mb-6" >
+      <!--end::Description-->
+      <div class="d-flex align-items-center me-2">
+        <!--begin::Radio-->
+        <div class="form-check form-check-custom form-check-dotted form-check-success  flex-shrink-0 me-6">
+          <input class="form-check-input orgData" type="radio" name="org"  value="${Index}" />
+        </div>
+        <!--end::Radio-->
+        <!--begin::Info-->
+      <div class="d-flex flex-stack pb-3">
+        <!--begin::Info-->
+        <div class="d-flex">
+          <!--begin::Avatar-->
+          <div>
+            <img src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png" width="100px" height="60px" />
+          </div>
+          <!--end::Avatar-->
+          <!--begin::Details-->
+          <div class="ms-5">
+            <!--begin::Name-->
+            <div class="d-flex align-items-center">
+              <a  class="text-dark fw-bold text-hover-primary fs-5 me-4">
+                ${element.CompanyName}</a>
+              <!--begin::Label-->
+              `;
+              if(element.IsVerified == 1){
+               showOrg +=` <span class="badge badge-light-success d-flex align-items-center fs-6 fw-semibold">
+              <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
+              <span class="svg-icon svg-icon-8 svg-icon-success me-1">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z" fill="currentColor" />
+                </svg>
+              </span>
+              Verified</span>`;
+              }else{
+              showOrg+=`
+              <span class="badge badge-light-danger d-flex align-items-center fs-6 fw-semibold">
+              <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
+              <span class="svg-icon svg-icon-8 svg-icon-danger me-1">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z" fill="currentColor" />
+                </svg>
+              </span>
+              Unverified</span>
+              `;
+            }
+              showOrg+=`
+            </div>
+            <!--end::Name-->
+            <!--begin::Desc-->
+            <span class=" fw-semibold mb-3">${element.Address}</span>
+            <!--end::Desc-->
+          </div>
+          <!--end::Details-->
+        </div>
+        <!--end::Info-->
+        
+      </div>
+      <!--end::Info-->
+      </div>
+      <!--end::Description-->
+      
+    </label>
+    `;
+  })
+  $(".showOrganizations").html(showOrg);
+})
+
+$(document).on("change",".orgData",async (event)=>{
+  var id = $(event.target).val();
+  var data = orgData[id];
+  var details = ``;
+  details +=`
+  <div>
+    <h2 class="fw-bold text-dark">${data.CompanyName}</h2>
+    <div class=" fw-semibold">${data.OrganizationMotto}</div>
+  </div>
+  <div class="py-2 fs-6">
+    <div class="d-flex flex-row gap-4 mt-5"> 
+    <div class="fw-bold  col-4">Display Name</div>
+    <div class="text-gray-700 col-6">${data.DisplayName}</div>
+    </div>
+    <div class="d-flex flex-row gap-4 mt-5">
+    <div class="fw-bold col-4">Email</div>
+    <div class="text-gray-700 col-8">
+      <a href="#" class="text-gray-700 text-hover-primary">${data.OrganizationMail}</a>
+    </div>
+    </div>
+      
+    <div class="d-flex flex-row gap-4 mt-5">
+    <div class="fw-bold col-4">PAN/VAT</div>
+    <div class="text-gray-700 col-8">${data.PanVatNo}</div>
+    </div>
+    <div class="d-flex flex-row gap-4 mt-5">
+    <div class="fw-bold col-4">Phone No.</div>
+    <div class="text-gray-700 col-8">${data.PhoneNo}</div>
+    </div>
+    <div class="d-flex flex-row gap-4 mt-5">
+    <div class="fw-bold col-4">Contact No.</div>
+    <div class="text-gray-700 col-8">${data.ContactMobile}</div>
+    </div>
+    <div class="d-flex flex-row gap-4 mt-5">
+    <div class="fw-bold col-4">Website</div>
+    <div class="text-gray-700 dol-8"><a href="asdf">${data.Website}</a></div>
+    </div>
+  </div>
+  <form >
+    <div class="d-flex flex-row mb-4 fv-row fv-plugins-icon-container">
+      <!--begin::Label-->
+      <label class="col-3 my-3 fs-6 fw-semibold">
+        <span class="required ">Site URL</span>
+      </label>
+      <!--end::Label-->
+      <input type="text" class="form-control form-control-sm form-control-solid border border-dark" placeholder="Site URL" name="siteUrl" value="${data.SiteURL}">
+    </div>
+    <div class="d-flex flex-row mb-4 fv-row fv-plugins-icon-container">
+      <!--begin::Label-->
+      <label class="col-3   fs-6 fw-semibold mb-2">
+        <span class="required">UserName</span>
+      </label>
+      <!--end::Label-->
+      <input type="text" class="form-control form-control-sm form-control-solid border border-dark" placeholder="UserName" name="userName" value="${data.SiteUserName}">
+  </div>
+    <div class="d-flex flex-row mb-8 fv-row fv-plugins-icon-container">
+      <!--begin::Label-->
+      <label class="col-3  fs-6 fw-semibold mb-2">
+        <span class="required">Password</span>
+      </label>
+      <!--end::Label-->
+      <input type="text" class="form-control form-control-sm form-control-solid border border-dark" placeholder="password" name="password" value="${data.SitePassword}">
+  </div>
+  
+  <div class="d-flex flex-row">
+      <label class="col-3  fs-6 fw-semibold mb-2 ">Remarks</label>
+      <textarea class="form-control form-control-sm form-control-solid border border-dark" rows="3" name="remarks" placeholder="Remarks" >${data.Remarks}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm mt-5 float-right btnVerify" data-token="${data.Token}">verify</button>
+    <button type="submit" class="btn btn-danger btn-sm mt-5 float-right btnDecline" data-token="${data.Token}">Decline</button>
+
+  </form>
+                  
+  `;
+$("#kt_upgrade_plan_startup").empty().append(details);
+console.log(data);
+});
+$(document).on("click",".btnVerify",async (event)=>{
+  event.preventDefault();
+  var token = $(event.target).attr("data-token");
+  var sendData = {
+    Token:token,
+    SiteUserName:$("input[name='userName']").val(),
+    SitePassword:$("input[name='password']").val(),
+    SiteURL:$("input[name='siteUrl']").val(),
+    Remarks:$("textarea[name='remarks']").val()
+  }
+  var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin",sendData);
+  if(JSON.parse(result) == 1){
+    toastr.success("Organization Verified");
+    $("#kt_modal_upgrade_plan").modal("hide");
+    await getUsers();
+  }else{
+    toastr.error("Something went wrong");
+  }
+})
+$(document).on("click",".btnDecline",async(event)=>{
+  event.preventDefault();
+  if(confirm("Are you sure you want to decline this organization?")){
+  var token = $(event.target).attr("data-token");
+  var sendData = {
+    Token:token,
+  }
+  var result = await AjaxCall("/Dashboard/TrashOrgdetailsByAdmin",sendData);
+
+  if(JSON.parse(result) == 1){
+    toastr.success("Organization Declined");
+    $("#kt_modal_upgrade_plan").modal("hide");
+    await getUsers();
+  }else{
+    toastr.error("Something went wrong");
+  }
+}else{
+  return false;
+}
+})
+</script>

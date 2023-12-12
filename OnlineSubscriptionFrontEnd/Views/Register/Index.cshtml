@@ -151,7 +151,7 @@ if (window.location.href.indexOf('?') > 0) {
       Address: $(this).find("input[name='Address']").val(),
       Password: $(this).find("input[name='Password']").val(),
     };
-    debugger
+    
     const result = AjaxCall("/Register/RegisterUser",data);
     if(result == 'Success'){
   window.location.href = "/Home/Index?msg=registerSuccess";
