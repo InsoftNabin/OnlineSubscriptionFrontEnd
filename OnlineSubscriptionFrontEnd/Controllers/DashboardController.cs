@@ -84,6 +84,21 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> SendEmail([FromBody] sendEmail ao)
+        {
+            var tokenval = HttpContext.Session.GetString("TokenNo");
+            if (tokenval != null)
+            {
+                ao.TokenNo = tokenval;
+                var sendJson = await ApiCall.ApiCallWithObject("User/SendEmail", ao, "Post");
+                return Json(sendJson);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
 
     }
 }
