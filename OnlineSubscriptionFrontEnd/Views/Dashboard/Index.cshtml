@@ -220,6 +220,7 @@
     const result = JSON.parse(JSON.parse(JSON.parse(data)));
     var tbody = ``;
     result.forEach((value) => {
+      console.log(value);
       tbody += `
     <tr >
                 
@@ -358,6 +359,10 @@
     var id = $(event.target).val();
     var data = orgData[id];
     var details = ``;
+    var hideButtons = ``; //hide edit and modify buttons
+    if (orgData[id].IsVerified == 1) {
+      hideButtons = `style="display:none"`;
+    }
     details += `
   <div>
     <h2 class="fw-bold text-dark">${data.CompanyName}</h2>
@@ -422,8 +427,8 @@
       <label class="col-3  fs-6 fw-semibold mb-2 ">Remarks</label>
       <textarea class="form-control form-control-sm form-control-solid border border-dark" rows="3" name="remarks" placeholder="Remarks" >${data.Remarks}</textarea>
     </div>
-    <button type="submit" class="btn btn-primary btn-sm mt-5 float-right btnVerify" data-token="${data.Token}">verify</button>
-    <button type="submit" class="btn btn-danger btn-sm mt-5 float-right btnDecline" data-token="${data.Token}">Decline</button>
+    <button type="submit" ${hideButtons} class="btn btn-primary btn-sm mt-5 float-right btnVerify" data-token="${data.Token}">verify</button>
+    <button type="submit" ${hideButtons} class="btn btn-danger btn-sm mt-5 float-right btnDecline" data-token="${data.Token}">Decline</button>
 
   </form>
                   
@@ -452,25 +457,35 @@
   });
   $(document).on("click", ".btnDecline", async (event) => {
     event.preventDefault();
-    if (confirm("Are you sure you want to decline this organization?")) {
-      var token = $(event.target).attr("data-token");
-      var sendData = {
-        Token: token,
-      };
-      var result = await AjaxCall(
-        "/Dashboard/TrashOrgdetailsByAdmin",
-        sendData
-      );
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Decline it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        var token = $(event.target).attr("data-token");
+        var sendData = {
+          Token: token,
+        };
+        var result = await AjaxCall(
+          "/Dashboard/TrashOrgdetailsByAdmin",
+          sendData
+        );
 
-      if (JSON.parse(result) == 1) {
-        toastr.success("Organization Declined");
-        $("#kt_modal_upgrade_plan").modal("hide");
-        await getUsers();
+        if (JSON.parse(result) == 1) {
+          toastr.success("Organization Declined");
+          $("#kt_modal_upgrade_plan").modal("hide");
+          await getUsers();
+        } else {
+          toastr.error("Something went wrong");
+        }
       } else {
-        toastr.error("Something went wrong");
+        return false;
       }
-    } else {
-      return false;
-    }
+    });
   });
 </script>
