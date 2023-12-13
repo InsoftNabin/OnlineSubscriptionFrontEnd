@@ -87,7 +87,7 @@
                   <input  type="text" class="form-control form-control-sm border border-dark rounded " id="newinitial" />
                   </div>
                   <div class="col-5 mr-n3">
-                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark" id="defaultValue" value=".intradeplus.com"/>
+                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue"  value=".intradeplus.com"/>
                  
               </div>
               <div class="col-4 mx-n3">
@@ -259,7 +259,7 @@
                   <input  type="text" class="form-control form-control-sm border border-dark rounded " id="initial" />
                   </div>
                   <div class="col-5 mr-n3">
-                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark" id="defaultValue" value=".intradeplus.com"/>
+                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue"  value=".intradeplus.com"/>
                  
               </div>
               <div class="col-4 mx-n3">
@@ -365,9 +365,8 @@
       <h3 class="fs-xl fw-bold mb-4 lead">
         <button
           type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
+          class="btn btn-primary addOrganization"
+          
         >
           <span class="svg-icon svg-icon-2">
             <svg
@@ -442,7 +441,7 @@
                             
                   <div class ="row gap-8">
 														<div class="image-input-wrapper w-125px h-65px rounded pt-4 col-3">
-															<img src="https://insoftnepal.com/storage/2020/11/LogoInsoft.png" alt="image">
+															<img src="${IncludeData[i].ImageData }" alt="image">
 														</div>
 														
                             <div class="col-6 px-8">
@@ -683,7 +682,7 @@
   }
   $(document).ready(async function () {
     await GetOrganizations();
-    await getModuleValues();
+    
     await $("#Main").append(body);
     await GetUserDetails();
     var clipboard =await new ClipboardJS('.btnCopy'); //for copy to clipboard
@@ -697,18 +696,16 @@
     $("#yourContact").text(data[0].UserContact);
     $("#yourAddress").text(data[0].UserAddress);
   }
-  //get the image and change it to data url for preview
-  $(document).on("change", "#inputLogo", function () {
+ // get the image and change it to data url for preview
+  $(document).on("change", "#inputLogo",async function () {
     if (this.files && this.files[0]) {
-        var name = this.files[0].name;
-        var type = this.files[0].type;
+        
 
         var readerForDataURL = new FileReader();
         var compressedDataURL;
 
         readerForDataURL.onloadend = function () {
-            $(".logoValue").attr("data-name", name);
-            $(".logoValue").attr("data-type", type);
+           
 
             var img = new Image();
             img.onload = function() {
@@ -717,10 +714,6 @@
                 var currentFileSize = Number.MAX_SAFE_INTEGER; 
 
                 // Initialize compression quality
-                var compressionQuality = 1.0; //set the quality to 100%
-
-                // Iterate until the file size is close to the target
-                while (currentFileSize > targetFileSize && compressionQuality > 0) {
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = img.width;
@@ -728,13 +721,12 @@
                     ctx.drawImage(img, 0, 0, img.width, img.height);
 
                     // Convert canvas to data URL with the current compression quality
-                    compressedDataURL = canvas.toDataURL('image/jpeg', compressionQuality);
+                    compressedDataURL = canvas.toDataURL('image/jpeg');
                     // Get the file size of the compressed image
                     currentFileSize = compressedDataURL.length;
 
-                    // Reduce compression quality for the next iteration
-                    compressionQuality -= 0.1;
-                }
+                    
+                
 
                 $(".logoValue").attr("src", compressedDataURL);
             };
@@ -744,7 +736,93 @@
 
         readerForDataURL.readAsDataURL(this.files[0]);
     }
+
+var input = $(this);
+var files = input[0].files;
+var formData = new FormData();
+var imgName = '';
+for (var i = 0; i != files.length; i++) {
+    formData.append("files", files[i]);
+}
+var DocName = files[0].name;
+var Exitension = DocName.split(".");
+var imgextension = Exitension[1];
+if (1) {
+
+    await $.ajax({
+        url: "/Register/UploadPhoto",
+        data: formData,
+        processData: false,
+        contentType: false,
+        type: "POST",
+        beforeSend: function() {
+            Swal.fire({
+                html: '<div class="loader" id="loader-6">' +
+                    '<span></span>' +
+                    '<span></span>' +
+                    '<span></span>' +
+                    '<span></span>' +
+                    '</div>' +
+                    '<div>' +
+                    '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                    '</div>',
+                background: 'unset',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+            });
+        },
+        success: function(data) {
+           
+                imgName = data;
+                $(".logoValue").attr("data-name", imgName);
+            Swal.close();
+
+        },
+        error: function() {
+
+            const file =
+                document.querySelector('#file');
+            file.value = '';
+            Swal.close();
+        }
+
+    });
+}
+else {
+    toastr.info("Only image are allowed");
+}
+
+var uploadFile = $(this);
+var files = !!this.files ? this.files : [];
+
+if (/^image/.test(files[0].type)) { // only image file
+    var reader = new FileReader(); // instance of the FileReader
+    reader.readAsDataURL(files[0]); // read the local file
+
+
+    reader.onloadend = function() { // set image data as background of div
+        //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+        uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+    }
+}
+else {
+    var reader = new FileReader(); // instance of the FileReader
+    reader.readAsDataURL(files[0]); // read the local file
+
+    reader.onloadend = function() { // set image data as background of div
+        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+        uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
+    }
+}
 });
+
+
+
 //get the module values
   async function getModuleValues() {
     const result = await AjaxCallWithoutData("/Home/GetModuleValues");
@@ -754,26 +832,23 @@
     for (var i = 0; i < data.length; i++) {
       html += `<option data-site="${data[i].SiteName}" value="${data[i].UkId}">${data[i].Name}</option>`;
     }
-    $(".moduleSelect").append(html);
+    $(".moduleSelect").html(html);
   }
   //change the value when the user changes the module
   $(document).on("change", ".moduleSelect", function () {
-    $(".defaultValue").val($(this).find("option:selected").attr("data-site"));
+   var val=$(this).find("option:selected").attr("data-site");
+    $(".defaultModuleValue").val(val);
   });
 //show the modal where the user updates the data
   $(document).on("click", "#editBtn", async function () {
+    await getModuleValues();
     var token = $(this).attr("data-token");
     var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
     var data = JSON.parse(JSON.parse(JSON.parse(result)));
-    console.log(data);
-    var type = data[0].ImageType;
-    var byteArray = data[0].ImageData; //.data
-
-    if (Array.isArray(byteArray)) {//don't think this works
-        var base64String = btoa(String.fromCharCode.apply(null, byteArray));
-        var dataUrl = "data:" + type + ";base64," + base64String;
-        $(".logoValue").attr("src", dataUrl);
-    }
+    
+    
+        $(".logoValue").attr("src", data[0].ImageData);
+    console.log(data[0].ImageData);
 
     $("#newcompanyName").val(data[0].CompanyName);
     $("#newdisplayName").val(data[0].DisplayName);
@@ -785,7 +860,7 @@
     $("#newEmail").val(data[0].OrganizationMail);
     $("#newWebsite").val(data[0].Website);
     $("#newmotto").val(data[0].OrganizationMotto);
-    $("#newmoduleSelect").val(data[0].Module);
+    $(".logoValue").attr("data-name", data[0].ImageName);
     $("#newdefaultValue").val(data[0].SiteURL);
     $("#updateDetails").attr("data-token", token);
 });
@@ -807,6 +882,10 @@
 });
  //add the organization
   $(document).on("click", "#submitDetails", async () => {
+   if($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == ''  || $("#motto").val() == '' || $(".logoValue").attr("data-name") == '' || $(".moduleSelect").val() == ''){
+      toastr.error("Please fill all the fields");
+      return false;
+   }
     var companyName = $("#companyName").val();
     var displayName = $("#displayName").val();
     var initial = $("#initial").val();
@@ -817,10 +896,9 @@
     var Email = $("#Email").val();
     var Website = $("#Website").val();
     var motto = $("#motto").val();
-    var logo = $(".logoValue").attr("src");
+    var logo = $(".logoValue").attr("data-name");
     var module = $(".moduleSelect").val();
-    var imgName = $(".logoValue").attr("data-name");
-    var imgType = $(".logoValue").attr("data-type");
+    
     var data = {
       CompanyName: companyName,
       DisplayName: displayName,
@@ -832,8 +910,8 @@
       Module: parseInt(module),
       OrganizationMail: Email,
       Website: Website,
-      ImageName: imgName,
-      ImageType: imgType,
+      ImageName: '',
+      ImageType: '',
       ImageData: logo,
       OrganizationMotto: motto,
       Token: "",
@@ -850,6 +928,10 @@
   });
   //update the organization
   $(document).on("click", "#updateDetails", async () => {
+    if($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == ''  || $("#newmotto").val() == '' || $(".logoValue").attr("data-name") == '' || $(".moduleSelect").val() == ''){
+      toastr.error("Please fill all the fields");
+      return false;
+    }
     var token = $("#updateDetails").attr("data-token");
     var companyName = $("#newcompanyName").val();
     var displayName = $("#newdisplayName").val();
@@ -861,10 +943,8 @@
     var Email = $("#newEmail").val();
     var Website = $("#newWebsite").val();
     var motto = $("#newmotto").val();
-    var logo = $(".logoValue").attr("src");
     var module = $(".moduleSelect").val();
-    var imgName = $(".logoValue").attr("data-name");
-    var imgType = $(".logoValue").attr("data-type");
+    var logo = $(".logoValue").attr("data-name");
     var data = {
       CompanyName: companyName,
       DisplayName: displayName,
@@ -876,8 +956,8 @@
       Module: parseInt(module),
       OrganizationMail: Email,
       Website: Website,
-      ImageName: imgName,
-      ImageType: imgType,
+      ImageName: logo,
+      ImageType: '',
       ImageData: logo,
       OrganizationMotto: motto,
       Token: token
@@ -896,5 +976,9 @@
     }
   });
 
+$(document).on("click", ".addOrganization", async () => {
+  await getModuleValues();
+  $("#staticBackdrop").modal("show");
+});
 
 </script>

@@ -96,7 +96,14 @@ if (window.location.href.indexOf('?') > 0) {
     }
   }
 $("#LoginBtn").on("click",async  (e)=> {
-  
+  if($("input[name='Email']").val() == ''){
+    toastr.error("Please enter your username !")
+    return;
+  }
+  if($("input[name='Password']").val() == ''){
+    toastr.error("Please enter your password !")
+    return;
+  }
   const data = {
     UserName: $("input[name='Email']").val(),
     Password: $("input[name='Password']").val(),

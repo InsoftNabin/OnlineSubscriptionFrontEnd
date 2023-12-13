@@ -38,26 +38,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             if (token != null)
             {
 
-                var newData = new OrganizationData();
-                newData.Address = org.Address;
-                newData.CompanyName = org.CompanyName;
-                newData.ContactMobile = org.ContactMobile;
-                newData.DisplayName = org.DisplayName;
-                newData.ImageData = Encoding.Unicode.GetBytes(org.ImageData);
-                newData.ImageName = org.ImageName;
-                newData.ImageType = org.ImageType;
-                newData.Initial = org.Initial;
-                newData.Module = org.Module;
-                newData.OrganizationMail = org.OrganizationMail;
-                newData.OrganizationMotto = org.OrganizationMotto;
-                newData.PanVatNo = org.PanVatNo;
-                newData.PhoneNo = org.PhoneNo;
-                newData.Token = org.Token;
-                newData.Website = org.Website;
-                newData.TokenNo = token;
-
-
-                var result = await ApiCall.ApiCallWithObject("User/AddOrganization", newData, "Post");
+                org.TokenNo = HttpContext.Session.GetString("TokenNo");
+                var result = await ApiCall.ApiCallWithObject("User/AddOrganization", org, "Post");
                 return Ok(result);
             }
             else

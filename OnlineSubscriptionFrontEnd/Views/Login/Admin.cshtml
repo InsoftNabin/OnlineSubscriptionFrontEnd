@@ -18,13 +18,7 @@
         />
       </h1>
     </div>
-    <div class="d-flex">
-      <h3 class="fs-xl fw-bold mb-4 lead">
-        Don't have an account?
-        <a href="@Url.Action("Index", "SendCode")"> Sign Up </a>
-      </h3>
-    </div>
-
+    
   </div>
 </div>
 <div class="container w-500px p-0">
@@ -96,7 +90,14 @@ if (window.location.href.indexOf('?') > 0) {
     }
   }
 $("#LoginBtn").on("click",async  (e)=> {
-  
+  if($("input[name='Email']").val() == ''){
+    toastr.error("Please enter your email address !")
+    return;
+  }
+  if($("input[name='Password']").val() == ''){
+    toastr.error("Please enter your password !")
+    return;
+  }
   const data = {
     UserName: $("input[name='Email']").val(),
     Password: $("input[name='Password']").val(),

@@ -112,7 +112,7 @@
         />
       </div>
 
-        <button  type="submit" class="btn btn-primary form-control" id="registerButton">
+        <button  type="submit" class="btn btn-primary form-control" id="registerButton" name="submit">
           Add User
         </button>
       </form>
@@ -137,13 +137,35 @@ if (window.location.href.indexOf('?') > 0) {
   }
 
 
-  $("#registerForm").submit(function (e) {
+  $("#registerForm").submit(async function (e) {
+    console.log("hello")
     if($(this).find("input[name='Password']").val()!=$(this).find("input[name='ConfirmPassword']").val()){
       toastr.warning("Password doesnot match ! Please try again")
      
       return false;
     }
     e.preventDefault();
+    if($(this).find("input[name='Name']").val()==""){
+      toastr.warning("Name is required ! Please try again")
+      return false;
+    }
+    if($(this).find("input[name='Contact']").val()==""){
+      toastr.warning("Contact is required ! Please try again")
+      return false;
+    }
+    if($(this).find("input[name='Address']").val()==""){
+      toastr.warning("Address is required ! Please try again")
+      return false;
+    }
+    if($(this).find("input[name='Password']").val()==""){
+      toastr.warning("Password is required ! Please try again")
+      return false;
+    }
+    if($(this).find("input[name='ConfirmPassword']").val()==""){
+      toastr.warning("Confirm Password is required ! Please try again")
+      return false;
+    }
+    
     const data = {
       Name: $(this).find("input[name='Name']").val(),
       Email: email,
@@ -151,9 +173,11 @@ if (window.location.href.indexOf('?') > 0) {
       Address: $(this).find("input[name='Address']").val(),
       Password: $(this).find("input[name='Password']").val(),
     };
+    debugger;
     
-    const result = AjaxCall("/Register/RegisterUser",data);
-    if(result == 'Success'){
+    const result =await AjaxCall("/Register/RegisterUser",data);
+    console.log(result);
+    if(result == "Success"){
   window.location.href = "/Home/Index?msg=registerSuccess";
  }
  else{

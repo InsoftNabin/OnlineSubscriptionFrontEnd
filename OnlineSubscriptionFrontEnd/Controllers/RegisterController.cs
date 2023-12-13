@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSubscriptionFrontEnd.Models;
 using OnlineSubscriptionFrontEnd.Classes;
-
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Renci.SshNet;
 
 namespace OnlineSubscriptionFrontEnd.Controllers
 {
@@ -35,8 +37,63 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UploadPhoto(IFormFile files)
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                string PictureName = await FileUpload(TokenNo, files, "Subscription");
+                return Ok(PictureName);
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                return Ok("Exception:" + Exception);
+            }
+        }
+
+        public static async Task<string> FileUpload(string TokenNo, IFormFile File, string FolderName)
+        {
+            try
+            {
+                string FtpInfo = await ApiCall.ApiCallWithString("User/FtpDetails", TokenNo, "POST");
+                string one = JsonConvert.DeserializeObject<string>(FtpInfo);
+
+                using (SftpClient client = new SftpClient(new PasswordConnectionInfo(one, "ftpadmin", "RajRana@Insoft")))
+                {
+                    client.Connect();
+
+                    client.ChangeDirectory("../../var/www/insoft/fileuploads/Subscription/");
+
+                    var memoryStream = new MemoryStream();
+                    await File.CopyToAsync(memoryStream);
 
 
+                    Random random1 = new Random();
+                    string InitialName = random1.Next().ToString();
+                    string WithMidelName = InitialName + "-1543-";
+                    string LastName = File.FileName;
+
+                    string FileNameForUpload = InitialName + WithMidelName + LastName;
+                    string SpaceRemovedFileNameForUpload = FileNameForUpload.Replace(" ", "-");
+
+
+                    using (var uplfileStream = File.OpenReadStream())
+                    {
+                        client.UploadFile(uplfileStream, SpaceRemovedFileNameForUpload);
+                    }
+                    return SpaceRemovedFileNameForUpload;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 
