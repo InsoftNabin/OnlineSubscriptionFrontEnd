@@ -455,9 +455,7 @@
               `;
              
       for (var i = 0; i < IncludeData.length; i++) {
-        var byteArray = new Uint8Array(IncludeData[i].ImageData); //.data
-        var imageData = btoa(String.fromCharCode.apply(null, byteArray));
-       
+      
               body +=`
               <!--begin::Content-->
               <div class="col-12">
@@ -466,7 +464,7 @@
                             
                   <div class ="row gap-8">
 														<div class="image-input-wrapper w-125px h-65px rounded pt-4 col-3">
-															<img src="${IncludeData[i].ImageData }" alt="image">
+															<img src="${IncludeData[i].ImageData }" alt="image" width="125" height="65">
 														</div>
 														
                             <div class="col-6 px-8">

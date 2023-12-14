@@ -50,7 +50,7 @@
           class="form-control border border-dark rounded"
           placeholder="Username"
           aria-label="Username"
-          name="Name"
+          name="Full Name"
           aria-describedby="basic-addon1"
         />
       </div>
@@ -138,34 +138,11 @@ if (window.location.href.indexOf('?') > 0) {
 
 
   $("#registerForm").submit(async function (e) {
-    console.log("hello")
+    e.preventDefault();
     if($(this).find("input[name='Password']").val()!=$(this).find("input[name='ConfirmPassword']").val()){
       toastr.warning("Password doesnot match ! Please try again")
-     
       return false;
     }
-    e.preventDefault();
-    if($(this).find("input[name='Name']").val()==""){
-      toastr.warning("Name is required ! Please try again")
-      return false;
-    }
-    if($(this).find("input[name='Contact']").val()==""){
-      toastr.warning("Contact is required ! Please try again")
-      return false;
-    }
-    if($(this).find("input[name='Address']").val()==""){
-      toastr.warning("Address is required ! Please try again")
-      return false;
-    }
-    if($(this).find("input[name='Password']").val()==""){
-      toastr.warning("Password is required ! Please try again")
-      return false;
-    }
-    if($(this).find("input[name='ConfirmPassword']").val()==""){
-      toastr.warning("Confirm Password is required ! Please try again")
-      return false;
-    }
-    
     const data = {
       Name: $(this).find("input[name='Name']").val(),
       Email: email,
