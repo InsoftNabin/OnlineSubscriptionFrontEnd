@@ -178,7 +178,7 @@ if (window.location.href.indexOf('?') > 0) {
     const result =await AjaxCall("/Register/RegisterUser",data);
     console.log(result);
     if(result == "Success"){
-  window.location.href = "/Home/Index?msg=registerSuccess";
+  window.location.href = "/Login/Index?msg=registerSuccess";
  }
  else{
  

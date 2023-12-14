@@ -49,6 +49,22 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return Ok("error");
             }
         }
+
+        [HttpPost]
+        public IActionResult LogOut()
+        {
+            var token = HttpContext.Session.GetString("TokenNo");
+            if (token != null)
+            {
+                HttpContext.Session.Remove("TokenNo");
+                return Ok("Success");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> VerifyAdmin([FromBody] Login login)
         {
