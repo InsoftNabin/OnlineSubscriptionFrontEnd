@@ -28,7 +28,17 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             try
             {
                 var result = await ApiCall.ApiCallWithObject("User/Register", rg, "POST");
-                return Ok("Success");
+                var success = JsonConvert.DeserializeObject<int>(result);
+                if (success == 1)
+                {
+                    return Ok("Success");
+                }
+                else
+                {
+                    return Ok("Error");
+                }
+
+
 
             }
             catch (Exception ex)
