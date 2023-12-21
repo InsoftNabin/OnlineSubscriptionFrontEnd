@@ -24,3 +24,17 @@ D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcorea
 D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CopyComplete
 D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
 D:\project insoft\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.dll
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.pdb
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.AssemblyReference.cache
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfoInputs.cache
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfo.cs
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CoreCompileInputs.cache
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.sourcelink.json
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CopyComplete
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
+F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb

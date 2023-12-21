@@ -393,24 +393,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ankit\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Sapana\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+      "projectUniqueName": "F:\\INSOFTDEV\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
       "projectName": "DataServiceLayer",
-      "projectPath": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
-      "packagesPath": "C:\\Users\\ankit\\.nuget\\packages\\",
-      "outputPath": "d:\\project insoft\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
+      "projectPath": "F:\\INSOFTDEV\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+      "packagesPath": "C:\\Users\\Sapana\\.nuget\\packages\\",
+      "outputPath": "F:\\INSOFTDEV\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\ankit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Sapana\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -424,8 +419,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
-              "projectPath": "D:\\project insoft\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
+            "F:\\INSOFTDEV\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+              "projectPath": "F:\\INSOFTDEV\\ONLINE SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
             }
           }
         }
@@ -465,8 +460,20 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json' 12.0.3 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

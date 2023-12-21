@@ -28,9 +28,9 @@ Layout = "_Layout"; }
 
   </div>
 </div>
-<div class="container w-500px p-0">
+<div class="container container-fluid col-lg-6 p-0">
   <div class="card-body p-0">
-    <div class="card-px text-center my-10">
+    <div class="card-px text-center my-10 ">
       <div class="py-10 text-center">
         <img
           src="~/assets/media/logos/LogoInsoft.png"
@@ -80,44 +80,11 @@ Layout = "_Layout"; }
        
     }else{
       code = generateOTP();
-      var codeBody = `
-      <!DOCTYPE html>
-<html lang="en">
+          var codeBody = `
+    
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 
-<body style="margin: 0; padding: 0; font-family: 'Arial', 'Helvetica', sans-serif;">
-
-  <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 36px 20px; width: 500px; margin: 0 auto;" class="card-body">
-    <div style="text-align: center;" class="card-px">
-      <div style="display: flex; justify-content: center;" class="py-10">
-        <img src="~/assets/media/logos/LogoInsoft.png" alt="" style="width: 150px;" class="theme-light-show" />
-      </div>
-      <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px;" class="fs-2x">Create New Account</h2>
-      <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;" class="text-gray-400 fs-4 fw-semibold">Thank you for choosing us. Please use the code below to start creating your account.</p>
-      <div style="font-size: 14px; font-weight: 500; margin: 0 60px 30px 60px;" class="font-size-14 font-weight-500">
-        <p style="color: #181C32; font-size: 28px; font-weight: 700; line-height: 1.4; margin-bottom: 24px;" id="Code">
-          `+code+`
-        </p>
-      </div>
-    </div>
-  </div>
-
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
-<body style="margin: 0; padding: 0; font-family: 'Arial', 'Helvetica', sans-serif;">
+<div style="margin: 0; padding: 0; font-family: 'Arial', 'Helvetica', sans-serif;">
 
   <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 36px 20px; width: 500px; margin: 0 auto;" class="card-body">
     <div style="text-align: center;" class="card-px">
@@ -128,17 +95,15 @@ Layout = "_Layout"; }
       <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;" class="text-gray-400 fs-4 fw-semibold">Thank you for choosing us. Please use the code below to start creating your account.</p>
       <div style="font-size: 14px; font-weight: 500; margin: 0 60px 30px 60px;" class="font-size-14 font-weight-500">
         <p style="color: #181C32; font-size: 28px; font-weight: 700; line-height: 1.4; margin-bottom: 24px;" id="Code">
-          `+code+`
+          ${code}
         </p>
       </div>
     </div>
   </div>
 
-</body>
 
-</html>
 
-      `
+      `;
       var email = $("#email").val();
       const data={
         ReceiverEmail:email,
