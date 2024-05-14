@@ -26,3 +26,13 @@ F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Deb
 F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json
 F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
 F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.deps.json
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.dll
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.pdb
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.GeneratedMSBuildEditorConfig.editorconfig
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfoInputs.cache
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfo.cs
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.csproj.CoreCompileInputs.cache
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
