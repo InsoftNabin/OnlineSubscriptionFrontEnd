@@ -32,10 +32,9 @@
   
                 <label for="newcompanyName" class=" required form-label mb-3">Company Name</label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control form-control-sm border border-dark rounded  "
                   id="newcompanyName"
-                  aria-describedby="emailHelp"
                 />
               </div>
               <div class="row-12">
@@ -53,8 +52,7 @@
                 <img
                
                 src="~/assets/media/logos/LogoInsoft.png"
-                class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
-              />
+                                             class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded " data-name="" />
                 </div>
               <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                 <i class="bi bi-pencil-fill fs-7"></i>
@@ -78,13 +76,13 @@
           <div class="row mb-3">
             <div class="col-lg-6 col-sm-12">
             <label for="displayName" class="required form-label mb-3">Display Name</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newdisplayName inputGroup-sizing-sm" />
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newdisplayName" />
           </div>
                         <div class="col-lg-6 col-sm-12 no-wrap col-12">
-            <label for="initial" class="required form-label mb-3">Initial</label>
+                            <label for="newinitial" class="required form-label mb-3">Initial</label>
                             <div class="flex-row input-group">
               <div class="col-lg-3 col-sm-2 shrink-1 col-4">
-                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="newinitial inputGroup-sizing-sm" />
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="newinitial" />
                   </div>
                   <div class="col-lg-4 col-sm-3 shrink-1 col-4">
                                     <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradeplus.com" />
@@ -92,7 +90,7 @@
               </div>
               <div class="col-lg-4 col-sm-4 shrink-1 col-4">
 
-                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="newmoduleSelect inputGroup-sizing-sm">
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="newmoduleSelect">
 
                   </select>
               </div>
@@ -103,11 +101,11 @@
 
           <div class="row mb-3">
                         <div class="col-lg-6 col-sm-12">
-            <label for="vat" class="required form-label mb-3">Vat/Pan</label>
+                            <label for="newvat" class="required form-label mb-3">Vat/Pan</label>
             <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newvat" />
           </div>
                         <div class="col-lg-6 col-sm-12">
-            <label for="address" class="required form-label mb-3">Address</label>
+                            <label for="newaddress" class="required form-label mb-3">Address</label>
             <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newaddress" />
           </div>
 
@@ -115,22 +113,22 @@
 
           <div class="row mb-3">
                         <div class="col-lg-6 col-sm-12">
-            <label for="phone" class="required form-label mb-3">Phone No.</label>
+                            <label for="newphone" class="required form-label mb-3">Phone No.</label>
             <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newphone" />
           </div>
                         <div class="col-lg-6 col-sm-12">
-            <label for="Email" class="required form-label mb-3">Email</label>
+                            <label for="newEmail" class="required form-label mb-3">Email</label>
             <input type="email" class="form-control form-control-sm border border-dark rounded  " id="newEmail" />
           </div>
 
           </div>
           <div class="row">
                         <div class="col-lg-6 col-sm-12">
-            <label for="motto" class="required form-label mb-3">Organization Motto</label>
+                            <label for="newmotto" class="required form-label mb-3">Organization Motto</label>
             <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newmotto" />
           </div>
                         <div class="col-lg-6 col-sm-12">
-            <label for="Website" class="form-label mb-3">Website</label>
+                            <label for="newWebsite" class="form-label mb-3">Website</label>
             <input type="text" class="form-control form-control-sm border border-dark rounded " id="newWebsite" />
           </div>
           </div>
@@ -158,15 +156,17 @@
                         </svg>
                       </span>
                       <span class="indicator-progress">Please wait...
-                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </span>
+                    </button>@* 
                     <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
                     <span class="svg-icon svg-icon-3 ms-1 me-0">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
                         <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-                      </svg>
-                    </span>
+                      </svg> *@
+                    @* </span> *@
                   </div>
                 </div>
         
@@ -205,10 +205,9 @@
 
               <label for="companyName" class=" required form-label mb-3">Company Name</label>
               <input
-                type="email"
+                type="text"
                 class="form-control form-control-sm border border-dark rounded  "
                 id="companyName"
-                aria-describedby="emailHelp"
               />
             </div>
             <div class="row-12">
@@ -219,7 +218,7 @@
             </div>
           </div>
           <div class="col-6">
-            <label for="companyLogo" class=" required form-label mb-3">Company Logo:</label>
+            <label for="companyLogo" class="form-label mb-3">Company Logo:</label>
           <div class="d-block">
             <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
               <div class="image-input-wrapper w-125px h-125px rounded">
@@ -227,8 +226,7 @@
                
                 src="~/assets/media/logos/LogoInsoft.png"
                 class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
-                
-              />
+                                             data-name="" />
                 </div>
               <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                 <i class="bi bi-pencil-fill fs-7"></i>
@@ -252,13 +250,13 @@
                     <div class="row mb-3">
                         <div class="col-lg-6 col-sm-12">
                             <label for="displayName" class="required form-label mb-3">Display Name</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded " id=" displayName inputGroup-sizing-sm" />
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="displayName" />
                         </div>
                         <div class="col-lg-6 col-sm-12 no-wrap col-12">
                             <label for="initial" class="required form-label mb-3">Initial</label>
                             <div class="flex-row input-group">
                                 <div class="col-lg-3 col-sm-2 shrink-1 col-4">
-                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id=" initial inputGroup-sizing-sm" />
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="initial" />
                                 </div>
                                 <div class="col-lg-4 col-sm-3 shrink-1 col-4">
                                     <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradeplus.com" />
@@ -266,7 +264,7 @@
                                 </div>
                                 <div class="col-lg-4 col-sm-4 shrink-1 col-4">
 
-                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id=" moduleSelect inputGroup-sizing-sm">
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id=" moduleSelect  ">
                                     </select>
                                 </div>
                             </div>
@@ -277,11 +275,11 @@
                     <div class="row mb-3">
                         <div class="col-lg-6 col-sm-12">
                             <label for="vat" class="required form-label mb-3">Vat/Pan</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id=" vat" />
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="vat" />
                         </div>
                         <div class="col-lg-6 col-sm-12">
                             <label for="address" class="required form-label mb-3">Address</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id=" address" />
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="address" />
                         </div>
 
                     </div>
@@ -289,22 +287,22 @@
                     <div class="row mb-3">
                         <div class="col-lg-6 col-sm-12">
                             <label for="phone" class="required form-label mb-3">Phone No.</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id=" phone" />
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="phone" />
                         </div>
                         <div class="col-lg-6 col-sm-12">
                             <label for="Email" class="required form-label mb-3">Email</label>
-                            <input type="email" class="form-control form-control-sm border border-dark rounded  " id=" Email" />
+                            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="Email" />
                         </div>
 
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
                             <label for="motto" class="required form-label mb-3">Organization Motto</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id=" motto" />
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="motto" />
                         </div>
                         <div class="col-lg-6 col-sm-12">
                             <label for="Website" class="form-label mb-3">Website</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded " id=" Website" />
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="Website" />
                         </div>
                     </div>
                     <div class="d-flex flex-stack pt-10">
@@ -322,7 +320,7 @@
                         </div>
 
                         <div>
-                            <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
+                            @* <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
                                 <span class="indicator-label">
                                     Update
                                     <span class="svg-icon svg-icon-3 ms-2 me-0">
@@ -335,8 +333,8 @@
                                         Please wait...
                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                     </span>
-                            </button>
-                            <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">
+                            </button> *@
+                            <button  class="btn btn-lg btn-primary" id="submitDetails" data-kt-stepper-action="next">
                                 Submit
                                 <span class="svg-icon svg-icon-3 ms-1 me-0">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -344,6 +342,7 @@
                                         <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
                                     </svg>
                                 </span>
+                                </button>
                         </div>
                     </div>
 
@@ -921,7 +920,7 @@ else {
 });
  //add the organization
   $(document).on("click", "#submitDetails", async () => {
-   if($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == ''  || $("#motto").val() == '' || $(".logoValue").attr("data-name") == '' || $(".moduleSelect").val() == ''){
+   if($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == ''  || $("#motto").val() == '' ||  $(".moduleSelect").val() == ''){
       toastr.error("Please fill all the fields");
       return false;
    }
@@ -955,6 +954,7 @@ else {
       OrganizationMotto: motto,
       Token: "",
     };
+    debugger
     var result = await AjaxCall("/Home/UploadOrganizationData", data);
     if (parseInt(result) == 1) { //sucess
       $("#staticBackdrop").modal("hide");
@@ -967,7 +967,7 @@ else {
   });
   //update the organization
   $(document).on("click", "#updateDetails", async () => {
-    if($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == ''  || $("#newmotto").val() == '' || $(".logoValue").attr("data-name") == '' || $(".moduleSelect").val() == ''){
+    if($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == ''  || $("#newmotto").val() == '' ||  $(".moduleSelect").val() == ''){
       toastr.error("Please fill all the fields");
       return false;
     }

@@ -38,3 +38,17 @@ F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj
 F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CopyComplete
 F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
 F:\INSOFTDEV\ONLINE SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.dll
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.pdb
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.AssemblyReference.cache
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfoInputs.cache
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfo.cs
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CoreCompileInputs.cache
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.sourcelink.json
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CopyComplete
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
