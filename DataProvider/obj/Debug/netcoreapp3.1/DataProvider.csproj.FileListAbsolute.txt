@@ -36,3 +36,13 @@ D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcore
 D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json
 D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
 D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
+F:\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.deps.json
+F:\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.dll
+F:\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.pdb
+F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.GeneratedMSBuildEditorConfig.editorconfig
+F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfoInputs.cache
+F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfo.cs
+F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.csproj.CoreCompileInputs.cache
+F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
+F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
+F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json

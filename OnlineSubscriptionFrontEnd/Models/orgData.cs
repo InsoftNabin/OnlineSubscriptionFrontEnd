@@ -6,6 +6,7 @@ namespace OnlineSubscriptionFrontEnd.Models
         public string TokenNo { get; set; }
         public string CompanyName { get; set; }
         public string DisplayName { get; set; }
+        
         public string Initial { get; set; }
         public string PanVatNo { get; set; }
         public string Address { get; set; }

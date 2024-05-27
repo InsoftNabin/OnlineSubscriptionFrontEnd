@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {}
+    "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {}
   },
   "projects": {
-    "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+    "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "projectUniqueName": "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
         "projectName": "DataProvider",
-        "projectPath": "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
-        "packagesPath": "C:\\Users\\INSOFT\\.nuget\\packages\\",
-        "outputPath": "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
+        "projectPath": "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\INSOFT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +27,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -60,24 +65,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {
+    "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+        "projectUniqueName": "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
         "projectName": "DataServiceLayer",
-        "projectPath": "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
-        "packagesPath": "C:\\Users\\INSOFT\\.nuget\\packages\\",
-        "outputPath": "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
+        "projectPath": "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\INSOFT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -86,15 +92,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
-                "projectPath": "D:\\ONLINE_SUBSCRIPTION\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
+              "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+                "projectPath": "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
               }
             }
           }
@@ -103,6 +108,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -134,7 +144,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
         }
       }
     }

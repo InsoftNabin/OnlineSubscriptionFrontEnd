@@ -1,140 +1,131 @@
-@{ ViewData["Title"] = "Index";
-Layout = "_Layout"; }
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
 
-<div  class=" py-3 py-lg-6">
-  <div
-   
-    class=" container-xxl d-flex flex-stack"
-  >
-    <div
-      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
-    >
-      <h1
-        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
-      >
-        <img
-          src="~/assets/media/logos/LogoInsoft.png"
-          class="theme-light-show w-100px"
-          alt=""
-        />
-      </h1>
-    </div>
-    <div class="d-flex">
-      <h3 class="fs-xl fw-bold mb-4 lead">
-        Already have an account?
-        <a href="@Url.Action("Index", "Login")"> Sign In </a>
-      </h3>
-    </div>
-
-  </div>
-</div>
-<div class="container container-fluid col-lg-6 p-0">
-  <div class="card-body p-0">
-    <div class="card-px text-center my-10 ">
-      <div class="py-10 text-center">
-        <img
-          src="~/assets/media/logos/LogoInsoft.png"
-          class="theme-light-show w-150px"
-          alt=""
-        />
-      </div>
-      <h2 class="fs-2x fw-bold mb-10">Create New Account</h2>
-      <p class="text-gray-800 fs-4 fw-semibold mb-10">
-        A registration code will be sent to this email for verification
-        purposes.
-      </p>
-
-            <form id="loginForm" >
-      
-        <div class="fv-row mb-8 fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid border border-dark rounded">
-          <!--begin::Email-->
-          <input type="email" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" id="email">
-          <!--end::Email-->
+<div class=" py-3 py-lg-6">
+    <div class=" container-xxl d-flex flex-stack">
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <img src="~/assets/media/logos/LogoInsoft.png"
+                     class="theme-light-show w-100px"
+                     alt="" />
+            </h1>
+        </div>
+        <div class="d-flex">
+            <h3 class="fs-xl fw-bold mb-4 lead">
+                Already have an account?
+                <a href="@Url.Action("Index", "Login")"> Sign In </a>
+            </h3>
         </div>
 
-        <button  type="submit" id="SendCodeButton" class="btn btn-primary form-control">
-          Send
-        </button>
-      </form>
-
     </div>
-  </div>
+</div>
+<div class="container container-fluid col-lg-6 p-0">
+    <div class="card-body p-0">
+        <div class="card-px text-center my-10 ">
+            <div class="py-10 text-center">
+                <img src="~/assets/media/logos/LogoInsoft.png"
+                     class="theme-light-show w-150px"
+                     alt="" />
+            </div>
+            <h2 class="fs-2x fw-bold mb-10">Create New Account</h2>
+            <p class="text-gray-800 fs-4 fw-semibold mb-10">
+                A registration code will be sent to this email for verification
+                purposes.
+            </p>
+
+            <form id="loginForm">
+
+                <div class="fv-row mb-8 fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid border border-dark rounded">
+                    <!--begin::Email-->
+                    <input type="email" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" id="email">
+                    <!--end::Email-->
+                </div>
+
+                <button type="submit" id="SendCodeButton" class="btn btn-primary form-control">
+                    Send
+                </button>
+            </form>
+
+        </div>
+    </div>
 </div>
 
 
 <script type="text/javascript">
-  
-  const generateOTP = (length = 6) => {
-    let otp = ''
 
-    for (let i = 0; i < length; i++) {
-        otp += Math.floor(Math.random() * 9 + 1)
-    }
+    const generateOTP = (length = 6) => {
+        let otp = ''
 
-    return otp
-}
-    $("#SendCodeButton").click(async function (e) {
-      e.preventDefault();
-      if($("#email").val() === ""){
-       toastr.warning("Invalid Email.")
-       
-    }else{
-      code = generateOTP();
-          var codeBody = `
-    
-
-
-<div style="margin: 0; padding: 0; font-family: 'Arial', 'Helvetica', sans-serif;">
-
-  <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 36px 20px; width: 500px; margin: 0 auto;" class="card-body">
-    <div style="text-align: center;" class="card-px">
-      <div style="display: flex; justify-content: center;" class="py-10">
-        <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="width: 150px;" class="theme-light-show" />
-      </div>
-      <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px;" class="fs-2x">Create New Account</h2>
-      <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;" class="text-gray-400 fs-4 fw-semibold">Thank you for choosing us. Please use the code below to start creating your account.</p>
-      <div style="font-size: 14px; font-weight: 500; margin: 0 60px 30px 60px;" class="font-size-14 font-weight-500">
-        <p style="color: #181C32; font-size: 28px; font-weight: 700; line-height: 1.4; margin-bottom: 24px;" id="Code">
-          ${code}
-        </p>
-      </div>
-    </div>
-  </div>
-
-
-
-      `;
-      var email = $("#email").val();
-      const data={
-        ReceiverEmail:email,
-        Subject:"No Reply",
-        EmailBody:codeBody,
-        Gcode:code
-      }
-      // try {
-
-        const returnData = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data)
-        const result = JSON.parse(JSON.parse(returnData));
-        console.log(result.Status);
-        if(result.Status ==="Success"){
-          const data={
-            ReceiverEmail:email,
-            Code:code
-          }
-          window.location.href = "/VerifyEmail/Index?email="+email;
+        for (let i = 0; i < length; i++) {
+            otp += Math.floor(Math.random() * 9 + 1)
         }
-        else if(result.Status ==="AlreadyExists"){
-          console.log(result);
-          toastr.error("User Already exists ! Please login.")
-          
-  }else{
-    console.log(result.Status);
-    toastr.warning("Invalid Email ! Please try again.")
- 
-  }
-}
-      
+
+        return otp
+    }
+    $("#SendCodeButton").click(async function (e) {
+        e.preventDefault();
+        if ($("#email").val() === "") {
+            toastr.warning("Invalid Email.")
+
+        } else {
+            code = generateOTP();
+            var codeBody = `
+
+
+
+    <div style="margin: 0; padding: 0; font-family: 'Arial', 'Helvetica', sans-serif;">
+
+      <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 36px 20px; width: 500px; margin: 0 auto;" class="card-body">
+        <div style="text-align: center;" class="card-px">
+          <div style="display: flex; justify-content: center;" class="py-10">
+            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="width: 150px;" class="theme-light-show" />
+          </div>
+          <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px;" class="fs-2x">Create New Account</h2>
+          <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;" class="text-gray-400 fs-4 fw-semibold">Thank you for choosing us. Please use the code below to start creating your account.</p>
+          <div style="font-size: 14px; font-weight: 500; margin: 0 60px 30px 60px;" class="font-size-14 font-weight-500">
+            <p style="color: #181C32; font-size: 28px; font-weight: 700; line-height: 1.4; margin-bottom: 24px;" id="Code">
+              ${code}
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+
+          `;
+            var email = $("#email").val();
+            const data = {
+                ReceiverEmail: email,
+                Subject: "No Reply",
+                EmailBody: codeBody,
+                Gcode: code
+            }
+            // try {
+
+            const returnData = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data)
+            const result = JSON.parse(JSON.parse(returnData));
+            console.log(result.Status);
+            if (result.Status === "Success") {
+                const data = {
+                    ReceiverEmail: email,
+                    Code: code
+                }
+                window.location.href = "/VerifyEmail/Index?email=" + email;
+            }
+            else if (result.Status === "AlreadyExists") {
+                console.log(result);
+                toastr.error("User Already exists ! Please login.")
+
+            } else {
+                console.log(result.Status);
+                toastr.warning("Invalid Email ! Please try again.")
+
+            }
+        }
+
     });
- 
+
 
 </script>

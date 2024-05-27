@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OnlineSubscriptionFrontEnd</title>
-    <!-- <link
+     <link
       rel="stylesheet"
       href="~/lib/bootstrap/dist/css/bootstrap.min.css"
       asp-append-version="true"
-    /> -->
+    /> 
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"
@@ -27,7 +27,7 @@
     <link
       href="~/assets/plugins/global/plugins.bundle.css"
       rel="stylesheet"
-      type="text/css"
+  
     />
     <script src="~/assets/js/scripts.bundle.js"></script>
     <script src="~/assets/js/custom/apps/chat/chat.js"></script>
@@ -54,10 +54,10 @@
       <main role="main" class="pb-3" id="Main">@RenderBody()</main>
     </div>
 
-    <!-- <script
+     <script
       src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
       asp-append-version="true"
-    ></script> -->
+    ></script> 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/custom.js" asp-append-version="true"></script>
 
@@ -70,7 +70,9 @@
       src="~/assets/js/scripts.bundle.js"
       asp-append-version="true"
     ></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
+   
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js">
+    </script>@RenderSection("scripts", required: false)
   </body>
 </html>

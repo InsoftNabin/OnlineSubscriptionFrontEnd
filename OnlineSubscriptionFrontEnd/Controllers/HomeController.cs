@@ -49,6 +49,25 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> CheckInitialName([FromBody] orgData org)
+        {
+            var tokenval = HttpContext.Session.GetString("TokenNo");
+            if (tokenval != null)
+            {
+               
+                org.TokenNo= tokenval;
+                
+                string sendJson = await ApiCall.ApiCallWithObject("User/CheckInitialName", org, "Post");
+                return Json(sendJson);
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> GetModuleValues()
         {
             var tokenval = HttpContext.Session.GetString("TokenNo");
@@ -89,6 +108,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+        
 
 
         [HttpPost]

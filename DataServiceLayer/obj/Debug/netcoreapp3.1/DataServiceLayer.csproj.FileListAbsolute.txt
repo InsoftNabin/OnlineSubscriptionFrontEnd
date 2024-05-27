@@ -52,3 +52,17 @@ D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\net
 D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CopyComplete
 D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
 D:\ONLINE_SUBSCRIPTION\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.dll
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.pdb
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.AssemblyReference.cache
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfoInputs.cache
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfo.cs
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CoreCompileInputs.cache
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.sourcelink.json
+F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServ.9D159802.Up2Date

@@ -1,270 +1,98 @@
-@{ ViewData["Title"] = "Index"; }
+@{
+    ViewData["Title"] = "Index";
+}
 
 
 
-<div
-  class="modal fade"
-  id="updateOrganization"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="kt_modal_update_Organization"
-  aria-hidden="true"
->
-  <div class="modal-dialog  modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
-          Edit Your Organization details
-        </h2>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="row mb-3">
-            <div class="col-6">
-              <div class="row-12 mb-3">
-  
-                <label for="newcompanyName" class=" required form-label mb-3">Company Name</label>
-                <input
-                  type="text"
-                  class="form-control form-control-sm border border-dark rounded  "
-                  id="newcompanyName"
-                />
-              </div>
-              <div class="row-12">
-                
-                  <label for="contact" class="required form-label mb-3">Contact No.</label>
-                  <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newContactNumber" />
-                  
-              </div>
+<div class="modal fade"
+     id="updateOrganization"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="kt_modal_update_Organization"
+     aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+                    Edit Your Organization details
+                </h2>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
-          <div class="col-6">
-            <label for="newcompanyLogo" class=" required form-label mb-3">Company Logo:</label>
-          <div class="d-block">
-            <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
-              <div class="image-input-wrapper w-125px h-125px rounded">
-                <img
-               
-                src="~/assets/media/logos/LogoInsoft.png"
-                                             class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded " data-name="" />
-                </div>
-              <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
-                <i class="bi bi-pencil-fill fs-7"></i>
-                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
-                <input type="hidden" name="avatar_remove">
-              </label>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="row-12 mb-3">
 
-              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
-                <i class="bi bi-x fs-2"></i>
-              </span>
+                                <label for="newcompanyName" class=" required form-label mb-3">Company Name</label>
+                                <input type="text"
+                                       class="form-control form-control-sm border border-dark rounded  "
+                                       id="newcompanyName" />
+                            </div>
+                            <div class="row-12">
 
-              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
-                <i class="bi bi-x fs-2"></i>
-              </span>
+                                <label for="contact" class="required form-label mb-3">Contact No.</label>
+                                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newContactNumber" />
 
-            </div>
-            </div>
-          </div>
-          </div>
-       
-          <div class="row mb-3">
-            <div class="col-lg-6 col-sm-12">
-            <label for="displayName" class="required form-label mb-3">Display Name</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="newcompanyLogo" class=" required form-label mb-3">Company Logo:</label>
+                            <div class="d-block">
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+                                    <div class="image-input-wrapper w-125px h-125px rounded">
+                                        <img src="~/assets/media/logos/logo.png"
+                                             id="logoValue" class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded " data-name="" />
+                                    </div>
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
+                                        <input type="hidden" name="avatar_remove">
+                                    </label>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded NewCountrySelect" id="NewCountrySelect">
+                            </select>
+                        </div>
+
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Display Name</label>
                             <input type="text" class="form-control form-control-sm border border-dark rounded " id="newdisplayName" />
-          </div>
+                        </div>
                         <div class="col-lg-6 col-sm-12 no-wrap col-12">
                             <label for="newinitial" class="required form-label mb-3">Initial</label>
                             <div class="flex-row input-group">
-              <div class="col-lg-3 col-sm-2 shrink-1 col-4">
-                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="newinitial" />
-                  </div>
-                  <div class="col-lg-4 col-sm-3 shrink-1 col-4">
-                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradeplus.com" />
-                 
-              </div>
-              <div class="col-lg-4 col-sm-4 shrink-1 col-4">
-
-                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="newmoduleSelect">
-
-                  </select>
-              </div>
-            </div>
-
-          </div>
-          </div>
-
-          <div class="row mb-3">
-                        <div class="col-lg-6 col-sm-12">
-                            <label for="newvat" class="required form-label mb-3">Vat/Pan</label>
-            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newvat" />
-          </div>
-                        <div class="col-lg-6 col-sm-12">
-                            <label for="newaddress" class="required form-label mb-3">Address</label>
-            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newaddress" />
-          </div>
-
-          </div>
-
-          <div class="row mb-3">
-                        <div class="col-lg-6 col-sm-12">
-                            <label for="newphone" class="required form-label mb-3">Phone No.</label>
-            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newphone" />
-          </div>
-                        <div class="col-lg-6 col-sm-12">
-                            <label for="newEmail" class="required form-label mb-3">Email</label>
-            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="newEmail" />
-          </div>
-
-          </div>
-          <div class="row">
-                        <div class="col-lg-6 col-sm-12">
-                            <label for="newmotto" class="required form-label mb-3">Organization Motto</label>
-            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newmotto" />
-          </div>
-                        <div class="col-lg-6 col-sm-12">
-                            <label for="newWebsite" class="form-label mb-3">Website</label>
-            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newWebsite" />
-          </div>
-          </div>
-          <div class="d-flex flex-stack pt-10">
-                  <div class="me-2">
-                    <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
-          aria-label="Close">
-                    <span class="svg-icon svg-icon-3 me-1">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
-                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
-                      </svg>
-                    </span>
-                    Back
-                    </button>
-                  </div>
-
-                  <div>
-                    <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
-                      <span class="indicator-label">Update
-                      <span class="svg-icon svg-icon-3 ms-2 me-0">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-                          <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-                        </svg>
-                      </span>
-                      <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                    </span>
-                                </span>
-                    </button>@* 
-                    <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
-                    <span class="svg-icon svg-icon-3 ms-1 me-0">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-                      </svg> *@
-                    @* </span> *@
-                  </div>
-                </div>
-        
-            </form>
-      </div>
-    </div>
-  </div>
-</div>
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog  modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
-          Add Your Organization details
-        </h2>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="row mb-3">
-          <div class="col-6">
-            <div class="row-12 mb-3">
-
-              <label for="companyName" class=" required form-label mb-3">Company Name</label>
-              <input
-                type="text"
-                class="form-control form-control-sm border border-dark rounded  "
-                id="companyName"
-              />
-            </div>
-            <div class="row-12">
-              
-                <label for="contact" class="required form-label mb-3">Contact No.</label>
-                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
-                
-            </div>
-          </div>
-          <div class="col-6">
-            <label for="companyLogo" class="form-label mb-3">Company Logo:</label>
-          <div class="d-block">
-            <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
-              <div class="image-input-wrapper w-125px h-125px rounded">
-                <img
-               
-                src="~/assets/media/logos/LogoInsoft.png"
-                class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
-                                             data-name="" />
-                </div>
-              <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
-                <i class="bi bi-pencil-fill fs-7"></i>
-                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
-                <input type="hidden" name="avatar_remove">
-              </label>
-
-              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
-                <i class="bi bi-x fs-2"></i>
-              </span>
-
-              <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
-                <i class="bi bi-x fs-2"></i>
-              </span>
-
-            </div>
-            </div>
-          </div>
-          </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-6 col-sm-12">
-                            <label for="displayName" class="required form-label mb-3">Display Name</label>
-                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="displayName" />
-                        </div>
-                        <div class="col-lg-6 col-sm-12 no-wrap col-12">
-                            <label for="initial" class="required form-label mb-3">Initial</label>
-                            <div class="flex-row input-group">
                                 <div class="col-lg-3 col-sm-2 shrink-1 col-4">
-                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="initial" />
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="newinitial" />
                                 </div>
                                 <div class="col-lg-4 col-sm-3 shrink-1 col-4">
-                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradeplus.com" />
+                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradepos.com" />
 
                                 </div>
                                 <div class="col-lg-4 col-sm-4 shrink-1 col-4">
 
-                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id=" moduleSelect  ">
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="newmoduleSelect">
                                     </select>
                                 </div>
                             </div>
@@ -274,7 +102,182 @@
 
                     <div class="row mb-3">
                         <div class="col-lg-6 col-sm-12">
-                            <label for="vat" class="required form-label mb-3">Vat/Pan</label>
+                            <label for="newvat" class="required form-label mb-3">TPIN/PAN</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newvat" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newaddress" class="required form-label mb-3">Address</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newaddress" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newphone" class="required form-label mb-3">Phone No.</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newphone" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newEmail" class="required form-label mb-3">Email</label>
+                            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="newEmail" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12" style="display:none;">
+                            <label for="newmotto" class="required form-label mb-3">Organization Motto</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newmotto" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newWebsite" class="form-label mb-3">Website</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newWebsite" />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-stack pt-10">
+                        <div class="me-2">
+                            <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <span class="svg-icon svg-icon-3 me-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+                                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                                Back
+                            </button>
+                        </div>
+
+                        <div>
+                            <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
+                                <span class="indicator-label">
+                                    Update
+                                    <span class="svg-icon svg-icon-3 ms-2 me-0">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="indicator-progress">
+                                        Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </span>
+                            </button>@*
+                            <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
+                            <span class="svg-icon svg-icon-3 ms-1 me-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                            </svg> *@
+                            @* </span> *@
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade"
+     id="staticBackdrop"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+                    Add Your Organization details
+                </h2>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="row-12 mb-3">
+
+                                <label for="companyName" class=" required form-label mb-3">Company Name</label>
+                                <input type="text"
+                                       class="form-control form-control-sm border border-dark rounded  "
+                                       id="companyName" />
+                            </div>
+                            <div class="row-12">
+
+                                <label for="contact" class="required form-label mb-3">Contact No.</label>
+                                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="companyLogo" class="form-label mb-3">Company Logo:</label>
+                            <div class="d-block">
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+                                    <div class="image-input-wrapper w-125px h-125px rounded">
+                                        <img src="~/assets/media/logos/logo.png"
+                                             class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
+                                             data-name="" />
+                                    </div>
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
+                                        <input type="hidden" name="avatar_remove">
+                                    </label>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded CountrySelect" id="CountrySelect">
+                                <option value="">----Select Country---</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Display Name</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="displayName" />
+                        </div>
+                        <div class="col-lg-12 col-sm-12 no-wrap col-12">
+                            <label for="initial" class="required form-label mb-3">Initial</label>
+                            <div class="flex-row input-group">
+                                <div class="col-lg-2 col-sm-3 shrink-1 col-4" style="margin-left:2px;">
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="initial" />
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
+                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradepos.com" />
+
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
+
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="moduleSelect  ">
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="vat" class="required form-label mb-3">TPIN/PAN</label>
                             <input type="text" class="form-control form-control-sm border border-dark rounded  " id="vat" />
                         </div>
                         <div class="col-lg-6 col-sm-12">
@@ -296,7 +299,7 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12" style="display:none;">
                             <label for="motto" class="required form-label mb-3">Organization Motto</label>
                             <input type="text" class="form-control form-control-sm border border-dark rounded  " id="motto" />
                         </div>
@@ -321,20 +324,20 @@
 
                         <div>
                             @* <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
-                                <span class="indicator-label">
-                                    Update
-                                    <span class="svg-icon svg-icon-3 ms-2 me-0">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-                                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="indicator-progress">
-                                        Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                    </span>
+                            <span class="indicator-label">
+                            Update
+                            <span class="svg-icon svg-icon-3 ms-2 me-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                            </svg>
+                            </span>
+                            <span class="indicator-progress">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
                             </button> *@
-                            <button  class="btn btn-lg btn-primary" id="submitDetails" data-kt-stepper-action="next">
+                            <button class="btn btn-lg btn-primary" id="submitDetails" data-kt-stepper-action="next">
                                 Submit
                                 <span class="svg-icon svg-icon-3 ms-1 me-0">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -342,406 +345,430 @@
                                         <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
                                     </svg>
                                 </span>
-                                </button>
+                            </button>
                         </div>
                     </div>
 
                 </form>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="py-3 py-lg-6">
-  <div class="container-xxl d-flex flex-stack">
-    <div
-      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
-    >
-      <h1
-        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
-      >
-        <img
-          src="~/assets/media/logos/LogoInsoft.png"
-          class="theme-light-show w-100px"
-          alt=""
-        />
-      </h1>
-    </div>
-    <div class="d-flex">
-      <h3 class="fs-xl fw-bold mb-4 lead">
-        <button
-          type="button"
-          class="btn btn-primary addOrganization"
-          
-        >
-          <span class="svg-icon svg-icon-2">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                opacity="0.5"
-                x="11.364"
-                y="20.364"
-                width="16"
-                height="2"
-                rx="1"
-                transform="rotate(-90 11.364 20.364)"
-                fill="currentColor"
-              ></rect>
-              <rect
-                x="4.36396"
-                y="11.364"
-                width="16"
-                height="2"
-                rx="1"
-                fill="currentColor"
-              ></rect>
-            </svg>
-          </span>
-          Add New Organization
-        </button>
-      </h3>
-      <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
-        <!--begin::Menu wrapper-->
-        <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
-          <i class="fa-solid fa-gear fs-1 mt-3 mx-8"></i>
+    <div class="container-xxl d-flex flex-stack">
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <img src="~/assets/media/logos/LogoInsoft.png"
+                     class="theme-light-show w-100px"
+                     alt="" />
+            </h1>
         </div>
-        <!--begin::User account menu-->
-        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
-          <!--begin::Menu item-->
-          <div class="menu-item ">
-            
-              
-               <!--begin::Menu item-->
-          <div class="menu-item ">
-            <a class="menu-link px-5 signoutBtn">Sign Out</a>
-          </div>
-          <!--end::Menu item-->
-            </div>
-          
-         
-         
-        </div>
-        <!--end::User account menu-->
-        <!--end::Menu wrapper-->
-      </div>
-    </div>
-    
-  </div>
-</div>
-<script type="text/javascript">
- var body = ``;
-    async function GetOrganizations() {
-    const result = await AjaxCall("/Home/GetOrganizations");
-    let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
-    
+        <div class="d-flex">
+            <h3 class="fs-xl fw-bold mb-4 lead">
+                <button type="button"
+                        class="btn btn-primary addOrganization">
+                    <span class="svg-icon svg-icon-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5"
+                                  x="11.364"
+                                  y="20.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  transform="rotate(-90 11.364 20.364)"
+                                  fill="currentColor"></rect>
+                            <rect x="4.36396"
+                                  y="11.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  fill="currentColor"></rect>
+                        </svg>
+                    </span>
+                    Add New Organization
+                </button>
+            </h3>
+            <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
+                <!--begin::Menu wrapper-->
+                <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8"></i>
+                </div>
+                <!--begin::User account menu-->
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
+                    <!--begin::Menu item-->
+                    <div class="menu-item ">
 
-    // while (1) {
-    //   try {
-    //     if (typeof IncludeData == "object") {
-    //       break;
-    //     } else {
-    //       IncludeData = JSON.parse(result);
-    //     }
-    //   } catch (error) {
-    //     break;
-    //   }
-    // }
-    if (IncludeData.length > 0) {
-      body += `
 
-        <div id="kt_app_content" class="app-content flex-column-fluid ">
-          <div id="kt_app_content_container" class="app-container container-xxl ">
-            <div class="d-flex flex-column flex-xl-row gap-4 ">
-              <div class="row flex-wrap col-lg-9 col-sm-12">
-              `;
-             
-      for (var i = 0; i < IncludeData.length; i++) {
-      
-              body +=`
-              <!--begin::Content-->
-              <div class="col-12">
-              <div class="card my-4 col-12 shadow">
-                <div class="d-flex p-8 flex-column">
-                            
-                  <div class ="row gap-8">
-														<div class="image-input-wrapper w-125px h-65px rounded pt-4 col-3">
-															<img src="${IncludeData[i].ImageData }" alt="image" width="125" height="65">
-														</div>
-														
-                            <div class="col-6 px-8">
-														<a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1 col-7">${IncludeData[i].CompanyName}</a>
-														
-														<div class="d-flex flex-stack fs-4 my-4">
-
-															<div class="fw-bold">${IncludeData[i].Address}</div>
-                            </div>
-
-                          </div>
-                              `;
-                              if(IncludeData[i].IsVerified == 1){
-                                    body += `
-                                    <div class="card-toolbar col-2">
-														<span class="badge badge-light-success fw-bold me-auto px-4 py-3 fs-3">Verified</span>
-													</div>
-                          
-                          `
-                          ;
-                                  }else{
-                                    body +=`
-                                    <div class="card-toolbar col-2">
-														<span class="badge badge-light-danger fw-bold me-auto px-4 py-3 fs-3">UnVerified</span>
-													</div> `;
-                                  }
-                                  body +=`
-
-                              </div>
-															
-														
-                          </div>
-                          
-                          `;
-                              if(IncludeData[i].IsVerified == 1){
-                               
-                                    body += `
-                                    <div class="px-8">
-                                    <span class=" fw-bold fs-5">Your Sitelink:
-								<a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>.
-                </span>
-                <div class="d-flex mt-4">
-                  <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
-<input readonly id="foo" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
-
-<button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo">
-    Copy
-</button>
-                  </div>
-                  <div class="d-flex mt-2">
-                    <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
-<input readonly id="foo2" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
-<button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2">
-    Copy
-</button>
-                  </div>
-                <div >
-                  <label class=" fw-bold fs-5 d-block">Remarks:</label>
-
-                  ${IncludeData[i].Remarks}
-                 
-                  </div>
-                          </div>
-                          
-                          `
-                          
-                          ;
-                                  }
-                                  body +=
-                                  `
-                          <div class="d-flex flex-stack fs-4 py-3 card-body">
-														<div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
-														<span class="ms-2 rotate-180">
-															<span class="svg-icon svg-icon-3">
-																<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
-																</svg>
-															</span>
-														</span></div>
-                            `;
-                            if (IncludeData[i].IsVerified == 0){
-                            body+=`
-                            <span>
-														<span>
-                              <button
-          
-          type="button"
-            class="btn btn-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#updateOrganization"
-          data-token="${IncludeData[i].Token}"
-          id="editBtn"
-        >Edit</button>
-                              </span>
-														<span>
-                              <button
-          type="button"
-          class="btn btn-sm btn-danger"
-          
-          data-token="${IncludeData[i].Token}"
-          id="deleteBtn"
-        >Delete</button>
-                              </span>
-                            </span>
-                            `
-                          };
-                          body+=`
-                          </div>
-                          <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
-														<hr class="bg-dark border-2 border-top border-dark" />
-                            <div class="py-5 fs-6">
-															<div class="badge badge-light-info d-inline">Premium user</div>
-                              <div class="d-flex flex-row gap-4 mt-5"> 
-															<div class="fw-bold  col-4">Display Name</div>
-															<div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
-															</div>
-                              <div class="d-flex flex-row gap-4 mt-5">
-															<div class="fw-bold col-4">Email</div>
-															<div class="text-gray-700 col-8">
-																<a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
-															</div>
-                              </div>
-															 
-                              <div class="d-flex flex-row gap-4 mt-5">
-															<div class="fw-bold col-4">PAN/VAT</div>
-															<div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
-															</div>
-                              <div class="d-flex flex-row gap-4 mt-5">
-															<div class="fw-bold col-4">Phone No.</div>
-															<div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
-															</div>
-                              <div class="d-flex flex-row gap-4 mt-5">
-															<div class="fw-bold col-4">Contact No.</div>
-															<div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
-															</div>
-                              <div class="d-flex flex-row gap-4 mt-5">
-															<div class="fw-bold col-4">Website</div>
-															<div class="text-gray-700 dol-8"><a href="${IncludeData[i].Website }"> ${IncludeData[i].Website}</a></div>
-															</div>
-														</div>
-													</div>
-                          
-                          </div>
-                          </div>
-                          `;
-                        }
-                        body +=  `
+                        <!--begin::Menu item-->
+                        <div class="menu-item ">
+                            <a class="menu-link px-5 signoutBtn">Sign Out</a>
                         </div>
-              <!--begin::Sidebar-->
-              <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
-                <div class="card card-flush bg-body mb-9">
-                    <h2 class="card-title fs-2 fw-bold text-dark py-4 px-8">Your Info</h2>
-                  
-                  <div class="card-body pt-2 px-4">
-                    <div class="mb-5">
-                      <div class="d-flex row mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
-                        <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
-                      </div>
-                      <div class="d-flex row mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
-                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
-                      </div>
-                      <div class="d-flex row mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
-                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
-                      </div>
-                      <div class="d-flex row mb-5">
-                        <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
-                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                        <!--end::Menu item-->
+                    </div>
+
+
+
+                </div>
+                <!--end::User account menu-->
+                <!--end::Menu wrapper-->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+   
+
+    async function LoadCountries() {
+        var apiUrl = 'https://api.countrystatecity.in/v1/countries';
+        var apiKey = 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==';
+        var response = await fetch(apiUrl, {
+            headers: { "X-CSCAPI-KEY": apiKey }
+        });
+        var countries = await response.json();
+        var countrySelect = $('.CountrySelect');
+
+        // Populate the dropdown with countries
+        countries.forEach(country => {
+            countrySelect.append(`<option value="${country.iso2}">${country.name}</option>`);
+        });
+
+        // Initialize Select2 with search input
+        countrySelect.select2({
+            placeholder: "----Select Country---",
+            allowClear: true,
+            width: '100%',
+            tags: true 
+            
+        });
+    }
+
+    LoadCountries();
+
+    
+    var body = ``;
+    async function GetOrganizations() {
+        const result = await AjaxCall("/Home/GetOrganizations");
+        let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
+
+
+        // while (1) {
+        //   try {
+        //     if (typeof IncludeData == "object") {
+        //       break;
+        //     } else {
+        //       IncludeData = JSON.parse(result);
+        //     }
+        //   } catch (error) {
+        //     break;
+        //   }
+        // }
+
+        if (IncludeData.length > 0) {
+            body += `
+
+                <div id="kt_app_content" class="app-content flex-column-fluid ">
+                  <div id="kt_app_content_container" class="app-container container-xxl ">
+                    <div class="d-flex flex-column flex-xl-row gap-4 ">
+                      <div class="row flex-wrap col-lg-9 col-sm-12">
+                      `;
+
+            for (var i = 0; i < IncludeData.length; i++) {
+
+                body += `
+                      <!--begin::Content-->
+                      <div class="col-12">
+                      <div class="card my-4 col-12 shadow">
+                        <div class="d-flex p-8 flex-column">
+
+                          <div class ="row gap-8">
+                                                                <div class="image-input-wrapper w-125px h-65px rounded pt-4 col-3">
+                                                                    <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65">
+                                                                </div>
+
+                                    <div class="col-6 px-8">
+                                                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1 col-7">${IncludeData[i].CompanyName}</a>
+
+                                                                <div class="d-flex flex-stack fs-4 my-4">
+
+                                                                    <div class="fw-bold">${IncludeData[i].Address}</div>
+                                    </div>
+
+                                  </div>
+                                      `;
+
+                if (IncludeData[i].IsVerified == 1) {
+                    body += `
+                                            <div class="card-toolbar col-2">
+                                                                <span class="badge badge-light-success fw-bold me-auto px-4 py-3 fs-3">Verified</span>
+                                                            </div>
+
+                                  `
+                        ;
+                } else {
+                    body += `
+                                            <div class="card-toolbar col-2">
+                                                                <span class="badge badge-light-danger fw-bold me-auto px-4 py-3 fs-3">UnVerified</span>
+                                                            </div> `;
+                }
+                body += `
+
+                                      </div>
+
+
+                                  </div>
+
+                                  `;
+                if (IncludeData[i].IsVerified == 1) {
+
+                    body += `
+                                            <div class="px-8">
+                                            <span class=" fw-bold fs-5">Your Sitelink:
+                                        <a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>
+                        </span>
+                        <div class="d-flex mt-4">
+                          <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
+        <input readonly id="foo" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
+
+        <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo">
+            Copy
+        </button>
+                          </div>
+                          <div class="d-flex mt-2">
+                            <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
+        <input readonly id="foo2" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
+        <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2">
+            Copy
+        </button>
+                          </div>
+                            <div style="display: flex; ">
+        <label class="fw-bold fs-4" style="margin-right: 15px;">Remarks:</label>
+        <span style="margin-top:4px;">${IncludeData[i].Remarks}</span>
+    </div>
+
+                                  </div>
+
+                                  `
+
+                        ;
+                }
+                body +=
+                    `
+                                  <div class="d-flex flex-stack fs-4 py-3 card-body">
+                                                                <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
+                                                                <span class="ms-2 rotate-180">
+                                                                    <span class="svg-icon svg-icon-3">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </span></div>
+                                    `;
+                if (IncludeData[i].IsVerified == 0) {
+                    body += `
+                                    <span>
+                                                                <span>
+                                      <button
+
+                  type="button"
+                    class="btn btn-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#updateOrganization"
+                  data-token="${IncludeData[i].Token}"
+                  id="editBtn"
+                >Edit</button>
+                                      </span>
+                                                                <span>
+                                      <button
+                  type="button"
+                  class="btn btn-sm btn-danger"
+
+                  data-token="${IncludeData[i].Token}"
+                  id="deleteBtn"
+                >Delete</button>
+                                      </span>
+                                    </span>
+                                    `
+                };
+                body += `
+                                  </div>
+                                  <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
+                                                                <hr class="bg-dark border-2 border-top border-dark" />
+                                    <div class="py-5 fs-6">
+                                                                    <div class="badge badge-light-info d-inline"></div>
+                                      <div class="d-flex flex-row gap-4 mt-5">
+                                                                    <div class="fw-bold  col-4">Display Name</div>
+                                                                    <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
+                                                                    </div>
+
+                                                                        <div class="d-flex flex-row gap-4 mt-5">
+                                                                        <div class="fw-bold col-4">Country</div>
+                                                                        <div class="text-gray-700 col-8">
+                                                                                <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMotto}</a>
+                                                                        </div>
+                                          </div>
+                                      <div class="d-flex flex-row gap-4 mt-5">
+                                                                    <div class="fw-bold col-4">Email</div>
+                                                                    <div class="text-gray-700 col-8">
+                                                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                                                    </div>
+                                      </div>
+
+                                      <div class="d-flex flex-row gap-4 mt-5">
+                                                                    <div class="fw-bold col-4">PAN/VAT</div>
+                                                                    <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+                                                                    </div>
+                                      <div class="d-flex flex-row gap-4 mt-5">
+                                                                    <div class="fw-bold col-4">Phone No.</div>
+                                                                    <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+                                                                    </div>
+                                      <div class="d-flex flex-row gap-4 mt-5">
+                                                                    <div class="fw-bold col-4">Contact No.</div>
+                                                                    <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+                                                                    </div>
+                                      <div class="d-flex flex-row gap-4 mt-5">
+                                                                    <div class="fw-bold col-4">Website</div>
+                                                                    <div class="text-gray-700 dol-8"><a href="${IncludeData[i].Website}"> ${IncludeData[i].Website}</a></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                  </div>
+                                  </div>
+                                  `;
+            }
+            body += `
+                                </div>
+                      <!--begin::Sidebar-->
+                      <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
+                        <div class="card card-flush bg-body mb-9">
+                            <h2 class="card-title fs-2 fw-bold text-dark py-4 px-8">Your Info</h2>
+
+                          <div class="card-body pt-2 px-4">
+                            <div class="mb-5">
+                              <div class="d-flex row mb-5">
+                                <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
+                                <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
+                              </div>
+                              <div class="d-flex row mb-5">
+                                <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
+                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
+                              </div>
+                              <div class="d-flex row mb-5">
+                                <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
+                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
+                              </div>
+                              <div class="d-flex row mb-5">
+                                <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
+                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+                  `;
+        } else {
+            body += `
+
+        <div class="container container-fluid p-0">
+          <div class="card-body p-0">
+            <div class="card-px text-center my-10">
+              <div class="py-10 text-center">
+                <img
+                  src="~/assets/media/logos/LogoInsoft.png"
+                  class="theme-light-show w-150px"
+                  alt=""
+                />
+              </div>
+              <h2 class="fs-2x fw-bold mb-10">There are no Organizations added</h2>
+
+              <button
+                type="button"
+                class="btn btn-primary addOrganization"
+
+              >
+                <span class="svg-icon svg-icon-2">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      opacity="0.5"
+                      x="11.364"
+                      y="20.364"
+                      width="16"
+                      height="2"
+                      rx="1"
+                      transform="rotate(-90 11.364 20.364)"
+                      fill="currentColor"
+                    ></rect>
+                    <rect
+                      x="4.36396"
+                      y="11.364"
+                      width="16"
+                      height="2"
+                      rx="1"
+                      fill="currentColor"
+                    ></rect>
+                  </svg>
+                </span>
+                Add New Organization
+              </button>
             </div>
           </div>
         </div>
-      </div>
-          `;
-    } else {
-      body += `
-   
-    <div class="container container-fluid p-0">
-      <div class="card-body p-0">
-        <div class="card-px text-center my-10">
-          <div class="py-10 text-center">
-            <img
-              src="~/assets/media/logos/LogoInsoft.png"
-              class="theme-light-show w-150px"
-              alt=""
-            />
-          </div>
-          <h2 class="fs-2x fw-bold mb-10">There are no Organizations added</h2>
 
-          <button
-            type="button"
-            class="btn btn-primary addOrganization"
-            
-          >
-            <span class="svg-icon svg-icon-2">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  opacity="0.5"
-                  x="11.364"
-                  y="20.364"
-                  width="16"
-                  height="2"
-                  rx="1"
-                  transform="rotate(-90 11.364 20.364)"
-                  fill="currentColor"
-                ></rect>
-                <rect
-                  x="4.36396"
-                  y="11.364"
-                  width="16"
-                  height="2"
-                  rx="1"
-                  fill="currentColor"
-                ></rect>
-              </svg>
-            </span>
-            Add New Organization
-          </button>
-        </div>
-      </div>
-    </div>
-
-          `;
+              `;
+        }
     }
-  }
-  $(document).ready(async function () {
-    await GetOrganizations();
-    
-    await $("#Main").append(body);
-    await GetUserDetails();
-    var clipboard =await new ClipboardJS('.btnCopy'); //for copy to clipboard
-  });
-  //get the user details
-  async function GetUserDetails() {
-    const result = await AjaxCallWithoutData("/Home/GetUserDetails");
-    var data = JSON.parse(JSON.parse(JSON.parse(result)));    
-    $("#yourName").text(data[0].UserName);
-    $("#yourEmail").text(data[0].UserEmail);
-    $("#yourContact").text(data[0].UserContact);
-    $("#yourAddress").text(data[0].UserAddress);
-  }
- // get the image and change it to data url for preview
-  $(document).on("change", "#inputLogo",async function () {
-    if (this.files && this.files[0]) {
+    $(document).ready(async function () {
         
+        await GetOrganizations();
 
-        var readerForDataURL = new FileReader();
-        var compressedDataURL;
+        await $("#Main").append(body);
+        await GetUserDetails();
+        var clipboard = await new ClipboardJS('.btnCopy'); //for copy to clipboard
+    });
+    //get the user details
+    async function GetUserDetails() {
+        const result = await AjaxCallWithoutData("/Home/GetUserDetails");
+        var data = JSON.parse(JSON.parse(JSON.parse(result)));
+        $("#yourName").text(data[0].UserName);
+        $("#yourEmail").text(data[0].UserEmail);
+        $("#yourContact").text(data[0].UserContact);
+        $("#yourAddress").text(data[0].UserAddress);
+    }
+    // get the image and change it to data url for preview
+    $(document).on("change", "#inputLogo", async function () {
+        if (this.files && this.files[0]) {
 
-        readerForDataURL.onloadend = function () {
-           
 
-            var img = new Image();
-            img.onload = function() {
-                
-                var targetFileSize = 500 * 1024; // 500 KB max size for the image
-                var currentFileSize = Number.MAX_SAFE_INTEGER; 
+            var readerForDataURL = new FileReader();
+            var compressedDataURL;
 
-                // Initialize compression quality
+            readerForDataURL.onloadend = function () {
+
+
+                var img = new Image();
+                img.onload = function () {
+
+                    var targetFileSize = 500 * 1024; // 500 KB max size for the image
+                    var currentFileSize = Number.MAX_SAFE_INTEGER;
+
+                    // Initialize compression quality
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = img.width;
@@ -753,275 +780,386 @@
                     // Get the file size of the compressed image
                     currentFileSize = compressedDataURL.length;
 
-                    
-                
 
-                $(".logoValue").attr("src", compressedDataURL);
+
+
+                    $(".logoValue").attr("src", compressedDataURL);
+                };
+
+                img.src = readerForDataURL.result;
             };
 
-            img.src = readerForDataURL.result;
-        };
-
-        readerForDataURL.readAsDataURL(this.files[0]);
-    }
-
-var input = $(this);
-var files = input[0].files;
-var formData = new FormData();
-var imgName = '';
-for (var i = 0; i != files.length; i++) {
-    formData.append("files", files[i]);
-}
-var DocName = files[0].name;
-var Exitension = DocName.split(".");
-var imgextension = Exitension[1];
-if (1) {
-
-    await $.ajax({
-        url: "/Register/UploadPhoto",
-        data: formData,
-        processData: false,
-        contentType: false,
-        type: "POST",
-        beforeSend: function() {
-            Swal.fire({
-                html: '<div class="loader" id="loader-6">' +
-                    '<span></span>' +
-                    '<span></span>' +
-                    '<span></span>' +
-                    '<span></span>' +
-                    '</div>' +
-                    '<div>' +
-                    '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
-                    '</div>',
-                background: 'unset',
-                allowOutsideClick: false,
-                showConfirmButton: false,
-            });
-        },
-        success: function(data) {
-           
-                imgName = data;
-                $(".logoValue").attr("data-name", imgName);
-            Swal.close();
-
-        },
-        error: function() {
-
-            const file =
-                document.querySelector('#file');
-            file.value = '';
-            Swal.close();
+            readerForDataURL.readAsDataURL(this.files[0]);
         }
 
+        var input = $(this);
+        var files = input[0].files;
+        var formData = new FormData();
+        var imgName = '';
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+        var DocName = files[0].name;
+        var Exitension = DocName.split(".");
+        var imgextension = Exitension[1];
+        if (1) {
+
+            await $.ajax({
+                url: "/Register/UploadPhoto",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        html: '<div class="loader" id="loader-6">' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '</div>' +
+                            '<div>' +
+                            '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                            '</div>',
+                        background: 'unset',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (data) {
+
+                    imgName = data;
+                    $(".logoValue").attr("data-name", imgName);
+                    Swal.close();
+
+                },
+                error: function () {
+
+                    const file =
+                        document.querySelector('#file');
+                    file.value = '';
+                    Swal.close();
+                }
+
+            });
+        }
+        else {
+            toastr.info("Only image are allowed");
+        }
+
+        var uploadFile = $(this);
+        var files = !!this.files ? this.files : [];
+
+        if (/^image/.test(files[0].type)) { // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+
+            reader.onloadend = function () { // set image data as background of div
+                //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+            }
+        }
+        else {
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+            reader.onloadend = function () { // set image data as background of div
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+                uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
+            }
+        }
     });
-}
-else {
-    toastr.info("Only image are allowed");
-}
-
-var uploadFile = $(this);
-var files = !!this.files ? this.files : [];
-
-if (/^image/.test(files[0].type)) { // only image file
-    var reader = new FileReader(); // instance of the FileReader
-    reader.readAsDataURL(files[0]); // read the local file
 
 
-    reader.onloadend = function() { // set image data as background of div
-        //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
-        uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
-        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+
+    //get the module values
+    async function getModuleValues() {
+        const result = await AjaxCallWithoutData("/Home/GetModuleValues");
+
+        var data = JSON.parse(JSON.parse(JSON.parse(result)));
+        var html = "";
+        for (var i = 0; i < data.length; i++) {
+            html += `<option data-site="${data[i].SiteName}" value="${data[i].UkId}">${data[i].Name}</option>`;
+        }
+        $(".moduleSelect").html(html);
     }
-}
-else {
-    var reader = new FileReader(); // instance of the FileReader
-    reader.readAsDataURL(files[0]); // read the local file
+    //change the value when the user changes the module
+    $(document).on("change", ".moduleSelect", function () {
+        var val = $(this).find("option:selected").attr("data-site");
+        $(".defaultModuleValue").val(val);
+    });
+    //show the modal where the user updates the data
+    $(document).on("click", "#editBtn", async function () {
+        
+        await getModuleValues();
+        var token = $(this).attr("data-token");
 
-    reader.onloadend = function() { // set image data as background of div
-        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-        uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
-        uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
-    }
-}
-});
-
-
-
-//get the module values
-  async function getModuleValues() {
-    const result = await AjaxCallWithoutData("/Home/GetModuleValues");
-
-    var data = JSON.parse(JSON.parse(JSON.parse(result)));
-    var html = "";
-    for (var i = 0; i < data.length; i++) {
-      html += `<option data-site="${data[i].SiteName}" value="${data[i].UkId}">${data[i].Name}</option>`;
-    }
-    $(".moduleSelect").html(html);
-  }
-  //change the value when the user changes the module
-  $(document).on("change", ".moduleSelect", function () {
-   var val=$(this).find("option:selected").attr("data-site");
-    $(".defaultModuleValue").val(val);
-  });
-//show the modal where the user updates the data
-  $(document).on("click", "#editBtn", async function () {
-    await getModuleValues();
-    var token = $(this).attr("data-token");
-    var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
-    var data = JSON.parse(JSON.parse(JSON.parse(result)));
-    
-    
+        // Retrieve organization data from API
+        var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
+        var data = JSON.parse(JSON.parse(JSON.parse(result)));
+        var imageData = data[0].ImageData;
+        var filename = imageData.substring(imageData.lastIndexOf('/') + 1);
+        
         $(".logoValue").attr("src", data[0].ImageData);
-    console.log(data[0].ImageData);
+        
+        $("#newcompanyName").val(data[0].CompanyName);
+        $("#newdisplayName").val(data[0].DisplayName);
+        $("#newinitial").val(data[0].Initial);
+        $("#newvat").val(data[0].PanVatNo);
+        $("#newaddress").val(data[0].Address);
+        $("#newphone").val(data[0].PhoneNo);
+        $("#newContactNumber").val(data[0].ContactMobile);
+        $("#newEmail").val(data[0].OrganizationMail);
+        $("#newWebsite").val(data[0].Website);
+        $("#newmotto").val(data[0].OrganizationMotto);
+        $(".logoValue").attr("data-name", data[0].ImageName);
+        $("#newdefaultValue").val(data[0].SiteURL);
+        $("#updateDetails").attr("data-token", token);
 
-    $("#newcompanyName").val(data[0].CompanyName);
-    $("#newdisplayName").val(data[0].DisplayName);
-    $("#newinitial").val(data[0].Initial);
-    $("#newvat").val(data[0].PanVatNo);
-    $("#newaddress").val(data[0].Address);
-    $("#newphone").val(data[0].PhoneNo);
-    $("#newContactNumber").val(data[0].ContactMobile);
-    $("#newEmail").val(data[0].OrganizationMail);
-    $("#newWebsite").val(data[0].Website);
-    $("#newmotto").val(data[0].OrganizationMotto);
-    $(".logoValue").attr("data-name", data[0].ImageName);
-    $("#newdefaultValue").val(data[0].SiteURL);
-    $("#updateDetails").attr("data-token", token);
-});
-//delete the organization
-  $(document).on("click", "#deleteBtn",async function () {
-    var token = $(this).attr("data-token");
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    }).then(async (result) => {
-    if (result.isConfirmed) {
-    var result =await AjaxCall("/Home/DeleteSingleOrganization", { Token: token});
-    var parsedResult = JSON.parse(result);
-    //or parsedResult = result.json();
-    if (parsedResult == 1) {
-      toastr.success("Organization Deleted Successfully");
-      location.reload();
-    } else {
-      toastr.error("Something went wrong");
-    }
-  }
-  })
-  
-});
- //add the organization
-  $(document).on("click", "#submitDetails", async () => {
-   if($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == ''  || $("#motto").val() == '' ||  $(".moduleSelect").val() == ''){
-      toastr.error("Please fill all the fields");
-      return false;
-   }
-    var companyName = $("#companyName").val();
-    var displayName = $("#displayName").val();
-    var initial = $("#initial").val();
-    var vat = $("#vat").val();
-    var address = $("#address").val();
-    var phone = $("#phone").val();
-    var contact = $("#ContactNumber").val();
-    var Email = $("#Email").val();
-    var Website = $("#Website").val();
-    var motto = $("#motto").val();
-    var logo = $(".logoValue").attr("data-name");
-    var module = $(".moduleSelect").val();
-    
-    var data = {
-      CompanyName: companyName,
-      DisplayName: displayName,
-      ContactMobile: contact,
-      Initial: initial,
-      PanVatNo: vat,
-      Address: address,
-      PhoneNo: phone,
-      Module: parseInt(module),
-      OrganizationMail: Email,
-      Website: Website,
-      ImageName: '',
-      ImageType: '',
-      ImageData: logo,
-      OrganizationMotto: motto,
-      Token: "",
-    };
-    debugger
-    var result = await AjaxCall("/Home/UploadOrganizationData", data);
-    if (parseInt(result) == 1) { //sucess
-      $("#staticBackdrop").modal("hide");
-      toastr.success("Organization Added Successfully");
-      location.reload();
-      return false;
-    } else {//failure
-      toastr.error("Something went wrong");
-    }
-  });
-  //update the organization
-  $(document).on("click", "#updateDetails", async () => {
-    if($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == ''  || $("#newmotto").val() == '' ||  $(".moduleSelect").val() == ''){
-      toastr.error("Please fill all the fields");
-      return false;
-    }
-    var token = $("#updateDetails").attr("data-token");
-    var companyName = $("#newcompanyName").val();
-    var displayName = $("#newdisplayName").val();
-    var initial = $("#newinitial").val();
-    var vat = $("#newvat").val();
-    var address = $("#newaddress").val();
-    var phone = $("#newphone").val();
-    var contact = $("#newContactNumber").val();
-    var Email = $("#newEmail").val();
-    var Website = $("#newWebsite").val();
-    var motto = $("#newmotto").val();
-    var module = $(".moduleSelect").val();
-    var logo = $(".logoValue").attr("data-name");
-    var data = {
-      CompanyName: companyName,
-      DisplayName: displayName,
-      ContactMobile: contact,
-      Initial: initial,
-      PanVatNo: vat,
-      Address: address,
-      PhoneNo: phone,
-      Module: parseInt(module),
-      OrganizationMail: Email,
-      Website: Website,
-      ImageName: logo,
-      ImageType: '',
-      ImageData: logo,
-      OrganizationMotto: motto,
-      Token: token
-    };
-    console.log(data);
-    var result = await AjaxCall("/Home/UploadOrganizationData", data);
-    console.log(result);
-    if (parseInt(result) == 1) {
-      $("#staticBackdrop").modal("hide");
-      toastr.success("Organization updated Successfully");
-      location.reload();
-      return false;
-    } else {
-      toastr.error("Something went wrong");
-    }
-  });
+        $("#NewCountrySelect").empty();
 
-$(document).on("click", ".addOrganization", async () => {
-  await getModuleValues();
-  $("#staticBackdrop").modal("show");
-});
-$(document).on("click", ".signoutBtn", async () => {
-  var result = await AjaxCallWithoutData("/Login/LogOut");
-  if(result == "Success"){
-    window.location.href = "/Login/Index";
-  }
-});
+        // Append the organization motto as the first option in the dropdown
+        var organizationMotto = data[0].OrganizationMotto;
+        $("#NewCountrySelect").append($('<option>', {
+            value: organizationMotto,
+            text: organizationMotto
+        }));
+
+        // Fetch countries from the API
+        var apiUrl = 'https://api.countrystatecity.in/v1/countries';
+        var apiKey = 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==';
+        var response = await fetch(apiUrl, {
+            headers: { "X-CSCAPI-KEY": apiKey }
+        });
+        var countries = await response.json();
+
+        // Append other countries from the API to the dropdown
+        countries.forEach(function (country) {
+            if (country.iso2 !== organizationMotto) {
+                $("#NewCountrySelect").append($('<option>', {
+                    value: country.iso2,
+                    text: country.name
+                }));
+            }
+        });
+
+
+
+    });
+
+
+    //delete the organization
+    $(document).on("click", "#deleteBtn", async function () {
+        var token = $(this).attr("data-token");
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                var result = await AjaxCall("/Home/DeleteSingleOrganization", { Token: token });
+                var parsedResult = JSON.parse(result);
+                //or parsedResult = result.json();
+                if (parsedResult == 1) {
+                    toastr.success("Organization Deleted Successfully");
+                    location.reload();
+                } else {
+                    toastr.error("Something went wrong");
+                }
+            }
+        })
+
+    });
+   
+
+
+   
+
+   
+
+    //update the organization
+    $(document).on("click", "#updateDetails", async (event) => {
+        event.preventDefault();
+        
+        if ($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == '' || $(".moduleSelect").val() == '') {
+            toastr.error("Please fill all the fields");
+            return false;
+        }
+        var token = $("#updateDetails").attr("data-token");
+        var companyName = $("#newcompanyName").val();
+        var displayName = $("#newdisplayName").val();
+        var Country = $("#NewCountrySelect option:selected").text();
+        var initial = $("#newinitial").val();
+        var vat = $("#newvat").val();
+        var address = $("#newaddress").val();
+        var phone = $("#newphone").val();
+        var contact = $("#newContactNumber").val();
+        var Email = $("#newEmail").val();
+        var Website = $("#newWebsite").val();
+        var motto = $("#newmotto").val();
+        var module = $(".moduleSelect").val();
+        var logo = $(".logoValue").attr("data-name");
+
+        var specialCharPattern = /[^a-zA-Z0-9]/;
+        if (specialCharPattern.test(initial)) {
+            toastr.error("Special characters or spaces are not allowed in Initial.");
+            return false;
+        }
+
+        
+
+        var data = {
+            CompanyName: companyName,
+            DisplayName: displayName,
+            ContactMobile: contact,
+            Initial: initial,
+            PanVatNo: vat,
+            Address: address,
+            PhoneNo: phone,
+            Module: parseInt(module),
+            OrganizationMail: Email,
+            Website: Website,
+            ImageName: logo,
+            ImageType: '',
+            ImageData: logo,
+            OrganizationMotto: Country,
+            Token: token
+        };
+        console.log(data);
+        var result = await AjaxCall("/Home/UploadOrganizationData", data);
+        console.log(result);
+        if (parseInt(result) == 1) {
+            $("#staticBackdrop").modal("hide");
+            toastr.success("Organization updated Successfully");
+            location.reload();
+            return false;
+        } else {
+            toastr.error("Something went wrong");
+        }
+    });
+
+    $(document).on("click", ".addOrganization", async () => {
+        await getModuleValues();
+        $("#staticBackdrop").modal("show");
+    });
+    $(document).on("click", ".signoutBtn", async () => {
+        var result = await AjaxCallWithoutData("/Login/LogOut");
+        if (result == "Success") {
+            window.location.href = "/Login/Index";
+        }
+    });
+
+    $(document).on("click", "#submitDetails", async (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        ;
+        if ($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == '' || $(".moduleSelect").val() == '') {
+            toastr.error("Please fill all the fields");
+            return false;
+        }
+
+        var companyName = $("#companyName").val();
+        var displayName = $("#displayName").val();
+        var Country = $("#CountrySelect option:selected").text();
+        var initial = $("#initial").val();
+        var vat = $("#vat").val();
+        var address = $("#address").val();
+        var phone = $("#phone").val();
+        var contact = $("#ContactNumber").val();
+        var Email = $("#Email").val();
+        var Website = $("#Website").val();
+        var logo = $(".logoValue").attr("data-name");
+        var module = $(".moduleSelect").val();
+
+        // Check for special characters in the initial
+        var specialCharPattern = /[^a-zA-Z0-9]/;
+        if (specialCharPattern.test(initial)) {
+            toastr.error("Special characters or spaces are not allowed in Initial.");
+            return false;
+        }
+
+        if (!logo) {
+            await uploadLogoAndSubmitForm();
+            return; // Exit the function after uploading logo asynchronously
+        }
+
+        var checkdata = {
+            Initial: initial
+        };
+
+        var result1 = await AjaxCall("/Home/CheckInitialName", checkdata);
+
+        var data = {
+            CompanyName: companyName,
+            DisplayName: displayName,
+            ContactMobile: contact,
+            Initial: initial,
+            PanVatNo: vat,
+            Address: address,
+            PhoneNo: phone,
+            Module: parseInt(module),
+            OrganizationMail: Email,
+            Website: Website,
+            ImageName: '',
+            ImageType: '',
+            ImageData: logo,
+            OrganizationMotto: Country,
+            Token: ""
+        };
+
+        if (result1.StatusCode == 201) {
+            // Initial exists
+            toastr.error("Initial already created. Please change it.");
+        }
+        else {
+            var result = await AjaxCall("/Home/UploadOrganizationData", data);
+            if (parseInt(result) === 1) {
+                $("#staticBackdrop").modal("hide");
+                toastr.success("Organization Added Successfully");
+                location.reload();
+               
+            } else {
+                toastr.error("Something went wrong");
+            }
+        }
+    });
+
+    async function uploadLogoAndSubmitForm() {
+        var imgSrc = $(".logoValue").attr("src");
+
+        var response = await fetch(imgSrc);
+        var blob = await response.blob();
+        var formData = new FormData();
+        formData.append("files", blob, "logo.png");
+
+       
+            var data = await $.ajax({
+                url: "/Register/UploadPhoto",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST"
+            });
+
+           
+            imgName = data;
+            $(".logoValue").attr("data-name", imgName);
+
+            
+           
+        
+    }
+
+
+
 </script>
