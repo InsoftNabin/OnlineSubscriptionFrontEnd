@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+
+.clock {
+    color: white;
+    font-size: 20px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+    .clock::before, .clock::after {
+        content: '';
+        width: 7ch;
+        background: linear-gradient(to top, transparent, black);
+        position: absolute;
+        z-index: 2;
+    }
+
+    .clock::after {
+        bottom: 0;
+        background: linear-gradient(to bottom, transparent, black);
+    }
+
+    .clock > div {
+        display: flex;
+    }
+
+.tick {
+    color:white;
+}
+
+body{
+    font-family:heebo!important;
+/*    font-size:15px!important;*/
+}
+
+
+.move {
+    animation: move linear 1s infinite;
+}
+
+@keyframes move {
+    from {
+        transform: translateY(0vh);
+    }
+
+    to {
+        transform: translateY(-20vh);
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .ResponsiveView {
+        display: none !important;
+    }
+
+    .small, small {
+        font-size: 50% !important;
+    }
+
+    .fest {
+        display: none !important;
+    }
+
+    .visibicon {
+        display: none !important;
+    }
+}
+
+
+
+
+
+
+

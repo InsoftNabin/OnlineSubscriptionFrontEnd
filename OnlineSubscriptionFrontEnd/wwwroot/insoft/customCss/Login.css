@@ -1,0 +1,291 @@
+﻿
+body {
+    background-color: #1a19193b;
+}
+
+.login-block {
+    float: left;
+    width: 100%;
+    padding: 50px 0;
+}
+.d-block {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.container{
+    margin-top:40px;
+} 
+
+.banner-sec {
+    background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg) no-repeat left bottom;
+    background-size: cover;
+    min-height: 500px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    padding: 0;
+}
+
+.container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 15px 20px 0px rgba(0,0,0,0.1);
+}
+
+.carousel-caption {
+    text-align: left;
+    left: 5%;
+}
+
+.login-sec {
+    padding: 50px 30px;
+    position: relative;
+}
+
+.login-sec .copy-text {
+    position: absolute;
+    width: 80%;
+    bottom: 20px;
+    font-size: 13px;
+    text-align: center;
+}
+
+ .login-sec .copy-text i {
+    color: #FEB58A;
+}
+
+ .login-sec .copy-text a {
+    color: #E36262;
+
+ }
+
+ .login-sec h2 {
+    margin-bottom: 30px;
+    font-weight: 800;
+    font-size: 30px;
+    color: #DE6262;
+    }
+
+.login-sec h2:after {
+     content: " ";
+     width: 100px;
+     height: 5px;
+     background: #FEB58A;
+     display: block;
+     margin-top: 20px;
+     margin-left: auto;
+     margin-right: auto
+}
+
+.btn-login {
+    background: #DE6262;
+    color: #fff;
+    font-weight: 600;
+}
+
+.banner-text {
+    width: 70%;
+    position: absolute;
+    bottom: 40px;
+    padding-left: 20px;
+}
+
+.banner-text h2 {
+    color: #fff;
+    font-weight: 600;
+}
+
+ .banner-text h2:after {
+    content: " ";
+    width: 100px;
+    height: 5px;
+    background: #FFF;
+    display: block;
+    margin-top: 20px;
+}
+
+ .banner-text p {
+        color: #fff;
+ }
+
+.messagealert {
+    position: fixed;
+    z-index: 10000000;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    width: 40%;
+    left: 30%;
+    top: 2%;
+}
+
+.alert-success {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #1B5E20;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Success {
+	margin: 0 0.5%;
+	color: #ffffff;
+	background-color: #1B5E20;
+	border-color: #d6e9c6;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	transition: opacity .15s linear;
+	opacity: 1;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.alert-danger {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-warning {
+    margin: 0 0.5%;
+    color: #000000;
+    background-color: #EEFF41;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-info {
+    margin: 0 0.5%;
+    color: #ffffFF;
+    background-color: #1A237E;
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.alert-Authorized {
+	margin: 0 0.5%;
+	color: #000000;
+	background-color: #EEFF41;
+	border-color: #faebcc;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	transition: opacity .15s linear;
+	opacity: 1;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+.alert-Error {
+    margin: 0 0.5%;
+	color: #ffffff;
+	background-color: #B71C1C;
+	border-color: #ebccd1;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	transition: opacity .15s linear;
+	opacity: 1;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+.alert-error {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+/*.alert-Success {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #1B5E20;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Error {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Warning {
+    margin: 0 0.5%;
+    color: #000000;
+    background-color: #EEFF41;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Info {
+    margin: 0 0.5%;
+    color: #ffffFF;
+    background-color: #1A237E;
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}*/

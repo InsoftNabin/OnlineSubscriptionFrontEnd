@@ -11,32 +11,38 @@ namespace OnlineSubscriptionFrontEnd.Classes
 {
     public static class ApiCall
     {
-        public static readonly TimeSpan InfiniteTimeSpan;
+
+
         public static HttpClient Initial()
         {
             var client = new HttpClient();
+            client.Timeout = TimeSpan.FromMinutes(10);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             string baseurl = Startup.baseapiurl;
             client.BaseAddress = new Uri(baseurl);
             return client;
         }
 
-        public static HttpClient GPSInitial()
-        {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string baseurl = Startup.baseapiurl;
-            client.BaseAddress = new Uri(baseurl);
-            return client;
-        }
+    
 
-        public static async Task<string> ApiCallWithString(string URl, string _GetString, string Action)
+
+        public static async Task<string> ApiCallWithOutObject(string URl, string Action)
         {
             try
             {
                 HttpClient client = Initial();
-                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetString), UTF8Encoding.UTF8, "application/json");
-                HttpResponseMessage res = await client.PostAsync(URl, httpContent);
+                client.DefaultRequestHeaders.Accept.Clear();
+                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(""), UTF8Encoding.UTF8, "application/json");
+                HttpResponseMessage res = new HttpResponseMessage();
+                if (Action == "Post")
+                {
+                    res = await client.PostAsync(URl, httpContent);
+                }
+                else
+                {
+                    res = await client.GetAsync(URl);
+                }
+
                 if (res.IsSuccessStatusCode)
                 {
                     string result = res.Content.ReadAsStringAsync().Result;
@@ -53,6 +59,36 @@ namespace OnlineSubscriptionFrontEnd.Classes
                 string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
             }
         }
+
+
+
+        public static async Task<string> ApiCallWithString(string URl, string _GetString, string Action)
+        {
+            try
+            {
+                HttpClient client = Initial();
+                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetString), UTF8Encoding.UTF8, "application/json");
+                HttpResponseMessage res = await client.PostAsync(URl, httpContent);
+                if (res.IsSuccessStatusCode) 
+
+
+                {
+                    string result = await res.Content.ReadAsStringAsync();
+                    return result;
+                }
+                else
+                {
+                    return "Null";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
+            }
+        }
+
+
 
         internal static Task<string> ApiCallWithString(string v, string tokenNo)
         {
@@ -73,7 +109,7 @@ namespace OnlineSubscriptionFrontEnd.Classes
                 HttpResponseMessage res = await client.PostAsync(URl, httpContent);
                 if (res.IsSuccessStatusCode)
                 {
-                    string result = res.Content.ReadAsStringAsync().Result;
+                    string result =  res.Content.ReadAsStringAsync().Result;
                     return result;
                 }
                 else
@@ -87,6 +123,8 @@ namespace OnlineSubscriptionFrontEnd.Classes
                 string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
             }
         }
+
+
 
         public static string RemoveEncoding(string encodedJson)
         {
@@ -126,76 +164,5 @@ namespace OnlineSubscriptionFrontEnd.Classes
             return httpContent;
         }
 
-        public static async Task<string> ApiCallForGPSAuth(string URl, object _GetObject, string Action)
-        {
-            try
-            {
-                HttpClient client = GPSInitial();
-                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetObject), UTF8Encoding.UTF8, "application/json");
-                HttpResponseMessage res = await client.PostAsync(URl, httpContent);
-                if (res.IsSuccessStatusCode)
-                {
-                    string result = res.Content.ReadAsStringAsync().Result;
-                    return result;
-                }
-                else
-                {
-                    return "Null";
-                }
-
-            }
-            catch (Exception ex)
-            {
-                string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
-            }
-        }
-
-        public static async Task<string> ApiCallForGPS(string URl, string AccessToken, object _GetObject, string Action)
-        {
-            try
-            {
-                HttpClient client = GPSInitial();
-                client.DefaultRequestHeaders.Add("AccessToken", AccessToken);
-                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetObject), UTF8Encoding.UTF8, "application/json");
-                if (Action.ToUpper() == "POST")
-                {
-                    HttpResponseMessage res = await client.PostAsync(URl, httpContent).ConfigureAwait(false);
-                    if (res.IsSuccessStatusCode)
-                    {
-                        string result = res.Content.ReadAsStringAsync().Result;
-                        return result;
-                    }
-                    else
-                    {
-                        return "Null";
-                    }
-                }
-                else if (Action.ToUpper() == "GET")
-                {
-                    var json = JsonConvert.SerializeObject(_GetObject);
-                    var query = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-
-                    var res = await client.GetAsync(QueryHelpers.AddQueryString(URl, query)).ConfigureAwait(false);
-                    if (res.IsSuccessStatusCode)
-                    {
-                        string result = res.Content.ReadAsStringAsync().Result;
-                        return result;
-                    }
-                    else
-                    {
-                        return "Null";
-                    }
-                }
-                else
-                {
-                    return "Null";
-                }
-
-            }
-            catch (Exception ex)
-            {
-                string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
-            }
-        }
     }
 }

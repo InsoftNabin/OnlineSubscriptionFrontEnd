@@ -1,0 +1,28 @@
+﻿.btn-primary, .btn-primary.focus, .btn-primary:focus {
+    background-color: #428BCA !important;
+    border-color: #428BCA;
+}
+
+.btn, .btn-default, .btn-default.focus, .btn-default:focus, .btn.focus, .btn:focus {
+    background-color: #ABBAC3 !important;
+    border-color: #ABBAC3;
+}
+
+.btn {
+    color: #FFF !important;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+    background-image: none !important;
+    border: 5px solid #FFF;
+    border-radius: 0;
+    box-shadow: none !important;
+    -webkit-transition: background-color .15s,border-color .15s,opacity .15s;
+    -o-transition: background-color .15s,border-color .15s,opacity .15s;
+    transition: background-color .15s,border-color .15s,opacity .15s;
+    vertical-align: middle;
+    margin: 0;
+    position: relative;
+}
+
+.btn, .dropdown-colorpicker a {
+    cursor: pointer;
+}

@@ -1,0 +1,1208 @@
+﻿<link rel="icon" href="~/images/academe_icon.png">
+<link href="~/js/toastr/build/toastr.css" rel="stylesheet" />
+<link href="~/js/toastr/build/toastr.min.css" rel="stylesheet" />
+<script src="~/js/toastr/build/toastr.min.js"></script>
+
+
+<style>
+    body {
+        background-color: #000000 !important;
+    }
+    #modulesButton{
+        background-color: #b30514;
+        color:white;
+    }
+    .well {
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+        border-radius: 3px !important;
+    }
+
+    .nav-tabs > li {
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+        border-radius: 3px !important;
+    }
+
+    .no-skin .nav-list > li.open > a {
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+        border-radius: 3px !important;
+    }
+
+    .table-responsive {
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+        border-radius: 3px !important;
+    }
+
+    .card-body {
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+        border-radius: 3px !important;
+    }
+
+    .nav-list > li {
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+        border-radius: 3px !important;
+    }
+
+    .btn {
+        border-radius: 5px !important;
+        outline: none !important;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    input[type=text] {
+        outline: none !important;
+        box-shadow: 0px 1px 1px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    .form-group select {
+        outline: none !important;
+        box-shadow: 0px 1px 1px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    .form-control {
+        outline: none !important;
+        box-shadow: 0px 1px 1px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    .input-icon > input {
+        outline: none !important;
+        box-shadow: 0px 1px 1px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    select {
+        outline: none !important;
+        box-shadow: 0px 1px 1px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    .chosen-container, .chosen-container + .help-inline, [class*=chosen-container] {
+        outline: none !important;
+        box-shadow: 0px 1px 1px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    .input-group-addon {
+        outline: none !important;
+        box-shadow: 0px 1px 1px rgb(0 0 0 / 25%) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    .redirect {
+        border-radius: 5px !important;
+        outline: none !important;
+        box-shadow: 0px 4px 4px rgb(0 0 0) !important;
+        animation: ripple 1250ms ease-out forwards, fade 1500ms ease-out forwards !important;
+    }
+
+    .IconClass {
+        box-shadow: 0px 4px 4px rgb(0 0 0 ) !important;
+    }
+
+    .btn :not(.IconClass) {
+        border-radius: 5px !important;
+        outline: none !important;
+    }
+
+    .swal2-title {
+        font-size: 2rem;
+    }
+
+    .calendar1 {
+        margin-top: -20px !important;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .modal-confirm1 {
+        color: #636363;
+        width: 400px;
+    }
+
+        .modal-confirm1 .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .modal-confirm1 .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .modal-confirm1 h4 {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0 -10px;
+        }
+
+        .modal-confirm1 .close {
+            position: absolute;
+            top: -5px;
+            right: -2px;
+        }
+
+        .modal-confirm1 .modal-body {
+            color: #999;
+        }
+
+        .modal-confirm1 .modal-footer {
+            border: none;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 13px;
+            padding: 10px 15px 25px;
+        }
+
+            .modal-confirm1 .modal-footer a {
+                color: #999;
+            }
+
+        .modal-confirm1 .icon-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            z-index: 9;
+            text-align: center;
+            border: 3px solid #f15e5e;
+        }
+
+            .modal-confirm1 .icon-box i {
+                color: #f15e5e;
+                font-size: 46px;
+                display: inline-block;
+                margin-top: 13px;
+            }
+
+        .modal-confirm1 .btn, .modal-confirm .btn:active {
+            color: #fff;
+            border-radius: 4px;
+            background: #60c7c1;
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            min-width: 120px;
+            border: none;
+            min-height: 40px;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+
+        .modal-confirm1 .btn-secondary {
+            background: #c1c1c1;
+        }
+
+            .modal-confirm1 .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+                background: #a8a8a8;
+            }
+
+        .modal-confirm1 .btn-danger {
+            background: #f15e5e;
+        }
+
+            .modal-confirm1 .btn-danger:hover, .modal-confirm .btn-danger:focus {
+                background: #ee3535;
+            }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+
+    .google-weather-place {
+        margin-left: 50px;
+        width: calc(655px/2);
+        height: calc(450px/2);
+    }
+
+    .google-weather-crop {
+        width: calc(655px/2);
+        height: calc(450px/2);
+        overflow: hidden;
+        transition: 0.3s;
+        position: absolute;
+    }
+
+        .google-weather-crop:hover {
+            width: 675px;
+            height: 370px;
+        }
+
+    .google-weather {
+        position: relative;
+        left: -180px;
+        top: -153px;
+        width: 2560px;
+        height: 5115px;
+        transform: scale(0.5);
+        transform-origin: 180px 180px;
+        transition: 0.3s;
+        position: absolute;
+    }
+
+        .google-weather:hover {
+            transform: scale(1);
+            z-index: 1000;
+        }
+</style>
+<style>
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 7px;
+    }
+
+        ::-webkit-scrollbar:hover {
+            width: 10px;
+            height: 7px;
+        }
+
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 2px #b30514;
+        border-radius: 15px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #b30514;
+        border-radius: 25px;
+    }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #74c69d;
+            
+        }
+</style>
+<style>
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+    }
+
+    #sidebar {
+        z-index: 1;
+    }
+
+    #breadcrumbs {
+        z-index: 3;
+    }
+</style>
+<style>
+    #exampleModal .table-fit {
+        background: white;
+        border: 2px solid red;
+        margin: auto;
+        width: 98%;
+    }
+
+    #exampleModal th {
+        color: white;
+        background: #0b3b56;
+        font-size: 15px;
+        text-align: center;
+        z-index: -2;
+        vertical-align: middle;
+    }
+
+        #exampleModal th:last-child {
+            border-top-right-radius: 3px;
+            border-right: none;
+        }
+
+    #exampleModal tr {
+        border-top: 1px solid #C1C3D1;
+        color: #666B85;
+        font-weight: normal;
+        text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+    }
+        /*  tr:hover td {
+                background: #4E5066;
+                color: #FFFFFF;
+                border-top: 1px solid #22262e;
+            }*/
+        #exampleModal tr:nth-child(even) td {
+            background: #EBEBEB;
+        }
+
+    #exampleModal td {
+        background: #FFFFFF;
+        padding: 0;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 15px;
+        text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+        border-right: 1px solid #C1C3D1;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    #exampleModal .table td, #exampleModal .table th {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>
+
+<style>
+    button {
+        margin-top: -30px;
+        position: relative;
+        overflow: hidden;
+        -webkit-transition: background 400ms;
+        transition: background 400ms;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.5rem;
+        outline: 0;
+        border: 0;
+        border-radius: 0.25rem;
+        -webkit-box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+    }
+
+    .btn {
+        background-position: center;
+        -webkit-transition: background 0.8s;
+        transition: background 0.8s;
+    }
+
+        .btn:hover {
+            background: #6200ee radial-gradient(circle, transparent 1%, #6200ee 1%) center/15000%;
+        }
+
+        .btn:active {
+            background-color: #cfb2f9;
+            background-size: 100%;
+            -webkit-transition: background 0s;
+            transition: background 0s;
+        }
+</style>
+
+
+<link href="~/app-assets/css/vendors.css" rel="stylesheet" />
+<link href="~/customCss/widget.css" rel="stylesheet" />
+<link href="~/customCss/clock.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<div class="text-center" style="display:none;">
+    <a href="#myModal100" id="clickme2222" class="trigger-btn" data-toggle="modal">Click to Open Confirm Modal</a>
+</div>
+
+<div class="modal fade" id="profileModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:bisque">
+            <div class="modal-body">
+                <div class="panel panel-primary" style="margin-bottom: 5px;">
+                    <div class="panel-body" style="background-color:darkolivegreen; color:white;">
+                        <div class="col-xs-12 col-sm-12 center">
+                            <center>
+                                <img src="~/Login/img/03.png" name="UserPhoto"  border="0" class="img-circle UserPhoto" />
+                                <br />
+                                <br />
+                                <h4 class="media-heading">Welcome, <span class="Logonid"></span></h4>
+                            </center>
+                            <hr>
+                            <center>
+                                <p class="text-left">
+                                    <u><strong>Profile Data : </strong></u> <br>
+                                    Update profile to view information here...
+                                </p>
+                                <br>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title " id="myModalLabel"><b>CASH CALCULATOR</b></h4>
+                <button type="button" class="close" id="reset" data-dismiss="modal" aria-label="Close">
+                    <span class="btn" style="Background-color:#0b3b56; color:white;" data-dismiss="modal">Close</span>
+                </button>
+            </div>-->
+<!--Body-->
+<!--<div class="modal-body  rounded center">
+                <table class="table1 table-hover table-fit center">
+                    <thead>
+                        <tr>
+                            <th class="text-CENTER" style="padding-top: 0px;padding-bottom: 0px;">NOTES</th>
+                            <th class="text-CENTER" style="padding-top: 0px;padding-bottom: 0px;">COUNT</th>
+                            <th class="text-CENTER" style="padding-top: 0px;padding-bottom: 0px;">AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table1 table-hover" id="table">
+                        <tr>
+                            <td class="text-left"><b>Rs. 1000 </b></td>
+                            <td>
+                                <input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x1000"
+                                       name="INR1000">
+                            </td>
+                            <td class="grand" id="t1000">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 500 </b></td>
+                            <td>
+                                <input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x500" name="INR500">
+                            </td>
+                            <td class="grand" id="t500">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 100 </b></td>
+                            <td>
+                                <input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x100" name="INR100">
+                            </td>
+                            <td class="grand" id="t100">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 50</b></td>
+                            <td>
+                                <input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x50" name="INR50">
+                            </td>
+                            <td class="grand" id="t50">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 20</b></td>
+                            <td>
+                                <input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x20" name="INR20">
+                            </td>
+                            <td class="grand" id="t20">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 10</b></td>
+                            <td>
+                                <input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x10" name="INR10">
+                            </td>
+                            <td class="grand" id="t10">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 5</b></td>
+                            <td>
+                                <input type="text" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x5" name="INR5">
+                            </td>
+                            <td class="grand" id="t5">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 2 </b></td>
+                            <td>
+                                <input type="text" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x2" name="INR2">
+                            </td>
+                            <td class="grand" id="t2">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>Rs. 1 </b></td>
+                            <td>
+                                <input type="text" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                       oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                       class="noteCount form-control form-control-sm" id="x1" name="INR1">
+                            </td>
+                            <td class="grand" id="t1">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><b>TOTAL</b></td>
+                            <td class="text-left"></td>
+
+                            <td class="text-center" contenteditable="false" id="grandTotal" name="tatal">
+                                0
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>-->
+
+<div class="modal fade" id="imagemodalpopupforall" tabindex="100" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imagepreviewmodelforall" style="width: 100%; height:100%;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="WeatherModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="col-xs-12 col-sm-12 center">
+                <div class="google-weather-place center">
+                    <div class="google-weather-crop center">
+                        <iframe class="google-weather" src="https://www.google.com/search?igu=1&amp;q=weather">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fiscal Year Modal -->
+<div id="FiscalYearChangeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="border-bottom-left-radius: 10px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" style="font-size:25px;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="fiscalyear" class="form-group">
+                            <div class="col-sm-12">
+                                <label><span>Current Fiscal Year :</span><span id="SessionFiscalYear"></span></label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label>Change To :</label>
+                                <select id="Modal-FiscalYearDD" class="form-control ddclear">
+                                    <option value="0" class="default" selected=""> --Select Fiscal Year-- </option>
+                                    <option value="2076/77">2076/77</option>
+                                    <option value="2077/78">2077/78</option>
+                                    <option value="2078/79">2078/79</option>
+                                    <option value="2079/80">2079/80</option>
+                                    <option value="2080/81">2080/81</option>
+                                    <option value="2081/82">2081/82</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: transparent;">
+                <button type="button" class="btn btn-success btn-sm" id="Modal-ChangeFiscalYear">Change</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Fiscal Year Modal -->
+<div id="EdYearChangeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="border-bottom-left-radius: 10px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" style="font-size:25px;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="Edyear" class="form-group">
+                            <div class="col-sm-12">
+                                <label><span>Current Education Year :</span><span id="SessionEdYear"></span></label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label>Change To :</label>
+                                <select id="Modal-EdYearDD" class="form-control ddclear">
+                                    <option value="0" class="default" selected=""> --Select Education Year-- </option>
+                                    <option value="2076/77">2076/77</option>
+                                    <option value="2077/78">2077/78</option>
+                                    <option value="2078/79">2078/79</option>
+                                    <option value="2079/80">2079/80</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: transparent;">
+                <button type="button" class="btn btn-success btn-sm" id="Modal-ChangeEducationYear">Change</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="CalenderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="col-xs-12 col-sm-12 center">
+                <div class="google center">
+                    <div class="google center">
+                        <iframe src="https://calendar-nepali.com/clockwidget/nepali-calendar-big.php" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" style="border:none; overflow:hidden; width:660px; height:560px;" allowtransparency="true"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal100" class="modal fade">
+    <div class="modal-dialog modal-confirm1">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to Logout? This process cannot be undone!!! </p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" id="logoutnow" class="btn btn-danger">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- -----------------------------------modules partial view div---------------->
+@* 
+<div class="modal fade" id="modulesDiv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog center" role="document">
+        <div class="modal-content" style="width:100%; height:100%; border-radius:50px;">
+           
+            <div class="modal-body" style="border-radius:50px; background-color:#e9edc9; ">
+                <div class="circle-container">
+
+                   
+                                @Html.Partial("~/Views/PartialViews/Modules.cshtml")
+                           
+
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+ *@
+
+<!-- -----------------------------------modules partial view div ends here---------------->
+
+
+<div id="navbar" class="navbar navbar-default ace-save-state">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+        <div class="row">    
+            <div class="col-xs-4 col-sm-4">
+        <div class="navbar-header pull-left">
+            <a href="/Dashboard?area=Admin" class="navbar-brand">
+                <small>
+                    <i class="fa fa-home" aria-hidden="true" title="Dashboard"></i>
+                    <span data-iscollege="false" data-id="0" data-enableeditbill="true" data-schoolcontact="" data-schooladdress="" date-accountReportPrintBaseUrl="" date-dateformat="" data-enableeditbillyearwise="false" data-ReceiptUrl="" class="SchoolName" data-ActivePreviousStudentSearch="0" data-hostedjsreport=""></span>
+                </small>
+            </a>
+        </div>
+        </div>
+
+
+       @*  <div class="haha" style="visibility:hidden;">
+            <button class="" id="modulesButton" data-target="#modulesDiv" data-toggle="modal" style=" margin-top:13px; height:40x; width:85px; border-radius:5px;"> Modules </button>
+        </div>
+ *@
+
+        <div class="col-xs-8 col-sm-8">
+        <div class=" navbar-buttons navbar-header pull-right" role="navigation">
+            <div class="hehe">
+
+                <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                <span class="sr-only">Toggle sidebar</span>
+                <span class="icon-bar xs"></span>
+                <span class="icon-bar xs"></span>
+                <span class="icon-bar xs"></span>
+            </button>
+           
+            <ul class="nav ace-nav" tabindex="-20">
+                        
+                <li class="  grey dropdown-modal">
+                    <a data-toggle="modal" class="dropdown-toggle" href="#CalenderModel">
+                        <div class="datetime">
+                            <span id="date"></span> - <span id="time"></span>
+                        </div>
+                    </a>
+
+                    <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="ace-icon fa fa-check"></i>
+                            4 Tasks to complete
+                        </li>
+
+                        <li class="dropdown-content">
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Software Update</span>
+                                            <span class="pull-right">85%</span>
+                                        </div>
+
+                                        <div class="progress progress-mini">
+                                            <div style="width:85%" class="progress-bar"></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Hardware Upgrade</span>
+                                            <span class="pull-right">70%</span>
+                                        </div>
+
+                                        <div class="progress progress-mini">
+                                            <div style="width:70%" class="progress-bar progress-bar-danger"></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Unit Testing</span>
+                                            <span class="pull-right">65%</span>
+                                        </div>
+
+                                        <div class="progress progress-mini">
+                                            <div style="width:65%" class="progress-bar progress-bar-warning"></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Bug Fixes</span>
+                                            <span class="pull-right">93%</span>
+                                        </div>
+
+                                        <div class="progress progress-mini progress-striped active">
+                                            <div style="width:93%" class="progress-bar progress-bar-success"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            
+                <li class="purple dropdown-modal">
+                    <a data-toggle="modal" class="dropdown-toggle" href="#WeatherModel">
+                        <i class="ace-icon fas fa-cloud-sun-rain icon-animated-wrench" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                @*<li class="purple dropdown-modal ResponsiveView">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+                <span class="badge badge-important">8</span>
+                </a>
+                </li>*@
+
+                @*<li class="green dropdown-modal ResponsiveView dropdown ForMessage" style="width:70px;">
+                @Html.Partial("~/Views/PartialViews/PVMessagePopUp.cshtml")
+
+                <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                <li class="dropdown-header">
+                <i class="ace-icon fa fa-envelope-o"></i>
+                5 Messages
+                </li>
+
+                <li class="dropdown-content">
+                <ul class="dropdown-menu dropdown-navbar">
+                </ul>
+                </li>
+
+                <li class="dropdown-footer">
+                <a href="inbox.html">
+                See all messages
+                <i class="ace-icon fa fa-arrow-right"></i>
+                </a>
+                </li>
+                </ul>
+                </li>*@
+
+                @*<li class="purple dropdown-modal ResponsiveView">
+                <a class="dropdown-toggle" href="#" data-toggle="modal" data-target="#exampleModal" id="CalculatorBtn">
+                <i class="ace-icon fa fa-calculator"></i>
+                </a>
+                </li>*@
+            
+                <li class="light-blue dropdown-modal">
+                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            <img class="nav-user-photo UserPhoto" src="/assets/images/avatars/studentlogo.png" alt="User Photo" />
+                        <span class="user-info">
+                            <small>Welcome,</small>
+                            <span class="Logonid"></span>
+                        </span>
+
+                        <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+
+                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-user"></i>
+                                <span data-empid="0" class="UserName"></span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="UserEmail"></span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#profileModel">
+                                <i class="ace-icon fa fa-user-md"></i>
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="ChangePassword" id="BtnChangeFiscalYear" href="#">
+                                <i class="ace-icon fa fa-calendar"></i>
+                                <span clss="ChangeFiscalYear">Change Fiscal Year</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="ChangePassword" id="BtnChangeEdYear" href="#">
+                                <i class="ace-icon fa fa-calendar"></i>
+                                <span clss="ChangeEdYear">Change Education Year</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="ChangePassword" href="/AdmChangePassword">
+                                <i class="ace-icon fa fa-key"></i>
+                                <span clss="ChangePassword">Change Password</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="FullScreen" href="#">
+                                <i class="ace-icon fa fa-expand" aria-hidden="true"></i>
+                                <span>Full Screen</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="Logout" href="#">
+                                <i class="ace-icon  fa fa-power-off"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<script src="~/assets/js/bootstrap.min.js"></script>
+<script src="~/assets/js/bootstrap-tag.min.js"></script>
+<script src="~/assets/js/jquery.hotkeys.index.min.js"></script>
+<script src="~/assets/js/bootstrap-wysiwyg.min.js"></script>
+<script src="~/assets/js/ace-elements.min.js"></script>
+<script src="~/assets/js/ace.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+<script src="~/customJs/custom.js"></script>
+<script src="~/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
+
+<script>
+
+
+
+    $(document).ready(function () {
+        initialFunctionCalls();
+
+
+        $("#modulesButton").hover(
+            function () {
+                $('#modulesDiv').modal('show');
+            }
+        );
+       
+
+    });
+
+
+
+
+
+    async function initialFunctionCalls() {
+        addActiveClassToNav();
+    }
+
+    function addActiveClassToNav() {
+        let currentPath = window.location.pathname;
+        $(`.nav-list a[href="${currentPath}"]`).parent("li").addClass("active");
+        $(`.nav-list a[href="${currentPath}"]`).parents("li").eq(1).addClass("active open");
+    }
+
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs);
+        }
+    }
+        (document, 'script', 'weatherwidget-io-js');
+
+    $(document).on('show.bs.modal', '.modal', function (event) {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function () {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
+</script>
+
+
+<script type="text/javascript">
+    let date11 = new Date().getFullYear();
+    $('#year').text(date11);
+
+    startTime();
+    var dt = new Date();
+    document.getElementById("date").innerHTML = dt.toLocaleDateString();
+    function startTime() {
+        var today = new Date();
+        document.getElementById("time").innerHTML = today.toLocaleTimeString()
+        var t = setTimeout(startTime, 500);
+    }
+    $(document.body).on("click", ".imagepopup", function () {
+        $('#imagepreviewmodelforall').attr('src', '');
+        $('#imagepreviewmodelforall').attr('src', $(this).attr('src'));
+        $('#imagemodalpopupforall').modal('show');
+    });
+    $(document).on("change", ".ddclear", function () {
+        $(".tblclear").find("tbody").find("tr").remove();
+    });
+    $(".status111223344").on("click", function () {
+        $(".fest").css("display", "none");
+        $(".status111223344").css("display", "none");
+    });
+    $(".FullScreen").on("click", function () {
+        var elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    });
+    $(document).ready(function () {
+        getDataInfoo1();
+    });
+
+    function getDataInfoo1() {
+        
+        var UserInfo = "";
+        var JsonUserInfo = "";
+        UserInfo = AjaxCallWithoutDataNoAsync("/Dashboard/GetSchoolInfo");
+        JsonUserInfo = JSON.parse(UserInfo);
+        var FinalJsonUserInfo = JSON.parse(JsonUserInfo);
+        var SchoolName = (FinalJsonUserInfo[0]["SchoolName"]).toUpperCase();
+        var SchoolAddress = (FinalJsonUserInfo[0]["Address"]).toUpperCase();
+        var SchoolContact = (FinalJsonUserInfo[0]["ContactNo"]);
+        var Logonid = FinalJsonUserInfo[0]["logonid"];
+        var UserName = FinalJsonUserInfo[0]["UserName"];
+        var UserEmail = FinalJsonUserInfo[0]["UserEmail"];
+        //var Photo = FinalJsonUserInfo[0]["Photo"] ;
+        var FiscalYear = FinalJsonUserInfo[0]["FiscalYear"].trim();
+        var EdYear = FinalJsonUserInfo[0]["Edyear"].trim();
+        var ReceiptUrl = FinalJsonUserInfo[0]["ReceiptUrl"].trim();
+        var HostedJsreport = FinalJsonUserInfo[0]["HostedJsReport"].trim();
+        $(".SchoolName").attr("data-ReceiptUrl", ReceiptUrl); //data-id
+        $(".SchoolName").attr("data-hostedjsreport", HostedJsreport);
+
+        $(".SchoolName").attr("data-schoolcontact", SchoolContact);
+
+        $(".SchoolName").attr("data-schooladdress", SchoolAddress);
+
+        
+
+
+        $(".SchoolName").attr("data-id", FinalJsonUserInfo[0]["SchoolCode"]);
+        $(".SchoolName").attr("data-activepreviousstudentsearch", FinalJsonUserInfo[0]["ActivePreviousStudentSearch"]);
+
+        $(".SchoolName").attr("data-enableeditbill", FinalJsonUserInfo[0]["IsEnableBillPannel"]);
+        $(".SchoolName").attr("data-enableeditbillyearwise", FinalJsonUserInfo[0]["IsEnableBillPannelTYearWise"]);
+        $(".SchoolName").attr("data-iscollege", FinalJsonUserInfo[0]["IsCollege"]);
+        $(".SchoolName").attr("date-accountReportPrintBaseUrl", FinalJsonUserInfo[0]["accountReportPrintBaseUrl"]);
+
+        $(".SchoolName").attr("date-dateformat", FinalJsonUserInfo[0]["DateFormateInERP"]);
+        $(".UserName").attr("data-empid", FinalJsonUserInfo[0]["empid"])
+
+        $(".SchoolName").html(SchoolName);
+        $(".Logonid").html(Logonid);
+        $(".UserName").html(UserName);
+        $(".UserEmail").html(UserEmail);
+        $("#txtfiscalyear").text(FiscalYear)
+        $(".FiscalYearHeading").text(FiscalYear);
+        $(".EdYearHeading").text(EdYear)
+        
+        var Photo = FinalJsonUserInfo[0]["Photo"] == "" ? '/assets/images/avatars/studentlogo.png' : FinalJsonUserInfo[0]["Photo"];
+        $(".UserPhoto").attr("src", Photo);
+
+    };
+    $("#logoutnow").off("click").on("click", function () {
+        var SchoolName = $(".SchoolName").text();
+        if (SchoolName == "Insoft Research and Development") {
+            var Success = AjaxCallWithoutDataNoAsync("/Helper/ClearSession");
+            if (Success == 1) {
+                window.location.assign('/');
+            }
+        }
+        else {
+            var Success = AjaxCallWithoutDataNoAsync("/Helper/ClearSession");
+            if (Success == 1) {
+                window.location.assign('/');
+            }
+        }
+    });
+
+    $(".Logout").off("click").on("click", function () {
+        $("#clickme2222").trigger("click");
+    });
+
+    $(document).on("click", "#BtnChangeFiscalYear", function () {
+        var result = AjaxCallWithoutDataNoAsync("/Helper/GetSessionFiscalYear");
+        $("#SessionFiscalYear").text(result);
+        $("#FiscalYearChangeModal").find("#Modal-FiscalYearDD").val(result);
+        $("#FiscalYearChangeModal").modal('show');
+    });
+
+
+    $(document).on("click", "#BtnChangeEdYear", function () {
+        var result = AjaxCallWithoutDataNoAsync("/Dashboard/GetSchoolInfo");
+        var DistinctEdYear = AjaxCallWithoutDataNoAsync("/Helper/GetEdYear");
+        var JsonEdYear = JSON.parse(DistinctEdYear);
+
+        var dom = "";
+        for (var i = 0; i < JsonEdYear.length; i++) {
+            dom = dom + "<option value=" + JsonEdYear[i]["edYear"] + ">" + JsonEdYear[i]["edYear"] + "</option>";
+        }
+
+        $("#Modal-EdYearDD").find("option").not(".default").remove();
+        $("#Modal-EdYearDD").append(dom);
+
+        var jsonresult = JSON.parse(JSON.parse(result));
+        $("#SessionEdYear").text(jsonresult[0]["Edyear"]);
+        $("#EdYearChangeModal").find("#Modal-EdYearDD").val(jsonresult[0]["Edyear"]);
+        $("#EdYearChangeModal").modal("show");
+    });
+
+
+    $(document).on("click", "#Modal-ChangeFiscalYear", function () {
+
+        var data = $("#FiscalYearChangeModal").find("#Modal-FiscalYearDD").val();
+
+        if (data == "0") {
+            AlertMessage("Warning", "You need to select a fiscal year first !!!");
+        }
+        else {
+            var result = AjaxCallNoAsync("/Helper/SwitchFiscalYear", data);
+
+            if (result == "success") {
+                AlertMessage("Success", "Fiscal Year changed successfully !!!");
+                $("#FiscalYearChangeModal").modal('hide');
+                location.reload();
+            }
+            else {
+                AlertMessage("Error", "Fiscal Year not changed !!!");
+            }
+        }
+    });
+
+
+    $(document).on("click", "#Modal-ChangeEducationYear", function () {
+
+        var data = $("#Modal-EdYearDD").val();
+        if (data == "0") {
+            AlertMessage("Warning", "You need to select a fiscal year first !!!");
+        }
+        else {
+            var result = AjaxCallNoAsync("/Helper/SwitchEducationYear", data);
+
+            if (result == "success") {
+                AlertMessage("Success", "Education Year Changed successfully !!!");
+                $("#EdYearChangeModal").modal('hide');
+                location.reload();
+            }
+            else {
+                AlertMessage("Error", "Education Year not changed !!!");
+            }
+        }
+    });
+
+
+
+</script>

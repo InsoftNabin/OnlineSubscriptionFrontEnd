@@ -1,0 +1,56 @@
+﻿.fa, .fas {
+        font-weight: 500;
+    }
+    .label-container {
+        position: fixed;
+        bottom: 60px;
+        right: 78px;
+        display: table;
+        visibility: hidden;
+    }
+
+.label-text {
+    color: #FFF;
+    background: #0a0707b5;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+    .label-arrow {
+        display: table-cell;
+        vertical-align: middle;
+        color: #333;
+        opacity: 0.5;
+    }
+.float {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    bottom: 60px;
+    right: 40px;
+    background-color: #0b3b56;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+}
+    .float:hover {
+        color: #FFF;
+    }
+
+    .my-float {
+        margin: 8px;
+    }
+    a.float + div.label-container {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s ease;
+    }
+
+a.float:hover + div.label-container {
+    visibility: visible;
+    opacity: 1;
+   
+}

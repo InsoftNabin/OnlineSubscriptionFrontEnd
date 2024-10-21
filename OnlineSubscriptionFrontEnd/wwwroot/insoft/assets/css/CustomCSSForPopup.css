@@ -1,0 +1,44 @@
+.modal .modal-dialog-aside {
+        width: 35%;
+        max-width: 40%;
+        height: auto;
+        margin: 0;
+        transform: translate(0);
+        transition: transform .2s;
+        justify-content:center;
+    }
+        .modal .modal-dialog-aside .modal-content {
+            height: inherit;
+            border: 0;
+            border-radius: 0;
+        }
+            .modal .modal-dialog-aside .modal-content .modal-body {
+                overflow-y: auto;
+                align-content:center;
+            }
+
+    .modal.fixed-left .modal-dialog-aside {
+        margin-left: auto;
+        transform: translateX(100%);
+    }
+
+    .modal.fixed-right .modal-dialog-aside {
+        margin-right: auto;
+        transform: translateX(-100%);
+    }
+
+    .modal.show .modal-dialog-aside {
+        transform: translateX(0);
+    }
+	
+	@media only screen and (max-width:767px) {
+    .modal .modal-dialog-aside {
+		width: auto;
+        max-width: 100%;
+        height: auto;
+        margin: 0;
+        transform: translate(0);
+        transition: transform .2s;
+        justify-content:center;
+	}
+}

@@ -13,7 +13,7 @@ namespace OnlineSubscriptionFrontEnd
     public class Startup
     {
         public static string baseapiurl;
-        public static string gpsapiurl;
+        //public static string gpsapiurl;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

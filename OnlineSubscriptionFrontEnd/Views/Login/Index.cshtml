@@ -72,10 +72,19 @@
 
     </div>
   </div>
-</div>
+
 <script type="text/javascript">
    $(document).ready(()=>{
-    LaodData(window.location.href)
+    LaodData(window.location.href);
+
+  
+        $(document).on("keydown", function (e) {
+            var keycode = e.keyCode;
+            if ( keycode === 13) {
+                $("#LoginBtn").trigger('click');
+            }
+        });
+
   })
   async function LaodData(url) {
 var url = new URL(url);
@@ -109,7 +118,7 @@ $("#LoginBtn").on("click",async  (e)=> {
     Password: $("input[name='Password']").val(),
   };
   console.log(data);
-e.preventDefault();
+// e.preventDefault();
  const result = await AjaxCall("/Login/VerifyUser", data);
  if(result == 'Success'){
   window.location.href = "/Home/Index";

@@ -100,7 +100,10 @@
       "System.Text.Encodings.Web/4.5.0": {},
       "DataProvider/1.0.0": {
         "runtime": {
-          "DataProvider.dll": {}
+          "DataProvider.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

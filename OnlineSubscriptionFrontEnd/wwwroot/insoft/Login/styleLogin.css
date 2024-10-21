@@ -1,0 +1,1019 @@
+
+@import url('https://fonts.googleapis.com/css?family=Lobster|Montserrat&display=swap');
+
+html, body{
+    height: 100%;
+    overflow: hidden;
+    background: var(--mango-gradient);
+}
+
+:root {
+    background-image: linear-gradient(to right top, #42601a, #005a36, #00514c, #004556, #003751, #03334b, #052f46, #072b40, #002f3e, #01323b, #093437, #143633);
+    --primary-gradient: linear-gradient(to right, #4e4376, #2b5876);
+    --text-color: #F7F9F9;
+    --Montserrat: "Montserrat", cursive;
+    --Lobster: "Lobster", cursive;
+    --primary-shadow: 3px 4px 7px rgba(27, 27, 27, 0.534);
+    --border-color: rgba(0,0,0,0.329);
+}
+
+.messagealert {
+    position: fixed;
+    z-index: 10000000;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    width: 40%;
+    left: 30%;
+    top: 2%;
+}
+
+.alert-success {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #1B5E20;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Success {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #1B5E20;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-danger {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-warning {
+    margin: 0 0.5%;
+    color: #000000;
+    background-color: #EEFF41;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-info {
+    margin: 0 0.5%;
+    color: #ffffFF;
+    background-color: #1A237E;
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Authorized {
+    margin: 0 0.5%;
+    color: #000000;
+    background-color: #EEFF41;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+.alert-Error {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+.alert-error {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    border-radius: 25px;
+    max-height: 100%;
+}
+
+.container .panel{
+    width: 70%;
+    height: 73%;
+    box-shadow: var(--primary-gradient);
+}
+
+.row{
+    margin-top:10%;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    height: 100%;
+    justify-content: center;
+    background: #fff;
+}
+
+.liquid {
+    background: url("/Login/img/wave.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 90%;
+    height: 100%;
+}
+
+.liquid h4{
+    text-align: left;
+    padding: 0 2rem;
+    color: whitesmoke;
+    font-family: var(--Montserrat);
+}
+
+.owl-carousel{
+    width: 90%;
+    height: 70%;
+    max-height: 70%;
+}
+
+.owl-carousel .owl-item .login_img{
+    float: right;
+    width: 75%;
+    height: 90%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-right: 3rem;
+}
+
+.owl-dots{
+    position: fixed;
+    padding: 3rem 1.2rem;
+    display: flex !important;
+    flex-direction: column;
+    transform: translateY(-240px);
+}
+
+.owl-dots button{
+    border-radius: 5rem;
+    margin: .3rem 0;
+    outline:none;
+}
+
+.owl-dots button span{
+    background: var(--text-color) !important;
+    margin: 0rem .6rem !important;
+}
+
+.owl-dots .active{
+    border: 1px solid #ffd765 !important;
+}
+
+.owl-dots .active span{
+    background: #ffd765 !important;
+    margin: .3rem .5rem !important;
+}
+
+.follow{
+    padding: 0 1rem;
+    padding-top: 1.4rem;
+    color: whitesmoke;
+        font-family: var(--Montserrat);
+    position: relative;
+    font-size: .9rem;
+}
+
+.follow::after{
+    content: "";
+    position: absolute;
+    left: 14%;
+    width: 50px;
+    border-radius: 4rem;
+    margin-top: .7rem;
+}
+
+.follow i:first-child{
+    margin-left: 4rem;
+}
+
+.btn{
+    padding: .5rem 1.5rem;
+    border: none;
+    border-radius: 4rem;
+    background: #2b5876;
+    color: whitesmoke;
+    font-size: .7rem;
+    font-family: var(--Montserrat);
+    box-shadow: var(--primary-shadow);
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #0F6511;
+    color:white;
+}
+
+.login .btn-signup, 
+form .btn-login{
+    background: var(--primary-gradient);
+    float: right;
+    margin: 1rem;
+}
+
+.titles{
+    margin-bottom: 3rem;
+    margin-left:5.2rem;
+}
+
+form{
+    display: block;
+    justify-content: center;
+    height: 100%;
+    max-height: 100%;
+    margin-top: 4rem;
+}
+
+form h3, form h6{
+    font-family: var(--Montserrat);
+    margin:0px;
+    padding-left: 5.5rem;
+}
+
+form h6{
+    padding-left: 6.5rem;
+    font-family: var(--Lobster);
+    color: #444444d2;
+    align-items: center;
+    justify-content: center;
+}
+.SchoolLogo {
+    width: 30%;
+}
+
+form .form-group{
+    text-align: left;
+    border: 1px solid var(--border-color);
+    margin-top: 1rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    border-radius:5px;
+}
+
+form .form-group .form-input{
+    padding: .7rem 2rem;
+    background: transparent;
+    border: none;
+    font-family: var(--Montserrat);
+    font-size: .9rem;
+    overflow: hidden;
+}
+.form-input::selection internal-autofill-selected {
+    background-color: transparent !important;
+}
+
+form input:focus{
+    outline: none;
+}
+
+form .input-icon{
+    display: inline;
+    float:right;
+    padding: 10px;
+    color: var(--border-color);
+}
+
+form .btn-login{
+    float: right;
+    padding: .7rem 3rem;
+    margin-top:50px;
+    margin-left: 7rem;
+}
+form .btn-login:hover{
+    background-color: #0F6511;
+    color:white;
+}
+@media screen and (max-width: 1473px) {
+    .row {
+        grid-template-columns: 60% 40%;
+        height: inherit;
+    }
+
+    .container .panel {
+        width: 70%;
+        height: 80%;
+    }
+
+    .liquid {
+        width: 90%;
+        height: 100%;
+    }
+
+    .login {
+        margin-left: -55px;
+    }
+
+    form .input-icon {
+padding:9px;
+    }
+}
+@media screen and (max-width: 1230px) {
+    .titles{
+        margin-left:0.2rem;
+    }
+}
+@media screen and (max-width: 1107px) {
+    form .input-icon {
+        padding: 9px;
+    }
+}
+
+    @media screen and (max-width: 1360px) {
+        .row {
+            grid-template-columns: 60% 40%;
+            height: inherit;
+        }
+        .SchoolLogo{
+            height:20%;
+            width:22%;
+        }
+
+        .container .panel {
+            width: 60%;
+            height: 80%;
+        }
+
+        .liquid {
+            width: 90%;
+            height: 100%;
+        }
+
+        .login {
+            margin-left: -55px;
+        }
+
+        form .input-icon {
+            margin-top: auto;
+            margin-left: -15px;
+        }
+    }
+
+    @media screen and (max-width: 1211px) {
+        .row {
+            grid-template-columns: 50% 50%;
+            height: inherit;
+        }
+
+        .container .panel {
+            width: 60%;
+            height: 80%;
+        }
+
+        .liquid {
+            width: 90%;
+            height: 100%;
+        }
+
+        .login {
+            margin-left: -55px;
+        }
+
+        form .input-icon {
+            margin-top: auto;
+            margin-left: -28px;
+        }
+    }
+
+    @media screen and (max-width: 1050px) {
+        .myForm {
+            padding-top: 3.5rem;
+            justify-content: center;
+            margin-bottom: 5.5rem;
+        }
+
+        .liquid {
+            display: none;
+        }
+
+        .container {
+            width: 100%;
+            grid-gap: 1rem;
+            height: 70%;
+        }
+
+        .row {
+            height: 100%;
+            display: block;
+        }
+
+        .login {
+            margin-left: 0px;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 25px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+            .follow11 i:first-child {
+                margin-left: 4rem;
+            }
+
+        .titles {
+            margin-bottom: 7rem;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 12px;
+            padding-left: 15.5rem;
+        }
+        .row {
+            grid-template-columns: 40% 60%;
+            height: inherit;
+        }
+    }
+
+    @media screen and (max-width: 1050px) {
+        .myForm {
+            padding-top: 2rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 0px;
+            padding-left: 5.5rem;
+        }
+
+        .titles {
+            margin-bottom: 6rem;
+            margin-left:30px;
+        }
+        .SchoolLogo{
+            width:30%;
+        }
+
+        form {
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .row {
+            height: 120%;
+        }
+
+        .login-content h2 {
+            font-size: 1.4rem;
+            margin: 8px 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 70%;
+        }
+
+        .img {
+            display: none;
+        }
+
+        .wave {
+            display: none;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 25px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+            .follow11 i:first-child {
+                margin-left: 4rem;
+            }
+    }
+
+    @media screen and (max-width: 900px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+
+        .img {
+            display: none;
+        }
+
+        .wave {
+            display: none;
+        }
+
+        .login {
+            justify-content: center;
+            width: 100%;
+            padding: 0px;
+            height: 100%;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 0px;
+            padding-left: 5.5rem;
+        }
+
+        form .input-icon {
+            padding: 9px;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 25px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+            .follow11 i:first-child {
+                margin-left: 4rem;
+            }
+    }
+
+    @media screen and (max-width:667px) {
+        .login {
+            padding-top: 1.5rem;
+        }
+
+        .myForm {
+            padding-top: 1rem;
+            justify-content: center;
+            margin-bottom: 5.5rem;
+        }
+
+        .titles {
+            padding-left: 5px;
+            margin-bottom: 2rem;
+        }
+
+        .login {
+            width: 100%;
+            height: 100%;
+            margin-top: 25px;
+        }
+
+        .container .panel {
+            margin: 0px;
+            width: 90%;
+            height: 100%;
+            box-shadow: var(--primary-gradient);
+        }
+
+        .row {
+            margin-top: 4rem;
+            height: 100%;
+            display: block;
+        }
+
+        .liquid {
+            display: none;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 25px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+        .container {
+            height: 70%;
+        }
+
+        .follow11 i:first-child {
+            margin-left: 4rem;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 0px;
+            padding-left: 5.5rem;
+        }
+    }
+
+    @media screen and (max-width: 440px) {
+        .login {
+            padding-top: 1.5rem;
+        }
+
+        .myForm {
+            padding-top: 1rem;
+            justify-content: center;
+            margin-bottom: 5.5rem;
+        }
+
+        .titles {
+            padding-left: 5px;
+            margin-bottom: 3rem;
+            margin-left: 1.2rem;
+        }
+
+        .SchoolLogo {
+            height: 18%;
+            width: 30%;
+        }
+
+        .login {
+            width: 100%;
+            height: 100%;
+            margin-top: 25px;
+        }
+
+        .container .panel {
+            margin: 0px;
+            width: 90%;
+            height: 100%;
+            box-shadow: var(--primary-gradient);
+        }
+
+        .row {
+            margin-top: 4rem;
+            height: 100%;
+            display: block;
+        }
+
+        .liquid {
+            display: none;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 55px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+        .container {
+            height: 70%;
+        }
+
+        .follow11 i:first-child {
+            margin-left: 4rem;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 0px;
+            padding-left: 5.5rem;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        .login {
+            padding-top: 1.5rem;
+        }
+
+        .myForm {
+            padding-top: 1rem;
+            justify-content: center;
+            margin-bottom: 5.5rem;
+        }
+
+        .titles {
+            padding-left: 5px;
+            margin-bottom: 3rem;
+            margin-left: 1.2rem;
+        }
+
+        .SchoolLogo {
+            height: 18%;
+            width: 30%;
+        }
+
+        .login {
+            width: 100%;
+            height: 100%;
+            margin-top: 25px;
+        }
+
+        form .btn-login {
+            margin-top: 20px;
+        }
+
+        .container .panel {
+            margin: 0px;
+            width: 90%;
+            height: 100%;
+            box-shadow: var(--primary-gradient);
+        }
+
+        form .input-icon {
+            display: none;
+        }
+
+        .row {
+            margin-top: 4rem;
+            height: 100%;
+            display: block;
+        }
+
+        .liquid {
+            display: none;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 25px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+        .container {
+            height: 70%;
+        }
+
+        .follow11 i:first-child {
+            margin-left: 4rem;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 0px;
+            padding-left: 5.5rem;
+        }
+    }
+
+
+    @media screen and (max-width: 360px) {
+        .login {
+            padding-top: 0rem;
+        }
+
+        .myForm {
+            padding-top: 2rem;
+            justify-content: center;
+            margin-bottom: 5.5rem;
+        }
+
+        form .input-icon {
+            display: none;
+        }
+
+        form .form-group .form-input {
+            padding: .7rem 1.7rem;
+            background: transparent;
+            border: none;
+            font-family: var(--Montserrat);
+            font-size: .9rem;
+            overflow: hidden;
+        }
+
+        .titles {
+            padding-left: 0px;
+            margin-left: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .login {
+            width: 100%;
+            height: 100%;
+            margin-top: 25px;
+        }
+
+        .container .panel {
+            margin: 0px;
+            width: 90%;
+            height: 100%;
+            box-shadow: var(--primary-gradient);
+        }
+
+        .row {
+            margin-top: 4rem;
+            height: 100%;
+            display: block;
+        }
+
+        .liquid {
+            display: none;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 25px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+        .container {
+            height: 70%;
+        }
+
+        .follow11 i:first-child {
+            margin-left: 4rem;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 0px;
+            padding-left: 5.5rem;
+        }
+
+        .SchoolLogo {
+            width: 30%;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .login {
+            padding-top: 0rem;
+        }
+
+        .myForm {
+            padding-top: 2rem;
+            justify-content: center;
+            margin-bottom: 5.5rem;
+        }
+
+        form .input-icon {
+            display: none;
+        }
+
+        form .form-group .form-input {
+            padding: .7rem 1.7rem;
+            background: transparent;
+            border: none;
+            font-family: var(--Montserrat);
+            font-size: .9rem;
+            overflow: hidden;
+        }
+
+        form .btn-login {
+            margin-top: 20px;
+        }
+
+        .titles {
+            padding-left: 0px;
+            margin-left: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .login {
+            width: 100%;
+            height: 100%;
+            margin-top: 25px;
+        }
+
+        .container .panel {
+            margin: 0px;
+            width: 90%;
+            height: 100%;
+            box-shadow: var(--primary-gradient);
+        }
+
+        .row {
+            margin-top: 2rem;
+            height: 100%;
+            display: block;
+        }
+
+        .liquid {
+            display: none;
+        }
+
+        .follow11 {
+            display: block !important;
+            font-family: var(--Montserrat);
+            position: relative;
+            margin-left: 25px;
+            font-size: .7rem;
+        }
+
+            .follow11::after {
+                content: "";
+                position: absolute;
+                margin-left: 14%;
+                width: 50px;
+            }
+
+        .container {
+            height: 70%;
+        }
+
+        .follow11 i:first-child {
+            margin-left: 4rem;
+        }
+
+        form h3, form h6 {
+            font-family: var(--Montserrat);
+            margin: 0px;
+            padding-left: 3.5rem;
+        }
+
+        .SchoolLogo {
+            width: 30%;
+        }
+    }

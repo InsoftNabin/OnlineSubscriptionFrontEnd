@@ -393,26 +393,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\INSOFT\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+      "projectUniqueName": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
       "projectName": "DataServiceLayer",
-      "projectPath": "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "F:\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
+      "projectPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+      "packagesPath": "C:\\Users\\INSOFT\\.nuget\\packages\\",
+      "outputPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\INSOFT\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -420,14 +413,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
-              "projectPath": "F:\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
+            "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+              "projectPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
             }
           }
         }
@@ -472,7 +466,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   },

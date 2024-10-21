@@ -1,0 +1,179 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Agent.cshtml";
+}
+
+<style>
+    .btn-edit, .btn-delete {
+        border-radius: 8px;
+        margin: 0 5px;
+    }
+
+    .table th, .table td {
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn-success, .btn-danger {
+        width: 100%;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    .fa-edit, .fa-trash, .fa-sync-alt, .fa-save {
+        cursor: pointer;
+        font-size: 1.5em;
+    }
+
+        .fa-edit:hover {
+            color: #007bff;
+        }
+
+        .fa-trash:hover {
+            color: #dc3545;
+        }
+</style>
+
+<div class="page-content">
+    <div class="content-body">
+        <div class="clearfix well" style="display: flex;">
+
+            <div class="col-3" style="border: 1px solid black; flex: 0 0 25%; border-radius: 8px; padding: 15px;">
+                <form>
+                    <div class="form-group">
+                        <label for="id">Agent ID (Optional):</label>
+                        <input type="number" class="form-control" id="id" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="noom">Number of Months in the Package:</label>
+                        <input type="text" class="form-control" id="noom" placeholder="Enter Number of months" required />
+                    </div>
+
+                    <div class="form-group" style="display: flex;">
+                        <button type="button" class="btn btn-danger" id="BtnReset" style="border-radius:12px; margin-right: 5px;">Reset &nbsp; <i class="ace-icon fa fa-sync-alt"></i></button>
+                        <button type="button" class="btn btn-success" id="BtnInsert" style="border-radius:12px;">Save &nbsp; <i class="ace-icon fa fa-save"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="TableDiv col-8" style="overflow-x: scroll; overflow-y: scroll; height: 50dvh; position: relative; flex: 0 0 75%;">
+                <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="border-collapse: separate; width: 100%; padding: 0px;">
+                    <thead>
+                        <tr>
+                            <th class="center">S.N</th>
+                            <th class="center">Name</th>
+                            <th class="center">Number of Months</th>
+                            <th class="center">Edit</th>
+                            <th class="center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getTableData();
+
+        // Reset button functionality
+        $("#BtnReset").on("click", function () {
+            resetForm();
+        });
+
+        // Save button functionality
+        $("#BtnInsert").on("click", async function () {
+            var parm = {
+                Id: $("#id").val() ? parseInt($("#id").val()) : 0,
+                Name: $("#name").val(),
+                NoOfMonth: parseInt($("#noom").val()),
+            };
+
+            var data = await AjaxCall("/Subscription/InsertUpdateSubscription", parm);
+            var jsondataresponse = JSON.parse(data);
+
+            if (jsondataresponse == 1) {
+                resetForm();
+                getTableData();
+                toastr.success("Agent action successfull!");
+            } else {
+                toastr.error("Failed to insert/update agent.");
+            }
+        });
+
+    });
+
+    function resetForm() {
+        $("#id").val(""); // Clear ID
+        $("#name").val("");
+        $("#noom").val("");
+        getTableData();
+    }
+
+    function getTableData() {
+        var a = AjaxCallWithoutDataNoAsync("/Subscription/getSubscription");
+        var ab = JSON.parse(a);
+        var jsondata = JSON.parse(ab);
+
+        var tableDOM = "";
+        if (jsondata.length > 0) {
+            for (var i = 0; i < jsondata.length; i++) {
+                tableDOM += `<tr data-id=` + jsondata[i]["Id"] + ` data-name=` + jsondata[i]["Name"] + ` data-noom=` + jsondata[i]["NoOfMonth"] + `>
+                                    <td class="center">` + (i + 1) + `</td>
+                                    <td class="center" class="subName">` + jsondata[i]["Name"] + `</td>
+                                    <td class="center" class="subMonth">` + jsondata[i]["NoOfMonth"] + `</td>
+                                    <td class="center"><i class="fas fa-edit btn-edit green" ></i></td>
+                                    <td class="center"><i class="fas fa-trash btn-delete red"></i></td>
+                                </tr>`;
+            }
+            $("#agentTable tbody").empty().append(tableDOM);
+        } else {
+            $("#agentTable tbody").empty().append('<tr><td colspan="5">No agents found.</td></tr>');
+        }
+    }
+
+    $(document).on("click", ".btn-edit", function () {
+        const row = $(this).closest("tr");
+        $("#id").val(row.data("id")); 
+        $("#name").val(row.data("name"));
+        $("#noom").val(row.data("noom"));
+    });
+
+
+    async function deleteProduct(id) {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        });
+
+        if (result.isConfirmed) {
+            var parm = { Id: id };
+            var productData = await AjaxCall("/Agent/DeleteAgent", parm);
+            getTableData();
+            Swal.fire('Deleted!', 'The agent data has been deleted.', 'success');
+        }
+    }
+</script>

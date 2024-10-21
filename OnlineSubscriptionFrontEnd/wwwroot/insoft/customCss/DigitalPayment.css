@@ -1,0 +1,84 @@
+.paymentWrap {
+    padding: 0px;
+}
+
+    .paymentWrap .paymentBtnGroup {
+        max-width: 700px;
+        margin: auto;
+        padding:20px;
+    }
+
+        .paymentWrap .paymentBtnGroup .paymentMethod {
+            padding: 40px;
+            box-shadow: none;
+            background-color: white!important;
+            position: relative;
+            outline:none!important;
+           
+        }
+
+            .paymentWrap .paymentBtnGroup .paymentMethod.active {
+                outline: none !important;
+                border-color: #4cd264;
+            }
+
+             .paymentWrap .paymentBtnGroup .paymentMethod.active .method {
+                    border-color: #4cd264;
+                    box-shadow: 0px 3px 22px 0px #4cd264;
+                }
+
+              .paymentWrap .paymentBtnGroup .paymentMethod .method {
+                position: absolute;
+                right: 3px;
+                top: 3px;
+                bottom: 3px;
+                left: 3px;
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+              
+                transition: all 0.5s;
+            }
+
+                .paymentWrap .paymentBtnGroup .paymentMethod .method.visa {
+                    background-image: url("https://d7vw40z4bofef.cloudfront.net/static/img/logo1.png");
+                }
+
+                .paymentWrap .paymentBtnGroup .paymentMethod .method.master-card {
+                    background-image: url("https://media.ttmind.com/Media/tech/article_70_6-28-201912-07-34PM.png");
+                }
+
+                .paymentWrap .paymentBtnGroup .paymentMethod .method.amex {
+                    background-image: url("https://incloud.academeplus.com/fileuploads/02/Account/147640120147640120-1543-unnamed.jpg");
+                }
+
+                .paymentWrap .paymentBtnGroup .paymentMethod .method.vishwa {
+                    background-image: url("https://www.fonepay.com/images/logo.png");
+                }
+
+                .paymentWrap .paymentBtnGroup .paymentMethod .method.ez-cash {
+                    background-image: url("https://www.prabhulife.com/wp-content/uploads/2020/05/connectips-icon.png");
+                  
+                }
+
+                .paymentWrap .paymentBtnGroup .paymentMethod .method.ez-cash1 {
+                    background-image: url("https://www.connectips.com/images/Prabhu-Pay-logo-final.png");
+                }
+
+
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method:hover {
+    border-color: #4cd264;
+    outline: none !important;
+}
+
+
+@media screen and (max-width:750px) {
+    .schlLogo {
+        text-align:center!important;
+    }
+
+    .schlNamme{
+        text-align:center!important;
+    }
+}

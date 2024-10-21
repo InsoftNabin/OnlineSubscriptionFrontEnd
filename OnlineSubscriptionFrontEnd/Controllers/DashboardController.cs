@@ -7,10 +7,8 @@ using OnlineSubscriptionFrontEnd.Models;
 
 namespace OnlineSubscriptionFrontEnd.Controllers
 {
-
     public class DashboardController : Controller
     {
-
 
         public IActionResult Index()
         {

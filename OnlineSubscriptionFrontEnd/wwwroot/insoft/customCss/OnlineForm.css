@@ -1,0 +1,406 @@
+﻿.admission-form {
+    padding: 40px 20px;
+    font-family: Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    width: 95%;
+}
+
+.preview {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.form-header {
+    width: 100%;
+    background: none;
+    padding: 5px 0;
+}
+
+    .form-header img {
+        display: block;
+        margin: 0 auto;
+        width: 200px;
+        height: auto;
+    }
+
+.form-group {
+    width: 100%;
+}
+
+.input-true {
+    outline: none !important;
+    border: 2px solid #e8e8ea;
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    padding: 0 10px;
+    background-color: #f8f9fb;
+    transition: all 0.3s ease-in;
+}
+
+    .input-true.parsley-error {
+        border-color: #ff7e7e !important;
+    }
+
+.parsley-errors-list li {
+    color: #ff7e7e;
+    margin-top: 4px;
+}
+
+.input-true:focus {
+    box-shadow: inset 0px 1px 8px #ddd !important;
+    border-color: rgba(141, 157, 204, 0.57);
+}
+
+.input-true.submit {
+    border: 1px solid #1c1855;
+    transition: all 0.2s linear;
+    background: #1c1855;
+    color: #fff;
+    font-weight: bold;
+}
+
+    .input-true.submit:hover {
+        background: #1c1855;
+        color: #fff;
+    }
+
+.admission-form form {
+    margin-top: 50px;
+}
+
+.admission-form ul {
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.admission-form .form-group-header {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #545454;
+    margin-bottom: 15px;
+    line-height: 1.4em;
+}
+
+.admission-form label {
+    font-size: 1em;
+    font-weight: normal;
+    color: #777;
+    position: relative;
+}
+
+.admission-form .form-group li {
+    margin-bottom: 15px;
+}
+
+.req-label:after {
+    content: '*';
+    color: red;
+    display: inline-block;
+    margin: 3px 0 0 4px;
+}
+
+.group-devider > div {
+    border-right: 1px solid #ddd;
+    padding-right: 40px;
+}
+
+    .group-devider > div:last-child {
+        border: none;
+        padding-right: 0;
+        padding-left: 40px;
+    }
+
+.group-devider-ul li {
+    border-right: 1px solid #ddd;
+}
+
+    .group-devider-ul li:last-child {
+        border-right: none;
+    }
+
+.add-more-row {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    display: block;
+    margin-left: auto;
+}
+
+    .add-more-row svg {
+        width: 30px;
+        height: 30px;
+        fill: #777;
+    }
+
+        .add-more-row svg path {
+            fill: #777;
+        }
+
+    .add-more-row:hover svg path {
+        fill: #333;
+    }
+
+.inline-block {
+    display: inline-block;
+}
+
+.form-group-header.space-right {
+    margin-right: 20px;
+}
+
+label.space-right {
+    margin-right: 20px;
+}
+
+label.space-left {
+    margin-left: 4px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+textarea.input-true {
+    max-width: 100%;
+    min-width: 100%;
+    height: 70px;
+}
+
+.styled-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+
+    .styled-checkbox + label {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+    }
+
+        .styled-checkbox + label:before {
+            content: '';
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: text-top;
+            width: 20px;
+            height: 20px;
+            background: #f8f9fb;
+            border: 2px solid #ddd;
+        }
+
+    .styled-checkbox:hover + label:before {
+        background: #1c1855;
+    }
+
+    .styled-checkbox:focus + label:before {
+        /* box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12); */
+    }
+
+    .styled-checkbox:checked + label:before {
+        background: #1c1855;
+        border: none;
+    }
+
+    .styled-checkbox:disabled + label {
+        color: #b8b8b8;
+        cursor: auto;
+    }
+
+        .styled-checkbox:disabled + label:before {
+            box-shadow: none;
+            background: #ddd;
+        }
+
+    .styled-checkbox:checked + label:after {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 9px;
+        background: white;
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+.parsley-error input[type=radio] + label,
+.parsley-error input[type=checkbox] + label {
+    /* color: #ff7e7e; */
+}
+
+    .parsley-error input[type=radio] + label:before,
+    .parsley-error input[type=checkbox] + label:before {
+        border-color: #ff7e7e;
+    }
+
+.checkbox-err .parsley-errors-list {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .group-devider > div {
+        border: none;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .admission-form {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width:750px) {
+    .schlLogo {
+        text-align: center !important;
+    }
+
+    .schlNamme {
+        text-align: center !important;
+    }
+}
+
+
+
+.messagealert {
+    position: fixed;
+    z-index: 10000000;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    width: 40%;
+    left: 30%;
+    top: 2%;
+}
+
+.alert-success {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #1B5E20;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Success {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #1B5E20;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-danger {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-warning {
+    margin: 0 0.5%;
+    color: #000000;
+    background-color: #EEFF41;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-info {
+    margin: 0 0.5%;
+    color: #ffffFF;
+    background-color: #1A237E;
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.alert-Authorized {
+    margin: 0 0.5%;
+    color: #000000;
+    background-color: #EEFF41;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+.alert-Error {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+.alert-error {
+    margin: 0 0.5%;
+    color: #ffffff;
+    background-color: #B71C1C;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: opacity .15s linear;
+    opacity: 1;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+

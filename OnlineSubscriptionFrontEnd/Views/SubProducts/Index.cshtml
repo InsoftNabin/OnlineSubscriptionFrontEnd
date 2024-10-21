@@ -1,0 +1,310 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Insoft.cshtml";
+}
+
+<div class="breadcrumbs ace-save-state breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/AdminDashBoard">Dashboard // Sub Products</a>
+        </li>
+        
+    </ul>
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+</div>
+<div class="page-content">
+    <div class="content-body">
+        <div class="clearfix well">
+
+
+            <div class="accordion" id="productAccordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0 d-flex justify-content-between">
+                            <button class="btn btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius:12px; text-decoration: none;">
+                                <h5 class="addEdit"> Add Module</h5>
+                            </button>
+                            <button class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
+                                <i class="fas fa fa-caret-up" id="toggleArrow"></i>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group" hidden>
+                                    <label for="productId">Sub-Product ID (Optional):</label>
+                                    <input type="number" class="form-control" id="productId" />
+                                </div>
+                                <div class="form-group" hidden>
+                                    <label for="productId">Product Id:</label>
+                                    <input type="number" class="form-control" id="mainproductId" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="productId">Product Name:</label>
+                                    <input type="text" class="form-control" id="productName" disabled/>
+                                    @* <select class="form-control" id="productName" disabled>
+                                        <option value="" disabled selected>Select Type</option>
+                                        <option value="primary">Primary</option>
+                                        <option value="secondary">Secondary</option>
+                                        <option value="tertiary">Tertiary</option>
+                                    </select> *@
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="pName">Name:</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Enter Name" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="contactPerson">Description:</label>
+                                        <input type="text" class="form-control" id="desc" placeholder="Enter the Description" required />
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="address">Price:</label>
+                                        <input type="text" class="form-control" id="price" placeholder="Enter the Price for the module" required />
+                                    </div>
+                                </div>
+
+                             
+
+                                <br />
+                                <button type="button" class="btn btn-success" id="BtnInsert">Save &nbsp; <i class="fas fa-plus"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix well">
+                <div class="products row">
+                    <!-- Product cards will be injected here -->
+                </div>
+            </div> 
+
+
+        </div>
+    </div>
+</div>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getTableData();
+    });
+    function resetForm() {
+        $("#productId").val("");
+        $("#productName").val("");
+        $("#mainproductId").val("");
+        $("#name").val("");
+        $("#desc").val("");
+        $("#price").val("");
+        $("#productDescription").val("");
+        $("#productVersion").val("");
+        $(".toggleCollapse").trigger('click');
+        getTableData();
+    }
+    $("#addProduct").on("click", function () {
+        $("#collapseOne").removeClass("collapse", true);
+    });
+    $(".toggleCollapse").on("click", function () {
+        $("#collapseOne").addClass("collapse", true);
+        resetForm();
+    });
+    $(".btn-edit").on("click", function () {
+        $("#editProductModal").addClass("fade", true);
+    });
+    
+    
+    
+    async function getTableData() {
+        var a = AjaxCallWithoutDataNoAsync("/Products/getProducts");
+        var ab = JSON.parse(a);
+        var jsondata = JSON.parse(ab);
+        var cardDOM = "";
+
+        if (jsondata.length > 0) {
+            for (var i = 0; i < jsondata.length; i++) {
+                const productId = jsondata[i]["Id"];
+                var productsInAccordion = "";
+                
+
+                // Fetch subproducts for the current product
+                var parm = { Id: productId };
+                var ss = await AjaxCall("/SubProducts/getProducts", parm);
+                var sss = JSON.parse(ss);
+                var subproducts = JSON.parse(sss);
+
+                // Filter subproducts to only those that match the current productId
+                var  filteredSubproducts = subproducts.filter(sp => sp["ProductId"] === productId);
+                // var products = jsondata.filter(sp => sp["Name"] === ProductName);
+
+                if (filteredSubproducts.length > 0) {
+                    for (var j = 0; j < filteredSubproducts.length; j++) {
+                        // Create an accordion section for each matching subproduct
+                        productsInAccordion += `
+                             <div class="panel panel-default" style="margin-bottom:10px;">
+                                 <div class="panel-heading" style="border:1px,2px, 3px, 4px;">
+                                     <h4 class="panel-title">
+                                         <a class="accordion-toggle AccRequestType d-flex justify-content-between" style="border-radius:8px; width:100%; background:#0b3b56; color:white;" data-ApproveType="Receipt Cancel" data-toggle="collapse" data-parent="#accordion${productId}" href="#collapse${productId}${j}">
+                                             <div class="nameDiv" style="text-transform:uppercase;">
+                                                 &nbsp;${filteredSubproducts[j]["Name"]}
+                                             </div>
+                                             <div class="PriceDiv">
+                                                 &nbsp; Rs. ${filteredSubproducts[j]["Price"]}
+                                             </div>
+                                                                 <button  data-productid=`+filteredSubproducts[j]["ProductId"]+` class="btn btn-sm btn-primary editsubProduct" onclick="editProduct(`+ filteredSubproducts[j]["Id"] + `)" ><i class="ace-icon fa fa-edit bigger-130"></i></button>
+                                                     <button class="btn btn-sm btn-danger delSubProduct"  onclick="deleteProduct(`+ filteredSubproducts[j]["Id"] + `)">
+                                                   <i class="ace-icon fa fa-trash bigger-130"></i>
+                                             </button>
+                                         </a>
+                                     </h4>
+                                 </div>
+                                 
+                             </div>`;
+
+                    }
+                } else {
+                    productsInAccordion += '<p>No subproducts found.</p>';
+                }
+
+                // Append the product card with its accordion
+                cardDOM += `
+                             <div class="card product-card col-sm-5"  data-productid=${productId}>
+                         <div class="card-header card-insoft" style="background-color: #0b3b56; color: white;">
+                             <div class="row align-items-center" style="width: 100%;">
+                                 <h2 class="col"  style="text-transform: uppercase; margin: 0;"><b>${jsondata[i]["Name"]}</b></h2>
+                                         <button class="btn btn-primary col-auto btnAddModule" style="margin-left: auto;" data-productid=${productId} data-productname="${jsondata[i]["Name"]}">New Module</button>
+                             </div>
+                         </div>
+                         <div class="card-body">
+                             <div id="accordion${productId}" class="accordion-style1 panel-group">
+                                 ${productsInAccordion}
+                             </div>
+                         </div>
+                         <div class="card-footer" style="display: flex; justify-content: space-between;">
+                             All modules were created by <b>${jsondata[i]["Name"]}</b>
+                         </div>
+                     </div>`;
+
+            }
+
+            $(".products").empty().append(cardDOM);
+        } else {
+            $(".products").empty().append('<p>No products found.</p>');
+        }
+    }
+
+    async function editProduct(id) {
+        $("#collapseOne").removeClass("collapse", true);
+
+        var parm = { Id: id };
+
+        var productData = await AjaxCall("/SubProducts/getProduct", parm);
+        var product = JSON.parse(JSON.parse(productData));
+        if (product.length > 0) {
+            $("#productId").val(product[0]["Id"]);
+            $("#mainproductId").val(product[0]["Productid"]);
+
+            $("#name").val(product[0]["Name"]);
+            $("#desc").val(product[0]["Description"]);
+            $("#price").val(product[0]["Price"]);
+        } else {
+            alert("No product found for the selected item.");
+        }
+    }
+   
+    $(document).on("click", ".btnAddModule", async function () {
+        resetForm();
+        $("#collapseOne").removeClass("collapse", true);
+        $("#mainproductId").val($(this).attr("data-productid"));
+            
+       var parm = {
+            Id: parseInt($(this).attr("data-productid"))
+        };
+        var productData = await AjaxCall("/Products/getProduct", parm);
+        var prod = JSON.parse(productData);
+        var productEach = JSON.parse(prod);
+        $("#productName").val(productEach[0]["Name"]);
+
+    });
+
+    $(document).on("click", ".editsubProduct", async function () {
+        var parm = {
+            Id: parseInt($(this).attr("data-productid"))
+                    };
+        var productData = await AjaxCall("/Products/getProduct", parm);
+        var prod = JSON.parse(productData);
+        var productEach = JSON.parse(prod);
+        $("#productName").val(productEach[0]["Name"]);
+
+    });
+
+    $(document).on("click", "#BtnInsert", async function () {
+        if ($("#name").val() == "" || $("#desc").val() == "" || $("#price").val() == "") {
+            toastr.error("Please fill all the details!!!");
+        } else {
+            var parm = {
+                Id: $("#productId").val() ? parseInt($("#productId").val()) : 0,
+                ProductId: parseInt($("#mainproductId").val()),
+                Name: $("#name").val(),
+                Description: $("#desc").val(),
+                Price: parseFloat($("#price").val()),
+            };
+            var modul = await AjaxCall("/SubProducts/InsertUpdate", parm);
+            var modulesResponse = JSON.parse(modul);
+            debugger
+            if (modulesResponse == 1) {
+                getTableData();
+                toastr.success("Module Action successfully!");
+                $(".toggleCollapse").trigger('click');
+            }
+            else {
+                toastr.error("Error while adding a Module!!!");
+            }
+        }
+    });
+
+    async function deleteProduct(id) {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        });
+
+        if (result.isConfirmed) {
+            var parm = { Id: id };
+
+            var productData = await AjaxCall("/SubProducts/DeleteProduct", parm);
+            var productDataa = JSON.parse(productData);
+            var product = JSON.parse(productDataa);
+
+            getTableData();
+            Swal.fire(
+                'Deleted!',
+                'Your product has been deleted.',
+                'success'
+            );
+        }
+    }
+
+</script>
