@@ -40,46 +40,46 @@
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="productName">Name:</label>
-                                        <input type="text" class="form-control" id="productName" placeholder="Enter Name" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="productName" placeholder="Enter Name" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="contactPerson">Contact Person:</label>
-                                        <input type="text" class="form-control" id="contactPerson" placeholder="Enter Contact Person" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="contactPerson" placeholder="Enter Contact Person" required />
                                     </div>
                                 
                                     <div class="form-group col-md-4">
                                         <label for="address">Address:</label>
-                                        <input type="text" class="form-control" id="address" placeholder="Enter Address" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="address" placeholder="Enter Address" required />
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="email">Email:</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter Email" required />
+                                        <input type="email" class="form-control border border-dark rounded" id="email" placeholder="Enter Email" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="website">Website:</label>
-                                        <input type="text" class="form-control" id="website" placeholder="Enter Website" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="website" placeholder="Enter Website" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="contactNumber">Contact Number:</label>
-                                        <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="contactNumber" placeholder="Enter Contact Number" required />
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="bank">Bank:</label>
-                                        <input type="text" class="form-control" id="bank" placeholder="Enter Bank" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="bank" placeholder="Enter Bank" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="accountNumber">Account Number:</label>
-                                        <input type="text" class="form-control" id="accountNumber" placeholder="Enter Account Number" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="accountNumber" placeholder="Enter Account Number" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="panNumber">PAN Number:</label>
-                                        <input type="text" class="form-control" id="panNumber" placeholder="Enter PAN Number" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="panNumber" placeholder="Enter PAN Number" required />
                                     </div>
                                 </div>
 
@@ -87,19 +87,19 @@
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="userId">User ID:</label>
-                                        <input type="text" class="form-control" id="userId" placeholder="Enter User ID" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="userId" placeholder="Enter User ID" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="password">Password:</label>
-                                        <input type="password" class="form-control" id="password" placeholder="Enter Password" required />
+                                        <input type="password" class="form-control border border-dark rounded" id="password" placeholder="Enter Password" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="type">Type:</label>
-                                        <select class="form-control" id="type" required>
+                                        <select class="form-control border border-dark rounded" id="type" required>
                                             <option value="" disabled selected>Select Type</option>
-                                            <option value="primary">Primary</option>
+                                            @* <option value="primary">Primary</option>
                                             <option value="secondary">Secondary</option>
-                                            <option value="tertiary">Tertiary</option>
+                                            <option value="tertiary">Tertiary</option> *@
                                         </select>
                                     </div>
                                 </div>
@@ -107,11 +107,11 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="smsToken">SMSToken:</label>
-                                        <input type="text" class="form-control" id="smsToken" placeholder="Enter SMSToken" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="smsToken" placeholder="Enter SMSToken" required />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="smsSenderId">SMSSenderId:</label>
-                                        <input type="text" class="form-control" id="smsSenderId" placeholder="Enter SMSSenderId" required />
+                                        <input type="text" class="form-control border border-dark rounded" id="smsSenderId" placeholder="Enter SMSSenderId" required />
                                     </div>
                                 </div>
 
@@ -173,7 +173,23 @@
             $("#toggleIcon").removeClass("fa-minus").addClass("fa-plus");
         });
         getTableData();
+        getSubscriptionType();
     });
+    async function getSubscriptionType(){
+        var parmtobeFired = AjaxCallWithoutDataNoAsync("/Subscription/getSubscription");
+        var ab = JSON.parse(parmtobeFired);
+        var jsondata = JSON.parse(ab);
+
+        var subDOM = "";
+        if (jsondata.length>0) {
+            for (var i = 0; i < jsondata.length;i++){
+                subDOM += `<option data-id=` + jsondata[i]["Id"] + ` value=` + jsondata[i]["Name"] + `>` + jsondata[i]["Name"] + `</option>`;
+            }
+            $("#type").empty().append(subDOM);
+        }else{
+            toastr.error("No Types found!!!");
+        }
+    }
     function resetForm() {
         $("#productId").val("");
         $("#productName").val("");

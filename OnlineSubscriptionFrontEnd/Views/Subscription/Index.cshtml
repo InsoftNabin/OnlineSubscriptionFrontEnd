@@ -37,27 +37,62 @@
         .fa-trash:hover {
             color: #dc3545;
         }
-</style>
+    /* Custom scrollbar styles */
+    .TableDiv::-webkit-scrollbar {
+        width: 12px; /* Width of the scrollbar */
+        background-color: #f0f0f0; /* Background color of the scrollbar track */
+    }
 
+    .TableDiv::-webkit-scrollbar-thumb {
+        background-color: #b30514; /* Color of the scrollbar thumb */
+        border-radius: 6px; /* Rounded corners for the thumb */
+    }
+
+        .TableDiv::-webkit-scrollbar-thumb:hover {
+            background-color: #A5FFD6; /* Color of the thumb on hover */
+        }
+
+    .TableDiv::-webkit-scrollbar-track {
+        background: #e0e0e0; /* Color of the track */
+    }
+
+</style>
+<div class="breadcrumbs ace-save-state breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/AdminDashBoard">Dashboard // Subscription Types</a>
+        </li>
+
+    </ul>
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+</div>
 <div class="page-content">
     <div class="content-body">
         <div class="clearfix well" style="display: flex;">
 
-            <div class="col-3" style="border: 1px solid black; flex: 0 0 25%; border-radius: 8px; padding: 15px;">
+            <div class="col-3" style="border: 1px solid #b30514; flex: 0 0 25%; border-radius: 8px; padding: 15px;">
                 <form>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label for="id">Agent ID (Optional):</label>
-                        <input type="number" class="form-control" id="id" />
+                        <input type="number" class="form-control border border-dark rounded" id="id" />
                     </div>
 
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter Name" required />
+                        <input type="text" class="form-control border border-dark rounded" id="name" placeholder="Enter Name" required />
                     </div>
 
                     <div class="form-group">
-                        <label for="noom">Number of Months in the Package:</label>
-                        <input type="text" class="form-control" id="noom" placeholder="Enter Number of months" required />
+                        <label for="noom">Number of Days in the Package:</label>
+                        <input type="text" class="form-control border border-dark rounded" id="noom" placeholder="Enter Number of months" required />
                     </div>
 
                     <div class="form-group" style="display: flex;">
@@ -67,13 +102,13 @@
                 </form>
             </div>
 
-            <div class="TableDiv col-8" style="overflow-x: scroll; overflow-y: scroll; height: 50dvh; position: relative; flex: 0 0 75%;">
+            <div class="TableDiv col-8" style="overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative; flex: 0 0 75%;">
                 <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="border-collapse: separate; width: 100%; padding: 0px;">
                     <thead>
                         <tr>
                             <th class="center">S.N</th>
                             <th class="center">Name</th>
-                            <th class="center">Number of Months</th>
+                            <th class="center">Number of Days</th>
                             <th class="center">Edit</th>
                             <th class="center">Delete</th>
                         </tr>
@@ -86,6 +121,7 @@
         </div>
     </div>
 </div>
+
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -101,21 +137,25 @@
 
         // Save button functionality
         $("#BtnInsert").on("click", async function () {
-            var parm = {
-                Id: $("#id").val() ? parseInt($("#id").val()) : 0,
-                Name: $("#name").val(),
-                NoOfMonth: parseInt($("#noom").val()),
-            };
-
-            var data = await AjaxCall("/Subscription/InsertUpdateSubscription", parm);
-            var jsondataresponse = JSON.parse(data);
-
-            if (jsondataresponse == 1) {
-                resetForm();
-                getTableData();
-                toastr.success("Agent action successfull!");
+            if ($("#name").val() == "" || $("#noom").val()=="") {
+                toastr.error("Please fill in all the fields!!!");
             } else {
-                toastr.error("Failed to insert/update agent.");
+                var parm = {
+                    Id: $("#id").val() ? parseInt($("#id").val()) : 0,
+                    Name: $("#name").val(),
+                    NoOfMonths: parseInt($("#noom").val()),
+                };
+
+                var data = await AjaxCall("/Subscription/InsertUpdateSubscription", parm);
+                var jsondataresponse = JSON.parse(data);
+
+                if (jsondataresponse == 1) {
+                    resetForm();
+                    getTableData();
+                    toastr.success("Agent action successfull!");
+                } else {
+                    toastr.error("Failed to insert/update agent.");
+                }
             }
         });
 
@@ -158,6 +198,12 @@
     });
 
 
+    $(document).on("click", ".btn-delete", async function () {
+        const row = $(this).closest("tr");
+        const id = row.data("id");
+        await deleteProduct(id);
+    });
+
     async function deleteProduct(id) {
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -171,9 +217,18 @@
 
         if (result.isConfirmed) {
             var parm = { Id: id };
-            var productData = await AjaxCall("/Agent/DeleteAgent", parm);
-            getTableData();
-            Swal.fire('Deleted!', 'The agent data has been deleted.', 'success');
+            var productData = await AjaxCall("/Subscription/DeleteSubscription", parm);
+            var a = JSON.parse(productData);
+            var jsondataresponse = JSON.parse(a);
+
+            if (jsondataresponse == "") {
+                Swal.fire('Error!', 'Failed to delete the agent data.', 'error');
+            } else {
+                getTableData(); // Refresh the table data
+                Swal.fire('Deleted!', 'The Subscription Type  has been deleted.', 'success');
+
+            }
         }
     }
+
 </script>

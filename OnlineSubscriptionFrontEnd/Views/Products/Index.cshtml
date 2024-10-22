@@ -2,6 +2,11 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Insoft.cshtml";
 }
+<style>
+    .rounded{
+        border-radius:8px;
+    }
+</style>
 
 <div class="page-content">
     <div class="content-body">
@@ -27,19 +32,19 @@
                             <form>
                                 <div class="form-group" hidden>
                                     <label for="productId">Product ID (Optional):</label>
-                                    <input type="number" class="form-control id" id="productId" />
+                                    <input type="number" class="form-control border border-dark rounded id" id="productId" />
                                 </div>
                                 <div class="form-group">
                                     <label for="productName">Product Name:</label>
-                                    <input type="text" class="form-control name" id="productName" placeholder="Enter Product Name" required />
+                                    <input type="text" class="form-control border border-dark rounded name" id="productName" placeholder="Enter Product Name" required />
                                 </div>
                                 <div class="form-group">
                                     <label for="productDescription">Description:</label>
-                                    <input type="text" class="form-control description" id="productDescription" placeholder="Enter Description" required />
+                                    <input type="text" class="form-control border border-dark rounded description" id="productDescription" placeholder="Enter Description" required />
                                 </div>
                                 <div class="form-group">
                                     <label for="productVersion">Version:</label>
-                                    <input type="text" class="form-control version" id="productVersion" placeholder="Enter Version" required />
+                                    <input type="text" class="form-control border border-dark rounded version" id="productVersion" placeholder="Enter Version" required />
                                 </div>
                                 <br />
                                 <button type="button" class="btn btn-success BtnInsert" id="BtnInsert">Insert &nbsp; <i class="fas fa-plus" id="toggleIcon"></i>  </button>
@@ -159,21 +164,28 @@
     }
 
     $(".BtnInsert").on("click", async function () {
-        var parm = {
-            Id: $(".id").val() ? parseInt($(".id").val()) : 0,
-            Name: $(".name").val(),
-            Description: $(".description").val(),
-            Version: $(".version").val()
-        };
 
-        var data = await AjaxCall("/Products/InsertUpdate", parm);
-        var jsondataresponse = JSON.parse(data);
+        if ($(".name").val() == "" || $(".description").val() == "" || $(".version").val()=="") {
+            toastr.error("Please fill in all the fields!!!.");
+        }
+        else {
 
-        if (jsondataresponse == 1) {
-            toastr.success("Product inserted successfully!");
-            resetForm();
-        } else {
-            toastr.error("Failed to insert product.");
+            var parm = {
+                Id: $(".id").val() ? parseInt($(".id").val()) : 0,
+                Name: $(".name").val(),
+                Description: $(".description").val(),
+                Version: $(".version").val()
+            };
+
+            var data = await AjaxCall("/Products/InsertUpdate", parm);
+            var jsondataresponse = JSON.parse(data);
+
+            if (jsondataresponse == 1) {
+                toastr.success("Product inserted successfully!");
+                resetForm();
+            } else {
+                toastr.error("Failed to insert product.");
+            }
         }
     });
 
@@ -197,8 +209,6 @@
         }
     }
 
-
-
     $("#editProductModal .BtnInsertM").on("click", async function () {
         var parm = {
             Id: parseInt($("#editProductModal .id").val()),
@@ -207,16 +217,16 @@
             Version: $("#editProductModal .version").val()
         };
 
-        var productData= await AjaxCall("/Products/InsertUpdate", parm);
+        var productData = await AjaxCall("/Products/InsertUpdate", parm);
         var jsondataresponse = JSON.parse(productData);
-        getTableData();
-       
-        if (jsondataresponse==1) {
+
+        if (jsondataresponse == 1) {
             toastr.success("Product edited successfully!");
-            $("#editProductModal").addClass("fade", true);
+            getTableData();
+            location.reload(); // Reload the page
         }
-       
     });
+
 
     async function deleteProduct(id) {
         const result = await Swal.fire({

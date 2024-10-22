@@ -1,132 +1,91 @@
-﻿@{ ViewData["Title"] = "Index"; }
+﻿@{
+    ViewData["Title"] = "Index";
+}
 
-<div  class=" py-3 py-lg-6">
-  <div
-   
-    class=" container-xxl d-flex flex-stack"
-  >
-    <div
-      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
-    >
-      <h1
-        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
-      >
-        <img
-          src="~/assets/media/logos/LogoInsoft.png"
-          class="theme-light-show w-100px"
-          alt=""
-        />
-      </h1>
+<div class="py-3 py-lg-6">
+    <div class="container-xxl d-flex flex-stack">
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <img src="~/assets/media/logos/LogoInsoft.png" class="theme-light-show w-100px" alt="" />
+            </h1>
+        </div>
+        <div class="d-flex">
+            <h3 class="fs-xl fw-bold mb-4 lead">
+                Don't have an account?
+                <a href="@Url.Action("Index", "SendCode")"> Sign Up </a>
+            </h3>
+        </div>
     </div>
-    <div class="d-flex">
-      <h3 class="fs-xl fw-bold mb-4 lead">
-        Don't have an account?
-        <a href="@Url.Action("Index", "SendCode")"> Sign Up </a>
-      </h3>
-    </div>
-
-  </div>
 </div>
+
 <div class="container container-fluid col-lg-6 p-0">
-  <div class="card-body p-0">
-    <div class="card-px text-center my-10">
-      <div class="py-10 text-center">
-        <img
-          src="~/assets/media/logos/LogoInsoft.png"
-          class="theme-light-show w-150px"
-          alt=""
-        />
-      </div>
-      <h2 class="fs-2x fw-bold mb-10">Enter your Credentials</h2>
-     
+    <div class="card-body p-0">
+        <div class="card-px text-center my-10">
+            <div class="py-10 text-center">
+                <img src="~/assets/media/logos/LogoInsoft.png" class="theme-light-show w-150px" alt="" />
+            </div>
+            <h2 class="fs-2x fw-bold mb-10">Enter your Credentials</h2>
 
-            
-      <div class="input-group mb-5">
-       
-        <input
-          type="text"
-          class="form-control border border-dark rounded"
-          placeholder="Email"
-          aria-label="Username"
-          name="Email"
-          aria-describedby="username"
-        />
-      </div>
-      <div class="input-group mb-5">
-       
-        <input
-          type="password"
-          class="form-control border border-dark rounded"
-          placeholder="Password"
-          aria-label="Password"
-          name="Password"
-          aria-describedby="password"
-        />
-</div>
-<button id="LoginBtn" class="btn btn-primary form-control">
-  Login
-</button>
-      </div>
-
-      
-
+            <div class="input-group mb-5">
+                <input type="text" class="form-control border border-dark rounded" placeholder="Email" aria-label="Username" name="Email" aria-describedby="username" />
+            </div>
+            <div class="input-group mb-5">
+                <input type="password" class="form-control border border-dark rounded" placeholder="Password" aria-label="Password" name="Password" aria-describedby="password" />
+            </div>
+            <button id="LoginBtn" class="btn btn-primary form-control">Login</button>
+        </div>
     </div>
-  </div>
+</div>
 
 <script type="text/javascript">
-   $(document).ready(()=>{
-    LaodData(window.location.href);
+    $(document).ready(() => {
+        LoadData(window.location.href);
 
-  
         $(document).on("keydown", function (e) {
-            var keycode = e.keyCode;
-            if ( keycode === 13) {
+            if (e.keyCode === 13) {
                 $("#LoginBtn").trigger('click');
             }
         });
+    });
 
-  })
-  async function LaodData(url) {
-var url = new URL(url);
-if (window.location.href.indexOf('?') > 0) {
-     errorMsg = url.searchParams.get("msg");
-     switch (errorMsg) {
-      case "sessionExpired":
-        toastr.error("Session Expired ! Please Login Again.");
-        break;
-     case "registerSuccess":
-        toastr.success("Your account has been created successfully ! Please Login.");
-        break;
-      default:
-        toastr.error("Something went wrong ! Please try again.");
-        break;
-     }
-     
+    async function LoadData(url) {
+        var url = new URL(url);
+        if (window.location.href.indexOf('?') > 0) {
+            var errorMsg = url.searchParams.get("msg");
+            switch (errorMsg) {
+                case "sessionExpired":
+                    toastr.error("Session Expired! Please Login Again.");
+                    break;
+                case "registerSuccess":
+                    toastr.success("Your account has been created successfully! Please Login.");
+                    break;
+                default:
+                    toastr.error("Something went wrong! Please try again.");
+                    break;
+            }
+        }
     }
-  }
-$("#LoginBtn").on("click",async  (e)=> {
-  if($("input[name='Email']").val() == ''){
-    toastr.error("Please enter your username !")
-    return;
-  }
-  if($("input[name='Password']").val() == ''){
-    toastr.error("Please enter your password !")
-    return;
-  }
-  const data = {
-    UserName: $("input[name='Email']").val(),
-    Password: $("input[name='Password']").val(),
-  };
-  console.log(data);
-// e.preventDefault();
- const result = await AjaxCall("/Login/VerifyUser", data);
- if(result == 'Success'){
-  window.location.href = "/Home/Index";
- }
- else{
-  console.log(result);
-  toastr.error("Invalid UserName Or Password ! Please try again.")
-  
- }
-});
+
+    $("#LoginBtn").on("click", async (e) => {
+        if ($("input[name='Email']").val() == '') {
+            toastr.error("Please enter your username!");
+            return;
+        }
+        if ($("input[name='Password']").val() == '') {
+            toastr.error("Please enter your password!");
+            return;
+        }
+
+        const data = {
+            UserName: $("input[name='Email']").val(),
+            Password: $("input[name='Password']").val(),
+        };
+
+        const result = await AjaxCall("/Login/VerifyUser", data);
+        if (result == 'Success') {
+            window.location.href = "/Home/Index";
+        } else {
+            toastr.error("Invalid Username or Password! Please try again.");
+        }
+    });
 </script>

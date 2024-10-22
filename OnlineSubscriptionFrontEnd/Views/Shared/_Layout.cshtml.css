@@ -22,7 +22,9 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+.rounded {
+    border-radius: 8px;
+}
 .border-top {
   border-top: 1px solid #e5e5e5;
 }

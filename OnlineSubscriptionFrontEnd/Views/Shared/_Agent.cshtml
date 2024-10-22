@@ -47,6 +47,9 @@
             z-index: 50;
         }
 
+        .rounded {
+            border-radius: 8px;
+        }
         #sidebar {
             z-index: 1;
         }
@@ -56,6 +59,74 @@
             color: white; 
         }
 
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .rounded {
+            border-radius: 8px;
+        }
+
+        .card {
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header card-insoft {
+            background-color: #0b3b56;
+            color: white;
+        }
+
+        .btn-small {
+            width: 45px;
+            height: 35px;
+        }
+
+        .btn {
+            border-radius: 12px;
+            vertical-align: middle;
+        }
+
+        .table thead tr th {
+            background-color: #0b3b56;
+            color: white;
+        }
+
+        .product-card {
+            transition: transform 0.2s;
+        }
+
+            .product-card:hover {
+                transform: scale(1.05);
+            }
+
+        .products {
+            gap: 20px;
+        }
+
+        .product-card {
+            flex: 1 1 calc(45% - 20px); /* Adjust width and ensure it fits within the row */
+            margin: 10px; /* Add margin for spacing */
+        }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
     </style>
 </head>
 <body class="no-skin">
