@@ -58,12 +58,21 @@
         .rounded{
             border-radius:8px;
         }
-       
+       input[type='checkbox']{
+           accent-color:#b30514;
+           width:20px;
+           height:20px;
+           vertical-align:middle;
+       }
         .card{
             border-radius: 12px;
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             
+        }
+        .card-sm{
+            max-width:200px;
+            max-height:100px;
         }
         .card-header card-insoft{
             background-color: #0b3b56;
@@ -262,11 +271,25 @@
                     </a>
                     <b class="arrow"></b>
                     <ul class="submenu">
-                        <li><a href="/Products"><i class="menu-icon fa fa-caret-right"></i>Products List</a> <b class="arrow"></b></li>
+                        <li><a href="/SubProducts"><i class="menu-icon fa fa-caret-right"></i>Modules List</a> <b class="arrow"></b></li>
 
                     </ul>
                 </li>
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-cogs red"></i>
+                        <span class="menu-text">
+                            Customers
+                        </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li><a href="/Customer"><i class="menu-icon fa fa-caret-right"></i>Customer List</a> <b class="arrow"></b></li>
+                        <li><a href="/CustomerwiseModulesSelection"><i class="menu-icon fa fa-caret-right"></i>Customer wise Modules Selection</a> <b class="arrow"></b></li>
 
+                    </ul>
+                </li>
 
             </ul>
             <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

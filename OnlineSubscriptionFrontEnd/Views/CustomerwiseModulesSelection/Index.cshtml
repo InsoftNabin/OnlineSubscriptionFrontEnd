@@ -1,0 +1,299 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Insoft.cshtml";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<div class="row">
+    <div class="col-xs-4" style="float:right;">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" id="txtsearchTem" style="float:right;">
+    </div>
+</div>
+<div class="TableDiv  " style="overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative; border-radius:12px;">
+    <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="border-collapse: separate;padding:0px;">
+        <thead>
+            <tr>
+                <th class="center">S.N</th>
+                <th class="center">Customer Code</th>
+                <th class="center">Customer Name</th>
+                <th class="center">Address</th>
+                <th class="center">PAN/VAT Number</th>
+                <th class="center">Contact Number</th>
+                <th class="center">Company Code</th>
+                <th class="center">Products </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+         
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-xl" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalProductAccordion">
+                <!-- Accordion will be populated here -->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        getTableData();
+       
+    });
+    function getAgents() {
+        
+        var jd = AjaxCallWithoutDataNoAsync("Agent/getAgents");
+        var jdataaa = JSON.parse(jd);
+        var jdata = JSON.parse(jdataaa);
+
+        var AgentsDom = ``;
+        if(jdata.length>0){
+            for (var i = 0; i<jdata.length;i++) {
+                AgentsDom += `<option data-agentid="` + jdata[i]["Id"] + `" value="` + jdata[i]["Name"] + `">` + jdata[i]["Name"] + `</option>`;
+            }
+       
+            $("#exampleModal").find(".AgentsinModalTable").empty().append(AgentsDom);
+        }
+        else{
+            toastr.error("No Agents Found!!!")
+        }
+    }
+
+    function getTableData() {
+        var a = AjaxCallWithoutDataNoAsync("/Customer/getCustomers");
+        var ab = JSON.parse(a);
+        var jsondata = JSON.parse(ab);
+        var tableDOM = "";
+        if (jsondata.length > 0) {
+            for (var i = 0; i < jsondata.length; i++) {
+                tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
+                                        <td class="center">` + (i + 1) + `</td>
+                                         <td class="center" class="custCode">` + jsondata[i]["CustomerCode"] + `</td>
+                                         <td class="center" class="custName">` + jsondata[i]["CustomerName"] + `</td>
+                                         <td class="center" class="custAdd">` + jsondata[i]["Address"] + `</td>
+                                         <td class="center" class="custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
+                                         <td class="center" class="custContact">` + jsondata[i]["Contact"] + `</td>
+                                         <td class="center" class="comcode">` + jsondata[i]["CompanyCode"] + `</td>
+                                         <td class="center"><button data-unkidctable="` + jsondata[i]["Id"] + `" data-agentid="" class="btn btn-primary SelectModules btn-sm rounded" data-toggle="modal" data-target="#exampleModal">Select</button></td>
+                                    </tr>`;
+            }
+            $("#agentTable tbody").empty().append(tableDOM);
+        } else {
+            $("#agentTable tbody").empty().append('<tr><td colspan="5">No agents found.</td></tr>');
+        }
+    }
+    
+ 
+    $(document).on('click', '.SelectModules', function () {
+     
+        var customerId = $(this).data('unkidctable');
+        loadProducts(customerId);
+        getAgents();
+    });
+
+    function loadProducts(customerId) {
+        var parm = AjaxCallWithoutDataNoAsync("/Products/getProducts");
+        var parma = JSON.parse(parm);
+        var products = JSON.parse(parma);
+
+        if (products.length == 0) {
+            $("#modalProductAccordion").html(`
+                <div class="accordion" id="accordionExample">
+                    <div class="error" style="color:red;"><b>No Products are on for this user!!</b></div>
+                </div>
+            `);
+        } else {
+            var accordionDOM = '';
+            products.forEach(function (product) {
+                accordionDOM += `
+                        <div class="accordion-item" style="margin:20px; border-radius:12px; border:1px solid black;">
+                        <h2 class="accordion-header" id="heading${product.Id}" style="background-color:red; color:white; border-radius:12px;">
+                            <button onclick="LoadSubProductsacctoCustomerandProduct(${product.Id})" style="border-radius:12px; border-bottom:1px solid black;" class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse${product.Id}" aria-expanded="true" aria-controls="collapse${product.Id}">
+                                ${product.Name}
+                            </button>
+                        </h2>
+                        <div id="collapse${product.Id}" class="accordion-collapse collapse" aria-labelledby="heading${product.Id}" data-bs-parent="#modalProductAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card card-sm">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Initial</h5>
+                                                            <input type="text" class="card-text initial" value="sagar" style="max-width:200px;max-height:100px;">
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-sm">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Site URL</h5>
+                                                        <input type="text" class="card-text siteURL" value="inschoolerp.com" style="max-width:200px;max-height:100px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-sm">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Serial Number</h5>
+                                                                <input type="text" class="card-text serialNumber" value="serialNumber" style="max-width:200px;max-height:100px;">
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                                Agent: <select class="AgentsinModalTable"></select><br>
+                                    <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
+                                <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
+                                    <thead>
+                                        <tr>
+                                            <th class="center"><input type="checkbox" class="ChkAll"></th>
+                                            <th class="center">Module Name</th>
+                                            <th class="center">Price</th>
+                                            <th class="center">Join Date</th>
+                                            <th class="center">Expiry Date</th>
+                                            <th class="center">Last Renew Date</th>
+                                                <th class="center">Remarks</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <div class="accordion-footer center" style="border-top:1px solid black;">
+                                    <button type="button" class="center btn btn-success saveeachData" data-custid="`+customerId+`" data-productid="${product.Id}" style="margin-bottom:5px;">Save &nbsp;<i class="ace-icon fa fa-save bigger-110"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+
+            $("#modalProductAccordion").empty().append(`
+                <div class="accordion" id="accordionExample">
+                    ${accordionDOM}
+                </div>
+            `);
+        }
+    }
+    $(document).on('change', '.ChkAll', function () {
+        const isChecked = $(this).is(':checked');
+        $(this).closest('table').find('.eachCb').prop('checked', isChecked);
+    });
+
+    $(document).on('change', '.eachCb', function () {
+        const totalCheckboxes = $(this).closest('table').find('.eachCb').length;
+        const checkedCheckboxes = $(this).closest('table').find('.eachCb:checked').length;
+        $(this).closest('table').find('.ChkAll').prop('checked', totalCheckboxes === checkedCheckboxes);
+    });
+
+    $(document).on('click', '.saveeachData', async function () {
+        
+        var customerId = $(this).attr("data-custid");
+        var productId = $(this).attr("data-productid");
+      
+        var selectedAccordion = $(this).parents(".accordion-item");
+
+        var initial = selectedAccordion.find(".initial").val();
+        var siteURL = selectedAccordion.find(".siteURL").val();
+        var serialNumber = selectedAccordion.find(".serialNumber").val();
+        var agentId = selectedAccordion.find(".AgentsinModalTable :selected").attr("data-agentid");
+        
+        var subProducts = [];
+        selectedAccordion.find("#tablemo tbody tr").each(function () {
+            var row = $(this);
+            var isChecked = row.find('.eachCb').is(':checked');
+
+            if (isChecked) {
+                var SubProduct = {
+                    ProductId: parseInt(productId),
+                    SubProductId: parseInt(row.data('subproductid')), 
+                    JoinDate: row.find('.JoinDate').val(),
+                    LastRenewDate: row.find('.LastRenewDate').val(),
+                    ExpiryDate: row.find('.ExpiryDate').val(),
+                    MonthlyCharge: parseFloat(row.find('.modulePrice').val()),
+                    Remarks: row.find('.Remarks').val() 
+                };
+                subProducts.push(SubProduct);
+            }
+        });
+
+       var CustomerwiseModules = {
+            
+             CustomerId: parseInt(customerId),
+             //ProductId: productId,
+            AgentId: parseInt(agentId),
+            Initial: initial,
+            SiteURL: siteURL,
+            SerialNumber: serialNumber,
+         SubProducts: subProducts 
+         };
+
+       debugger
+        try {
+            var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
+            if (response.success) {
+                toastr.success("Data saved successfully!");
+               
+            } else {
+                toastr.error("Failed to save data: ");
+                location.reload();
+            }
+        } catch (error) {
+           
+            toastr.error("An error occurred while saving data.");
+            location.reload();
+        }
+    });
+
+
+    async function LoadSubProductsacctoCustomerandProduct(ProductId){
+        var par = {
+            Id: ProductId
+        };
+        var haha = await AjaxCall("SubProducts/getProductByProductId", par);
+        var jdata = JSON.parse(haha);
+        var jsondata = JSON.parse(jdata);
+
+        var MODalTable = "";
+        if (jsondata.length>0) {
+            for (var i = 0; i < jsondata.length;i++) {
+                MODalTable += `<tr data-subproductid=` + jsondata[i]["Id"] + `>
+                                    <td class="center"><input type="checkbox" class="eachCb"/></td>
+                                    <td class="center" style="text-transform:uppercase;"><b>`+jsondata[i]["Name"]+`</b></td>
+                                    <td class="center"><input type="text" class="modulePrice" value="`+ jsondata[i]["Price"] + `"></td>
+                                    <td class="center"><input type="text" class="JoinDate" value=""></td>
+                                    <td class="center"><input type="text" class="ExpiryDate" value=""></td>
+                                    <td class="center"><input type="text" class="LastRenewDate" value=""></td>
+                                    <td class="center"><input type="text" class="Remarks" value=""></td>
+                                 
+                               </tr>`;
+            }
+            $("#exampleModal").find(".table tbody").empty().append(MODalTable);
+
+        }else{
+            $("#modalProductAccordion ").append(`
+               <span style="color:red;"><b>No Modules are registered under this Product!!!</b></span>
+            `);
+        }
+    } 
+
+</script>
