@@ -584,15 +584,3 @@ async function AjaxCallFileUpload(FileDom, FolderName) {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-

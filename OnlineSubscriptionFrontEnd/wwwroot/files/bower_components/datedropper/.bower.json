@@ -1,0 +1,26 @@
+{
+  "name": "datedropper",
+  "main": [
+    "./datedropper.css",
+    "./datedropper.js"
+  ],
+  "homepage": "https://github.com/felicegattuso/datedropper",
+  "authors": [
+    "Felice Gattuso"
+  ],
+  "description": "datedropper is a jQuery datepicker plugin",
+  "keywords": [
+    "datedropper",
+    "datepicker"
+  ],
+  "license": "MIT",
+  "_release": "823e97211a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "823e97211a44ca7f25dfac2ff04e8652ba4e79e4"
+  },
+  "_source": "https://github.com/felicegattuso/datedropper.git",
+  "_target": "*",
+  "_originalSource": "datedropper"
+}

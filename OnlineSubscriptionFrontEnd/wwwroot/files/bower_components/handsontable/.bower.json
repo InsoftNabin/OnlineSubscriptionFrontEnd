@@ -1,0 +1,14 @@
+{
+  "name": "handsontable",
+  "homepage": "https://github.com/handsontable/handsontable",
+  "version": "7.3.0",
+  "_release": "7.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "7.3.0",
+    "commit": "77e2b3f66ebf934c96f37db95a5f38c20ae01dd2"
+  },
+  "_source": "https://github.com/handsontable/handsontable.git",
+  "_target": "7.3.0",
+  "_originalSource": "handsontable"
+}

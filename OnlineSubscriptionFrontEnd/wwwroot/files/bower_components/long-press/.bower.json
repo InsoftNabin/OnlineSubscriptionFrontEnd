@@ -1,0 +1,14 @@
+{
+  "name": "long-press",
+  "homepage": "https://github.com/amoludage/long-press",
+  "version": "0.0.2",
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.2",
+    "commit": "8daae533426091051e61a6fc22fb0dca7bf2a311"
+  },
+  "_source": "https://github.com/amoludage/long-press.git",
+  "_target": "0.0.2",
+  "_originalSource": "long-press"
+}

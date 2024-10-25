@@ -360,6 +360,7 @@
 </style>
 
 <style>
+
     button {
         margin-top: -30px;
         position: relative;
@@ -735,36 +736,22 @@
 
 
 <div id="navbar" class="navbar navbar-default ace-save-state">
-    <div class="navbar-container ace-save-state" id="navbar-container">
-        <div class="row">    
-            <div class="col-xs-4 col-sm-4">
-        <div class="navbar-header pull-left">
-            <a href="/Dashboard?area=Admin" class="navbar-brand">
-                <small>
-                    <i class="fa fa-home" aria-hidden="true" title="Dashboard"></i>
-                    <span data-iscollege="false" data-id="0" data-enableeditbill="true" data-schoolcontact="" data-schooladdress="" date-accountReportPrintBaseUrl="" date-dateformat="" data-enableeditbillyearwise="false" data-ReceiptUrl="" class="SchoolName" data-ActivePreviousStudentSearch="0" data-hostedjsreport=""></span>
-                </small>
-            </a>
-        </div>
-        </div>
+    <div class="navbar-container ace-save-state" id="navbar-container" style="width:100%;">
 
-
-       @*  <div class="haha" style="visibility:hidden;">
-            <button class="" id="modulesButton" data-target="#modulesDiv" data-toggle="modal" style=" margin-top:13px; height:40x; width:85px; border-radius:5px;"> Modules </button>
-        </div>
- *@
-
-        <div class="col-xs-8 col-sm-8">
-        <div class=" navbar-buttons navbar-header pull-right" role="navigation">
+        <div class="row">
+        <div class="col-xs-4 navbar-buttons navbar-header pull-right" role="navigation">
             <div class="hehe">
 
-                <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-                <span class="sr-only">Toggle sidebar</span>
-                <span class="icon-bar xs"></span>
-                <span class="icon-bar xs"></span>
-                <span class="icon-bar xs"></span>
-            </button>
-           
+                        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                            <i class="fa fa-bars white bigger-130" style="width:100%;"></i>
+                            <span class="sr-only">Toggle sidebar</span>
+                            <span class="icon-bar xs"></span>
+                            <span class="icon-bar xs"></span>
+                            <span class="icon-bar xs"></span>
+                        </button>
+                    <span style="text-transform:uppercase;color:white; font-size:28px;"><b>INSOFT R&D</b></span>
+</div>
+
             <ul class="nav ace-nav" tabindex="-20">
                         
                 <li class="  grey dropdown-modal">
@@ -843,42 +830,7 @@
                         <i class="ace-icon fas fa-cloud-sun-rain icon-animated-wrench" style="font-size:20px;"></i>
                     </a>
                 </li>
-                @*<li class="purple dropdown-modal ResponsiveView">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-                <span class="badge badge-important">8</span>
-                </a>
-                </li>*@
-
-                @*<li class="green dropdown-modal ResponsiveView dropdown ForMessage" style="width:70px;">
-                @Html.Partial("~/Views/PartialViews/PVMessagePopUp.cshtml")
-
-                <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                <li class="dropdown-header">
-                <i class="ace-icon fa fa-envelope-o"></i>
-                5 Messages
-                </li>
-
-                <li class="dropdown-content">
-                <ul class="dropdown-menu dropdown-navbar">
-                </ul>
-                </li>
-
-                <li class="dropdown-footer">
-                <a href="inbox.html">
-                See all messages
-                <i class="ace-icon fa fa-arrow-right"></i>
-                </a>
-                </li>
-                </ul>
-                </li>*@
-
-                @*<li class="purple dropdown-modal ResponsiveView">
-                <a class="dropdown-toggle" href="#" data-toggle="modal" data-target="#exampleModal" id="CalculatorBtn">
-                <i class="ace-icon fa fa-calculator"></i>
-                </a>
-                </li>*@
-            
+               
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                             <img class="nav-user-photo UserPhoto" src="/assets/images/avatars/studentlogo.png" alt="User Photo" />
@@ -953,9 +905,8 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
-</div>
+
 
 
 
@@ -1042,6 +993,11 @@
     $(document).on("change", ".ddclear", function () {
         $(".tblclear").find("tbody").find("tr").remove();
     });
+    $("#menu-toggler").on("click", function () {
+        debugger
+        $("#sidebar-collapse").trigger('click');
+    });
+
     $(".status111223344").on("click", function () {
         $(".fest").css("display", "none");
         $(".status111223344").css("display", "none");
@@ -1058,61 +1014,7 @@
             elem.msRequestFullscreen();
         }
     });
-    $(document).ready(function () {
-        getDataInfoo1();
-    });
-
-    function getDataInfoo1() {
-        
-        var UserInfo = "";
-        var JsonUserInfo = "";
-        UserInfo = AjaxCallWithoutDataNoAsync("/Dashboard/GetSchoolInfo");
-        JsonUserInfo = JSON.parse(UserInfo);
-        var FinalJsonUserInfo = JSON.parse(JsonUserInfo);
-        var SchoolName = (FinalJsonUserInfo[0]["SchoolName"]).toUpperCase();
-        var SchoolAddress = (FinalJsonUserInfo[0]["Address"]).toUpperCase();
-        var SchoolContact = (FinalJsonUserInfo[0]["ContactNo"]);
-        var Logonid = FinalJsonUserInfo[0]["logonid"];
-        var UserName = FinalJsonUserInfo[0]["UserName"];
-        var UserEmail = FinalJsonUserInfo[0]["UserEmail"];
-        //var Photo = FinalJsonUserInfo[0]["Photo"] ;
-        var FiscalYear = FinalJsonUserInfo[0]["FiscalYear"].trim();
-        var EdYear = FinalJsonUserInfo[0]["Edyear"].trim();
-        var ReceiptUrl = FinalJsonUserInfo[0]["ReceiptUrl"].trim();
-        var HostedJsreport = FinalJsonUserInfo[0]["HostedJsReport"].trim();
-        $(".SchoolName").attr("data-ReceiptUrl", ReceiptUrl); //data-id
-        $(".SchoolName").attr("data-hostedjsreport", HostedJsreport);
-
-        $(".SchoolName").attr("data-schoolcontact", SchoolContact);
-
-        $(".SchoolName").attr("data-schooladdress", SchoolAddress);
-
-        
-
-
-        $(".SchoolName").attr("data-id", FinalJsonUserInfo[0]["SchoolCode"]);
-        $(".SchoolName").attr("data-activepreviousstudentsearch", FinalJsonUserInfo[0]["ActivePreviousStudentSearch"]);
-
-        $(".SchoolName").attr("data-enableeditbill", FinalJsonUserInfo[0]["IsEnableBillPannel"]);
-        $(".SchoolName").attr("data-enableeditbillyearwise", FinalJsonUserInfo[0]["IsEnableBillPannelTYearWise"]);
-        $(".SchoolName").attr("data-iscollege", FinalJsonUserInfo[0]["IsCollege"]);
-        $(".SchoolName").attr("date-accountReportPrintBaseUrl", FinalJsonUserInfo[0]["accountReportPrintBaseUrl"]);
-
-        $(".SchoolName").attr("date-dateformat", FinalJsonUserInfo[0]["DateFormateInERP"]);
-        $(".UserName").attr("data-empid", FinalJsonUserInfo[0]["empid"])
-
-        $(".SchoolName").html(SchoolName);
-        $(".Logonid").html(Logonid);
-        $(".UserName").html(UserName);
-        $(".UserEmail").html(UserEmail);
-        $("#txtfiscalyear").text(FiscalYear)
-        $(".FiscalYearHeading").text(FiscalYear);
-        $(".EdYearHeading").text(EdYear)
-        
-        var Photo = FinalJsonUserInfo[0]["Photo"] == "" ? '/assets/images/avatars/studentlogo.png' : FinalJsonUserInfo[0]["Photo"];
-        $(".UserPhoto").attr("src", Photo);
-
-    };
+    
     $("#logoutnow").off("click").on("click", function () {
         var SchoolName = $(".SchoolName").text();
         if (SchoolName == "Insoft Research and Development") {

@@ -1,22 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Insoft.cshtml";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-
-
 <style>
   
 *,
 *:before,
 *:after {
   box-sizing: border-box;
-}
-body {
-  padding: 1em;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  color: #b9b9b9;
-  background-color: #e3e3e3;
 }
 h4 {
         color: #b30514;
@@ -28,7 +19,7 @@ select option,
 select {
   width: 100%;
   padding: 1em;
-  line-height: 1.4;
+  line-height: 1;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
@@ -137,7 +128,7 @@ select option {
 .input-group-icon .input-icon:after {
   position: absolute;
   top: 0em;
-  bottom: 0.9em;
+  bottom: -0.5em;
   left: 3.4em;
   display: block;
   border-right: 1px solid #e5e5e5;
@@ -159,7 +150,7 @@ select option {
   max-width: 100em;
   padding: 1em 3em 2em 3em;
   margin: 0em auto;
-  background-color: #fff;
+        background-color: #EFE9F4;
   border-radius: 4.2px;
   box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
 }
@@ -199,17 +190,44 @@ select option {
       vertical-align:middle;
   }
 }
-</style>
+    .input-icon{
+        vertical-align:middle;
+    }
 
+    .input-group feather {
+ 
+    font-size:2em;
+}
+</style>
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">
+                    <i class="feather icon-home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Customer</a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Customer List</a>
+            </li>
+        </ul>
+    </div>  
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
 <div class="accordion" id="productAccordion" style="margin:15px;">
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0 d-flex justify-content-between">
                 <button class="btn btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius:12px; text-decoration: none;">
-                    <h5 class="addEdit"> Add Customer</h5>
+                                        <h5 class="addEdit" style="color:white;"> Add Customer &nbsp; <i class="feather icon-plus"></i></h5>
                 </button>
-                <button class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
-                    <i class="fas fa fa-caret-up" id="toggleArrow"></i>
+                <button id="toggleArrow" class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
+                    <i class="feather icon-chevron-up" ></i>
                 </button>
             </h5>
         </div>
@@ -219,12 +237,13 @@ select option {
                 <div class="container">
                 <form>
                     <h4>Customer Details</h4>
+                    <input type="text" id="id" hidden/>
                     <div class="row">
                         <div class="col-third">
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CustCode" placeholder="Customer Code" name="customercode" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-user"></i>
+                                    <i class="feather icon-hash"></i>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +251,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-user"></i>
+                                    <i class="feather icon-user"></i>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +259,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CustAddress" placeholder="Address" name="address" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-home"></i>
+                                    <i class="feather icon-map-pin"></i>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +269,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-id-card"></i>
+                                  <i class="feather icon-credit-card"></i>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +277,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="Custcontact" placeholder="Contact Number" name="contact" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-phone"></i>
+                                    <i class="feather icon-phone"></i>
                                 </div>
                             </div>
                         </div>
@@ -266,7 +285,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-link"></i>
+                                    <i class="feather icon-link"></i>
                                 </div>
                             </div>
                         </div>
@@ -278,7 +297,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-user"></i>
+                                    <i class="feather icon-user"></i>
                                 </div>
                             </div>
                         </div>
@@ -286,7 +305,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-phone"></i>
+                                    <i class="feather icon-phone"></i>
                                 </div>
                             </div>
                         </div>
@@ -294,7 +313,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
                                 <div class="input-icon">
-                                    <i class="fa fa-user"></i>
+                                                            <i class="feather icon-user"></i>
                                 </div>
                             </div>
                         </div>
@@ -302,7 +321,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
                                 <div class="input-icon">
-                                    <i class="fa fa-phone"></i>
+                                                            <i class="feather icon-phone"></i>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +333,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="email" id="email" placeholder="Email Address" name="email" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-envelope"></i>
+                                                            <i class="feather icon-mail"></i>
                                 </div>
                             </div>
                         </div>
@@ -322,7 +341,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="website" placeholder="Website" name="website">
                                 <div class="input-icon">
-                                    <i class="fa fa-globe"></i>
+                                                            <i class="feather icon-globe"></i>
                                 </div>
                             </div>
                         </div>
@@ -330,7 +349,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="guid" placeholder="GUID" name="GUID" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-key"></i>
+                                                            <i class="feather icon-pin"></i>
                                 </div>
                             </div>
                         </div>
@@ -340,7 +359,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
                                 <div class="input-icon">
-                                    <i class="fa fa-building"></i>
+                                                            <i class="feather icon-briefcase"></i>
                                 </div>
                             </div>
                         </div>
@@ -348,7 +367,7 @@ select option {
                             <div class="input-group input-group-icon">
                                 <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
                                 <div class="input-icon">
-                                    <i class="fa fa-key"></i>
+                                                            <i class="feather icon-pin"></i>
                                 </div>
                             </div>
                         </div>
@@ -357,12 +376,12 @@ select option {
                         <div class="row ">
                             <div class="col-auto" style="float:left;">
                                 <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
-                                    <i class="ace-icon fa fa-undo bigger-110"></i> Reset
+                                    <i class="feather icon-rotate-cw"></i> Reset
                                 </button>
                             </div>
                             <div class="col-auto" style="float:right;">
                                 <button id="BtnInsert" style="border-radius:12px;" class="btn btn-success">
-                                    <i class="ace-icon fa fa-save bigger-110"></i> Save
+                                 <i class="feather icon-save"></i> Save
                                 </button>
                             </div>
                         </div>
@@ -378,12 +397,14 @@ select option {
 
 
 
-<div class="container" style="max-width:120em;">
-<div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
-    <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="border-collapse: separate;padding:0px;">
+<div class="containerr" style="max-width:120em;">
+<div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
+    <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width:100%;border-collapse: separate;padding:0px;">
         <thead>
-            <tr>
-                <th class="center">S.N</th>
+                                    <tr style="background-color:#0b3b56; color:white;">
+                                        <th class="center">S.N</th>
+                <th class="center">Edit</th>
+                <th class="center">Delete</th>
                 <th class="center">Customer Code</th>
                 <th class="center">Customer Name</th>
                 <th class="center">Address</th>
@@ -399,14 +420,17 @@ select option {
                 <th class="center">GUID</th>
                 <th class="center">Company Code</th>
                 <th class="center">BySMSApiToken</th>
-                <th class="center">Edit</th>
-                <th class="center">Delete</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
 </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -419,12 +443,12 @@ select option {
             resetForm();
         });
 
-        // Save button functionality
         $("#BtnInsert").on("click", async function () {
+            debugger
             if ($("#CustCode").val() == "" || $("#CustName").val() == "") {
                 toastr.error("Please fill in all the fields!!!");
             } else {
-                
+                debugger
                 var parm = {
                     Id: $("#id").val() ? parseInt($("#id").val()) : 0,
                     CustomerCode: $("#CustCode").val(),
@@ -443,7 +467,7 @@ select option {
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val()
                 };
-                
+                debugger
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
 
@@ -460,7 +484,10 @@ select option {
     });
 
     $("#addProduct").on("click", function () {
-        $("#collapseOne").removeClass("collapse", true);
+        $("#collapseOne").css("display", 'block');
+    });
+    $("#toggleArrow").on("click", function () {
+        $("#collapseOne").css("display", 'none');
     });
     $(".toggleCollapse").on("click", function () {
         $("#collapseOne").addClass("collapse", true);
@@ -495,26 +522,26 @@ select option {
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
-                                    <td class="center">` + (i + 1) + `</td>
-                                     <td class="center" class="custCode">` + jsondata[i]["CustomerCode"] + `</td>
-                                     <td class="center" class="custName">` + jsondata[i]["CustomerName"] + `</td>
-                                     <td class="center" class="custAdd">` + jsondata[i]["Address"] + `</td>
-                                     <td class="center" class="custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
-                                     <td class="center" class="custContact">` + jsondata[i]["Contact"] + `</td>
-                                     <td class="center" class="custdblink">` + jsondata[i]["DataBaseLink"] + `</td>
-                                     <td class="center" class="custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
-                                     <td class="center" class="custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
-                                     <td class="center" class="custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
-                                     <td class="center" class="custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
-                                     <td class="center" class="email">` + jsondata[i]["EmailAddress"] + `</td>
-                                     <td class="center" class="website">` + jsondata[i]["Website"] + `</td>
-                                     <td class="center" class="GUID">` + jsondata[i]["GUID"] + `</td>
-                                     <td class="center" class="comcode">` + jsondata[i]["CompanyCode"] + `</td>
-                                     <td class="center" class="smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
-                                    
-                                    <td class="center"><i class="fas fa-edit btn-edit green" ></i></td>
-                                    <td class="center"><i class="fas fa-trash btn-delete red"></i></td>
-                                </tr>`;
+                                <td class="center">` + (i + 1) + `</td>
+                                                                    <td class="center"><button class="btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
+                                    <td class="center"><button class="btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+
+                                <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
+                                <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
+                                <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
+                                <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
+                                <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
+                                <td class="center custdblink">` + jsondata[i]["DataBaseLink"] + `</td>
+                                <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
+                                <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
+                                <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
+                                <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
+                                <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
+                                <td class="center website">` + jsondata[i]["Website"] + `</td>
+                                <td class="center GUID">` + jsondata[i]["GUID"] + `</td>
+                                <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
+                                <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
+                            </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
         } else {
@@ -550,7 +577,7 @@ select option {
         $("#CompanyCode").val(ParsedData[0]["CompanyCode"]);
         $("#BySMSApiToken").val(ParsedData[0]["BySMSApiToken"]);
 
-        $("#collapseOne").removeClass("collapse", true);
+        $("#collapseOne").css("display", 'block');
 
 
     });

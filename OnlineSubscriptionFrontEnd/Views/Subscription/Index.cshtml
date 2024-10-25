@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Agent.cshtml";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
 
 <style>
@@ -57,22 +57,32 @@
     }
 
 </style>
-<div class="breadcrumbs ace-save-state breadcrumbs-fixed" id="breadcrumbs">
-    <ul class="breadcrumb">
-        <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="/AdminDashBoard">Dashboard // Subscription Types</a>
-        </li>
-
-    </ul>
-    <div class="nav-search" id="nav-search">
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">
+                    <i class="feather icon-home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Subscription</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+    @* <div class="nav-search" id="nav-search">
         <form class="form-search">
             <span class="input-icon">
                 <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
                 <i class="ace-icon fa fa-search nav-search-icon"></i>
             </span>
         </form>
-    </div>
+    </div> *@
 </div>
 <div class="page-content">
     <div class="content-body">
@@ -96,16 +106,16 @@
                     </div>
 
                     <div class="form-group" style="display: flex;">
-                        <button type="button" class="btn btn-danger" id="BtnReset" style="border-radius:12px; margin-right: 5px;">Reset &nbsp; <i class="ace-icon fa fa-sync-alt"></i></button>
-                        <button type="button" class="btn btn-success" id="BtnInsert" style="border-radius:12px;">Save &nbsp; <i class="ace-icon fa fa-save"></i></button>
+                                        <button type="button" class="btn btn-danger" id="BtnReset" style="border-radius:12px; margin-right: 5px;">Reset &nbsp; <i class="feather icon-rotate-cw"></i></button>
+                                        <button type="button" class="btn btn-success" id="BtnInsert" style="border-radius:12px;">Save &nbsp; <i class="feather icon-save"></i></button>
                     </div>
                 </form>
             </div>
 
             <div class="TableDiv col-8" style="overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative; flex: 0 0 75%;">
-                <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="border-collapse: separate; width: 100%; padding: 0px;">
+                                <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="border-collapse: separate;padding:0px;">
                     <thead>
-                        <tr>
+                            <tr style="background-color:#0b3b56; color:white;">
                             <th class="center">S.N</th>
                             <th class="center">Name</th>
                             <th class="center">Number of Days</th>
@@ -120,6 +130,10 @@
 
         </div>
     </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -180,8 +194,8 @@
                                     <td class="center">` + (i + 1) + `</td>
                                     <td class="center" class="subName">` + jsondata[i]["Name"] + `</td>
                                     <td class="center" class="subMonth">` + jsondata[i]["NoOfMonth"] + `</td>
-                                    <td class="center"><i class="fas fa-edit btn-edit green" ></i></td>
-                                    <td class="center"><i class="fas fa-trash btn-delete red"></i></td>
+                                    <td class="center"><button class="btn btn-success btn-edit"><i class="feather icon-edit" ></i> </button></td>
+                                    <td class="center"><button class="btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
                                 </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);

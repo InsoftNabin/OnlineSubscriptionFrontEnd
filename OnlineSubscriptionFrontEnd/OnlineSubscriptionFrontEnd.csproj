@@ -24,7 +24,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\bootstrap\bootstrap 4\" />
-    <Folder Include="wwwroot\insoft\" />
+    <Folder Include="wwwroot\insoft\NewFolder\" />
+    <Folder Include="wwwroot\Theme\" />
   </ItemGroup>
 
 </Project>

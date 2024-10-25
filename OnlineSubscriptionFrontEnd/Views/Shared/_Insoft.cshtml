@@ -7,14 +7,6 @@
     <link rel="icon" href="~/insoft//images/academe_icon.png">
     <meta name="description" content="Static &amp; Dynamic Tables" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link href="~/insoft/Plugins/nepalidatepicker/nepali.datepicker.v2.1.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/insoft/assets/css/jquery-ui.custom.min.css" />
-    <link rel="stylesheet" href="~/insoft/assets/css/chosen.min.css" />
-    <link rel="stylesheet" href="~/insoft/assets/css/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" href="~/insoft/assets/css/bootstrap-timepicker.min.css" />
-    <link rel="stylesheet" href="~/insoft/assets/css/daterangepicker.min.css" />
-    <link rel="stylesheet" href="~/insoft/assets/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" href="~/insoft/assets/css/bootstrap-colorpicker.min.css" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
@@ -38,15 +30,9 @@
     <script src="~/insoft/customJs/custom.js"></script>
     <link href="~/insoft/customCss/LoadingModal/Loading.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="~/toastr.js/toastr.min.js"></script>
     
     <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <style>
@@ -145,83 +131,14 @@
         }
 
     </style>
-  @*   @Html.Partial("~/Views/PartialViews/PvTemplateHeader.cshtml")  *@
+     @Html.Partial("~/Views/PartialViews/PvTemplateHeader.cshtml")  
 
     <div class="main-container ace-save-state" id="main-container">
 
         <div class="text-center" style="display:none;">
             <a href="#ViewDataModel" id="ViewLedger" class="trigger-btn" data-toggle="modal">Click Me</a>
         </div>
-        <div id="ViewDataModel" class="modal fade ViewLedger">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title TcodeData" data-type="" data-trantype="">Voucher</h5>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3" style="padding-left:30px;">
-                            <h5><span>Cost Center : </span><span class="CCData"></span></h5>
-                        </div>
-                        <div class="col-md-3" style="padding-left:30px;">
-                            <h5> <span>Voucher No : </span><span class="VouNo"></span></h5>
-                        </div>
-                        <div class="col-md-4" style="padding-left:30px;">
-                            <h5>  <span>Date : </span><span class="VouDate"></span></h5>
-                        </div>
-                        <div class="col-xs-2" style="padding-left:30px;">
-                            <a id="printData" style="cursor:pointer;">
-                                <i class="ace-icon fa fa-print fa-2x" style="padding-top:5px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home">Voucher</a></li>
-                            <li><a data-toggle="tab" href="#Docs">Documents</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div id="home" class="tab-pane fade in active">
-                                <div class="row" style="overflow-x:scroll;">
-                                    <table id="tblvoucherentryPopup" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Mode</th>
-                                                <th>Account</th>
-                                                <th>Memo</th>
-                                                <th>Debit</th>
-                                                <th>Credit</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-md-8" style="padding-left:30px;">
-                                        <h5> <span>Narration : </span><span class="VouNaration"></span></h5>
-                                    </div>
-                                    <div class="col-md-4" style="padding-left:30px;">
-                                        <h5> <span>Prepared By : </span><span class="VouCreatedUser"></span></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="Docs" class="tab-pane fade">
-                                <h5 class="headForDocs"> <span> Related Document : </span><span class=""> </span></h5>
-                                <div class="ImgViewForDocs row">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-window-close"></i> Cancel</button>
-                        <button type="button" class="btn btn-insoft" id="EditVoucherData" data-dismiss="modal"><i class="fas fa-edit"></i> Edit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+     
 
         <script type="text/javascript">
             try { ace.settings.loadState('main-container') } catch (e) { }
@@ -238,15 +155,8 @@
                 </div>
             </div>
 
-            <ul class="nav nav-list">
-                <li class="">
-                    <a href="/AcntDashboard">
-                        <i class="menu-icon fa fa-tachometer"></i>
-                        <span class="menu-text"> Dashboard </span>
-                    </a>
-    
-                </li>
-
+            <ul class=" nav-list">
+               
                 <li class="">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa-cogs red"></i>
@@ -265,7 +175,7 @@
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa-cogs red"></i>
                         <span class="menu-text">
-                            SUB-Products / Modules
+                            Sub-Products 
                         </span>
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
@@ -366,6 +276,13 @@
     <script type="text/javascript">
         var date = new Date().getFullYear();
         $(".currentyear").text(date);
+
+    $(document).on("click", ".nav-show", function () {
+        debugger
+    
+    });
+
+
 
         $(document).on("click", "#EditVoucherData", function () {
             var vno = $(".VouNo").html();
