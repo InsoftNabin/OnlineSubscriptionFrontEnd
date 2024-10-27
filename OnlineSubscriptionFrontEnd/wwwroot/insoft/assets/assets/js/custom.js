@@ -1,4 +1,71 @@
-﻿function AlertMessage(messagetype, message) {
+﻿
+function exportToCSV() {
+    // Function to export table data to CSV
+    let csv = [];
+    const rows = document.querySelectorAll('#agentTable tr');
+
+    for (let row of rows) {
+        const cols = row.querySelectorAll('td, th');
+        const csvRow = [];
+        for (let col of cols) {
+            csvRow.push(col.innerText);
+        }
+        csv.push(csvRow.join(','));
+    }
+
+    const csvString = csv.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('download', 'table_data.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+function copyTable() {
+    const range = document.createRange();
+    range.selectNode(document.getElementById('agentTable'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    alert('Table copied to clipboard!');
+}
+
+function exportToExcel() {
+    // Function to export table data to Excel
+    let table = document.getElementById('agentTable');
+    let excelFile = new Blob([table.outerHTML], { type: 'application/vnd.ms-excel' });
+    let url = URL.createObjectURL(excelFile);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = 'table_data.xls';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+function exportToPDF() {
+    // Function to export table data to PDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.autoTable({ html: '#agentTable' });
+    doc.save('table_data.pdf');
+}
+
+function printTable() {
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Print Table</title>');
+    printWindow.document.write('</head><body >');
+    printWindow.document.write(document.getElementById('agentTable').outerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+
+function AlertMessage(messagetype, message) {
 
     $("#AlertMessage").empty();
     var cssclass;

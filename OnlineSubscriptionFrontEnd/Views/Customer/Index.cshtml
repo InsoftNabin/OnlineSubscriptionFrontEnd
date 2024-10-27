@@ -395,43 +395,54 @@ select option {
 </div>
 
 
+                    <div class="containerr" style="max-width:120em;">
+                        <div class="button-container" style="margin-bottom: 10px;">
+                            <button onclick="exportToCSV()" class="rounded btn-sm  btn-primary">CSV</button>
+                            <button onclick="copyTable()" class="rounded btn-sm btn-warning">Copy</button>
+                            <button onclick="exportToExcel()" class="rounded btn-sm btn-danger">&nbsp;<i class="feather icon-excel"></i></button>
+                            <button onclick="exportToPDF()" class="rounded btn-sm btn-danger"><i class="feather icon-pdf"></i></button>
+                            <button onclick="printTable()" class="rounded btn-sm btn-info"><i class="feather icon-print"></i></button>
+                        </div>
 
-
-<div class="containerr" style="max-width:120em;">
-<div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
-    <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width:100%;border-collapse: separate;padding:0px;">
-        <thead>
+                        <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
+                            <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width:100%;border-collapse: separate;padding:0px;">
+                                <thead>
                                     <tr style="background-color:#0b3b56; color:white;">
                                         <th class="center">S.N</th>
-                <th class="center">Edit</th>
-                <th class="center">Delete</th>
-                <th class="center">Customer Code</th>
-                <th class="center">Customer Name</th>
-                <th class="center">Address</th>
-                <th class="center">PAN/VAT Number</th>
-                <th class="center">Contact Number</th>
-                <th class="center">Database Link</th>
-                <th class="center">Contact Person 1</th>
-                <th class="center">Contact Person 1_Mobile number</th>
-                <th class="center">Contact Person 2</th>
-                <th class="center">Contact Person 2_Mobile number</th>
-                <th class="center">Email Address</th>
-                <th class="center">Website</th>
-                <th class="center">GUID</th>
-                <th class="center">Company Code</th>
-                <th class="center">BySMSApiToken</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
-</div>
+                                        <th class="center">Edit</th>
+                                        <th class="center">Delete</th>
+                                        <th class="center">Customer Code</th>
+                                        <th class="center">Customer Name</th>
+                                        <th class="center">Address</th>
+                                        <th class="center">PAN/VAT Number</th>
+                                        <th class="center">Contact Number</th>
+                                        <th class="center">Database Link</th>
+                                        <th class="center">Contact Person 1</th>
+                                        <th class="center">Contact Person 1_Mobile number</th>
+                                        <th class="center">Contact Person 2</th>
+                                        <th class="center">Contact Person 2_Mobile number</th>
+                                        <th class="center">Email Address</th>
+                                        <th class="center">Website</th>
+                                        <th class="center">GUID</th>
+                                        <th class="center">Company Code</th>
+                                        <th class="center">BySMSApiToken</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+              
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 <script type="text/javascript">
