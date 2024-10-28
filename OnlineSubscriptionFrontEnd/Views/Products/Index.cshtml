@@ -153,13 +153,13 @@
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 cardDOM += `
-                        <div class="card product-card col-sm-5">
-                            <div class="card-header card-insoft" style="background-color: #0b3b56; color: white;">
+                        <div class="card product-card col-sm-6">
+                            <div class="card-header card-insoft" style="background-color: #0b3b56; color: white; height:20%;">
                                 <h2 style="text-transform: uppercase;"><b>${jsondata[i]["Name"]}</b></h2>
                             </div>
                             <div class="card-body">
-                                <h3>${jsondata[i]["Description"]}</h3>
-                                <h4>Version: ${jsondata[i]["Version"]}</h4>
+                                <h5>${jsondata[i]["Description"]}</h3><br>
+                                <h6>Version: ${jsondata[i]["Version"]}</h4>
                             </div>
                             <div class="card-footer" style="display: flex; justify-content: space-between;">
                                 <button class="btn btn-primary btn-edit" data-id="${jsondata[i]["Id"]}">

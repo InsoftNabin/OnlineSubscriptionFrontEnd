@@ -37,6 +37,30 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 return RedirectToAction("Index", "UnexpectedError");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> SubsbyCustProdandType([FromBody] List <CustomerwiseModules> ai)
+        {
+            try
+            {
+                string tokenNo = HttpContext.Session.GetString("TokenNo");
+                if (tokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                foreach (var a in ai)
+                {
+                    a.TokenNo = tokenNo;
+                    
+                }
+                var result = await ApiCall.ApiCallWithObject("Subscription/SubsbyCustProdandType", ai, "Post");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                TempData["Exception"] = ex.ToString();
+                return RedirectToAction("Index", "UnexpectedError");
+            }
+        }
 
 
 

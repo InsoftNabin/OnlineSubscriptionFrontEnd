@@ -467,11 +467,9 @@ select option {
         });
 
         $("#BtnInsert").on("click", async function () {
-            debugger
             if ($("#CustCode").val() == "" || $("#CustName").val() == "") {
                 toastr.error("Please fill in all the fields!!!");
             } else {
-                debugger
                 var parm = {
                     Id: $("#id").val() ? parseInt($("#id").val()) : 0,
                     CustomerCode: $("#CustCode").val(),
@@ -490,7 +488,7 @@ select option {
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val()
                 };
-                debugger
+             
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
 

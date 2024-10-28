@@ -1,0 +1,283 @@
+﻿@{
+    ViewData["Title"] = "CustomerSubscription";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!"><i class="feather icon-home"></i></a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Sub-Products</a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Modules List</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+                    <div class="row form-control">
+                        <div class="col-xs-4" style="width: 30%;">
+                            <label>Products</label>
+                            <select class="Products form-control">
+                                <option class="default" value="0">----All----</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-4" style="width: 10%;">
+                            <label>&nbsp;</label>
+                            <button class="btn btn-primary form-control" type="button" id="showButton">
+                                <i class="feather icon-eye"></i> Show
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="btn-group pull-right" style="float:right; padding:10px!important;">
+                                <div class="input-group">
+                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="search-addon">
+                                            <i class="feather icon-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Subscription -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        <br /><input type="number" id="custid"  hidden/>
+                                        <br /><input type="number" id="prodid" hidden />
+                                        Choose A Subscription Package for the Customer for the modules in <b><span class="selectedProduct"></span></b>
+                                    </h1>
+                                    <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table id="modalTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear">
+                                        <thead>
+                                            <tr style="background-color: #0b3b56; color: white;">
+                                                <th class="center"></th>
+                                                <th class="center">Subscription Package</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-success btn-saveSubs" data-uniqid="0">Save&nbsp;<i class="feather icon-save"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="containerr" style="max-width: 120em;">
+                        <div class="button-container" style="margin-bottom: 10px;">
+                            <button onclick="exportToCSV()" class="rounded btn-sm btn-primary">
+                                <i class="feather icon-file-text"></i> CSV
+                            </button>
+                            <button onclick="copyTable()" class="rounded btn-sm btn-warning">
+                                <i class="feather icon-copy"></i> Copy
+                            </button>
+                            <button onclick="exportToExcel()" class="rounded btn-sm btn-success">
+                                <i class="feather icon-excel"></i> Excel
+                            </button>
+                            <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
+                                <i class="feather icon-file-pdf"></i> PDF
+                            </button>
+                            <button onclick="printTable()" class="rounded btn-sm btn-info">
+                                <i class="feather icon-print"></i> Print
+                            </button>
+                        </div>
+
+                        <div class="TableDiv" style="width: 100%; overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative;">
+                            <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                <thead>
+                                    <tr style="background-color: #0b3b56; color: white;">
+                                        <th class="center">S.N</th>
+                                        <th class="center">Customer Code</th>
+                                        <th class="center">Customer Name</th>
+                                        <th class="center">Product</th>
+                                        <th class="center">Address</th>
+                                        <th class="center">PAN/VAT Number</th>
+                                        <th class="center">Contact Number</th>
+                                        <th class="center">Subscription</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getProducts();
+    });
+
+    $(".Products").on("change", function () {
+        $("#showButton").trigger('click');
+    });
+
+    $("#showButton").on("click", function () {
+        getTableData();
+    });
+
+    function getProducts() {
+        var paa = AjaxCallWithoutDataNoAsync("/Products/getProducts");
+        var aaha = JSON.parse(paa);
+        var jsonD = JSON.parse(aaha);
+
+        var ProductsD = "";
+        if (jsonD.length > 0) {
+            for (var a = 0; a < jsonD.length; a++) {
+                ProductsD += `<option value="${jsonD[a]['Id']}">${jsonD[a]['Name']} (V .${jsonD[a]['Version']})</option>`;
+            }
+            $(".Products").not(".default").append(ProductsD);
+        } else {
+            toastr.error("No Products have been added!!!");
+        }
+    }
+
+    async function getTableData() {
+        var parm = {
+            ProductId: parseInt($(".Products :selected").val())
+        };
+        var a = await AjaxCall("/Customer/getCustomerByProductId", parm);
+        var ab = JSON.parse(a);
+        var jsondata = JSON.parse(ab);
+        var tableDOM = "";
+
+        if (jsondata.length > 0) {
+            for (var i = 0; i < jsondata.length; i++) {
+                tableDOM += `<tr data-id="${jsondata[i]['Id']}">
+                                    <td class="center">${i + 1}</td>
+                                    <td class="center custCode">${jsondata[i]['Customercode']}</td>
+                                    <td class="center custName">${jsondata[i]['CustomerName']}</td>
+                                    <td class="center prodName">${jsondata[i]['ProductName']}</td>
+                                    <td class="center custAdd">${jsondata[i]['Address']}</td>
+                                    <td class="center custPANVAT">${jsondata[i]['pan/vatno']}</td>
+                                    <td class="center custContact">${jsondata[i]['Contact']}</td>
+                                    <td class="center">
+                                        <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class="btn btn-primary SelectModules rounded" data-bs-toggle="modal" data-target="#exampleModal">
+                                            Select &nbsp;<i class="feather icon-check-square"></i>
+                                        </button>
+                                    </td>
+                                </tr>`;
+            }
+            $("#agentTable tbody").empty().append(tableDOM);
+        } else {
+            $("#agentTable tbody").empty().append(`
+                    <tr class="center">
+                        <td colspan="8">
+                            <img src="~/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                            <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                        </td>
+                    </tr>
+                `);
+        }
+    }
+
+    $(document).on('click', '.SelectModules', function () {
+        $('#exampleModal').modal('show');
+        var id = $(this).attr("data-custid");
+        var ProductId = $(this).attr("data-productid");
+        var ProductName = $(this).attr("data-productName");
+        loadSubscriptionTypes(id, ProductId);
+        $(".selectedProduct").text(ProductName);
+    });
+
+    async function loadSubscriptionTypes(CustomerId, ProductId) {
+        $("#custid").val(CustomerId);
+        $("#prodid").val(ProductId);
+        var parm = {
+            CustomerId: parseInt(CustomerId),
+            ProductId: parseInt(ProductId)
+        };
+        var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
+        var data = JSON.parse(para);
+        var Jsondata = JSON.parse(data);
+
+        if (Jsondata.length > 0) {
+            var DOM = ``;
+            for (var i = 0; i < Jsondata.length; i++) {
+                var isChecked = Jsondata[i]["IsFound"] === "found" ? "checked" : "";
+                DOM += `<tr data-subCusid="${Jsondata[i]['Id']}" data-substypeid="${Jsondata[i]['SubscriptionId']}">
+                                <td class="center"><input type="checkbox" ${isChecked}></td>
+                                <td class="center">${Jsondata[i]['Name']}</td>
+                            </tr>`;
+            }
+            $("#exampleModal").find("#modalTable tbody").empty().append(DOM);
+        } else {
+            toastr.error("No Subscription Setup is done!!!");
+        }
+    }
+
+    // $(document).on('click', '.btn-saveSubs', async function () {
+    //     $("#modalTable tbody tr").each(async function () {
+    //         var parm = {
+    //             Id: $(this).attr("data-subCusid"),
+    //             Active:$(this).    ,
+    //             CustomerId: parseInt($("#custid").val()),
+    //             ProductId: parseInt($("#prodid").val()),
+    //             AgentId: $(this).attr("data-substypeid")
+    //         };
+    //         debugger
+    //         var para = await AjaxCall("/Subscription/SubsbyCustProdandType", parm);
+    //         var data = JSON.parse(para);
+
+    //         $("#custid").val('');
+    //         $("#prodid").val('');
+    //     });
+    // });
+
+
+
+    $(document).on('click', '.btn-saveSubs', async function () {
+        let savePromises = []; 
+
+        $("#modalTable tbody tr").each(async function () {
+            
+            const isChecked = $(this).find('input[type="checkbox"]').is(':checked');
+            const parm = {
+                Id: parseInt($(this).attr("data-subCusid")) , 
+                CustomerId: parseInt($("#custid").val()),
+                ProductId: parseInt($("#prodid").val()),
+                AgentId: parseInt($(this).attr("data-substypeid")),
+                Active: isChecked 
+            };
+            savePromises.push(parm);
+        });
+        debugger
+        const savePromise =await AjaxCall("/Subscription/SubsbyCustProdandType", savePromises);
+        $("#custid").val('');
+        $("#prodid").val('');
+        $("#exampleModal").modal('hide');
+    });
+
+    $(".search").off("keyup").on("keyup", function () {
+        var $rows = $('.table tbody tr');
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        $rows.show().filter(function () {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+</script>

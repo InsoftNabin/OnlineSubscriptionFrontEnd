@@ -7,6 +7,7 @@
         public string CustomerName { get; set; }
         public string CustomerCode { get; set; }
         public string Address { get; set; }
+        public int ProductId { get; set; }
         public string panvatno { get; set; }
         public string Contact { get; set; }
         public string DataBaseLink { get; set; }

@@ -37,7 +37,7 @@
                     <div class="clearfix well">
                         <div class="accordion" id="productAccordion">
                             <div class="card">
-                                <div class="card-header" id="headingOne">
+                                <div class="card-header" id="headingOne" >
                                     <h5 class="mb-0 d-flex justify-content-between">
                                         <button class="btn btn-xs btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius: 12px;">
                                             <h5 class="addEdit"><span style="color:white;font-size:18px; vertical-align:middle;"><i class="feather icon-plus"></i> Add Module</span></h5>
@@ -164,10 +164,10 @@
                 }
 
                 cardDOM += `
-                        <div class="card card1 product-card col-sm-5" data-productid="${productId}">
-                            <div class="card-header card-insoft" style="background-color: #0b3b56; color: white;">
+                        <div class="card card1 product-card col-sm-6" data-productid="${productId}">
+                            <div class="card-header card-insoft" style="background-color: #0b3b56; color: white;  ">
                                 <div class="row align-items-center">
-                                    <h2 class="col" style="text-transform: uppercase; margin: 0;"><b>${jsondata[i]["Name"]}</b></h2>
+                                    <h4 class="col" style="text-transform: uppercase;font-size:16px;"><b>${jsondata[i]["Name"]}</b></h2>
                                     <button class="btn btn-primary col-auto btnAddModule" style="margin-left: auto;" data-productid="${productId}" data-productname="${jsondata[i]["Name"]}">
                                         <i class="feather icon-plus"></i> New Module
                                     </button>
@@ -178,9 +178,7 @@
                                     ${productsInAccordion}
                                 </div>
                             </div>
-                            <div class="card-footer" style="display: flex; justify-content: space-between;">
-                                All modules were created by <b>${jsondata[i]["Name"]}</b>
-                            </div>
+                           
                         </div>`;
             }
             $(".products").empty().append(cardDOM);

@@ -32,39 +32,51 @@
             </li>
         </ul>
     </div>
-<div class="pcoded-inner-content">
-        
-<div class="main-body">
-            
-<div class="page-wrapper">
-<div class="page-body">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+                   
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="btn-group pull-right" style="float:right; padding:10px!important;">
+                                <div class="input-group">
+                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="search-addon">
+                                            <i class="feather icon-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<div class="card">
-<div class="TableDiv  " style="overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative; border-radius:12px;">
-    <table id="agentTable" class="agentTable table-fixed table  table-striped table-bordered  tblclear" style="border-collapse: separate;padding:0px;">
-        <thead>
-            <tr style="background-color:#0b3b56; color:white;">                     
-                <th class="center">S.N</th>
-                <th class="center">Customer Code</th>
-                <th class="center">Customer Name</th>
-                <th class="center">Address</th>
-                <th class="center">PAN/VAT Number</th>
-                <th class="center">Contact Number</th>
-                <th class="center">Company Code</th>
-                <th class="center">Products </th>
-               
-            </tr>
-        </thead>
-        <tbody>
-         
-        </tbody>
-    </table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                    <div class="row card">
+                        <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:70vh;position:relative; border-radius:12px;">
+                            <table id="agentTable" class="agentTable table-fixed table table-striped table-bordered tblclear" style="border-collapse: separate;padding:0px;">
+                                <thead>
+                                    <tr style="background-color:#0b3b56; color:white;">
+                                        <th class="center">S.N</th>
+                                        <th class="center">Customer Code</th>
+                                        <th class="center">Customer Name</th>
+                                        <th class="center">Address</th>
+                                        <th class="center">PAN/VAT Number</th>
+                                        <th class="center">Contact Number</th>
+                                        <th class="center">Company Code</th>
+                                        <th class="center">Products</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Data will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -345,8 +357,20 @@
     //     }
     // }
 
+
+    $(".search").off("keyup").on("keyup", function () {
+        var $rows = $('.table tbody tr');
+        $('.search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    });
+
+
     async function LoadSubProductsbyCustomerandProduct(ProductId) {
-        debugger
         var parmdata = {
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
@@ -357,7 +381,6 @@
         var dataJson = JSON.parse(dataAfter);
 
         var MODalTable = "";
-        debugger
         if (dataJson.length > 0) {
             for (var i = 0; i < dataJson.length; i++) {
                 $(".AgentsinModalTable").val(dataJson[0]["AgentName"])

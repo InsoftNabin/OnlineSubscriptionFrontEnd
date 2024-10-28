@@ -1,9 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>License Server-Insoft </title>
-   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,16 +16,12 @@
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="~/files/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- feather Awesome -->
-    <link rel="stylesheet" href="https://unpkg.com/feather-icons">
-    <link rel="stylesheet" type="text/css"
-          href="~/files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css">
-
+    <link rel="stylesheet" type="text/css" href="~/files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="~/files/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/files/assets/css/jquery.mCustomScrollbar.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM7p6w68N4x2z9Al0Gxj7IlQ2ay+ddH0w7iP0" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -64,10 +58,6 @@
     <link rel="stylesheet" type="text/css" href="~/files/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/files/assets/css/jquery.mCustomScrollbar.css">
 
-    
-    
-    
-    
     <style>
         .center{
             text-align:center;
@@ -79,7 +69,7 @@
         }
 
         .card1 {
-            margin: 20px;
+            margin-top: 10px;
             display: flex; 
             justify-content: space-between; 
         }
@@ -92,7 +82,7 @@
             }
 
         .card-header h2 {
-            font-size: 1.5em; 
+            font-size: 0.5em; 
         }
     </style>
 
@@ -145,14 +135,13 @@
             <nav class="navbar header-navbar pcoded-header">
                 <div class="navbar-wrapper">
 
-                    <div class="navbar-logo" logo-theme="">
+                    <div class="navbar-logo" logo-theme="theme1">
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
-                            <i class="feather icon-menu"></i>
+                            <i class="feather icon-menu icon-toggle-right" style="color:black;"></i>
                         </a>
                         <a href="#">
-@*                             <img class="img-fluid" src="~/files/assets/images/logo.png" alt="Theme-Logo" />
- *@                             <img class="img-fluid" src="~/insoft/images/logoinsoft.png" alt="Theme-Logo" />
-                        </a>
+                             <img class="img-fluid" src="~/insoft/images/logoinsoft.png" alt="Theme-Logo" />
+                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
                         </a>
@@ -209,40 +198,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img class="d-flex align-self-center img-radius"
-                                                         src="~/files/assets/images/avatar-3.jpg"
-                                                         alt="Generic placeholder image">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h5 class="notification-user">Joseph William</h5>
-                                                    <p class="notification-msg">
-                                                        Lorem ipsum dolor sit amet, consectetuer
-                                                        elit.
-                                                    </p>
-                                                    <span class="notification-time">30 minutes ago</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img class="d-flex align-self-center img-radius"
-                                                         src="~/files/assets/images/avatar-4.jpg"
-                                                         alt="Generic placeholder image">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h5 class="notification-user">Sara Soudein</h5>
-                                                    <p class="notification-msg">
-                                                        Lorem ipsum dolor sit amet, consectetuer
-                                                        elit.
-                                                    </p>
-                                                    <span class="notification-time">30 minutes ago</span>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </li>
@@ -474,7 +430,11 @@
                                                 <span class="pcoded-mtext">Customer Wise Modules Selection</span>
                                             </a>
                                         </li>
-                                       
+                                        <li>
+                                            <a href="/Customer/CustomerSubscription">
+                                                <span class="pcoded-mtext">Customer Subscription Type</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="pcoded-hasmenu">
