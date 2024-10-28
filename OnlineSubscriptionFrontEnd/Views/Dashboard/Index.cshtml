@@ -1,6 +1,30 @@
-@{ ViewData["Title"] = "Index"; }
-<div class="py-3 py-lg-6">
-  <div class="container-xxl d-flex flex-stack">
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">
+                    <i class="feather icon-home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Users</a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Verification</a>
+            </li>
+        </ul>
+    </div>
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+
+
+  @* <div class="container-xxl d-flex flex-stack">
     <div
       class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
     >
@@ -13,7 +37,7 @@
           alt=""
         />
       </h1>
-    </div>
+    </div> *@
     <div class="d-flex">
       <div
         class="app-navbar-item ms-1 ms-lg-3 ml-4"
@@ -34,14 +58,14 @@
           data-kt-menu="true"
           style=""
         >
-          <!--begin::Menu item-->
+       @*    <!--begin::Menu item-->
           <div class="menu-item">
             <!--begin::Menu item-->
             <div class="menu-item">
               <a class="menu-link px-5 signoutBtn">Sign Out</a>
             </div>
             <!--end::Menu item-->
-          </div>
+          </div> *@
         </div>
         <!--end::User account menu-->
         <!--end::Menu wrapper-->
@@ -51,7 +75,7 @@
 </div>
 <div id="kt_app_content_container" class="app-container container-xxl mt-4">
   <!--begin::Card-->
-  <div class="card">
+  <div class="card" >
     <!--begin::Card body-->
     <div class="card-body pt-0">
       <!--begin::Table-->
@@ -142,6 +166,10 @@
   </div>
   <!--end::Card-->
 </div>
+</div>
+</div>
+
+</div>
 
 <!--begin::Modal - Upgrade plan-->
 <div
@@ -158,7 +186,7 @@
       <div class=" flex modal-header justify-content-end border-0 pb-0">
         <!--begin::Close-->
         <div
-          class="btn btn-sm btn-icon btn-hover-primary"
+          class="btn btn-sm btn-icon btn-hover-primary btn-danger"
           data-bs-dismiss="modal"
         >
           <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
@@ -239,6 +267,7 @@
   </div>
   <!--end::Modal dialog-->
 </div>
+</div>
 <!--end::Modal - Upgrade plan-->
 
 <script type="text/javascript">
@@ -277,17 +306,17 @@
                 </td>
                <td>${value.UserContact}</td>
                 <td >
-                  <div class="d-flex">
+                  <div class="d-flex primary" >
 
                   
                   <span class="badge badge-light-danger fs-base  mx-2">
                     <div class="d-flex flex-column pt-2">
-                      <p class="fs-3 py-0 my-0">${value.UnVerifiedOrg}</p><p class="fs-8">Unverified</p></span>
+                          <p class="fs-3 py-0 my-0" style="color:red;">${value.UnVerifiedOrg}</p><p class="fs-8" style="color:red;">Unverified</p></span>
                     </div>
                   </span>
                   <span class="badge badge-light-success fs-base ">
                     <div class="d-flex flex-column mx-4 align-center">
-                      <p class="fs-3 py-0 my-0">${value.VerifiedOrg}</p><p class="fs-8 my-0">Verified</p></span>
+                                  <p class="fs-3 py-0 my-0" style="color:green;">${value.VerifiedOrg}</p><p class="fs-8 my-0" style="color:green;">Verified</p></span>
                     </div>
                     </span>
                   </div>

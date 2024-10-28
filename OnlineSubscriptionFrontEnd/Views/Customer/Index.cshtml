@@ -4,6 +4,7 @@
 }
 <style>
   
+
 *,
 *:before,
 *:after {
@@ -396,21 +397,32 @@ select option {
 
 
                     <div class="containerr" style="max-width:120em;">
-                        <div class="button-container" style="margin-bottom: 10px;">
-                            <button onclick="exportToCSV()" class="rounded btn-sm  btn-primary">CSV</button>
-                            <button onclick="copyTable()" class="rounded btn-sm btn-warning">Copy</button>
-                            <button onclick="exportToExcel()" class="rounded btn-sm btn-danger">&nbsp;<i class="feather icon-excel"></i></button>
-                            <button onclick="exportToPDF()" class="rounded btn-sm btn-danger"><i class="feather icon-pdf"></i></button>
-                            <button onclick="printTable()" class="rounded btn-sm btn-info"><i class="feather icon-print"></i></button>
-                        </div>
+                      <div class="button-container" style="margin-bottom: 10px;">
+    <button onclick="exportToCSV()" class="rounded btn-sm btn-primary">
+        <i class="feather icon-file-text"></i> CSV
+    </button>
+    <button onclick="copyTable()" class="rounded btn-sm btn-warning">
+        <i class="feather icon-copy"></i> Copy
+    </button>
+    <button onclick="exportToExcel()" class="rounded btn-sm btn-success">
+        <i class="feather icon-excel"></i> Excel
+    </button>
+    <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
+        <i class="feather icon-file-pdf"></i> PDF
+    </button>
+    <button onclick="printTable()" class="rounded btn-sm btn-info">
+        <i class="feather icon-print"></i> Print
+    </button>
+</div>
+
 
                         <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
                             <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width:100%;border-collapse: separate;padding:0px;">
                                 <thead>
                                     <tr style="background-color:#0b3b56; color:white;">
                                         <th class="center">S.N</th>
-                                        <th class="center">Edit</th>
-                                        <th class="center">Delete</th>
+                                        <th class="center hideme">Edit</th>
+                                        <th class="center hideme">Delete</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
                                         <th class="center">Address</th>
@@ -534,8 +546,8 @@ select option {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
                                 <td class="center">` + (i + 1) + `</td>
-                                                                    <td class="center"><button class="btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
-                                    <td class="center"><button class="btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+                                <td class="center"><button class="hideme btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
+                                <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
 
                                 <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
                                 <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>

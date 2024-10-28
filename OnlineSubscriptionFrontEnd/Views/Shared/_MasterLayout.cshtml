@@ -19,6 +19,8 @@
     <link rel="stylesheet" type="text/css" href="~/files/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- feather Awesome -->
     <link rel="stylesheet" href="https://unpkg.com/feather-icons">
+    <link rel="stylesheet" type="text/css"
+          href="~/files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css">
 
     <link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
     <!-- Style.css -->
@@ -38,6 +40,34 @@
     <!--sweet Alert csn-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <link rel="icon" href="~/files/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="~/files/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="~/files/assets/icon/themify-icons/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="~/files/assets/icon/icofont/css/icofont.css">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
+    <!-- Data Table Css -->
+    <link rel="stylesheet" type="text/css"
+          href="~/files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/files/assets/pages/data-table/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="~/files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="~/files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="~/files/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/files/assets/css/jquery.mCustomScrollbar.css">
+
+    
+    
+    
+    
     <style>
         .center{
             text-align:center;
@@ -183,7 +213,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0">
                                                     <img class="d-flex align-self-center img-radius"
-                                                         src="../files/assets/images/avatar-3.jpg"
+                                                         src="~/files/assets/images/avatar-3.jpg"
                                                          alt="Generic placeholder image">
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -200,7 +230,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0">
                                                     <img class="d-flex align-self-center img-radius"
-                                                         src="../files/assets/images/avatar-4.jpg"
+                                                         src="~/files/assets/images/avatar-4.jpg"
                                                          alt="Generic placeholder image">
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -227,9 +257,9 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="../files/assets/images/avatar-4.jpg" class="img-radius"
+                                        <img src="~/files/assets/images/avatar-4.jpg" class="img-radius"
                                              alt="User-Profile-Image">
-                                        <span>John Doe</span>
+                                        <span>Insoft/Admin</span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu"
@@ -255,7 +285,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="auth-normal-sign-in.html">
+                                            <a href="auth-normal-sign-in.html" class="signoutBtn">
                                                 <i class="feather icon-log-out"></i> Logout
                                             </a>
                                         </li>
@@ -290,7 +320,7 @@
                                      title="Josephin Doe">
                                     <a class="media-left" href="#!">
                                         <img class="media-object img-radius img-radius"
-                                             src="../files/assets/images/avatar-3.jpg" alt="Generic placeholder image ">
+                                             src="~/files/assets/images/avatar-3.jpg" alt="Generic placeholder image ">
                                         <div class="live-status bg-success"></div>
                                     </a>
                                     <div class="media-body">
@@ -301,7 +331,7 @@
                                      data-username="Lary Doe" data-bs-toggle="tooltip" data-bs-placement="left"
                                      title="Lary Doe">
                                     <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="../files/assets/images/avatar-2.jpg"
+                                        <img class="media-object img-radius" src="~/files/assets/images/avatar-2.jpg"
                                              alt="Generic placeholder image">
                                         <div class="live-status bg-success"></div>
                                     </a>
@@ -312,7 +342,7 @@
                                 <div class="media userlist-box" data-id="3" data-status="online" data-username="Alice"
                                      data-bs-toggle="tooltip" data-bs-placement="left" title="Alice">
                                     <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="../files/assets/images/avatar-4.jpg"
+                                        <img class="media-object img-radius" src="~/files/assets/images/avatar-4.jpg"
                                              alt="Generic placeholder image">
                                         <div class="live-status bg-success"></div>
                                     </a>
@@ -323,7 +353,7 @@
                                 <div class="media userlist-box" data-id="4" data-status="online" data-username="Alia"
                                      data-bs-toggle="tooltip" data-bs-placement="left" title="Alia">
                                     <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="../files/assets/images/avatar-3.jpg"
+                                        <img class="media-object img-radius" src="~/files/assets/images/avatar-3.jpg"
                                              alt="Generic placeholder image">
                                         <div class="live-status bg-success"></div>
                                     </a>
@@ -334,7 +364,7 @@
                                 <div class="media userlist-box" data-id="5" data-status="online" data-username="Suzen"
                                      data-bs-toggle="tooltip" data-bs-placement="left" title="Suzen">
                                     <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="../files/assets/images/avatar-2.jpg"
+                                        <img class="media-object img-radius" src="~/files/assets/images/avatar-2.jpg"
                                              alt="Generic placeholder image">
                                         <div class="live-status bg-success"></div>
                                     </a>
@@ -401,7 +431,7 @@
                             <div class="pcoded-navigatio-lavel">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenu active pcoded-trigger">
-                                    <a href="Dashboard/IndexforDashboard">
+                                    <a href="/Dashboard/IndexforDashboard">
                                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
@@ -448,12 +478,30 @@
                                     </ul>
                                 </li>
                                 <li class="pcoded-hasmenu">
-                                    <a href="/Subscription">
+                                    <a href="#!">
                                         <span class="pcoded-micon"><i class="feather icon-credit-card"></i></span>
                                         <span class="pcoded-mtext">Subscription</span>
                                     </a>
+                                    <ul class="pcoded-submenu">
+                                        <li>
+                                            <a href="/Subscription">
+                                                <span class="pcoded-mtext">Subscription Setup</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Subscription/CustomerandSubscription">
+                                                <span class="pcoded-mtext">Customer Subscription </span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
                                 </li>
-                                
+                                <li class="pcoded-hasmenu">
+                                    <a href="/Dashboard/Index">
+                                        <span class="pcoded-micon"><i class="feather icon-check-circle"></i></span>
+                                        <span class="pcoded-mtext">Verify Users</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </nav>

@@ -14,7 +14,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertUpdate([FromBody] Agent ai)
+        public async Task<IActionResult> InsertUpdate([FromBody] Agents ai)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
 
         [HttpPost]
-        public async Task<IActionResult> getAgent([FromBody] Agent p)
+        public async Task<IActionResult> getAgent([FromBody] Agents p)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
 
         [HttpPost]
-        public async Task<IActionResult> DeleteAgent([FromBody] Agent p)
+        public async Task<IActionResult> DeleteAgent([FromBody] Agents p)
         {
             try
             {

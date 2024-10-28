@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "Customer and Subscription";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">
+                    <i class="feather icon-home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Subscription</a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Customer Subscription</a>
+            </li>
+        </ul>
+    </div>
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header table-card-header">
+                                    <h5>Customer's Subscription Log goes here </h5>
+                                </div>
+                                <div class="card-block">
+                                    <div class="dt-responsive table-responsive">
+                                        <table id="basic-btn" class="agentTable table table-striped table-bordered nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center">S.N.</th>
+                                                    <th class="center">Customer Code</th>
+                                                    <th class="center">Name</th>
+                                                    <th></th>
+                                                    <th class="center">Address</th>
+                                                    <th class="center">PAN/VAT</th>
+                                                    <th class="center">Contact No.</th>
+                                                    <th class="center">Database Link</th>
+                                                    <th class="center">CP1 </th>
+                                                    <th class="center">CP1 mob </th>
+                                                    <th class="center">CP2 </th>
+                                                    <th class="center">CP2 mob</th>
+                                                    <th class="center">E-mail</th>
+                                                    <th class="center">Website</th>
+                                                    <th class="center">GUID</th>
+                                                    <th class="center">Company Code</th>
+                                                    <th class="center">SMS Api Token</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+         getTableData();
+
+        $('.show-btn').on('click', function () {
+            var currentRow = $(this).closest('tr');
+            var detailRow = currentRow.next('.detail-row');
+            $(this).removeClass("btn-info");
+            $(this).addClass("btn-danger");
+            $(this).find(".iontoggle").removeClass("icon-chevron-down");
+            $(this).find(".iontoggle").addClass("icon-chevron-up");
+
+            var tableSubusLogDetails = `
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="center">Customer Code</th>
+                                <th class="center">Product ID</th>
+                                <th class="center">Issued Date</th>
+                                <th class="center">Expire Date</th>
+                                <th class="center">Transaction ID</th>
+                                <th class="center">Remarks</th>
+                                <th class="center">Payment Method</th>
+                                <th class="center">Reference ID</th>
+                                <th class="center">Payment Partner</th>
+                                <th class="center">Paid Amount</th>
+                                <th class="center">Generated Serial No</th>
+                                <th class="center">Created By</th>
+                                <th class="center">Created Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center">CUST001</td>
+                                <td class="center">1</td>
+                                <td class="center">2024-01-01</td>
+                                <td class="center">2025-01-01</td>
+                                <td class="center">TRANS001</td>
+                                <td class="center">Initial Subscription</td>
+                                <td class="center">Credit Card</td>
+                                <td class="center">REF001</td>
+                                <td class="center">PaymentCorp</td>
+                                <td class="center">$100.00</td>
+                                <td class="center">SERIAL001</td>
+                                <td class="center">Admin</td>
+                                <td class="center">2024-01-01</td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>`;
+
+            if (detailRow.length === 0) {
+                detailRow = $('<tr class="detail-row" style="display: none; background-color:#ade8f4;">' +
+                    '<td class="center" colspan="17">' +
+                    '<div class="card" style="border:1px solid black; width:100%;">' +
+                    tableSubusLogDetails +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>');
+                currentRow.after(detailRow);
+            }
+
+            detailRow.toggle();
+        });
+
+        function getTableData() {
+            debugger
+            var a = AjaxCallWithoutDataNoAsync("/Customer/getCustomers");
+            var ab = JSON.parse(a);
+            var jsondata = JSON.parse(ab);
+            var tableDOM = "";
+            if (jsondata.length > 0) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
+                                        <td class="center">` + (i + 1) + `</td>
+                                        <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
+                                        <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
+                                        <td class="center"><button class="btn btn-info show-btn"><i class="iontoggle feather icon-chevron-down"></i></button></td>
+                                        <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
+                                        <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
+                                        <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
+                                        <td class="center custdblink">` + jsondata[i]["DataBaseLink"] + `</td>
+                                        <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
+                                        <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
+                                        <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
+                                        <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
+                                        <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
+                                        <td class="center website">` + jsondata[i]["Website"] + `</td>
+                                        <td class="center GUID">` + jsondata[i]["GUID"] + `</td>
+                                        <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
+                                        <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
+                                    </tr>`;
+                }
+                $(".agentTable tbody").empty().append(tableDOM);
+            } else {
+                $(".agentTable tbody").empty().append('<tr><td colspan="5">No agents found.</td></tr>');
+            }
+        }
+    });
+</script>
+

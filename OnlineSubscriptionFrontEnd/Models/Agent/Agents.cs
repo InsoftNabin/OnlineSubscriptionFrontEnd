@@ -1,6 +1,6 @@
 ﻿namespace OnlineSubscriptionFrontEnd.Models.Agent
 {
-    public class Agent
+    public class Agents
     {
 
         public string TokenNo { get; set; }

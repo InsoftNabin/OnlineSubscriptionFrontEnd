@@ -34,10 +34,37 @@ function copyTable() {
     alert('Table copied to clipboard!');
 }
 
+//function exportToExcel() {
+//    // Function to export table data to Excel
+//    let table = document.getElementById('agentTable');
+//    let excelFile = new Blob([table.outerHTML], { type: 'application/vnd.ms-excel' });
+//    let url = URL.createObjectURL(excelFile);
+//    let a = document.createElement('a');
+//    a.href = url;
+//    a.download = 'table_data.xls';
+//    document.body.appendChild(a);
+//    a.click();
+//    document.body.removeChild(a);
+//}
+
+
 function exportToExcel() {
-    // Function to export table data to Excel
     let table = document.getElementById('agentTable');
-    let excelFile = new Blob([table.outerHTML], { type: 'application/vnd.ms-excel' });
+    let excelContent = `
+        <html>
+            <head>
+                <style>
+                    table { border-collapse: collapse; }
+                    th, td { border: 1px solid black; padding: 8px; }
+                    th { background-color: #f2f2f2; }
+                </style>
+            </head>
+            <body>
+                ${table.outerHTML}
+            </body>
+        </html>
+    `;
+    let excelFile = new Blob([excelContent], { type: 'application/vnd.ms-excel' });
     let url = URL.createObjectURL(excelFile);
     let a = document.createElement('a');
     a.href = url;
@@ -47,23 +74,68 @@ function exportToExcel() {
     document.body.removeChild(a);
 }
 
+//function exportToPDF() {
+//    // Function to export table data to PDF
+//    const { jsPDF } = window.jspdf;
+//    const doc = new jsPDF();
+//    doc.autoTable({ html: '#agentTable' });
+//    doc.save('table_data.pdf');
+//}
+
 function exportToPDF() {
-    // Function to export table data to PDF
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    doc.autoTable({ html: '#agentTable' });
+    doc.autoTable({
+        html: '#agentTable',
+        theme: 'grid', // You can change the theme if needed
+        headStyles: { fillColor: [255, 0, 0] }, // Change header color
+        styles: { cellPadding: 5, fontSize: 10 },
+        margin: { top: 20 }
+    });
     doc.save('table_data.pdf');
 }
 
+//function printTable() {
+//    const printWindow = window.open('', '_blank');
+//    printWindow.document.write('<html><head><title>Print Table</title>');
+//    printWindow.document.write('</head><body >');
+//    printWindow.document.write(document.getElementById('agentTable').outerHTML);
+//    printWindow.document.write('</body></html>');
+//    printWindow.document.close();
+//    printWindow.print();
+//}
 function printTable() {
+    // Hide elements with class 'hideme'
+    $(".hideme").css("display", 'none');
+
+    // Create a new window for printing
     const printWindow = window.open('', '_blank');
-    printWindow.document.write('<html><head><title>Print Table</title>');
-    printWindow.document.write('</head><body >');
-    printWindow.document.write(document.getElementById('agentTable').outerHTML);
-    printWindow.document.write('</body></html>');
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>Print Table</title>
+                <style>
+                    table { border-collapse: collapse; width: 100%; }
+                    th, td { border: 1px solid black; padding: 8px; }
+                    th { background-color: #f2f2f2; }
+                </style>
+            </head>
+            <body>
+                ${document.getElementById('agentTable').outerHTML}
+            </body>
+        </html>
+    `);
+
     printWindow.document.close();
+
+  
     printWindow.print();
+
+    printWindow.close();
+
+    $(".hideme").css("display", 'block');
 }
+
 
 function AlertMessage(messagetype, message) {
 

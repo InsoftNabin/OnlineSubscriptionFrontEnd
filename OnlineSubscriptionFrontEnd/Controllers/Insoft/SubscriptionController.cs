@@ -11,6 +11,12 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
             return View();
         }
 
+
+        public IActionResult CustomerandSubscription()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> InsertUpdateSubscription([FromBody] Subscription ai)
         {

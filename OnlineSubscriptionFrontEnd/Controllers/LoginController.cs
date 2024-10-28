@@ -35,7 +35,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 if (result.status == 200)
                 {
                     HttpContext.Session.SetString("TokenNo", result.tokenNo);
-                    return Ok("Success");
+                    return Ok(value);
                 }
                 else
                 {

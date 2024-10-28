@@ -80,10 +80,12 @@
             UserName: $("input[name='Email']").val(),
             Password: $("input[name='Password']").val(),
         };
-
+        
         const result = await AjaxCall("/Login/VerifyUser", data);
-        if (result == 'Success') {
-            window.location.href = "/Home/Index";
+        var JSonResult=JSON.parse(result);
+
+        if (JSonResult.message== 'Success') {
+            window.location.href = "/"+JSonResult.landingPage;
         } else {
             toastr.error("Invalid Username or Password! Please try again.");
         }
