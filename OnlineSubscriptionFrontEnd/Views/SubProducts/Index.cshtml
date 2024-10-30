@@ -192,10 +192,12 @@
         var parm = { Id: id };
         var productData = await AjaxCall("/SubProducts/getProduct", parm);
         var product = JSON.parse(JSON.parse(productData));
+        
         if (product.length > 0) {
             $("#productId").val(product[0]["Id"]);
             $("#mainproductId").val(product[0]["ProductId"]);
             $("#name").val(product[0]["Name"]);
+            $("#productName").val(product[0]["productName"]);
             $("#desc").val(product[0]["Description"]);
             $("#price").val(product[0]["Price"]);
         } else {
@@ -209,7 +211,8 @@
         $("#mainproductId").val($(this).attr("data-productid"));
         var parm = { Id: parseInt($(this).attr("data-productid")) };
         var productData = await AjaxCall("/Products/getProduct", parm);
-        var productEach = JSON.parse(productData);
+        var productEache = JSON.parse(productData);
+        var productEach = JSON.parse(productEache);
         $("#productName").val(productEach[0]["Name"]);
     });
 

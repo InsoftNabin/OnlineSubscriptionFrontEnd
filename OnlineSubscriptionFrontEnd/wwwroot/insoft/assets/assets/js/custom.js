@@ -105,34 +105,29 @@ function exportToPDF() {
 //    printWindow.print();
 //}
 function printTable() {
-    // Hide elements with class 'hideme'
     $(".hideme").css("display", 'none');
-
-    // Create a new window for printing
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
         <html>
             <head>
                 <title>Print Table</title>
                 <style>
-                    table { border-collapse: collapse; width: 100%; }
-                    th, td { border: 1px solid black; padding: 8px; }
-                    th { background-color: #f2f2f2; }
+                    body { text-align: center; }
+                    table { border: 1px solid black; width: 100%; margin: 0 auto; }
+                    th, td { text-align: center; border: 1px solid black; padding: 8px; }
+                    th { background-color: white; color: black; }
                 </style>
             </head>
             <body>
+                <h4>Title</h4>
                 ${document.getElementById('agentTable').outerHTML}
             </body>
         </html>
     `);
 
     printWindow.document.close();
-
-  
     printWindow.print();
-
     printWindow.close();
-
     $(".hideme").css("display", 'block');
 }
 
