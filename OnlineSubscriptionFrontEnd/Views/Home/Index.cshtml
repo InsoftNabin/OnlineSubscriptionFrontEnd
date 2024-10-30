@@ -1,6 +1,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link rel="stylesheet" href="~/files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
 
 
 
@@ -507,7 +508,12 @@
                     body += `
                                             <div class="card-toolbar col-2">
                                                                 <span class="badge badge-light-success fw-bold me-auto px-4 py-3 fs-3">Verified</span>
-                                                            </div>
+                                                                </div> <div class="col-6">
+                                                                    <div data-label="20/60" 
+                                                                        class="radial-bar radial-bar-30 radial-bar-lg radial-bar-primary">
+                                                                    </div>
+                                                                    
+                                                                </div>
 
                                   `
                         ;
@@ -515,7 +521,7 @@
                     body += `
                                             <div class="card-toolbar col-2">
                                                                 <span class="badge badge-light-danger fw-bold me-auto px-4 py-3 fs-3">UnVerified</span>
-                                                            </div> `;
+                                                                <span class="btn btn-warning">Pending</span></div> `;
                 }
                 body += `
 

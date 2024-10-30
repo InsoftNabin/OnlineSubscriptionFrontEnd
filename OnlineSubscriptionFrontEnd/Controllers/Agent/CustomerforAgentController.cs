@@ -8,5 +8,12 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Agent
         {
             return View();
         }
+        public IActionResult SubscriptionExtensionByAgent()
+        {
+            return View();
+        }
+
+
+
     }
 }

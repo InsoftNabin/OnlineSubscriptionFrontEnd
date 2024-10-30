@@ -39,7 +39,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         }
 
         [HttpPost]
-        public async Task<IActionResult> getCustomerPlanDetails([FromBody] Subscription p)
+        public async Task<IActionResult> getSubscriptionLogByCustandprodId([FromBody] CustomerPlan p)
         {
             try
             {
@@ -51,7 +51,66 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 else
                 {
                     p.TokenNo = TokenNo;
-                    string i = await ApiCall.ApiCallWithObject("CustomerPlanDetails/getCustomerPlanDetails", p, "Post");
+                    string i = await ApiCall.ApiCallWithObject("Subscription/getSubscriptionLogByCustandprodId", p, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> getCurrentPlan([FromBody] CustomerPlan p)
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    p.TokenNo = TokenNo;
+                    string i = await ApiCall.ApiCallWithObject("CustomerPlanDetails/getCurrentPlan", p, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> getCustomerSelectedPlansOnly([FromBody] Subscription p)
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    p.TokenNo = TokenNo;
+                    string i = await ApiCall.ApiCallWithObject("CustomerPlanDetails/getCustomerSelectedPlansOnly", p, "Post");
                     return Ok(i);
                 }
 

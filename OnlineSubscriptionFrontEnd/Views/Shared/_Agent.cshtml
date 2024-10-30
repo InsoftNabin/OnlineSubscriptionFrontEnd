@@ -59,12 +59,20 @@
             color: white;
         }
 
+        .red {
+            color: red;
+        }
             .btn i {
                 font-size: 1.5em;
             }
 
         .card-header h2 {
             font-size: 1.5em;
+        }
+
+        .btn-insoft {
+            background-color: #0b3b56;
+            color: white;
         }
     </style>
 
@@ -403,7 +411,7 @@
                             <div class="pcoded-navigatio-lavel">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenu active pcoded-trigger">
-                                    <a href="Dashboard/IndexforDashboard">
+                                    <a href="#!">
                                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
@@ -420,13 +428,26 @@
                                         
                                         <li>
                                             <a href="/CustomerforAgent">
-                                                <span class="pcoded-mtext">Customer Wise Modules </span>
+                                                <span class="pcoded-mtext">Customer List </span>
                                             </a>
                                         </li>
 
                                     </ul>
                                 </li>
-                               
+                                <li class="pcoded-hasmenu pcoded-trigger" dropdown-icon="style1" subitem-icon="style1">
+                                    <a href="#!">
+                                        <span class="pcoded-micon"><i class="feather icon-credit-card"></i></span>
+                                        <span class="pcoded-mtext">Subscription</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                       
+                                        <li>
+                                            <a href="/CustomerforAgent/SubscriptionExtensionByAgent">
+                                                <span class="pcoded-mtext">Subscription Extension</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                             </ul>
                         </div>
