@@ -467,7 +467,7 @@ select option {
         });
 
         $("#BtnInsert").on("click", async function () {
-            if ($("#CustCode").val() == "" || $("#CustName").val() == "") {
+            if ($("#CustCode").val() == "" || $("#CustName").val() == "" || $("#CustAddress").val() == "" || $("#panvat").val() == "" || $("#Custcontact").val() == "" || $("#Custdblink").val() == "" || $("#CP1").val() == "" || $("#CP1Mobno").val() == "" || $("#CP2").val() == "" || $("#CP2Mobno").val() == "" || $("#email").val() == "" || $("#website").val() == "" || $("#guid").val() == "" || $("#CompanyCode").val() == "" || $("#BySMSApiToken").val() == "") {
                 toastr.error("Please fill in all the fields!!!");
             } else {
                 var parm = {

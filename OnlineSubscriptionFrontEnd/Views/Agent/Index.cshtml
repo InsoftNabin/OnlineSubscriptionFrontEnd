@@ -284,34 +284,40 @@
         }
     }
     $("#BtnInsert").on("click", async function () {
-        var parm = {
-            Id: $("#productId").val() ? parseInt($("#productId").val()) : 0,
-            Name: $("#productName").val(),
-            ContactPerson: $("#contactPerson").val(),
-            Address: $("#address").val(),
-            Email: $("#email").val(),
-            Website: $("#website").val(),
-            ContactNo: $("#contactNumber").val(),
-            Bank: $("#bank").val(),
-            AccountNo: $("#accountNumber").val(),
-            PanNo: $("#panNumber").val(),
-            UserId: $("#userId").val(),
-            Password: $("#password").val(),
-            SMSToken: $("#smsToken").val(),
-            SMSSenderId: $("#smsSenderId").val(),
-            Type: $("#type").val()
-        };
-        
-        var data = await AjaxCall("/Agent/InsertUpdate", parm);
-        var jsondataresponse = JSON.parse(data);
-        if (jsondataresponse == 1) {
-           
-            resetForm();
-            getTableData();
-            location.reload();
-            toastr.success("Agent action successfully!");
-        } else {
-            toastr.error("Failed to insert agent.");
+
+        if ($("#productName").val() === "" || $("#contactPerson").val() === "" || $("#address").val() === "" || $("#email").val() === "" || $("#website").val() === "" || $("#contactNumber").val() === "" || $("#bank").val() === "" || $("#accountNumber").val() === "" || $("#panNumber").val() === "" || $("#userId").val() === "" || $("#password").val() === "" || $("#smsSenderId").val() === "") {
+            toastr.error("Please fill in all the fields!!!.");
+        }
+        else {
+            var parm = {
+                Id: $("#productId").val() ? parseInt($("#productId").val()) : 0,
+                Name: $("#productName").val(),
+                ContactPerson: $("#contactPerson").val(),
+                Address: $("#address").val(),
+                Email: $("#email").val(),
+                Website: $("#website").val(),
+                ContactNo: $("#contactNumber").val(),
+                Bank: $("#bank").val(),
+                AccountNo: $("#accountNumber").val(),
+                PanNo: $("#panNumber").val(),
+                UserId: $("#userId").val(),
+                Password: $("#password").val(),
+                SMSToken: $("#smsToken").val(),
+                SMSSenderId: $("#smsSenderId").val(),
+                Type: $("#type").val()
+            };
+
+            var data = await AjaxCall("/Agent/InsertUpdate", parm);
+            var jsondataresponse = JSON.parse(data);
+            if (jsondataresponse == 1) {
+
+                resetForm();
+                getTableData();
+                location.reload();
+                toastr.success("Agent action successfully!");
+            } else {
+                toastr.error("Failed to insert agent.");
+            }
         }
     });
 

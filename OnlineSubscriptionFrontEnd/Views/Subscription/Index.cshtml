@@ -105,6 +105,12 @@
                         <input type="text" class="form-control border border-dark rounded" id="noom" placeholder="Enter Number of months" required />
                     </div>
 
+
+                    <div class="form-group">
+                        <label for="noom">Is Paid Based ?:</label>
+                        <input type="checkbox" id="IsPaidBased" />
+                    </div>
+
                     <div class="form-group" style="display: flex;">
                                         <button type="button" class="btn btn-danger" id="BtnReset" style="border-radius:12px; margin-right: 5px;">Reset &nbsp; <i class="feather icon-rotate-cw"></i></button>
                                         <button type="button" class="btn btn-success" id="BtnInsert" style="border-radius:12px;">Save &nbsp; <i class="feather icon-save"></i></button>
@@ -158,6 +164,7 @@
                     Id: $("#id").val() ? parseInt($("#id").val()) : 0,
                     Name: $("#name").val(),
                     NoOfMonths: parseInt($("#noom").val()),
+                    IsPaidBased: $("#IsPaidBased").prop("checked"),
                 };
 
                 var data = await AjaxCall("/Subscription/InsertUpdateSubscription", parm);
