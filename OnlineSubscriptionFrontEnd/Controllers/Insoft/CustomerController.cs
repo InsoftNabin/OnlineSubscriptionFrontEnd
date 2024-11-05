@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineSubscriptionFrontEnd.Classes;
 using OnlineSubscriptionFrontEnd.Models.Insoft;
+using QRCoder;
 
 namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 {
@@ -14,6 +15,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         {
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> InsertUpdateCustomer([FromBody] Customer ai)
         {

@@ -23,7 +23,20 @@ namespace OnlineSubscriptionFrontEnd.Classes
             return client;
         }
 
-    
+
+
+        public static HttpClient FonePayInitial()
+        {
+            var client = new HttpClient();
+            client.Timeout = TimeSpan.FromMinutes(10);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            string baseurl = "https://devapi.inschoolerp.com/";
+            client.BaseAddress = new Uri(baseurl);
+            return client;
+        }
+
+
+
 
 
         public static async Task<string> ApiCallWithOutObject(string URl, string Action)
@@ -110,6 +123,32 @@ namespace OnlineSubscriptionFrontEnd.Classes
                 if (res.IsSuccessStatusCode)
                 {
                     string result =  res.Content.ReadAsStringAsync().Result;
+                    return result;
+                }
+                else
+                {
+                    return "Null";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
+            }
+        }
+
+
+
+        public static async Task<string> FonePayApiCallWithObject(string URl, object _GetObject, string Action)
+        {
+            try
+            {
+                HttpClient client = FonePayInitial();
+                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetObject), UTF8Encoding.UTF8, "application/json");
+                HttpResponseMessage res = await client.PostAsync(URl, httpContent);
+                if (res.IsSuccessStatusCode)
+                {
+                    string result = res.Content.ReadAsStringAsync().Result;
                     return result;
                 }
                 else
