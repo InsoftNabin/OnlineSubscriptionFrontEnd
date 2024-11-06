@@ -211,7 +211,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
-                <a href="#!">Customer</a>
+                <a href="#!">Customer @ViewBag.UserName</a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
                 <a href="#!">Customer List </a>
@@ -541,7 +541,7 @@
 
     async function getTableData() {
         var parm={
-            Id:2
+            Id:3
         }
         var a =await AjaxCall("/Customer/getCustomerByAgentId",parm);
         var ab = JSON.parse(a);
@@ -574,7 +574,7 @@
             }
             $("#agentTable tbody").empty().append(tableDOM);
         } else {
-            $("#agentTable tbody").empty().append('<tr><td colspan="5">No agents found.</td></tr>');
+            $("#agentTable tbody").empty().append('<tr><td colspan="18">No Customers registered under your Name!!!.</td></tr>');
         }
     }
 

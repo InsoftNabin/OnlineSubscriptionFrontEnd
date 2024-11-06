@@ -1,5 +1,7 @@
 ﻿
 function exportToCSV() {
+    $(".hideme").css("display", 'none');
+
     // Function to export table data to CSV
     let csv = [];
     const rows = document.querySelectorAll('#agentTable tr');
@@ -22,9 +24,13 @@ function exportToCSV() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    $(".hideme").css("display", 'block');
+
 }
 
 function copyTable() {
+    $(".hideme").css("display", 'none');
+
     const range = document.createRange();
     range.selectNode(document.getElementById('agentTable'));
     window.getSelection().removeAllRanges();
@@ -32,24 +38,15 @@ function copyTable() {
     document.execCommand('copy');
     window.getSelection().removeAllRanges();
     alert('Table copied to clipboard!');
-}
+    $(".hideme").css("display", 'block');
 
-//function exportToExcel() {
-//    // Function to export table data to Excel
-//    let table = document.getElementById('agentTable');
-//    let excelFile = new Blob([table.outerHTML], { type: 'application/vnd.ms-excel' });
-//    let url = URL.createObjectURL(excelFile);
-//    let a = document.createElement('a');
-//    a.href = url;
-//    a.download = 'table_data.xls';
-//    document.body.appendChild(a);
-//    a.click();
-//    document.body.removeChild(a);
-//}
+}
 
 
 function exportToExcel() {
     let table = document.getElementById('agentTable');
+    $(".hideme").css("display", 'none');
+
     let excelContent = `
         <html>
             <head>
@@ -72,38 +69,46 @@ function exportToExcel() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    $(".hideme").css("display", 'block');
+
 }
 
-//function exportToPDF() {
-//    // Function to export table data to PDF
-//    const { jsPDF } = window.jspdf;
-//    const doc = new jsPDF();
-//    doc.autoTable({ html: '#agentTable' });
-//    doc.save('table_data.pdf');
-//}
+
 
 function exportToPDF() {
+    $(".hideme").css("display", 'none');
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+
     doc.autoTable({
-        html: '#agentTable',
-        theme: 'grid', // You can change the theme if needed
-        headStyles: { fillColor: [255, 0, 0] }, // Change header color
-        styles: { cellPadding: 5, fontSize: 10 },
-        margin: { top: 20 }
+        html: '#agentTable',  
+        theme: 'grid',        
+        headStyles: {
+            fillColor: '#0b3b56',  
+            textColor: 'white',    
+            fontSize: 1,           
+            halign: 'center'       
+        },
+        styles: {
+            cellPadding: 4,        
+            fontSize: 1,          
+            cellWidth: 'auto',  
+            halign: 'center',   
+            valign: 'middle'    
+        },
+        margin: { top: 10 },  // Add some margin from the top of the page
+        startY: 10            // Adjust this value if you need to position the table further down
     });
+
+    // Save the PDF with the filename 'table_data.pdf'
     doc.save('table_data.pdf');
+
+    $(".hideme").css("display", 'block');
 }
 
-//function printTable() {
-//    const printWindow = window.open('', '_blank');
-//    printWindow.document.write('<html><head><title>Print Table</title>');
-//    printWindow.document.write('</head><body >');
-//    printWindow.document.write(document.getElementById('agentTable').outerHTML);
-//    printWindow.document.write('</body></html>');
-//    printWindow.document.close();
-//    printWindow.print();
-//}
+
+
 function printTable() {
     $(".hideme").css("display", 'none');
     const printWindow = window.open('', '_blank');

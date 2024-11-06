@@ -263,34 +263,43 @@
     });
 
     $(document).on('click', '.saveeachData', async function () {
-        
+
         var customerId = $(this).attr("data-custid");
         var productId = $(this).attr("data-productid");
-      
+
         var selectedAccordion = $(this).parents(".accordion-item");
 
         var initial = selectedAccordion.find(".initial").val();
         var siteURL = selectedAccordion.find(".siteURL").val();
         var serialNumber = selectedAccordion.find(".serialNumber").val();
         var agentId = selectedAccordion.find(".AgentsinModalTable :selected").attr("data-agentid");
-        
+
         var subProducts = [];
-        selectedAccordion.find("#tablemo tbody tr").each( async function () {
+        selectedAccordion.find("#tablemo tbody tr").each(async function () {
             var row = $(this);
             var isChecked = row.find('.eachCb').is(':checked');
 
             if (isChecked) {
 
-                row.find('input').attr("required", true);
+                if ($(row).find('.JoinDate').val() === "" || $(row).find('.ExpiryDate').val() === "" || $(row).find('.LastRenewDate').val() === "") {
+                    $(row).find('.JoinDate').attr("required", true);
+                    $(row).find('.ExpiryDate').attr("required", true);
+                    $(row).find('.LastRenewDate').attr("required", true);
+                    $(row).find('.Remarks').attr("required", true);
+                    toastr.error("Please fill all the fields in the selected rows before saving!");
+                    return;  // Exit the function early if fields are not filled
+                }
+
+              
                 var SubProduct = {
                     Id: parseInt(row.data("main")),
                     ProductId: parseInt(productId),
-                    SubProductId: parseInt(row.data('subproductid')), 
+                    SubProductId: parseInt(row.data('subproductid')),
                     JoinDate: row.find('.JoinDate').val(),
                     LastRenewDate: row.find('.LastRenewDate').val(),
                     ExpiryDate: row.find('.ExpiryDate').val(),
                     MonthlyCharge: parseFloat(row.find('.modulePrice').val()),
-                    Remarks: row.find('.Remarks').val() 
+                    Remarks: row.find('.Remarks').val()
                 };
                 subProducts.push(SubProduct);
                 var CustomerwiseModules = {
@@ -317,16 +326,13 @@
                     location.reload();
                 }
 
-            }else{
+            } else {
                 toastr.error("Select at least one row before editing the data!!");
             }
 
 
         });
-
-       
-    });
-
+        });
     // async function LoadSubProductbyProduct(ProductId){
     //     var par = {
     //         Id: ProductId

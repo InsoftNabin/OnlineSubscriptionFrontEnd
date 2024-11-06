@@ -30,6 +30,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Include jsPDF autoTable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.22/jspdf.plugin.autotable.min.js"></script>
+
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!--Custom files-->
@@ -97,6 +104,10 @@
             background-color: #0b3b56; 
             color: white;
             
+        }
+
+        .modal-header{
+            background: #80ed99;
         }
     </style>
 
@@ -229,7 +240,7 @@
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <img src="~/files/assets/images/avatar-4.jpg" class="img-radius"
                                              alt="User-Profile-Image">
-                                        <span>Insoft/Admin</span>
+                                        <span>admin/insoft</span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu"
@@ -240,22 +251,22 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="user-profile.html">
+                                            <a href="#!">
                                                 <i class="feather icon-user"></i> Profile
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="email-inbox.html">
+                                            <a href="#!">
                                                 <i class="feather icon-mail"></i> My Messages
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="auth-lock-screen.html">
+                                            <a href="#!">
                                                 <i class="feather icon-lock"></i> Lock Screen
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="auth-normal-sign-in.html" class="signoutBtn">
+                                            <a href="#!" class="signoutBtn">
                                                 <i class="feather icon-log-out"></i> Logout
                                             </a>
                                         </li>
@@ -517,6 +528,12 @@
         $(document).ready(function () {
             $('.navbar-logo').attr("logo-theme", "white");
         });
+                $(document).on("click", ".signoutBtn", async () => {
+            var result = await AjaxCallWithoutData("/Login/LogOut");
+                if (result == "Success") {
+                    window.location.href = "/Login/Index";
+                }
+            });
 
     </script>
 </body>

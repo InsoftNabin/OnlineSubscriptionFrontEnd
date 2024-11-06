@@ -23,11 +23,13 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
             try
             {
                 string tokenNo = HttpContext.Session.GetString("TokenNo");
+                //string AddedBy = HttpContext.Session.GetString("UserName");
                 if (tokenNo == null)
                 {
                     return Ok("-21");
                 }
                 ai.TokenNo = tokenNo;
+                //ai.AddedBy = AddedBy;
                 var result = await ApiCall.ApiCallWithObject("Customer/InsertUpdateCustomer", ai, "Post");
                 return Ok(result);
             }

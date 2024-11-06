@@ -17,6 +17,9 @@
         height:20px;
     }
 
+    .modal-header {
+        background: #80ed99;
+    }
         .nav-tabs .nav-item {
             margin-right: 5px;
         }
@@ -489,7 +492,7 @@
                     <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="float:right;"> 
                     </div>
               
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close  btn btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="tabbable">
@@ -604,18 +607,19 @@
     </div>
 
 <!-- Modal for QR -->
-<div class="modal fade" id="QRModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="QRModal" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" style="width:90%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                     Scan the QR below to proceed to payment
                 </h1>
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div id="generated-qr-container" class="d-flex justify-content-center">
                     <!-- QR Code will be dynamically inserted here -->
+
                     <div id="generated-qr"></div>
                 </div>
             </div>
@@ -669,7 +673,7 @@
             <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
                 <!--begin::Menu wrapper-->
                 <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
-                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8"></i>
+                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">&nbsp;<span style="font-family:'Times New Roman', Times, serif;">@TempData["UserName"]</span></i>
                 </div>
                 <!--begin::User account menu-->
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
@@ -721,13 +725,19 @@
 
                         var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
                         var response = JSON.parse(aahaha);
+                        debugger
+                        
+
+                        $("#statusModal").modal('hide');
+                        $("#QRModal").modal('show');
+
 
                         if (response[0] && response[0]["hashKey"]) {
                             var hashKey = response[0]["hashKey"];
 
                             $("#generated-qr").empty();
-
-                            new QRCode($("#generated-qr")[0], {
+                            $("#QRModal").find("#generated-qr").empty();
+                            new QRCode($("#QRModal").find("#generated-qr")[0], {
                                 text: hashKey,
                                 width: 250,
                                 height: 250,

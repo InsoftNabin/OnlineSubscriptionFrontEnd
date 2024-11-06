@@ -217,7 +217,7 @@
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
                                         <th class="center">Product</th>
-                                        <th class="center">Subscription</th>
+                                    <th class="center hideme">Subscription</th>
                                        
                                     </tr>
                                 </thead>
@@ -289,7 +289,7 @@
                                 <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
                                 <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
                                         <td class="center prodName">${jsondata[i]['ProductName']}</td>
-                                       <td class="center hideme">
+                                           <td class="center hideme">
                                             <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class="btn btn-sm btn-primary SelectModules rounded" data-bs-toggle="modal" data-target="#exampleModal">
                                                 Select &nbsp;<i class="feather icon-check-square"></i>
                                             </button>

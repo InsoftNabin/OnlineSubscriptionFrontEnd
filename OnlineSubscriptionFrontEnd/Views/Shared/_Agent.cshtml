@@ -11,6 +11,18 @@
     <meta name="keywords"
           content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
+
+
+
+
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Include jsPDF autoTable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.22/jspdf.plugin.autotable.min.js"></script>
+
+
+
+
     <!-- Favicon icon -->
     <link rel="icon" href="~/files/assets/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
@@ -74,6 +86,10 @@
             background-color: #0b3b56;
             color: white;
         }
+
+        .modal-header {
+            background: #80ed99;
+        }
     </style>
 
 
@@ -127,11 +143,10 @@
 
                     <div class="navbar-logo" logo-theme="">
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
-                            <i class="feather icon-menu"></i>
+                            <i class="feather icon-menu icon-toggle-right" style="color:black;"></i>
                         </a>
                         <a href="#">
-                            @*                             <img class="img-fluid" src="~/files/assets/images/logo.png" alt="Theme-Logo" />
-                            *@                             <img class="img-fluid" src="~/insoft/images/logoinsoft.png" alt="Theme-Logo" />
+                         <img class="img-fluid" src="~/insoft/images/logoinsoft.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
@@ -239,7 +254,7 @@
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <img src="../files/assets/images/avatar-4.jpg" class="img-radius"
                                              alt="User-Profile-Image">
-                                        <span>Agent</span>
+                                        <span class="userName">agent </span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu"
@@ -485,6 +500,13 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.navbar-logo').attr("logo-theme", "white");
+            $(".userName").text("@ViewBag.UserName");
+        });
+        $(document).on("click", ".signoutBtn", async () => {
+            var result = await AjaxCallWithoutData("/Login/LogOut");
+            if (result == "Success") {
+                window.location.href = "/Login/Index";
+            }
         });
 
     </script>

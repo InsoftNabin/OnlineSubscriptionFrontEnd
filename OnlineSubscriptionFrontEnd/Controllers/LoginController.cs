@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSubscriptionFrontEnd.Models;
 using OnlineSubscriptionFrontEnd.Classes;
-using Newtonsoft.Json; // Added for JsonConvert
-
+using Newtonsoft.Json;
+using Renci.SshNet; // Added for JsonConvert
 
 namespace OnlineSubscriptionFrontEnd.Controllers
 {
@@ -25,6 +25,34 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             return View();
         }
+        //[HttpPost]
+        //public async Task<IActionResult> VerifyUser([FromBody] Login login)
+        //{
+        //    try
+        //    {
+        //        var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUser", login, "Post");
+        //        var result = JsonConvert.DeserializeObject<loginValidator>(value);
+        //        if (result.status == 200)
+        //        {
+        //            HttpContext.Session.SetString("TokenNo", result.tokenNo);
+        //            HttpContext.Session.SetString("UserName", result.UserName);
+        //            ViewBag.UserName = result.UserName;
+        //            Session["UserName"] = result.UserName;
+        //            return Ok(value);
+        //        }
+        //        else
+        //        {
+        //            // TempData["MessageType"] = "Ërror";
+        //            // TempData["Message"] = "Invalid UserName Or Password";
+        //            return Ok("Error");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok("error");
+        //    }
+        //}
+
         [HttpPost]
         public async Task<IActionResult> VerifyUser([FromBody] Login login)
         {
@@ -32,23 +60,26 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             {
                 var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUser", login, "Post");
                 var result = JsonConvert.DeserializeObject<loginValidator>(value);
+
                 if (result.status == 200)
                 {
                     HttpContext.Session.SetString("TokenNo", result.tokenNo);
-                    return Ok(value);
+                    HttpContext.Session.SetString("UserName", result.UserName);
+                    ViewBag.UserName = result.UserName;
+                   return Ok(value);
                 }
                 else
                 {
-                    // TempData["MessageType"] = "Ërror";
-                    // TempData["Message"] = "Invalid UserName Or Password";
                     return Ok("Error");
                 }
             }
             catch (Exception ex)
             {
-                return Ok("error");
+                throw ex;
+               
             }
         }
+
 
         [HttpPost]
         public IActionResult LogOut()

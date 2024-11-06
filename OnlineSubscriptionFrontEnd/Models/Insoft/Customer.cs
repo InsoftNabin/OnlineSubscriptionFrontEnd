@@ -3,6 +3,7 @@
     public class Customer
     {
         public int Id { get; set; }
+        public string AddedBy { get; set; }
         public string TokenNo { get; set; }
         public string CustomerName { get; set; }
         public string CustomerCode { get; set; }
@@ -21,6 +22,7 @@
         public bool Active { get; set; }
         public string CompanyCode { get; set; }
         public string BySMSApiToken { get; set; }
+        public int AgentId { get; set; }
 
 
     }

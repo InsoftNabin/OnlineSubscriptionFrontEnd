@@ -2,6 +2,11 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <style>
   
 
@@ -423,6 +428,7 @@ select option {
                                         <th class="center">S.N</th>
                                         <th class="center hideme">Edit</th>
                                         <th class="center hideme">Delete</th>
+                                        <th class="center">Added By</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
                                         <th class="center">Address</th>
@@ -488,7 +494,7 @@ select option {
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val()
                 };
-             
+             debugger
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
 
@@ -547,6 +553,7 @@ select option {
                                 <td class="center"><button class="hideme btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
                                 <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
 
+                                <td class="center addedBy">` + jsondata[i]["AddedBy"] + `</td>
                                 <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
                                 <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
                                 <td class="center custAdd">` + jsondata[i]["Address"] + `</td>

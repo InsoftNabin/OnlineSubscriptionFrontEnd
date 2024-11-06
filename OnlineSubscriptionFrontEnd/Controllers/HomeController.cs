@@ -21,8 +21,11 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         public IActionResult Index()
         {
             var token = HttpContext.Session.GetString("TokenNo");
+            var UserName = HttpContext.Session.GetString("UserName");
+
             if (token != null)
             {
+                TempData["UserName"] = UserName;
                 return View();
             }
             else
