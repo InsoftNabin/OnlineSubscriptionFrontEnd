@@ -80,3 +80,17 @@ D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\
 D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServ.9D159802.Up2Date
 D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
 D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.dll
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.pdb
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.AssemblyReference.cache
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfoInputs.cache
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfo.cs
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CoreCompileInputs.cache
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.sourcelink.json
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServ.9D159802.Up2Date
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb

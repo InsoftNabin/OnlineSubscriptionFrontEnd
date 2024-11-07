@@ -1497,7 +1497,7 @@
         }
 
         await $.ajax({
-            url: "/Register/UploadDocument", // Your controller endpoint
+            url: "/Register/UploadPhoto1", // Your controller endpoint
             data: formData,
             processData: false,    // Don't process the data
             contentType: false,    // Let the browser set the content type
@@ -1554,16 +1554,16 @@
                 PaymentPartner: 'none',
                 GeneratedSerialNo: 'sn001',
             //formData.append("Image", fileInput.files[0]);
-            ImageFile: []
+            VoucherImage: $("#fileInput").attr("data-filename")
             }
             debugger
-              var object = {};
-              object.MaterialId = 0;
-              object.FileName = $(this).attr("data-filename") == undefined ? "" : $(this).attr("data-filename");
-              if (object.FileName != "") {
-                  data.ImageFile.push(object);
-              }
-            debugger
+            //   var object = {};
+            //   object.MaterialId = 0;
+            //   object.FileName = $(this).attr("data-filename") == undefined ? "" : $(this).attr("data-filename");
+            //   if (object.FileName != "") {
+            //       data.ImageFile.push(object);
+            //   }
+            // debugger
             //insert the extension manually
             var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
             var dataa = JSON.parse(cpp);
@@ -1674,7 +1674,7 @@
         var Website = $("#Website").val();
         var logo = $(".logoValue").attr("data-name");
         var module = $(".moduleSelect").val();
-
+        debugger
         // Check for special characters in the initial
         var specialCharPattern = /[^a-zA-Z0-9]/;
         if (specialCharPattern.test(initial)) {
