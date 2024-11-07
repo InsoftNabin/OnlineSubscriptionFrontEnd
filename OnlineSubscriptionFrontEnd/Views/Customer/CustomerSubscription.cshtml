@@ -496,8 +496,10 @@
                 PaymentMethod:'cash',
                 ReferenceId:0,
                 PaymentPartner:'none',
-                GeneratedSerialNo:'sn001'
+                GeneratedSerialNo:'sn001',
+                VoucherImage: ''
              }
+             debugger
              var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate",parm);
              var dataa = JSON.parse(cpp);
              var jsondata = JSON.parse(dataaa);
