@@ -21,11 +21,11 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         public IActionResult Index()
         {
             var token = HttpContext.Session.GetString("TokenNo");
-            var UserName = HttpContext.Session.GetString("UserName");
+           // var UserName = HttpContext.Session.GetString("UserName");
 
             if (token != null)
             {
-                TempData["UserName"] = UserName;
+                //TempData["UserName"] = UserName;
                 return View();
             }
             else
@@ -130,6 +130,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> GetUserDetails()

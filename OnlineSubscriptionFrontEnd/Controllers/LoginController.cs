@@ -65,8 +65,9 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 {
                     HttpContext.Session.SetString("TokenNo", result.tokenNo);
                     HttpContext.Session.SetString("UserName", result.UserName);
-                    ViewBag.UserName = result.UserName;
-                   return Ok(value);
+                    //ViewBag.UserName = result.UserName;
+                    //TempData["UserName"] = result.UserName;
+                    return Ok(value);
                 }
                 else
                 {

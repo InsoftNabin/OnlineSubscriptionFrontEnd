@@ -9,8 +9,6 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         [HttpPost]
         public async Task<IActionResult> InsertUpdate([FromBody] CustomerPlan customerModules)
         {
-
-
             try
             {
                 string TokenNo = HttpContext.Session.GetString("TokenNo");

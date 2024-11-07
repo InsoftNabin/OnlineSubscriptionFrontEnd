@@ -551,7 +551,7 @@
 
                                     <div class="row">
                                         <label>Amount:</label>
-                                        <input type="text" class="Amount" required />
+                                        <input type="text" class="Amount" disabled required />
                                     </div>
                                     <div class="row">
                                         <label>Remarks:</label>
@@ -578,11 +578,7 @@
                                         <p id="fileError" style="color:red; display:none;"></p>
                                     </div>
 
-                                    <div class="row" id="amount-input" style="display:none;">
-                                        <label for="amount">Amount:</label>
-                                        <input type="number" id="amount" placeholder="Enter Amount" required />
-                                    </div>
-
+                                  
                                     <div class="row center" id="qr-code" style="display:none;">
                                         <div  id="generated-qr" style="text-align:center;"></div> 
                                     </div>
@@ -673,7 +669,9 @@
             <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
                 <!--begin::Menu wrapper-->
                 <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
-                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">&nbsp;<span style="font-family:'Times New Roman', Times, serif;">@TempData["UserName"]</span></i>
+                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">&nbsp;
+                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName"></span>
+                        </i>
                 </div>
                 <!--begin::User account menu-->
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
@@ -712,55 +710,76 @@
                 $fileUpload.show();
                 $qrCode.hide();
             } else if ($(this).attr('id') === 'fonepay') {
-                if ($('#fonepay').is(':checked')) {
-                    var amount = parseFloat($("#statusModal").find(".Amount").val());
 
-                    if (amount) {
-                        var bankDetails = {
-                            amount: amount,
-                            Purpose: "Live",
-                            Remarks1: "Remarks 1",
-                            Remarks2: "Remarks 2"
-                        };
+                if ($(".rem").val()=="") {
+                    $(this).attr("required",true);
+                    toastr.error("Please enter a remarks before proceeding to payment!!!");
+                } else {
 
-                        var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
-                        var response = JSON.parse(aahaha);
-                        debugger
-                        
+                    if ($('#fonepay').is(':checked')) {
+                        var amount = parseFloat($("#statusModal").find(".Amount").val());
 
-                        $("#statusModal").modal('hide');
-                        $("#QRModal").modal('show');
+                        if (amount) {
+                            var bankDetails = {
+                                amount: amount,
+                                Purpose: "Live",
+                                Remarks1: "Remarks 1",
+                                Remarks2: "Remarks 2"
+                            };
 
+                            var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
+                            var response = JSON.parse(aahaha);
+                            $("#statusModal").modal('hide');
+                            $("#QRModal").modal('show');
 
-                        if (response[0] && response[0]["hashKey"]) {
-                            var hashKey = response[0]["hashKey"];
+                            if (response[0] && response[0]["hashKey"]) {
+                                var hashKey = response[0]["hashKey"];
 
-                            $("#generated-qr").empty();
-                            $("#QRModal").find("#generated-qr").empty();
-                            new QRCode($("#QRModal").find("#generated-qr")[0], {
-                                text: hashKey,
-                                width: 250,
-                                height: 250,
-                                colorDark: "#000000",
-                                colorLight: "#ffffff",
-                                correctLevel: QRCode.CorrectLevel.H 
-                            });
+                                $("#generated-qr").empty();
+                                $("#QRModal").find("#generated-qr").empty();
+                                new QRCode($("#QRModal").find("#generated-qr")[0], {
+                                    text: hashKey,
+                                    width: 250,
+                                    height: 250,
+                                    colorDark: "#000000",
+                                    colorLight: "#ffffff",
+                                    correctLevel: QRCode.CorrectLevel.H
+                                });
 
-                           
-                            $qrCode.show();
+                                $qrCode.show();
+
+                                var param = {
+                                    qrHashKey: response[0]["hashKey"]
+                                };
+
+                                // Start checking payment status every 2 seconds
+                                var paymentStatusInterval = setInterval(async function () {
+                                    var getQRresponse = await AjaxCall("/QRCodeForPayment/GetPaymentStatus", param);
+                                    var paymentResponse = JSON.parse(getQRresponse);
+                                 
+                                    if (paymentResponse[0]["paymentStatus"] === 'success') {
+                                        $("#QRModal").modal('hide');
+                                        toastr.success("Payment of Rs." + paymentResponse[0]["totalTransactionAmount"] + " is Successful!!");
+                                        clearInterval(paymentStatusInterval);
+                                    } else if (paymentResponse[0]["paymentStatus"] === 'failed') {
+                                        toastr.error("Payment failed. Please try again.");
+                                        clearInterval(paymentStatusInterval);
+                                    }
+
+                                }, 2000);  // 2000ms = 2 seconds
+                            } else {
+                                $qrCode.hide();
+                            }
                         } else {
-                            
                             $qrCode.hide();
                         }
-                    } else {
-                        
-                        $qrCode.hide();
                     }
+                    $fileUpload.hide();
+                    $qrCode.show();
                 }
-                $fileUpload.hide();
-                $qrCode.show();
             }
-        });
+            });
+
 
         // File input validation
         $fileInput.change(function () {
@@ -780,6 +799,7 @@
     });
 
     async function LoadCountries() {
+        
         var apiUrl = 'https://api.countrystatecity.in/v1/countries';
         var apiKey = 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==';
         var response = await fetch(apiUrl, {
@@ -787,20 +807,20 @@
         });
         var countries = await response.json();
         var countrySelect = $('.CountrySelect');
-
-        // Populate the dropdown with countries
-        countries.forEach(country => {
-            countrySelect.append(`<option value="${country.iso2}">${country.name}</option>`);
-        });
-
+       
         // Initialize Select2 with search input
         countrySelect.select2({
             placeholder: "----Select Country---",
             allowClear: true,
             width: '100%',
-            tags: true 
-            
+            tags: true
+
         });
+        // Populate the dropdown with countries
+        countries.forEach(country => {
+            countrySelect.append(`<option value="${country.iso2}">${country.name}</option>`);
+        });
+
     }
 
     LoadCountries();
@@ -1102,7 +1122,8 @@
     async function GetUserDetails() {
         const result = await AjaxCallWithoutData("/Home/GetUserDetails");
         var data = JSON.parse(JSON.parse(JSON.parse(result)));
-        $("#yourName").text(data[0].UserName);
+         $(".UserName").text(data[0].UserName);
+         $("#yourName").text(data[0].UserName);
         $("#yourEmail").text(data[0].UserEmail);
         $("#yourContact").text(data[0].UserContact);
         $("#yourAddress").text(data[0].UserAddress);
@@ -1459,13 +1480,67 @@
 
     });
 
+    $(document).on("change", "#fileInput", async function () {
+        var filedom = $(this);
+        var input = $(this);
+        var files = input[0].files;
+
+        // Check if any file is selected
+        if (files.length === 0) {
+            alert("Please select a file to upload.");
+            return;
+        }
+
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            formData.append("files", files[i]); // Append the file with key 'files'
+        }
+
+        await $.ajax({
+            url: "/Register/UploadDocument", // Your controller endpoint
+            data: formData,
+            processData: false,    // Don't process the data
+            contentType: false,    // Let the browser set the content type
+            type: "POST",
+            beforeSend: function () {
+                Swal.fire({
+                    html: '<div class="loader" id="loader-6">' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '</div>' +
+                        '<div>' +
+                        '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                        '</div>',
+                    background: 'unset',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                });
+            },
+            success: function (data) {
+                console.log(data);  // Inspect the response
+                var imgName = data;  // Ensure data is the filename or image URL
+                $(filedom).attr("data-filename", imgName);
+                $(filedom).parents(".gethere").find(".uploadedinfo").text("Uploaded !!!");
+                Swal.close();
+            },
+            error: function (error) {
+                Swal.close();
+                console.log(error);  // Log the error details
+                $(filedom).parents(".gethere").find(".uploadedinfo").text("Upload Failed !!!");
+            }
+        });
+    });
+
+
 
     $(document).on('click', '.btnExtendPlan', async function () {
         
         if ($(".rem").val() == "") {
             toastr.error("Please fill in a Remarks!!!");
         } 
-        else {
+
             var parm = {
                 SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
                 ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
@@ -1477,8 +1552,19 @@
                 PaymentMethod: 'cash',
                 ReferenceId: 0,
                 PaymentPartner: 'none',
-                GeneratedSerialNo: 'sn001'
+                GeneratedSerialNo: 'sn001',
+            //formData.append("Image", fileInput.files[0]);
+            ImageFile: []
             }
+            debugger
+              var object = {};
+              object.MaterialId = 0;
+              object.FileName = $(this).attr("data-filename") == undefined ? "" : $(this).attr("data-filename");
+              if (object.FileName != "") {
+                  data.ImageFile.push(object);
+              }
+            debugger
+            //insert the extension manually
             var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
             var dataa = JSON.parse(cpp);
             var jsondata = JSON.parse(dataaa);
@@ -1490,7 +1576,7 @@
                 toastr.error("Plan extension  not successful");
 
             }
-        }
+
     });
 
    

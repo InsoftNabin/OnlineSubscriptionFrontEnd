@@ -15,5 +15,7 @@
         public string GeneratedSerialNo { get; set; }
         public int SubscriptionType { get; set; }
         public int Id { get; set; }
+        public List<ImageData> ImageFile { get; set; }
+
     }
 }

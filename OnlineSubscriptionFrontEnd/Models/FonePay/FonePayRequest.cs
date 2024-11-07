@@ -11,5 +11,6 @@
         public string username { get; set; }
         public string password { get; set; }
         public string Purpose { get; set; }
+        public string qrHashKey { get; set; }
     }
 }
