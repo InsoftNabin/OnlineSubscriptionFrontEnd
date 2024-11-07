@@ -536,7 +536,7 @@
                                     <div class="row">
                                         <label>Current Plan: <span class="currentPlan">None</span></label>
                                         <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
-                                        <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red">1</span> Days out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label>
+                                        <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red"></span> Days out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label>
                                     </div>
 
                                     <div class="row">
@@ -1391,34 +1391,39 @@
         var response = JSON.parse(ddd);
         var responsefr = JSON.parse(response);
 
-        if (responsefr.length > 0) {  // If a current plan exists
-            $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
-            $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
-            var remainingDays = parseInt(responsefr[0]["RemainingDays"]);
-            var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
-
-            $(".remainingDaysinCPlan").text(remainingDays);
-            $(".TotalDaysInCurrentPlan").text(totalDays);
-
-            // Update the data-label of the circular chart
-            $("#ChartCircular").attr("data-label", `${remainingDays}/${totalDays}`);
-
-            // Calculate the percentage and round it to the nearest decimal
-            var percentage = (remainingDays / totalDays) * 100;
-            var roundedPercentage = percentage.toFixed(1);  // Keep 1 decimal point for precision
-
-            // Update the circular progress bar with dynamic gradient
-            updateCircularProgress(roundedPercentage); 
-
+        if (responsefr[0]["ErrorMessage"] == -202) {
+            toastr.error("You are not subscribed to the subscription Plan yet!!!")
         } else {
-            $("#ChartCircular").attr("data-label", `0/0`);
-            resetCircularProgress();
-        }
 
+            if (responsefr.length > 0) {  // If a current plan exists
+                $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
+                $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                var remainingDays = parseInt(responsefr[0]["RemainingDays"]);
+                var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
+                debugger
+                $(".remainingDaysinCPlan").text(remainingDays);
+                $(".TotalDaysInCurrentPlan").text(totalDays);
+
+                // Update the data-label of the circular chart
+                $("#ChartCircular").attr("data-label", `${remainingDays}/${totalDays}`);
+
+                // Calculate the percentage and round it to the nearest decimal
+                var percentage = (remainingDays / totalDays) * 100;
+                var roundedPercentage = percentage.toFixed(1);  // Keep 1 decimal point for precision
+
+                // Update the circular progress bar with dynamic gradient
+                updateCircularProgress(roundedPercentage);
+
+            } else {
+                $("#ChartCircular").attr("data-label", `0/0`);
+                resetCircularProgress();
+            }
+        }
         // New/existing plan logic
         var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
+        debugger
         if (Jsondata.length > 0) {
             var selectDOM = ``;
             for (var i = 0; i < Jsondata.length; i++) {
@@ -1426,7 +1431,8 @@
                     var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
                     var today = new Date();
                     var expireDate = new Date(today);
-                    expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
+                    // var a= expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
+                    expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text())); // Modify expireDate directly
                     var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
 
                     $("#statusModal").find(".expiryDate").val(isoExpireDate);
@@ -1554,7 +1560,8 @@
                 PaymentPartner: 'none',
                 GeneratedSerialNo: 'sn001',
             //formData.append("Image", fileInput.files[0]);
-            VoucherImage: $("#fileInput").attr("data-filename")
+            VoucherImage: $("#fileInput").attr("data-filename"),
+            IsVerifiedPayment:0
             }
             debugger
             //   var object = {};
