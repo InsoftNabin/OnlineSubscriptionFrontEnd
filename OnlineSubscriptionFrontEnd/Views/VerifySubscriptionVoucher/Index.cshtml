@@ -2,11 +2,13 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
+
 <style>
     .nameDiv, .PriceDiv {
         display: flex;
         align-items: center;
     }
+
     .rejected-row {
         background-color: #f8d7da; /* Light red */
     }
@@ -15,7 +17,14 @@
         background-color: #d4edda; /* Light green */
     }
 
+    .voucher-image-preview {
+        width: 50%; 
+        height: 100px; 
+        object-fit: contain; 
+        cursor: pointer; 
+    }
 </style>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
@@ -178,9 +187,10 @@
                     <td class="center">`+ data[i]["IssuedDate"] + `</td>
                     <td class="center">`+ data[i]["PaidAmount"] + `</td>
                     <td class="center">`+ data[i]["SPlan"] + `</td>
-                    <td class="center">
-                        <img src="` + data[i]["VoucherImage"] + `" class="voucher-image-preview" style="cursor: pointer;" />
-                    </td>
+                        <td class="center">
+        <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />
+    </td>
+
                     <td class="center">
                         ` + rejectButton + `
                         ` + verifyButton + `

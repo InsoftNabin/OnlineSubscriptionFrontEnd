@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataProvider")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f03e78bb6e771cb7cc9140ad5eb20ad3ada3e939")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+046303296d70ca0c946f488e6fbc56005eb31d87")]
->>>>>>> acc6062e87b555cecdbf6dfa3d5ea3db6d4e9058
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20c2009cec275407493a4b957f3a5cff3f00b44f")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataProvider")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataProvider")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
