@@ -6,11 +6,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../files/assets/icon/themify-icons/themify-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
 <link rel="stylesheet" type="text/css" href="../files/assets/icon/feather/css/feather.css">
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-
-
+<script src="~/insoft/assets/assets/js/custom.js"></script>
 <style>
     .nav-tabs {
         margin-bottom: 15px;
@@ -375,6 +375,8 @@
                             </select>
                         </div>
 
+
+
                         <div class="col-lg-6 col-sm-12">
                             <label for="displayName" class="required form-label mb-3">Display Name</label>
                             <input type="text" class="form-control form-control-sm border border-dark rounded " id="displayName" />
@@ -489,8 +491,8 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                     Status of Subscription  <br />
                 </h1>
-                    <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="float:right;"> 
-                    </div>
+                    @* <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="float:right;"> 
+                    </div> *@
               
                 <button type="button" class="btn-close  btn btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -798,325 +800,247 @@
         });
     });
 
-    async function LoadCountries() {
-        
-        var apiUrl = 'https://api.countrystatecity.in/v1/countries';
-        var apiKey = 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==';
-        var response = await fetch(apiUrl, {
-            headers: { "X-CSCAPI-KEY": apiKey }
-        });
-        var countries = await response.json();
-        var countrySelect = $('.CountrySelect');
-       
-        // Initialize Select2 with search input
-        countrySelect.select2({
-            placeholder: "----Select Country---",
-            allowClear: true,
-            width: '100%',
-            tags: true
+    function LoadCountries() {
+        debugger;
+        var a = AjaxCallWithoutDataNoAsync("/Customer/getCountries"); 
+        var aa = JSON.parse(a);  
+        var countries = JSON.parse(aa);  
 
-        });
-        // Populate the dropdown with countries
-        countries.forEach(country => {
-            countrySelect.append(`<option value="${country.iso2}">${country.name}</option>`);
-        });
+        var countrySelect = $('#CountrySelect');
+        countrySelect.empty();
+        countrySelect.append('<option value="">----Select Country---</option>');
 
+        countries.forEach(function (country) {
+            countrySelect.append('<option value="' + country.NumericIsoCode + '">' + country.Name + '</option>');
+        });
     }
 
+   
     LoadCountries();
 
-    
+
+
     var body = ``;
+
     async function GetOrganizations() {
         const result = await AjaxCall("/Home/GetOrganizations");
         let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
 
-
-        // while (1) {
-        //   try {
-        //     if (typeof IncludeData == "object") {
-        //       break;
-        //     } else {
-        //       IncludeData = JSON.parse(result);
-        //     }
-        //   } catch (error) {
-        //     break;
-        //   }
-        // }
-
         if (IncludeData.length > 0) {
             body += `
-
                 <div id="kt_app_content" class="app-content flex-column-fluid ">
-                  <div id="kt_app_content_container" class="app-container container-xxl ">
-                    <div class="d-flex flex-column flex-xl-row gap-4 ">
-                      <div class="row flex-wrap col-lg-9 col-sm-12">
-                      `;
+                    <div id="kt_app_content_container" class="app-container container-xxl ">
+                        <div class="d-flex flex-column flex-xl-row gap-4 ">
+                            <div class="row flex-wrap col-lg-9 col-sm-12">
+            `;
 
             for (var i = 0; i < IncludeData.length; i++) {
-
                 body += `
-                      <!--begin::Content-->
-                      <div class="col-12">
-                      <div class="card my-4 col-12 shadow">
-                        <div class="d-flex p-8 flex-column">
-
-                          <div class ="row">
-                                                                <div class="image-input-wrapper w-125px h-65px rounded pt-4 col-3">
-                                                                    <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65">
-                                                                </div>
-
-                                    <div class="col-6 px-8">
-                                                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1 col-7">${IncludeData[i].CompanyName}</a>
-
-                                                                <div class="d-flex flex-stack fs-4 my-4">
-
-                                                                    <div class="fw-bold">${IncludeData[i].Address}</div>
+                    <!--begin::Content-->
+                    <div class="col-12">
+                        <div class="card my-4 col-12 shadow">
+                            <div class="d-flex p-8 flex-column">
+                                <div class="row">
+                                    <div class="image-input-wrapper w-125px h-65px rounded pt-4 col-3">
+                                        <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65">
                                     </div>
 
-                                  </div>
-                                      `;
+                                    <div class="col-6 px-8">
+                                        <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1 col-7">${IncludeData[i].CompanyName}</a>
 
+                                        <div class="d-flex flex-stack fs-4 my-4">
+                                            <div class="fw-bold">${IncludeData[i].Address}</div>
+                                        </div>
+                                    </div>
+                `;
+
+                // Verified / Unverified Section
                 if (IncludeData[i].IsVerified == 1) {
                     body += `
-                            <div class="card-toolbar col-4">
-                            <span class="badge badge-light-success fw-bold me-auto px-4 py-3 fs-3" ">Verified</span>
-                                <button data-bs-toggle="modal" data-bs-target="#statusModal" class="viewSub btn btn-sm btn-danger" style="margin-top:-4px;" data-productid="${IncludeData[i].ProductId}"  data-custid="${IncludeData[i].custId}">Subscription &nbsp; </button>
-                             </div> 
-                            <div class="col-6">
-                           </div>`
-                        ;
+                        <div class="card-toolbar d-flex justify-content-between align-items-center col-4">
+                            <span class="badge badge-light-success fw-bold px-4 py-3 fs-3">Verified</span>
+                            <button data-bs-toggle="modal" data-bs-target="#statusModal" class="viewSub btn btn-sm btn-danger" style="height:35px;" data-productid="${IncludeData[i].ProductId}" data-custid="${IncludeData[i].custId}">
+                                Extend &nbsp;
+                            </button>
+                            <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="flex-shrink: 0;"></div>
+                        </div>
+                    `;
                 } else {
                     body += `
-                                            <div class="card-toolbar col-2">
-                                                                <span class="badge badge-light-danger fw-bold me-auto px-4 py-3 fs-3">UnVerified</span>
-                                                                <span class="btn btn-warning">Pending</span></div> `;
+                        <div class="card-toolbar d-flex justify-content-between align-items-center col-4">
+                            <span class="badge badge-light-danger fw-bold px-4 py-3 fs-3">UnVerified</span>
+                            <span class="btn btn-warning">Pending</span>
+                        </div>
+                    `;
                 }
+
                 body += `
+                                </div>
+                            </div>
+                `;
 
-                                      </div>
-
-
-                                  </div>
-
-                                  `;
+                // If verified, show more details
                 if (IncludeData[i].IsVerified == 1) {
-
                     body += `
-                                            <div class="px-8">
-                                                           <b><label class="fw-bold fs-5 d-block form-label mt-2 col-4">Product:<span class="ProductName">${IncludeData[i].ModuleName}</span></b></label><br>
-                                            <span class=" fw-bold fs-5">Your Sitelink:
-                                        <a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>
-                        </span>
-                        <div class="d-flex mt-4">
-                          <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
-        <input readonly id="foo" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
-
-        <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo">
-            Copy
-        </button>
-                          </div>
-                          <div class="d-flex mt-2">
-                            <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
-        <input readonly id="foo2" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
-        <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2">
-            Copy
-        </button>
-                          </div>
-                            <div style="display: flex; ">
-        <label class="fw-bold fs-4" style="margin-right: 15px;">Remarks:</label>
-        <span style="margin-top:4px;">${IncludeData[i].Remarks}</span>
-    </div>
-
-                                  </div>
-
-                                  `
-
-                        ;
+                        <div class="px-8">
+                            <b><label class="fw-bold fs-5 d-block form-label mt-2 col-4">Product:<span class="ProductName">${IncludeData[i].ModuleName}</span></b></label><br>
+                            <span class="fw-bold fs-5">Your Sitelink:
+                                <a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>
+                            </span>
+                            <div class="d-flex mt-4">
+                                <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
+                                <input readonly id="foo" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
+                                <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo">Copy</button>
+                            </div>
+                            <div class="d-flex mt-2">
+                                <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
+                                <input readonly id="foo2" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
+                                <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2">Copy</button>
+                            </div>
+                            <div style="display: flex;">
+                                <label class="fw-bold fs-4" style="margin-right: 15px;">Remarks:</label>
+                                <span style="margin-top:4px;">${IncludeData[i].Remarks}</span>
+                            </div>
+                        </div>
+                    `;
                 }
-                body +=
-                    `
-                                  <div class="d-flex flex-stack fs-4 py-3 card-body">
-                                                                <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
-                                                                <span class="ms-2 rotate-180">
-                                                                    <span class="svg-icon svg-icon-3">
-                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                </span></div>
-                                    `;
+
+                // Details Toggle Button
+                body += `
+                        <div class="d-flex flex-stack fs-4 py-3 card-body">
+                            <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
+                                <span class="ms-2 rotate-180">
+                                    <span class="svg-icon svg-icon-3">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </div>
+                    `;
+
                 if (IncludeData[i].IsVerified == 0) {
                     body += `
-                                    <span>
-                                                                <span>
-                                      <button
+                        <span>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn">Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn">Delete</button>
+                        </span>
+                    `;
+                }
 
-                  type="button"
-                    class="btn btn-primary btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#updateOrganization"
-                  data-token="${IncludeData[i].Token}"
-                  id="editBtn"
-                >Edit</button>
-                                      </span>
-                                                                <span>
-                                      <button
-                  type="button"
-                  class="btn btn-sm btn-danger"
-
-                  data-token="${IncludeData[i].Token}"
-                  id="deleteBtn"
-                >Delete</button>
-                                      </span>
-                                    </span>
-                                    `
-                };
                 body += `
-                                  </div>
-                                  <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
-                                                                <hr class="bg-dark border-2 border-top border-dark" />
-                                    <div class="py-5 fs-6">
-                                                                    <div class="badge badge-light-info d-inline"></div>
-                                      <div class="d-flex flex-row gap-4 mt-5">
-                                                                    <div class="fw-bold  col-4">Display Name</div>
-                                                                    <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
-                                                                    </div>
-
-                                                                        <div class="d-flex flex-row gap-4 mt-5">
-                                                                        <div class="fw-bold col-4">Country</div>
-                                                                        <div class="text-gray-700 col-8">
-                                                                                <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMotto}</a>
-                                                                        </div>
-                                          </div>
-                                      <div class="d-flex flex-row gap-4 mt-5">
-                                                                    <div class="fw-bold col-4">Email</div>
-                                                                    <div class="text-gray-700 col-8">
-                                                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
-                                                                    </div>
-                                      </div>
-
-                                      <div class="d-flex flex-row gap-4 mt-5">
-                                                                    <div class="fw-bold col-4">PAN/VAT</div>
-                                                                    <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
-                                                                    </div>
-                                      <div class="d-flex flex-row gap-4 mt-5">
-                                                                    <div class="fw-bold col-4">Phone No.</div>
-                                                                    <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
-                                                                    </div>
-                                      <div class="d-flex flex-row gap-4 mt-5">
-                                                                    <div class="fw-bold col-4">Contact No.</div>
-                                                                    <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
-                                                                    </div>
-                                      <div class="d-flex flex-row gap-4 mt-5">
-                                                                    <div class="fw-bold col-4">Website</div>
-                                                                    <div class="text-gray-700 dol-8"><a href="${IncludeData[i].Website}"> ${IncludeData[i].Website}</a></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                  </div>
-                                  </div>
-                                  `;
+                        </div>
+                        <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
+                            <hr class="bg-dark border-2 border-top border-dark" />
+                            <div class="py-5 fs-6">
+                                <div class="badge badge-light-info d-inline"></div>
+                                <div class="d-flex flex-row gap-4 mt-5">
+                                    <div class="fw-bold col-4">Display Name</div>
+                                    <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
+                                </div>
+                                <div class="d-flex flex-row gap-4 mt-5">
+                                    <div class="fw-bold col-4">Country</div>
+                                    <div class="text-gray-700 col-8">
+                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMotto}</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row gap-4 mt-5">
+                                    <div class="fw-bold col-4">Email</div>
+                                    <div class="text-gray-700 col-8">
+                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row gap-4 mt-5">
+                                    <div class="fw-bold col-4">PAN/VAT</div>
+                                    <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+                                </div>
+                                <div class="d-flex flex-row gap-4 mt-5">
+                                    <div class="fw-bold col-4">Phone No.</div>
+                                    <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+                                </div>
+                                <div class="d-flex flex-row gap-4 mt-5">
+                                    <div class="fw-bold col-4">Contact No.</div>
+                                    <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+                                </div>
+                                <div class="d-flex flex-row gap-4 mt-5">
+                                    <div class="fw-bold col-4">Website</div>
+                                    <div class="text-gray-700 dol-8"><a href="${IncludeData[i].Website}">${IncludeData[i].Website}</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
             body += `
-                                </div>
-                      <!--begin::Sidebar-->
-                      <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4">
+                        </div>
+                    <!--begin::Sidebar-->
+                    <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4 ml-xl-auto">
                         <div class="card card-flush bg-body mb-9">
                             <h2 class="card-title fs-2 fw-bold text-dark py-4 px-8">Your Info</h2>
-
-                          <div class="card-body pt-2 px-4">
-                            <div class="mb-5">
-                              <div class="d-flex row mb-5">
-                                <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
-                                <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
-                              </div>
-                              <div class="d-flex row mb-5">
-                                <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
-                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
-                              </div>
-                              <div class="d-flex row mb-5">
-                                <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
-                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
-                              </div>
-                              <div class="d-flex row mb-5">
-                                <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
-                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
-                              </div>
+                            <div class="card-body pt-2 px-4">
+                                <div class="mb-5">
+                                    <div class="d-flex row mb-5">
+                                        <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
+                                        <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
+                                    </div>
+                                    <div class="d-flex row mb-5">
+                                        <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
+                                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
+                                    </div>
+                                    <div class="d-flex row mb-5">
+                                        <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
+                                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
+                                    </div>
+                                    <div class="d-flex row mb-5">
+                                        <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
+                                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-                  `;
+            </div>
+            </div>
+            `;
         } else {
             body += `
-
-        <div class="container container-fluid p-0">
-          <div class="card-body p-0">
-            <div class="card-px text-center my-10">
-              <div class="py-10 text-center">
-                <img
-                  src="~/assets/media/logos/LogoInsoft.png"
-                  class="theme-light-show w-150px"
-                  alt=""
-                />
-              </div>
-              <h2 class="fs-2x fw-bold mb-10">There are no Organizations added</h2>
-
-              <button
-                type="button"
-                class="btn btn-primary addOrganization"
-
-              >
-                <span class="svg-icon svg-icon-2">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      opacity="0.5"
-                      x="11.364"
-                      y="20.364"
-                      width="16"
-                      height="2"
-                      rx="1"
-                      transform="rotate(-90 11.364 20.364)"
-                      fill="currentColor"
-                    ></rect>
-                    <rect
-                      x="4.36396"
-                      y="11.364"
-                      width="16"
-                      height="2"
-                      rx="1"
-                      fill="currentColor"
-                    ></rect>
-                  </svg>
-                </span>
-                Add New Organization
-              </button>
-            </div>
-          </div>
-        </div>
-
-              `;
+                <div class="container container-fluid p-0">
+                    <div class="card-body p-0">
+                        <div class="card-px text-center my-10">
+                            <div class="py-10 text-center">
+                                <img src="~/assets/media/logos/LogoInsoft.png" class="theme-light-show w-150px" alt="" />
+                            </div>
+                            <h2 class="fs-2x fw-bold mb-10">There are no Organizations added</h2>
+                            <button type="button" class="btn btn-primary addOrganization">
+                                <span class="svg-icon svg-icon-2">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
+                                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"></rect>
+                                    </svg>
+                                </span>
+                                Add New Organization
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
     }
+
+
     $(document).ready(async function () {
         
         await GetOrganizations();
-
+       
+       
         await $("#Main").append(body);
         await GetUserDetails();
         var clipboard = await new ClipboardJS('.btnCopy'); //for copy to clipboard
+        $(".viewSub").trigger('click');
+        
+        $('#statusModal').modal('hide');
+
     });
     //get the user details
     async function GetUserDetails() {
@@ -1400,7 +1324,6 @@
                 $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
                 var remainingDays = parseInt(responsefr[0]["RemainingDays"]);
                 var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
-                debugger
                 $(".remainingDaysinCPlan").text(remainingDays);
                 $(".TotalDaysInCurrentPlan").text(totalDays);
 
@@ -1423,7 +1346,6 @@
         var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
-        debugger
         if (Jsondata.length > 0) {
             var selectDOM = ``;
             for (var i = 0; i < Jsondata.length; i++) {
@@ -1563,14 +1485,12 @@
                 VoucherImage: $("#fileInput").attr("data-filename"),
                 IsVerifiedPayment: false
             }
-            debugger
             //   var object = {};
             //   object.MaterialId = 0;
             //   object.FileName = $(this).attr("data-filename") == undefined ? "" : $(this).attr("data-filename");
             //   if (object.FileName != "") {
             //       data.ImageFile.push(object);
             //   }
-            // debugger
             //insert the extension manually
             var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
             var dataa = JSON.parse(cpp);
@@ -1681,7 +1601,6 @@
         var Website = $("#Website").val();
         var logo = $(".logoValue").attr("data-name");
         var module = $(".moduleSelect").val();
-        debugger
         // Check for special characters in the initial
         var specialCharPattern = /[^a-zA-Z0-9]/;
         if (specialCharPattern.test(initial)) {
