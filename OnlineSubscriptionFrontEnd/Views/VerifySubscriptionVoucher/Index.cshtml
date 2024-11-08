@@ -1,0 +1,235 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<style>
+    .nameDiv, .PriceDiv {
+        display: flex;
+        align-items: center;
+    }
+    .rejected-row {
+        background-color: #f8d7da; /* Light red */
+    }
+
+    .verified-row {
+        background-color: #d4edda; /* Light green */
+    }
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">
+                    <i class="feather icon-home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Verify </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Voucher Verification</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body ">
+
+                    <div class="card" style="height:80vh; ">
+
+
+                        <div class="containerr" style="max-width: 120em; margin:10px;">
+                            <div class="button-container" style="margin-bottom: 10px;">
+                                <button onclick="exportToCSV()" class="btn rounded btn-sm btn-primary">
+                                    <i class="feather icon-file-text"></i> CSV
+                                </button>
+                                <button onclick="copyTable()" class="btn rounded btn-sm btn-warning">
+                                    <i class="feather icon-copy"></i> Copy
+                                </button>
+                                <button onclick="exportToExcel()" class="btn rounded btn-sm btn-success">
+                                    <i class="fa fa-regular fa-file-excel"></i> Excel
+                                </button>
+                                <button onclick="exportToPDF()" class="btn rounded btn-sm btn-danger">
+                                    <i class="feather icon-file"></i> PDF
+                                </button>
+                                <button onclick="printTable()" class="btn rounded btn-sm btn-info">
+                                    <i class="feather icon-printer"></i> Print
+                                </button>
+                            </div>
+                        <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                            <thead>
+                                <tr style="background-color: #0b3b56; color: white;">
+                                 
+                                    <th class="center">Customer Name</th>
+                                    <th class="center">Product Name</th>
+                                    <th class="center">Issued Date</th>
+                                    <th class="center">Amount </th>
+                                    <th class="center">Plan</th>
+                                    <th class="center">Voucher Image </th>
+                                    <th class="center hideme">Subscription</th>
+                                </tr>
+                            </thead>
+                       
+                            <tbody>
+
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<!-- Modal for Rejection -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <h2>Are you Sure you want to <b><span class="verifyorRejectSubs"></span></b> this ???</h2>
+                </h5>
+                <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <form>
+                   <div class="form-control" >
+                       <label>Remarks:</label>
+                       <input type="text" class="remarksStatus" required />
+                   </div>
+               </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btnSaveStatus btn btn-primary">Yes,Proceed</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for Image Preview -->
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" role="dialog" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imagePreviewModalLabel">Voucher Image Preview</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="voucherImagePreview" class="img-fluid" alt="Voucher Image" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getTableData();
+    });
+
+
+    function getTableData() {
+        var request = AjaxCallWithoutDataNoAsync("/VerifySubscriptionVoucher/getSubscriptionVoucher");
+        var dataa = JSON.parse(request);
+        var data = JSON.parse(dataa);
+
+        var tableDom = "";
+        for (var i = 0; i < data.length; i++) {
+            var rejectButton = '';
+            var verifyButton = '';
+            var rowClass = ''; 
+
+            if (data[i]["IsVerifiedPayment"] === -1) {
+                rowClass = 'rejected-row';
+                rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-danger" data-type="reject" disabled> <i class="feather icon-x"></i>&nbsp;Rejected</button>`;
+                verifyButton = ''; // No "Verify" button for status -1
+            } else if (data[i]["IsVerifiedPayment"] === 1) {
+                rowClass = 'verified-row';
+                rejectButton = ''; // No "Reject" button for status 1
+                verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-success" data-type="verify" disabled> <i class="feather icon-check-square"></i>&nbsp;Verified</button>`;
+            } else if (data[i]["IsVerifiedPayment"] === 0) {
+                rowClass = '';
+                rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-danger" data-type="reject" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-x"></i>&nbsp;Reject</button>`;
+                verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-success" data-type="verify" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-check-square"></i>&nbsp;Verify</button>`;
+            }
+
+            tableDom += `<tr data-ukid="` + data[i]["ukid"] + `" class="` + rowClass + `">
+                    <td class="center">`+ data[i]["CustomerName"] + `</td>
+                    <td class="center">`+ data[i]["Name"] + `</td>
+                    <td class="center">`+ data[i]["IssuedDate"] + `</td>
+                    <td class="center">`+ data[i]["PaidAmount"] + `</td>
+                    <td class="center">`+ data[i]["SPlan"] + `</td>
+                    <td class="center">
+                        <img src="` + data[i]["VoucherImage"] + `" class="voucher-image-preview" style="cursor: pointer;" />
+                    </td>
+                    <td class="center">
+                        ` + rejectButton + `
+                        ` + verifyButton + `
+                    </td>
+                </tr>`;
+
+        }
+        $("#agentTable tbody").empty().append(tableDom);
+    }
+
+
+
+    $(document).on("click", ".VorR", async function () {
+        $("#exampleModal").find(".verifyorRejectSubs").text($(this).attr("data-type"));
+        $("#exampleModal").find(".btnSaveStatus").attr("data-status",$(this).attr("data-type"));
+        $("#exampleModal").find(".btnSaveStatus").attr("data-ukid",$(this).parents("tr").attr("data-ukid"));
+
+    });
+
+    $(document).on("click", ".voucher-image-preview", function () {
+      
+        var imageSrc = $(this).attr("src"); 
+        $("#voucherImagePreview").attr("src", imageSrc); 
+        $("#imagePreviewModal").modal('show'); 
+    });
+
+    $(document).on("click", ".btnSaveStatus", async function () {
+        if ($("#exampleModal").find(".remarksStatus").val() == "") {
+            toastr.warning("Please fill in the Remarks before the verification process!!!");
+        }
+        else {
+            var status = '';
+            if ($(this).attr("data-status") == 'reject') {
+                status = -1;
+            } else {
+                status = 1;
+            }
+            var parm = {
+                ProductId: parseInt($(this).attr("data-ukid")),
+                CustomerId: parseInt(status),
+                Remarks: $("#exampleModal").find(".remarksStatus").val()
+            };
+
+            var requestVerification = await AjaxCall("/CustomerPlanDetails/VerifyorRejectSubscription", parm);
+            toastr.success("Operation Successful!!!");
+          
+            getTableData();
+            $("#exampleModal").modal('hide');
+        }
+    });
+
+</script>

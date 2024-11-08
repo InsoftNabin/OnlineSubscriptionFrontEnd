@@ -87,11 +87,24 @@
             justify-content: space-between; 
         }
 
+        .pcoded-hasmenun::after {
+            content: none !important; /* Removes the arrow */
+        }
+
+        .pcoded-hasmenun a {
+            position: relative;
+        }
+
+            .pcoded-hasmenun a::after {
+                content: none !important; /* Ensure no extra content after the anchor */
+            }
+
         .btn {
             border-radius: 12px;
             text-decoration-color: white;
-            color: white; 
+           
             font-size:1em;
+vertical-align:middle;
         }
         .btn i {
                 font-size: 1.5em; 
@@ -411,13 +424,13 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="pcoded-navigatio-lavel">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu active pcoded-trigger">
+                                <li class="pcoded-hasmenun active pcoded-trigger">
                                     <a href="/Dashboard/IndexforDashboard">
                                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenun">
                                     <a href="/Products">
                                         <span class="pcoded-micon"><i class="feather icon-box"></i></span>
                                         <span class="pcoded-mtext">Products</span>
@@ -425,13 +438,13 @@
                                     </a>
                                 </li>
 
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenun">
                                     <a href="/SubProducts">
                                         <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
                                         <span class="pcoded-mtext">Sub-Products</span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenun">
                                     <a href="/Agent">
                                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
                                         <span class="pcoded-mtext">Agent</span>
@@ -485,19 +498,21 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="/Dashboard/Index">
-                                        <span class="pcoded-micon"><i class="feather icon-check-circle"></i></span>
+                                <li class="pcoded-hasmenun" style="position: relative;">
+                                    <a href="/Dashboard/Index" style="position: relative;">
+                                        <span class="pcoded-micon"><i class="feather icon-user-check"></i></span>
                                         <span class="pcoded-mtext">Verify Users</span>
                                     </a>
                                 </li>
 
-                                <li class="pcoded-hasmenu">
-                                    <a href="/Dashboard/Index">
-                                        <span class="pcoded-micon"><i class="feather icon-check-circle"></i></span>
+                                <li class="pcoded-hasmenun" style="position: relative;">
+                                    <a href="/VerifySubscriptionVoucher" style="position: relative;">
+                                        <span class="pcoded-micon"><i class="feather icon-wifi"></i></span>
                                         <span class="pcoded-mtext">Verify Subscription</span>
                                     </a>
                                 </li>
+
+
                             </ul>
                         </div>
                     </nav>
