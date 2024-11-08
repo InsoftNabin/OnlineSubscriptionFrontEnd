@@ -1548,20 +1548,20 @@
         } 
 
             var parm = {
-                SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
-                ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
+                 SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+                 ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
                 PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
                 Remarks: $("#statusModal").find(".rem").val(),
                 CustomerId: parseInt($("#custid").val()),
                 ProductId: parseInt($("#prodid").val()),
+
                 TransactionId: 0,
                 PaymentMethod: 'cash',
                 ReferenceId: 0,
                 PaymentPartner: 'none',
                 GeneratedSerialNo: 'sn001',
-            //formData.append("Image", fileInput.files[0]);
-            VoucherImage: $("#fileInput").attr("data-filename"),
-            IsVerifiedPayment:0
+                VoucherImage: $("#fileInput").attr("data-filename"),
+                IsVerifiedPayment: false
             }
             debugger
             //   var object = {};
