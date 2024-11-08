@@ -21,6 +21,11 @@ OnlineSubscriptionFrontEnd/obj
 # Package files
 *.jar
 
+# Ignore build directories
+/bin/
+/obj/
+
+
 # Maven
 target/
 dist/
