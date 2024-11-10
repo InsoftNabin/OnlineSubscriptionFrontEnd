@@ -13,10 +13,8 @@ namespace resize_image
 
 namespace OnlineSubscriptionFrontEnd.Controllers
 {
-
     public class HomeController : Controller
     {
-
 
         public IActionResult Index()
         {
