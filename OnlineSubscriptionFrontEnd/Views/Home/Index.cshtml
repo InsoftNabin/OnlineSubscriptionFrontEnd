@@ -576,7 +576,7 @@
                                     </div>
 
                                     <div class="row" id="file-upload" style="display:none;">
-                                        <input type="file" class="file" id="fileInput" />
+                                        <input type="file" class="file" id="fileInput" data-filename="" />
                                         <p id="fileError" style="color:red; display:none;"></p>
                                     </div>
 
@@ -801,7 +801,7 @@
     });
 
     function LoadCountries() {
-        debugger;
+     
         var a = AjaxCallWithoutDataNoAsync("/Customer/getCountries"); 
         var aa = JSON.parse(a);  
         var countries = JSON.parse(aa);  
@@ -819,7 +819,6 @@
     LoadCountries();
 
 
-
     var body = ``;
 
     async function GetOrganizations() {
@@ -828,10 +827,12 @@
 
         if (IncludeData.length > 0) {
             body += `
-                <div id="kt_app_content" class="app-content flex-column-fluid ">
-                    <div id="kt_app_content_container" class="app-container container-xxl ">
-                        <div class="d-flex flex-column flex-xl-row gap-4 ">
-                            <div class="row flex-wrap col-lg-9 col-sm-12">
+                <div class="app-content flex-column-fluid ">
+                    <div class="app-container container-xxl ">
+                        <div class="row gap-4">
+                            <!-- Dynamic Organizations Section (col-xs-9) -->
+                            <div id="kt_app_content" class="col-12 col-xs-9">
+                                <div class="row flex-wrap">
             `;
 
             for (var i = 0; i < IncludeData.length; i++) {
@@ -875,8 +876,8 @@
                 }
 
                 body += `
+                                    </div>
                                 </div>
-                            </div>
                 `;
 
                 // If verified, show more details
@@ -907,17 +908,17 @@
 
                 // Details Toggle Button
                 body += `
-                        <div class="d-flex flex-stack fs-4 py-3 card-body">
-                            <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
-                                <span class="ms-2 rotate-180">
-                                    <span class="svg-icon svg-icon-3">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
-                                        </svg>
+                            <div class="d-flex flex-stack fs-4 py-3 card-body">
+                                <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#kt_customer_view_details_${i}" role="button" aria-expanded="false" aria-controls="kt_customer_view_details_${i}" id="viewDetails">Details
+                                    <span class="ms-2 rotate-180">
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
+                                            </svg>
+                                        </span>
                                     </span>
-                                </span>
-                            </div>
-                    `;
+                                </div>
+                        `;
 
                 if (IncludeData[i].IsVerified == 0) {
                     body += `
@@ -929,81 +930,88 @@
                 }
 
                 body += `
-                        </div>
-                        <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
-                            <hr class="bg-dark border-2 border-top border-dark" />
-                            <div class="py-5 fs-6">
-                                <div class="badge badge-light-info d-inline"></div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Display Name</div>
-                                    <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Country</div>
-                                    <div class="text-gray-700 col-8">
-                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMotto}</a>
+                            </div>
+                            <div id="kt_customer_view_details_${i}" class="collapse p-8" style="">
+                                <hr class="bg-dark border-2 border-top border-dark" />
+                                <div class="py-5 fs-6">
+                                    <div class="badge badge-light-info d-inline"></div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Display Name</div>
+                                        <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
                                     </div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Email</div>
-                                    <div class="text-gray-700 col-8">
-                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Country</div>
+                                        <div class="text-gray-700 col-8">
+                                            <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMotto}</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">PAN/VAT</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Phone No.</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Contact No.</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Website</div>
-                                    <div class="text-gray-700 dol-8"><a href="${IncludeData[i].Website}">${IncludeData[i].Website}</a></div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Email</div>
+                                        <div class="text-gray-700 col-8">
+                                            <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">PAN/VAT</div>
+                                        <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Phone No.</div>
+                                        <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Contact No.</div>
+                                        <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Website</div>
+                                        <div class="text-gray-700 dol-8"><a href="${IncludeData[i].Website}">${IncludeData[i].Website}</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
             }
             body += `
+                            </div> <!-- End of Organizations Section -->
                         </div>
-                    <!--begin::Sidebar-->
-                    <div class="flex-column flex-lg-row-auto w-100 w-xl-350px my-4 ml-xl-auto">
-                        <div class="card card-flush bg-body mb-9">
-                            <h2 class="card-title fs-2 fw-bold text-dark py-4 px-8">Your Info</h2>
-                            <div class="card-body pt-2 px-4">
-                                <div class="mb-5">
-                                    <div class="d-flex row mb-5">
-                                        <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
-                                        <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
-                                    </div>
-                                    <div class="d-flex row mb-5">
-                                        <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
-                                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
-                                    </div>
-                                    <div class="d-flex row mb-5">
-                                        <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
-                                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
-                                    </div>
-                                    <div class="d-flex row mb-5">
-                                        <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
-                                        <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                        <!-- Your Info Section (col-xs-3) -->
+                        <div class="col-12 col-xs-3">
+                            <div class="card card-flush bg-body mb-9">
+                                <h2 class="card-title fs-2 fw-bold text-dark py-4 px-8">Your Info</h2>
+                                <div class="card-body pt-2 px-4">
+                                    <div class="mb-5">
+                                        <div class="d-flex row mb-5">
+                                            <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
+                                            <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
+                                        </div>
+                                        <div class="d-flex row mb-5">
+                                            <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
+                                            <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
+                                        </div>
+                                        <div class="d-flex row mb-5">
+                                            <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
+                                            <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
+                                        </div>
+                                        <div class="d-flex row mb-5">
+                                            <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
+                                            <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
             `;
-        } else {
+
+        } 
+        
+        
+        
+        //sagar
+        
+        else {
             body += `
                 <div class="container container-fluid p-0">
                     <div class="card-body p-0">
@@ -1030,18 +1038,17 @@
 
 
     $(document).ready(async function () {
-        
         await GetOrganizations();
-       
-       
         await $("#Main").append(body);
         await GetUserDetails();
         var clipboard = await new ClipboardJS('.btnCopy'); //for copy to clipboard
-        $(".viewSub").trigger('click');
-        
-        $('#statusModal').modal('hide');
+       
+       // $(".modal").modal('hide');
+       //  $(".viewSub").trigger('click');
 
     });
+
+
     //get the user details
     async function GetUserDetails() {
         const result = await AjaxCallWithoutData("/Home/GetUserDetails");
@@ -1052,6 +1059,8 @@
         $("#yourContact").text(data[0].UserContact);
         $("#yourAddress").text(data[0].UserAddress);
     }
+
+
     // get the image and change it to data url for preview
     $(document).on("change", "#inputLogo", async function () {
         if (this.files && this.files[0]) {
@@ -1447,15 +1456,15 @@
                 });
             },
             success: function (data) {
-                console.log(data);  // Inspect the response
-                var imgName = data;  // Ensure data is the filename or image URL
+                console.log(data);  
+                var imgName = data;
                 $(filedom).attr("data-filename", imgName);
                 $(filedom).parents(".gethere").find(".uploadedinfo").text("Uploaded !!!");
                 Swal.close();
             },
             error: function (error) {
                 Swal.close();
-                console.log(error);  // Log the error details
+                console.log(error); 
                 $(filedom).parents(".gethere").find(".uploadedinfo").text("Upload Failed !!!");
             }
         });
@@ -1464,11 +1473,13 @@
 
 
     $(document).on('click', '.btnExtendPlan', async function () {
-        
         if ($(".rem").val() == "") {
-            toastr.error("Please fill in a Remarks!!!");
-        } 
-
+            toastr.warning("Please fill in a Remarks!!!");
+        } else if ($("#fileInput").attr("data-filename") == "") {
+            toastr.warning("Please attach a voucher or pay through QR!!!");
+        }
+        
+        else { 
             var parm = {
                  SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
                  ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
@@ -1503,6 +1514,8 @@
                 toastr.error("Plan extension  not successful");
 
             }
+        }
+
 
     });
 

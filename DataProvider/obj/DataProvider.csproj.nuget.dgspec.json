@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {}
+    "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {}
   },
   "projects": {
-    "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+    "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "projectUniqueName": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
         "projectName": "DataProvider",
-        "projectPath": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
-        "packagesPath": "C:\\Users\\guru\\.nuget\\packages\\",
-        "outputPath": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
+        "projectPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "packagesPath": "C:\\Users\\INSOFT\\.nuget\\packages\\",
+        "outputPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\guru\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\INSOFT\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
