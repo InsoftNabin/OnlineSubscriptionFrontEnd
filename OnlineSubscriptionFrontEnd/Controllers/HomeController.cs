@@ -94,6 +94,9 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         //        image.Quality = 10; // This is the Compression level.
         //        image.Write("YourFinalImage.jpg");                 
         //     }
+
+
+
         [HttpPost]
         public async Task<IActionResult> GetOrganizations()
         {
