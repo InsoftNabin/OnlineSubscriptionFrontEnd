@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <style>
@@ -99,12 +98,13 @@
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                                         Status of <b><span class="Customerr"></span></b>'s' Subscription of <b><span class="selectedProduct"></span></b>
+                                        <span class="userEmail" hidden></span>
                                     </h1>
                                     <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
-                                        <thead>customer's log
+                                        <thead>customer's log  
                                             <tr style="background-color: #0b3b56; color: white;">
                                                 <th class="center">Product Name</th>
                                                 <th class="center">Subscription Type</th>
@@ -211,8 +211,8 @@
                             </button>
                         </div>
 
-                        <div class="TableDiv" style="width: 100%; overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative;">
-                            <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                    <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative;">
+                            <table id="agentTable" class="table-responsive agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                 <thead>
                                     <tr style="background-color: #0b3b56; color: white;">
                                         <th class="center">S.N</th>
@@ -234,7 +234,6 @@
             </div>
         </div>
     </div>
-
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -276,7 +275,7 @@
 
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
-                tableDOM += `<tr data-id="${jsondata[i]['Id']}">
+                tableDOM += `<tr data-id="${jsondata[i]['Id']}" data-email=` + jsondata[i]["UserEmail"] + `>
                                     <td class="center"><b>${i + 1}.</b></td>
                                     <td class="center custCode">${jsondata[i]['Customercode']}</td>
                                     <td class="center custName">${jsondata[i]['CustomerName']}</td>
@@ -313,7 +312,6 @@
         $(".Customerr").text($(this).parents("tr").find(".custName").text());
         loadSubscriptionTypes(id, ProductId);
         $(".selectedProduct").text(ProductName);
-
     });
 
     async function loadSubscriptionTypes(CustomerId, ProductId) {
@@ -366,7 +364,6 @@
         {
             toastr.error("Operation Not Success!!!");
         }
-     
     });
 
     $(".search").off("keyup").on("keyup", function () {
@@ -384,13 +381,13 @@
         var ProductName = $(this).attr("data-productName");
         $(".Customerr").text($(this).parents("tr").find(".custName").text());
         $(".selectedProduct").text(ProductName);
+        var userEmail = $(this).parents("tr").attr("data-email");
+        $("#statusModal").find(".userEmail").text(userEmail);
         loadplansforcustomerandproduct(id, ProductId);
         $("#custid").val(id);
         $("#prodid").val(ProductId);
         loadsubscriptionLog(id, ProductId);
-
     });
-
 
     async function loadplansforcustomerandproduct(CustomerId, ProductId) {
         $(".currentPlan").text('----None---');
@@ -456,7 +453,6 @@
         var sub = JSON.parse(jsub);
         var jsonData = JSON.parse(sub);
 
-
         var subDOM = "";
         if (jsonData.length>0) {
             for (var i = 0; i < jsonData.length;i++) {
@@ -478,9 +474,8 @@
             $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
         }
     }
-
-
     $(document).on('click', '.btnExtendPlan', async function () {
+
         if($(".rem").val()==""){
             toastr.error("Please fill in a Remarks!!!");
         }
@@ -500,16 +495,52 @@
                 VoucherImage: ''
              }
              debugger
-             var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate",parm);
-             var dataa = JSON.parse(cpp);
-             var jsondata = JSON.parse(dataaa);
+            try {
+                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                if (cpp > 0) {
+                    debugger
+                    var codeBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                                <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 36px 20px;">
+                                                    <div style="padding: 0;">
+                                                        <div style='display: flex; justify-content: center;'>
+                                                            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="max-width: 100%; height: auto;">
+                                                        </div>
+                                                        <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension successfull</h2>
+
+                                                        <div style="font-size: 14px; font-weight: 500; margin: 0 30px;">
+                                                            <form style="text-align:left;">
+                                                                <div style="margin-bottom: 20px;">
+                                                                  <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Dear valued customer, your subscription of `+ (parseFloat($("#statusModal").find(".Amount").val())) + ` has been extended.</label>
+                                                                  <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Your subscription of the plan will expire on `+ ($("#statusModal").find(".selectedPackages :selected").attr("data-expiredate")) + `.</label>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>`;
+
+                    const toUser = {
+                        ReceiverEmail: $("#statusModal").find(".userEmail").text(),
+                        Subject: "Subscription Extended",
+                        EmailBody: codeBody,
+                    };
+
+                    var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+
+                } else {
+                    toastr.error("Something went wrong");
+                }
+            } catch (error) {
+                console.error("Error during AjaxCall:", error);
+            }
         }
     });
+
     $(document).on("change", ".CheckPlan", function () {
         if ($(this).is(":checked")) {
             $(".CheckPlan").not(this).prop("checked", false);
         }
     });
-
 
 </script>

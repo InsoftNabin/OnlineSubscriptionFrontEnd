@@ -108,8 +108,9 @@
   background-image: linear-gradient(450deg, #01a9ac 50%, transparent 50%, transparent), linear-gradient(270deg, #01a9ac 50%, #fafafa 50%, #fafafa);
 }
 .radial-bar-primary.radial-bar-0 {
-  background-image: linear-gradient(90deg, #fafafa 50%, transparent 50%, transparent), linear-gradient(90deg, #01a9ac 50%, #fafafa 50%, #fafafa);
+    background-image: linear-gradient(90deg, #fafafa 50%, transparent 50%, transparent), linear-gradient(90deg, #ff0000 50%, #fafafa 50%, #fafafa);
 }
+
 .radial-bar-primary.radial-bar-5 {
   background-image: linear-gradient(90deg, #fafafa 50%, transparent 50%, transparent), linear-gradient(108deg, #01a9ac 50%, #fafafa 50%, #fafafa);
 }

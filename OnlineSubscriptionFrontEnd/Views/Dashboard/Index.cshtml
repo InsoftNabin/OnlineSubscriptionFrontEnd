@@ -2,6 +2,10 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <div class="pcoded-content">
     <div class="page-header-breadcrumb" style="margin-left: 10px;">
         <ul class="breadcrumb-title">
@@ -334,6 +338,7 @@
   var orgData;
 
   $(document).on("click", ".btnView", async (event) => {
+      debugger
     var userName = $(event.target).attr("data-userName");
     $("#userName").text(userName);
     $("#kt_upgrade_plan_startup").empty();
