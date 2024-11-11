@@ -3,6 +3,58 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+
+
+
+
+
+
+# Ignore build outputs
+[Dd]ebug/
+[Dd]ebug/netcoreapp*/  # Ignore Debug folders in all .NET Core versions
+[Dd]ebug/netcoreapp*/DataProvider.dll
+[Dd]ebug/netcoreapp*/DataProvider.pdb
+[Dd]ebug/netcoreapp*/DataServiceLayer.dll
+[Dd]ebug/netcoreapp*/DataServiceLayer.pdb
+
+# Ignore .NET Core related files
+**/*.csproj.nuget.dgspec.json
+**/*.csproj.nuget.g.props
+**/*.assets.cache
+**/*.csproj.AssemblyReference.cache
+**/*.CoreCompileInputs.cache
+**/*.GeneratedMSBuildEditorConfig.editorconfig
+**/*.sourcelink.json
+**/*.AssemblyInfo.cs
+**/*.AssemblyInfoInputs.cache
+**/*.dll
+**/*.pdb
+
+# Ignore .NET restore/cache files
+**/obj/project.assets.json
+**/obj/project.nuget.cache
+
+# Ignore IDE and editor specific files (optional but common)
+.vs/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.vspscc
+
+# Ignore the build directories in case they exist at root level or in any other folder
+bin/
+obj/
+
+# Ignore compiled files for release and debug builds
+*.dll
+*.pdb
+
+
+
+
+
 # Node artifact files
 node_modules/
 dist/
