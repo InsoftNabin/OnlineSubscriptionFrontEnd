@@ -60,29 +60,34 @@
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
-                    <div class="row form-control">
-                        <div class="col-xs-4" style="width: 30%;">
+                    <div class="row m-t-10 m-l-0 " style="border:1px solid black; background-color:white; border-radius:12px; padding:10px;">
+                     
+                        <!-- Products Dropdown -->
+                        <div class=" col-sm-6 col-md-4" style="padding-right: 5px;">
                             <label>Products</label>
                             <select class="Products form-control">
                                 <option class="default" value="0">----All----</option>
                             </select>
                         </div>
 
-                        <div class="col-xs-4" style="width: 10%;">
+                        <!-- Show Button -->
+                        <div class=" col-sm-6 col-md-2" style="padding-left: 5px;">
                             <label>&nbsp;</label>
-                            <button class="btn btn-insoft form-control" type="button" id="showButton">
+                            <button class="btn btn-insoft btn-sm" type="button" id="showButton">
                                 <i class="feather icon-search"></i> Show
                             </button>
                         </div>
+                       
                     </div>
+
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="btn-group pull-right" style="float:right; padding:10px!important;">
+                            <div class="btn-group  btn-sm pull-right" style="float:right; padding:10px!important;">
                                 <div class="input-group">
                                     <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="search-addon">
+                                        <span class="btn m-2 p-2 input-group-text" id="search-addon">
                                             <i class="feather icon-search"></i>
                                         </span>
                                     </div>
@@ -99,10 +104,12 @@
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                                         Status of <b><span class="Customerr"></span></b>'s' Subscription of <b><span class="selectedProduct"></span></b>
                                         <span class="userEmail" hidden></span>
+                                        <span class="userPhone" hidden></span>
                                     </h1>
                                     <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; position: relative;">
                                     <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                         <thead>customer's log  
                                             <tr style="background-color: #0b3b56; color: white;">
@@ -120,6 +127,7 @@
                                         </thead>
                                         <tbody></tbody>
                                     </table>
+                                    </div>
 
                                     <div class="cardProceed">
                                         <form>
@@ -207,12 +215,12 @@
                                 <i class="feather icon-file"></i> PDF
                             </button>
                             <button onclick="printTable()" class="btn rounded btn-sm btn-info">
-                                <i class="feather icon-window"></i> Print
+                                <i class="feather icon-printer"></i> Print
                             </button>
                         </div>
 
                     <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative;">
-                            <table id="agentTable" class="table-responsive agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                            <table id="agentTable" class=" agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                 <thead>
                                     <tr style="background-color: #0b3b56; color: white;">
                                         <th class="center">S.N</th>
@@ -275,7 +283,7 @@
 
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
-                tableDOM += `<tr data-id="${jsondata[i]['Id']}" data-email=` + jsondata[i]["UserEmail"] + `>
+                tableDOM += `<tr data-id="${jsondata[i]['Id']}" data-email=` + jsondata[i]["UserEmail"] + ` data-phone=` + jsondata[i]["UserContact"] + `>
                                     <td class="center"><b>${i + 1}.</b></td>
                                     <td class="center custCode">${jsondata[i]['Customercode']}</td>
                                     <td class="center custName">${jsondata[i]['CustomerName']}</td>
@@ -383,6 +391,7 @@
         $(".selectedProduct").text(ProductName);
         var userEmail = $(this).parents("tr").attr("data-email");
         $("#statusModal").find(".userEmail").text(userEmail);
+        $("#statusModal").find(".userPhone").text($(this).parents("tr").attr("data-phone"));
         loadplansforcustomerandproduct(id, ProductId);
         $("#custid").val(id);
         $("#prodid").val(ProductId);
@@ -474,65 +483,123 @@
             $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
         }
     }
-    $(document).on('click', '.btnExtendPlan', async function () {
+    $(document).on('click', '.btnExtendPlan', async function (event) {
+        event.preventDefault();  // Prevent default form submission behavior
 
-        if($(".rem").val()==""){
+        // Check if Remarks are provided
+        if ($(".rem").val() == "") {
             toastr.error("Please fill in a Remarks!!!");
-        }
-        else{
-             var parm={
+        } else {
+            // Prepare necessary data for InsertUpdate
+            var Product = $("#statusModal").find(".selectedProduct").text();
+            var Amount = parseFloat($("#statusModal").find(".Amount").val());
+            var newExpDate = $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate");
+            var PlanName = $("#statusModal").find(".selectedPackages :selected").text();
+
+            var parm = {
                 SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
-                ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
-                PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
+                ExpiryDate: newExpDate,
+                PaidAmount: Amount,
                 Remarks: $("#statusModal").find(".rem").val(),
-                CustomerId:parseInt($("#custid").val()),
+                CustomerId: parseInt($("#custid").val()),
                 ProductId: parseInt($("#prodid").val()),
-                TransactionId:0,
-                PaymentMethod:'cash',
-                ReferenceId:0,
-                PaymentPartner:'none',
-                GeneratedSerialNo:'sn001',
+                TransactionId: 0,
+                PaymentMethod: 'admin',
+                ReferenceId: 0,
+                PaymentPartner: 'none',
+                GeneratedSerialNo: 'sn001',
                 VoucherImage: ''
-             }
-             debugger
+            };
+
             try {
+              debugger
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-                if (cpp > 0) {
-                    debugger
-                    var codeBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
-                                                <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 36px 20px;">
-                                                    <div style="padding: 0;">
-                                                        <div style='display: flex; justify-content: center;'>
-                                                            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="max-width: 100%; height: auto;">
-                                                        </div>
-                                                        <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension successfull</h2>
+                if (cpp == 'Success') {
+                    //--------------------- Send SMS on successful extension of the subscription plan --------------------
+                    var smsParm = {
+                        SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan amounting to Rs.${Amount}. The plan will expire on ${newExpDate}`,
+                        MobileNo: $("#statusModal").find(".userPhone").text()
+                    };
 
-                                                        <div style="font-size: 14px; font-weight: 500; margin: 0 30px;">
-                                                            <form style="text-align:left;">
-                                                                <div style="margin-bottom: 20px;">
-                                                                  <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Dear valued customer, your subscription of `+ (parseFloat($("#statusModal").find(".Amount").val())) + ` has been extended.</label>
-                                                                  <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Your subscription of the plan will expire on `+ ($("#statusModal").find(".selectedPackages :selected").attr("data-expiredate")) + `.</label>
-                                                                </div>
+                    // Send SMS
+                    var successmsg = await AjaxCall("/Dashboard/SendSMS", smsParm);
+                    var jsondata = JSON.parse(successmsg);
 
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>`;
+                    //------------------------- Send Email on successful extension --------------------
+                    var emailBody = `
+                        <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                            <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                <div style="text-align: center;">
+                                    <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                </div>
+                                <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
+                                <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
 
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
+                                    Below are the details of your extended subscription:
+                                </p>
+
+                                <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                    <tr style="background-color: #f4f4f4; text-align: left;">
+                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                    </tr>
+                                </table>
+
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    The new expiry date for your subscription is <strong>${newExpDate}</strong>.
+                                    If you have any questions or require further assistance, feel free to contact us at 061-543815.
+                                </p>
+
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
+                                </p>
+
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    Best regards, <br>
+                                    Insoft Research & Development
+                                </p>
+                            </div>
+                        </div>`;
+
+                    // Prepare the email data
                     const toUser = {
                         ReceiverEmail: $("#statusModal").find(".userEmail").text(),
                         Subject: "Subscription Extended",
-                        EmailBody: codeBody,
+                        EmailBody: emailBody,
                     };
 
+                    // Send Email
                     var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
 
+                    // Reset form fields after successful processing
+                    $("#statusModal").find(".selectedProduct").text('');
+                    $("#statusModal").find(".Amount").val('');
+                    $("#statusModal").find(".rem").val('');
+                    $("#statusModal").find(".selectedPackages :selected").text('');
+                    $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate", '');
+
+                    // Notify the user of success
+                    toastr.success("Subscription Extension Successful!!!");
+
+                    // Close the modal
+                    $("#statusModal").modal('hide');
+
+                    // Refresh the table data
+                    getTableData();
                 } else {
-                    toastr.error("Something went wrong");
+                    toastr.error("Something went wrong with the subscription extension.");
                 }
             } catch (error) {
                 console.error("Error during AjaxCall:", error);
+                toastr.error("An error occurred during the process.");
             }
         }
     });

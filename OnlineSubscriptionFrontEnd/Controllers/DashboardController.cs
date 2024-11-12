@@ -1,7 +1,11 @@
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using OnlineSubscriptionFrontEnd.Classes;
 using OnlineSubscriptionFrontEnd.Models;
+using OnlineSubscriptionFrontEnd.Models.Insoft;
 
 
 
@@ -96,6 +100,33 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             else
             {
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SendSMS([FromBody] SMSResponse sa)
+        {
+            try
+            {
+                string tokenNo = HttpContext.Session.GetString("TokenNo");
+                if (tokenNo is null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    sa.TokenNo = tokenNo;
+                    string successcode = await ApiCall.ApiCallWithObject("SMS/SendSMS", sa, "Post");
+
+                    //  JObject templateList = (JObject)JsonConvert.DeserializeObject(successcode);
+                    return Json(successcode);
+                }
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                return Ok("Exception:" + Exception);
             }
         }
 
