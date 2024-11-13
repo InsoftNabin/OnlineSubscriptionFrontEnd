@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<style>
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .card-header {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .card-body {
+        margin-top: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+
+    .card:active {
+        background-color: #f7f7f7;
+    }
+</style>
+
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">
+                    <i class="feather icon-home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">SMS Api Setup</a>
+            </li>
+        </ul>
+    </div>
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+                </div>
+                <div class="page-content">
+                    <div class="content-body">
+                        <div class="clearfix well" style="display: flex; justify-content: space-between;">
+                            <!-- Card 1 -->
+                            <div class="card" id="card1" onclick="enableCard(1)" style="cursor: pointer; width: 45%;">
+                                <div class="card-header center">
+                                    <h1>Insoft (same from schoolerp)</h1>
+                                </div>
+                                <div class="card-body" id="card1-body">
+                                    <div class="form-group">
+                                        <label for="senderid1">Sender ID</label>
+                                        <input type="text" class="form-control" id="senderid1" disabled value="insoft">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smsApiToken1">SMS API Token</label>
+                                        <input type="text" class="form-control" id="smsApiToken1" disabled value="EB069C1D-CF99-4B0D-8A25-0A2E3274CBC6">
+                                    </div>
+                                    <div class="center">
+                                        <button type="button" class="btn btn-success" onclick="saveSettings(1)" disabled>Save &nbsp;<i class="feather icon-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="card" id="card2" onclick="enableCard(2)" style="cursor: pointer; width: 45%;">
+                                <div class="card-header center">
+                                    <h1>Others</h1>
+                                </div>
+                                <div class="card-body" id="card2-body">
+                                    <div class="form-group">
+                                        <label for="senderid2">Sender ID</label>
+                                        <input type="text" class="form-control" id="senderid2" disabled value="bipin">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smsApiToken2">SMS API Token</label>
+                                        <input type="text" class="form-control" id="smsApiToken2" disabled value="2321C459-97F8-4629-A939-AF03D7DC9EF2">
+                                    </div>
+                                    <div class="center">
+                                        <button type="button" class="btn btn-success" onclick="saveSettings(2)" disabled>Save&nbsp; <i class="feather icon-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function enableCard(cardNumber) {
+        $("#card1-body input, #card1-body button").prop("disabled", true);
+        $("#card2-body input, #card2-body button").prop("disabled", true);
+
+        if (cardNumber === 1) {
+            $("#card1-body input, #card1-body button").prop("disabled", false);
+        } else {
+            $("#card2-body input, #card2-body button").prop("disabled", false);
+        }
+    }
+
+    async function saveSettings(cardNumber) {
+
+        
+        var senderId, smsApiToken;
+
+        if (cardNumber === 1) {
+            senderId = $("#senderid1").val();
+            smsApiToken = $("#smsApiToken1").val();
+        } else {
+            senderId = $("#senderid2").val();
+            smsApiToken = $("#smsApiToken2").val();
+        }
+
+        var parm = {
+            SMSApiToken: smsApiToken,
+            senderId: senderId
+        };
+
+        try {
+            var req = await $.ajax({
+                url: "/SMSApiSetup/InsertUpdateSMSKeyDetails",
+                type: "POST",
+                data: JSON.stringify(parm),
+                contentType: "application/json",
+                dataType: "json"
+            });
+
+            if (req.success) {
+                alert("Settings saved successfully!");
+            } else {
+                alert("Error saving settings.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while saving the settings.");
+        }
+    }
+</script>

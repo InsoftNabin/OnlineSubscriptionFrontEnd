@@ -2,6 +2,7 @@
 {
     public class FonePayResponse
     {
+        public string prn { get; set; }
         public string hashKey { get; set; } = "";
         public string qrMessage { get; set; } = "";
         public string clientCode { get; set; } = "";

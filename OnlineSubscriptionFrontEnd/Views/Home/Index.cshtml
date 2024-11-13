@@ -344,7 +344,7 @@
                                     <div class="image-input-wrapper w-125px h-125px rounded">
                                         <img src="~/assets/media/logos/logo.png"
                                              class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
-                                             data-name="" />
+                                             data-name="" required />
                                     </div>
                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                                         <i class="bi bi-pencil-fill fs-7"></i>
@@ -512,7 +512,7 @@
 
                     <div class="tab-content" style="margin-top:20px;">
                         <!-- Subscription Details Tab -->
-                        <div id="Log" class="tab-pane ">
+                        <div id="Log" class="tab-pane table-responsive">
                             <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                 <thead>
                                     <tr style="background-color: #0b3b56; color: white;">
@@ -617,11 +617,16 @@
                 <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h1> You are Paying to</h1>
                 <div id="generated-qr-container" class="d-flex justify-content-center">
                     <!-- QR Code will be dynamically inserted here -->
 
                     <div id="generated-qr"></div>
                 </div>
+
+                <h1 class="text-center modal-title fs-5" id="hehe" >
+                   <br /> INSOFT RESEARCH AND DEVELOPMENT<br /> an amount of <span id="AmountQr"></span>
+                </h1>
             </div>
         </div>
     </div>
@@ -704,7 +709,7 @@
                 <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
                     <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
                         &nbsp;
-                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName"></span>
+                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
                     </i>
                 </div>
                 <!--begin::User account menu-->
@@ -756,11 +761,11 @@
             body += `
                 <div class="app-content flex-column-fluid">
                     <div class="app-container container-xxl">
-                        <div class="row gap-4">
+                        <div class="row">
                             <!-- Your Info Section (col-xs-3) -->
                             <div class="col-12 col-xs-3">
                                 <div class="card card-flush bg-body mb-9">
-                                                <h2 class="card-title fs-2 fw-bold text-dark py-4 px-8">Your Info <i class="fs-1 fa fa-user"></i></h2>
+                                                <h2 class="card-header fs-2 fw-bold text-dark p-8">Your Info <i class="fs-1 fa fa-user"></i></h2><hr>
                                     <div class="card-body pt-2 px-4">
                                         <div class="mb-5">
                                             <div class="d-flex row mb-5">
@@ -791,7 +796,7 @@
             // Check if there are any organizations
             if (IncludeData.length > 0) {
                 body += `
-                    <div class="row flex-wrap">
+                    <div class="col-12">
                 `;
 
                 // Loop through the organizations and create cards
@@ -801,39 +806,68 @@
                     body += `
             <div class="col-12">
                 <div class="card my-4 col-12 shadow">
-                    <div class="d-flex p-8 flex-column">
-                        <div class="row">
-                            <div class="text-center image-input-wrapper w-125px h-65px rounded pt-4 col-3">
-                                <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65" style="object-fit:contain;">
-                            </div>
+                    <div class="flex-column">
+                           <div class="row">
+        <!-- Image Section -->
+        <div class="col-6 col-md-4">
+            <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
+                <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65" style="object-fit:contain;">
+            </div>
+        </div>
 
-                            <div class="col-6 px-8">
-                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1 col-7">${IncludeData[i].CompanyName}</a>
+        <!-- Company Name & Address Section -->
+        <div class="col-6 col-md-4">
+            <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
+            <div class="d-flex flex-stack fs-4 my-4">
+                <div class="fw-bold">${IncludeData[i].Address}</div>
+            </div>
+        </div>
 
-                                <div class="d-flex flex-stack fs-4 my-4">
-                                    <div class="fw-bold">${IncludeData[i].Address}</div>
-                                </div>
-                            </div>
+        <!-- Verified / Unverified Section -->
+        ${IncludeData[i].IsVerified == 1 ? `
+            <div class="col-12 col-md-4">
+                <div class="d-flex flex-column align-items-center">
+                    <!-- Badge and Button Container -->
+                    <div class="d-flex flex-column align-items-center mb-3">
+                        <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
+                            <i class="feather icon-check-circle"></i>&nbsp;Verified
+                        </span>
+                        <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#statusModal"
+                            class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
+                            data-phone="${IncludeData[i].UserContact}"
+                            style="height:35px;"
+                            data-prod="${IncludeData[i].ModuleName}"
+                            data-userEmail="${IncludeData[i].userEmail}"
+                            data-productid="${IncludeData[i].ProductId}"
+                            data-custid="${IncludeData[i].custId}">
+                            Extend/Log &nbsp;
+                        </button>
+                    </div>
 
-                            <!-- Verified / Unverified Section -->
-                            ${IncludeData[i].IsVerified == 1 ? `
-                                <div class="card-toolbar d-flex justify-content-between align-items-center col-4">
-                                    <span class="badge badge-success fw-bold px-4 py-3 fs-3"> <i class="feather icon-check-circle"></i>&nbsp;Verified</span>
-                                                    <button data-bs-toggle="modal" data-bs-target="#statusModal" class="viewSub btn btn-sm btn-danger" data-phone="${IncludeData[i].UserContact}" style="height:35px;" data-prod="${IncludeData[i].ModuleName}" data-userEmail="${IncludeData[i].userEmail}" data-productid="${IncludeData[i].ProductId}" data-custid="${IncludeData[i].custId}">
-                                        Extend/Log &nbsp;
-                                    </button>
-                                    <div id="${chartId}" data-label="0/0"
-                                         class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger"
-                                         style="flex-shrink: 0; background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
-                                                font-size: 12px;
-                                                display: flex;
-                                                align-items: center;
-                                                justify-content: center;">
-                                        <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
-                                    </div>
-                                </div>
-                            </div>
-                            ` : `
+                    <!-- Card and Radial Bar -->
+                    <div class="card w-100">
+                        <div id="${chartId}"
+                            data-label="0/0"
+                            class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
+                            style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
+                                   font-size: 12px;
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;">
+                            <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+    </div>
+
+    <hr>
+
+
+                                    ` : `
                                 <div class="card-toolbar d-flex justify-content-between align-items-center col-4">
                                     <span class="badge badge-danger fw-bold px-4 py-3 fs-3"><i class="feather icon-cross-square"></i>&nbsp;UnVerified</span>
                                     <span class="btn btn-warning">Pending</span>
@@ -844,7 +878,7 @@
                         <!-- If verified, show more details -->
                         ${IncludeData[i].IsVerified == 1 ? `
                             <div class="px-8">
-                                <b><label class="fw-bold fs-5 d-block form-label mt-2 col-4">Product:<span class="ProductName">${IncludeData[i].ModuleName}</span></b></label><br>
+                                <div class="row"><b><span class="fw-bold fs-5 d-block ml-0  mt-2 col-12">Product:<span class="ProductName">${IncludeData[i].ModuleName}</span></b></label><br></div>
                                 <span class="fw-bold fs-5">Your Sitelink:
                                     <a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>
                                 </span>
@@ -892,7 +926,7 @@
                         <div id="${detailsCollapseId}" class="collapse p-8">
                             <hr class="bg-dark border-2 border-top border-dark" />
                             <div class="py-5 fs-6">
-                                <div class="badge badge-light-info d-inline"></div>
+                               
                                 <div class="d-flex flex-row gap-4 mt-5">
                                     <div class="fw-bold col-4">Display Name</div>
                                     <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
@@ -954,10 +988,7 @@
 
         // Payment method change event
         $('input[name="payment"]').change(async function () {
-            if ($(this).attr('id') === 'upload') {
-                $fileUpload.show();
-                $qrCode.hide();
-            } else if ($(this).attr('id') === 'fonepay') {
+            if ($(this).attr('id') === 'fonepay') {
                 if ($(".rem").val() == "") {
                     $(this).attr("required", true);
                     toastr.error("Please enter a remarks before proceeding to payment!!!");
@@ -971,26 +1002,32 @@
 
                         if (amount) {
                             var bankDetails = {
-                                amount: amount,
+                                amount: 0.01,  // amount ,
                                 Purpose: "Live",
                                 Remarks1: "Remarks 1",
                                 Remarks2: "Remarks 2"
                             };
 
+                            // Call the backend to generate QR code and get the PRN
                             var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
                             var response = JSON.parse(aahaha);
                             $("#statusModal").modal('hide');
                             $("#QRModal").modal('show');
 
-                            if (response[0] && response[0]["hashKey"]) {
-                                var hashKey = response[0]["hashKey"];
+                            // Ensure response contains hashKey and prn
+                            if (response && response.prn && response.hashKey) {
+                                var prn = response.prn;  
+                                $("#QRModal").find("#AmountQr").text(amount); 
 
-                                // Clear any existing QR code
+                                var hashKey = response.hashKey; 
+                                var qrMessage = response.qrMessage; 
+
+                                // Clear any existing QR code before generating a new one
                                 $("#generated-qr").empty();
-                                $("#QRModal").find("#generated-qr").empty();
-                                // Generate QR Code
+
+                                // Generate the QR code
                                 new QRCode($("#QRModal").find("#generated-qr")[0], {
-                                    text: hashKey,
+                                    text: qrMessage,
                                     width: 250,
                                     height: 250,
                                     colorDark: "#000000",
@@ -998,21 +1035,20 @@
                                     correctLevel: QRCode.CorrectLevel.H
                                 });
 
-                                $qrCode.show();
+                                $qrCode.show(); // Show QR Code modal
 
-                                var param = {
-                                    qrHashKey: response[0]["hashKey"]
-                                };
+                                // Flag to check if payment has been successfully processed
+                                var paymentSuccessHandled = false;
 
-                                // Start checking payment status every 2 seconds
+                                // Start checking payment status every 2 seconds for this specific transaction (by prn)
                                 var paymentStatusInterval = setInterval(async function () {
-                                    var getQRresponse = await AjaxCall("/QRCodeForPayment/GetPaymentStatus", param);
+                                    var getQRresponse = await AjaxCallNoAsync("/QRCodeForPayment/GetPaymentStatus", { qrHashKey: hashKey, prn: prn });
                                     var paymentResponse = JSON.parse(getQRresponse);
+                                    debugger
+                                    if (paymentResponse[0]["paymentStatus"] === 'success' && !paymentSuccessHandled) {
+                                        paymentSuccessHandled = true; // Set the flag to true, meaning we've handled success
 
-                                    if (paymentResponse[0]["paymentStatus"] === 'success') {
-
-                                        //----------------extend the subscription in database----------
-
+                                        // Handle successful payment, update database, send SMS/email, etc.
                                         var parm = {
                                             SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
                                             ExpiryDate: newExpDate,
@@ -1027,64 +1063,60 @@
                                             GeneratedSerialNo: 'sn001',
                                             VoucherImage: ''
                                         };
+
                                         var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-                                        if (cpp != 'Success') {                      //--------------the plan not entered in the database--------
+                                        if (cpp != 'Success') {
                                             toastr.error("Server side problem in extending the Plan");
-                                        }else{
-                                            await GetOrganizations();
+                                        } else {
+                                            await GetOrganizations(); // Reload or refresh data
                                         }
-                                        //------------------------- Send SMS on successful payment-----------------
+
+                                        // Send success SMS to the user
                                         var parm = {
-                                            SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan amounting to Rs.${Amount}. The plan will expire on ${newExpDate}.Thank you for choosing Insoft R & D.`,
+                                            SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan amounting to Rs.${Amount}. The plan will expire on ${newExpDate}. Thank you for choosing Insoft R & D.`,
                                             MobileNo: $("#statusModal").find(".userPhone").text()
                                         };
 
                                         var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
 
-                                        clearInterval(paymentStatusInterval);
-                                        //--------------------- Send email to customer about subscription extension------------
+                                        // Send confirmation email to the user
                                         const codeBody = `
-                                         <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
-                                             <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
-                                                 <div style="text-align: center;">
-                                                     <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
-                                                 </div>
-                                                 <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
-                                                 <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
-
-                                                 <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
-                                                     We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
-                                                     Below are the details of your extended subscription:
-                                                 </p>
-
-                                                 <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
-                                                     <tr style="background-color: #f4f4f4; text-align: left;">
-                                                         <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
-                                                         <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
-                                                         <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
-                                                     </tr>
-                                                     <tr>
-                                                         <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
-                                                         <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
-                                                         <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
-                                                     </tr>
-                                                 </table>
-
-                                                 <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
-                                                     The new expiry date for your subscription is <strong>${newExpDate}</strong>.
-                                                     If you have any questions or require further assistance, feel free to contact us at 061-543815.
-                                                 </p>
-
-                                                 <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
-                                                     Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
-                                                 </p>
-
-                                                 <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
-                                                     Best regards, <br>
-                                                     Insoft Research & Development
-                                                 </p>
-                                             </div>
-                                         </div>`;
+                                    <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                        <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                            <div style="text-align: center;">
+                                                <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                            </div>
+                                            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
+                                            <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
+                                            <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
+                                                Below are the details of your extended subscription:
+                                            </p>
+                                            <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                <tr style="background-color: #f4f4f4; text-align: left;">
+                                                    <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                    <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                    <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                    <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                    <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                </tr>
+                                            </table>
+                                            <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                The new expiry date for your subscription is <strong>${newExpDate}</strong>.
+                                                If you have any questions or require further assistance, feel free to contact us at 061-543815.
+                                            </p>
+                                            <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
+                                            </p>
+                                            <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                Best regards, <br>
+                                                Insoft Research & Development
+                                            </p>
+                                        </div>
+                                    </div>`;
 
                                         const toUser = {
                                             ReceiverEmail: $("#statusModal").find(".userEmail").text(),
@@ -1094,45 +1126,40 @@
 
                                         var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
 
-                                        //-------------------- Send email to Insoft team------------------------------
+                                        // Send email to Insoft team
                                         const insoftEmailBody = `
-                                                              <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
-                                                                  <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
-                                                                      <div style="text-align: center;">
-                                                                          <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
-                                                                      </div>
-                                                                      <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Payment Successful - Subscription Extension</h2>
-                                                                      <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Team,</p>
-
-                                                                      <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
-                                                                          The subscription of the <strong>${Product}</strong> product has been successfully extended by the Customer themselves through the FonePay QR provided in our Software..
-                                                                          Below are the details of the transaction:
-                                                                      </p>
-
-                                                                      <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
-                                                                          <tr style="background-color: #f4f4f4; text-align: left;">
-                                                                              <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
-                                                                              <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
-                                                                              <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
-                                                                          </tr>
-                                                                          <tr>
-                                                                              <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
-                                                                              <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
-                                                                              <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
-                                                                          </tr>
-                                                                      </table>
-
-                                                                      <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
-                                                                          The new expiry date for this subscription is <strong>${newExpDate}</strong>.
-                                                                          For more information, please refer to the transaction details or contact the customer support team.
-                                                                      </p>
-
-                                                                      <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
-                                                                          Best regards, <br>
-                                                                          Insoft Research & Development
-                                                                      </p>
-                                                                  </div>
-                                                              </div>`;
+                                    <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                        <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                            <div style="text-align: center;">
+                                                <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                            </div>
+                                            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Payment Successful - Subscription Extension</h2>
+                                            <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Team,</p>
+                                            <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                The subscription of the <strong>${Product}</strong> product has been successfully extended by the Customer themselves through the FonePay QR provided in our Software..
+                                                Below are the details of the transaction:
+                                            </p>
+                                            <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                <tr style="background-color: #f4f4f4; text-align: left;">
+                                                    <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                    <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                    <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                    <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                    <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                </tr>
+                                            </table>
+                                            <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                The customer is now subscribed to the new plan until <strong>${newExpDate}</strong>.
+                                            </p>
+                                            <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                Best regards, <br>
+                                                Insoft Research & Development
+                                            </p>
+                                        </div>
+                                    </div>`;
 
                                         const toInsoft = {
                                             ReceiverEmail: "insoftrnd@gmail.com",
@@ -1143,24 +1170,19 @@
                                         // Send email to Insoft team
                                         var insoftEmail = await AjaxCall("/Dashboard/SendEmail", toInsoft);
 
-                                        clearInterval(paymentStatusInterval);
+                                        clearInterval(paymentStatusInterval); // Stop checking payment status
                                         toastr.success("Subscription Extension Successful!!!");
+                                        $("#statusModal").find(".rem").val('');
                                         $("#QRModal").modal('hide');
-                                        getTableData(); // Reload data or refresh table
-
-                                        // Stop the interval once payment is successful and handled
-                                        clearInterval(paymentStatusInterval);
-
-                                        // Close QR Modal and show success message
-                                        $("#QRModal").modal('hide');
-                                        toastr.success("Payment of Rs." + paymentResponse[0]["totalTransactionAmount"] + " is Successful!!");
-                                    }
-                                    else if (paymentResponse[0]["paymentStatus"] === 'failed') {
-                                        toastr.error("Payment failed. Please try again.");
-                                        clearInterval(paymentStatusInterval);
+                                        getTableData(); // Reload table data
                                     }
 
-                                }, 2000);  // Check every 2 seconds
+                                    // Handle failed payment status (optional)
+                                    // else if (paymentResponse[0]["paymentStatus"] === 'failed') {
+                                    //     toastr.error("Payment failed for PRN: " + prn + ". Please try again.");
+                                    //     clearInterval(paymentStatusInterval);
+                                    // }
+                                }, 2000); // Poll every 2 seconds
                             } else {
                                 $qrCode.hide();
                             }
@@ -1168,11 +1190,13 @@
                             $qrCode.hide();
                         }
                     }
-                    $fileUpload.hide();
-                    $qrCode.show();
                 }
+            }else{
+
             }
-        });
+    });
+
+
         // File input validation
         $fileInput.change(function () {
             const file = this.files[0];

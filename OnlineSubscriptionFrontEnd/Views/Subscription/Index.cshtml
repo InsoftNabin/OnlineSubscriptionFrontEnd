@@ -125,6 +125,8 @@
                             <th class="center">S.N</th>
                             <th class="center">Name</th>
                             <th class="center">Number of Days</th>
+                            <th class="center">Status</th>
+
                             <th class="center">Edit</th>
                             <th class="center">Delete</th>
                         </tr>
@@ -198,12 +200,13 @@
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + ` data-name=` + jsondata[i]["Name"] + ` data-noom=` + jsondata[i]["NoOfMonth"] + `>
-                                    <td class="center">` + (i + 1) + `</td>
-                                    <td class="center" class="subName">` + jsondata[i]["Name"] + `</td>
-                                    <td class="center" class="subMonth">` + jsondata[i]["NoOfMonth"] + `</td>
-                                    <td class="center"><button class="btn btn-success btn-edit"><i class="feather icon-edit" ></i> </button></td>
-                                    <td class="center"><button class="btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
-                                </tr>`;
+                                      <td class="center">` + (i + 1) + `</td>
+                                      <td class="center subName">` + jsondata[i]["Name"] + `</td>
+                                      <td class="center subMonth">` + jsondata[i]["NoOfMonth"] + `</td>
+                                      <td class="center status">` + jsondata[i]["PaidStatus"] + `</td>
+                                      <td class="center"><button class="btn btn-success btn-edit"><i class="feather icon-edit" ></i> </button></td>
+                                      <td class="center"><button class="btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+                                  </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
         } else {
@@ -213,10 +216,20 @@
 
     $(document).on("click", ".btn-edit", function () {
         const row = $(this).closest("tr");
-        $("#id").val(row.data("id")); 
+        
+        $("#id").val(row.data("id"));
         $("#name").val(row.data("name"));
         $("#noom").val(row.data("noom"));
+
+      
+        const status = row.find(".status").text().trim();
+        if (status === 'Paid') {
+            $("#IsPaidBased").prop("checked", true);
+        } else {
+            $("#IsPaidBased").prop("checked", false);
+        }
     });
+
 
 
     $(document).on("click", ".btn-delete", async function () {

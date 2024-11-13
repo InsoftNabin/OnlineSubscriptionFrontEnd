@@ -15,7 +15,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         {
             return View();
         }
-       
+
 
         [HttpPost]
         public async Task<IActionResult> FonePayProceed([FromBody] FonePayRequest fpr1)
@@ -31,12 +31,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 string data = await ApiCall.ApiCallWithObject("/QRCodeForPayment/GetFonePayDetails1", TokenNo, "Post");
                 string unescapedData = JsonConvert.DeserializeObject<string>(data);
                 var fpluList = JsonConvert.DeserializeObject<List<FonepayLookup>>(unescapedData);
-                
-                
-                //FonepayLookup fl = JsonConvert.DeserializeObject<FonepayLookup>(data);
-                //List<FonepayLookup> fpluList = JsonConvert.DeserializeObject<List<FonepayLookup>>(data);
-               
-                
+
                 FonepayLookup fplu = fpluList.FirstOrDefault();
 
                 FonePayRequest fpr = new FonePayRequest
@@ -46,64 +41,31 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                     Remarks2 = fpr1.Remarks2,
                     merchantCode = fplu.FonepayMerchantCode,
                     SecretKey = fplu.FonePaySecurityCode,
-                    prn = "8bdac3ac-5071-46b3-bd41-a20c180c08c9",//new Guid().ToString(),
+                    prn = Guid.NewGuid().ToString(),
                     username = fplu.FonePayUserName,
                     password = fplu.FonePayPassword,
                     Purpose = fpr1.Purpose
                 };
 
-                string reqData = await ApiCall.FonePayApiCallWithObject("/DynamicQR/GetQrCode", fpr,"Post");
+                string reqData = await ApiCall.FonePayApiCallWithObject("/DynamicQR/GetQrCode", fpr, "Post");
 
-                return Ok(reqData);
+               
+                var response = JsonConvert.DeserializeObject<List<FonePayResponse>>(reqData);
+                var responseData = response.FirstOrDefault();
 
+               
+                if (responseData != null)
+                {
+                    responseData.prn = fpr.prn; 
+                }
+
+                return Ok(responseData);  
             }
             catch (Exception ex)
             {
                 return Ok("Exception: " + ex.ToString());
             }
         }
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> GetPaymentStatus()
-        //{
-        //    try
-        //    {
-        //        string TokenNo = HttpContext.Session.GetString("TokenNo");
-        //        if (TokenNo == null)
-        //        {
-        //            return Ok("-21");
-        //        }
-        //        string data = await ApiCall.ApiCallWithObject("/QRCodeForPayment/GetFonePayDetails1", TokenNo, "Post");
-        //        string unescapedData = JsonConvert.DeserializeObject<string>(data);
-        //        var fpluList = JsonConvert.DeserializeObject<List<FonepayLookup>>(unescapedData);
-
-
-        //        FonepayLookup fplu = fpluList.FirstOrDefault();
-
-        //        PaymentStatusResponse fpr = new PaymentStatusResponse()
-        //        {
-
-        //            merchantCode = fplu.FonepayMerchantCode,
-        //            prn = "8bdac3ac-5071-46b3-bd41-a20c180c08c9",//new Guid().ToString(),
-        //            requestedAmount=  fpr.requestedAmount   ,
-        //            totalTransactionAmount= fpr.totalTransactionAmount  
-        //        };
-
-        //        string reqData = await ApiCall.FonePayApiCallWithObject("/DynamicQR/GetPaymentStatus", fpr, "Post");
-
-        //        return Ok(reqData);
-
-
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw e;
-        //    }
-
-
-        //}
 
 
         [HttpPost]
@@ -133,7 +95,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 PaymentStatusRequest fpr = new PaymentStatusRequest()
                 {
                     merchantCode = fplu.FonepayMerchantCode,
-                    prn = "8bdac3ac-5071-46b3-bd41-a20c180c08c9",
+                    prn = aa.prn,    
                     username=fplu.FonePayUserName,
                     password=fplu.FonePayPassword,
                    qrHashKey=aa.qrHashKey

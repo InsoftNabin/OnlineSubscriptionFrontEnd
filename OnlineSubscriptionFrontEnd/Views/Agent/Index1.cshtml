@@ -1,0 +1,382 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<style>
+    .btn-edit,.btn-delete{
+        border-radius:8px;
+    }
+
+</style>
+
+
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left:10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">
+                    <i class="feather icon-home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Agent</a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Agent List</a>
+            </li>
+        </ul>
+    </div>
+    <div class="pcoded-inner-content">
+
+        <div class="main-body">
+
+            <div class="page-wrapper">
+                <div class="page-body">
+
+<div class="page-content">
+    <div class="content-body">
+        <div class="clearfix well">
+
+
+
+            <div class="accordion" id="productAccordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0 d-flex justify-content-between">
+                            <button class="btn btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius:12px; text-decoration: none;">
+                                                    <h5 style="color:white;">Add New Agent &nbsp;<i class="feather icon-plus"></i></h5>
+                            </button>
+                            <button class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
+                                                    <i class="feather icon-chevron-up" id="toggleArrow"></i>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group" hidden>
+                                    <label for="productId">Agent ID (Optional):</label>
+                                    <input type="number" class="form-control" id="productId" />
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="productName">Name:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="productName" placeholder="Enter Name" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="contactPerson">Contact Person:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="contactPerson" placeholder="Enter Contact Person" required />
+                                    </div>
+                                
+                                    <div class="form-group col-md-4">
+                                        <label for="address">Address:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="address" placeholder="Enter Address" required />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control border border-dark rounded" id="email" placeholder="Enter Email" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="website">Website:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="website" placeholder="Enter Website" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="contactNumber">Contact Number:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="contactNumber" placeholder="Enter Contact Number" required />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="bank">Bank:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="bank" placeholder="Enter Bank" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="accountNumber">Account Number:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="accountNumber" placeholder="Enter Account Number" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="panNumber">PAN Number:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="panNumber" placeholder="Enter PAN Number" required />
+                                    </div>
+                                </div>
+
+                               
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="userId">User ID:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="userId" placeholder="Enter User ID" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="password">Password:</label>
+                                        <input type="password" class="form-control border border-dark rounded" id="password" placeholder="Enter Password" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="type">Type:</label>
+                                        <select class="form-control border border-dark rounded" id="type" required>
+                                            <option value="" disabled selected>Select Type</option>
+                                            @* <option value="primary">Primary</option>
+                                            <option value="secondary">Secondary</option>
+                                            <option value="tertiary">Tertiary</option> *@
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="smsToken">SMSToken:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="smsToken" placeholder="Enter SMSToken" required />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="smsSenderId">SMSSenderId:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="smsSenderId" placeholder="Enter SMSSenderId" required />
+                                    </div>
+                                </div>
+
+                                <br />
+                                <button type="button" class="btn btn-success" id="BtnInsert">Save &nbsp; <i class="feather icon-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <h3>The list of Agents registered under INSOFT are listed below:</h3>
+            <div class="clearfix well">
+                <div class="products row">
+                    <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:50dvh;position:relative">
+                    <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="border-collapse: separate;width:100%;padding:0px;">
+                            <thead >
+                                                <tr style="background-color:#0b3b56; color:white;">
+                                    <th class="center">S.N</th>
+                                    <th class="center">Edit</th>
+                                    <th class="center">Delete</th>
+                                    <th class="center">Name</th>
+                                    <th class="center">Contact Person</th>
+                                    <th class="center">Address</th>
+                                    <th class="center">E-mail</th>
+                                    <th class="center">Website</th>
+                                    <th class="center">Bank</th>
+                                    <th class="center">Account Number</th>
+                                    <th class="center">Contact Number</th>
+                                    <th class="center">PAN number</th>
+                                    <th class="center">User Id</th>
+                                    <th class="center">Password</th>
+                                    <th class="center">SMSToken</th>
+                                    <th class="center">SMSSenderId</th>
+                             </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+ <script type="text/javascript">
+    $(document).ready(function () {
+        $('#productAccordion').on('show.bs.collapse', function () {
+            $("#toggleIcon").removeClass("fa-plus").addClass("fa-minus");
+        });
+
+        $('#productAccordion').on('hide.bs.collapse', function () {
+            $("#toggleIcon").removeClass("fa-minus").addClass("fa-plus");
+        });
+        getTableData();
+        getSubscriptionType();
+    });
+    async function getSubscriptionType(){
+        var parmtobeFired = AjaxCallWithoutDataNoAsync("/Subscription/getSubscription");
+        var ab = JSON.parse(parmtobeFired);
+        var jsondata = JSON.parse(ab);
+
+        var subDOM = "";
+        if (jsondata.length>0) {
+            for (var i = 0; i < jsondata.length;i++){
+                subDOM += `<option data-id=` + jsondata[i]["Id"] + ` value=` + jsondata[i]["Name"] + `>` + jsondata[i]["Name"] + `</option>`;
+            }
+            $("#type").empty().append(subDOM);
+        }else{
+            toastr.error("No Types found!!!");
+        }
+    }
+    function resetForm() {
+        $("#productId").val("");
+        $("#productName").val("");
+        $("#contactPerson").val("");
+        $("#address").val("");
+        $("#email").val("");
+        $("#website").val("");
+        $("#contactNumber").val("");
+        $("#bank").val("");
+        $("#accountNumber").val("");
+        $("#panNumber").val("");
+        $("#userId").val("");
+        $("#password").val("");
+        $("#smsToken").val("");
+        $("#smsSenderId").val("");
+        $("#type").val(""); 
+        $(".toggleCollapse").trigger('click');
+        getTableData();
+    }
+
+    $("#addProduct").on("click", function () {
+        $("#collapseOne").css("display", 'block');
+    });
+    $(".toggleCollapse").on("click", function () {
+        $("#collapseOne").css("display", 'none');
+        resetForm();
+    });
+   
+    function getTableData() {
+        var a = AjaxCallWithoutDataNoAsync("/Agent/getAgents");
+        var ab = JSON.parse(a);
+        var jsondata = JSON.parse(ab);
+
+        var tableDOM = "";
+        if (jsondata.length > 0) {
+            for (var i = 0; i < jsondata.length; i++) {
+
+                tableDOM += '<tr data-id='+jsondata[i]["Id"]+'>'
+                    + '<td class="center">' + (i + 1) + '</td>'
+                    + '<td class="center"><button class="btn btn-primary  btn-edit" onclick="editProduct(' + jsondata[i]["Id"] + ')" data-toggle="modal" data-target="#editProductModal"> <i class="feather icon-edit"></i> </button></td>'
+                    + '<td class="center"><button class="btn btn-danger  btn-delete" onclick="deleteProduct(' + jsondata[i]["Id"] + ')" data-toggle="modal" data-target="#editProductModal"> <i class="feather icon-trash"></i> </button></td>'
+                    + '<td class="center">' + jsondata[i]["Name"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["ContactPerson"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["Address"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["Email"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["Website"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["Bank"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["AccountNo"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["ContactNo"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["PanNo"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["UserId"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["Password"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["SMSToken"] + '</td>'
+                    + '<td class="center">' + jsondata[i]["SMSSenderId"] + '</td>'
+                    
+                   
+                    // + '<td class="center"><i class="ace-icon fa fa-trash bigger-130 red"></i></td>'
+                    + '</tr>';
+            }
+            $(".products").find("#agentTable tbody").empty().append(tableDOM);
+        } else {
+            $(".products").empty().append('<p>No products found.</p>');
+        }
+    }
+    $("#BtnInsert").on("click", async function () {
+
+        if ($("#productName").val() === "" || $("#contactPerson").val() === "" || $("#address").val() === "" || $("#email").val() === "" || $("#website").val() === "" || $("#contactNumber").val() === "" || $("#bank").val() === "" || $("#accountNumber").val() === "" || $("#panNumber").val() === "" || $("#userId").val() === "" || $("#password").val() === "" || $("#smsSenderId").val() === "") {
+            toastr.error("Please fill in all the fields!!!.");
+        }
+        else {
+            var parm = {
+                Id: $("#productId").val() ? parseInt($("#productId").val()) : 0,
+                Name: $("#productName").val(),
+                ContactPerson: $("#contactPerson").val(),
+                Address: $("#address").val(),
+                Email: $("#email").val(),
+                Website: $("#website").val(),
+                ContactNo: $("#contactNumber").val(),
+                Bank: $("#bank").val(),
+                AccountNo: $("#accountNumber").val(),
+                PanNo: $("#panNumber").val(),
+                UserId: $("#userId").val(),
+                Password: $("#password").val(),
+                SMSToken: $("#smsToken").val(),
+                SMSSenderId: $("#smsSenderId").val(),
+                Type: $("#type").val()
+            };
+
+            var data = await AjaxCall("/Agent/InsertUpdate", parm);
+            var jsondataresponse = JSON.parse(data);
+            if (jsondataresponse == 1) {
+
+                resetForm();
+                getTableData();
+                location.reload();
+                toastr.success("Agent action successfully!");
+            } else {
+                toastr.error("Failed to insert agent.");
+            }
+        }
+    });
+
+    // Modify the editProduct function to open the accordion and populate fields
+    async function editProduct(id) {
+        var parm = { Id: id };
+
+        var productData = await AjaxCall("/Agent/getAgent", parm);
+        var product = JSON.parse(JSON.parse(productData));
+        if (product.length > 0) {
+            $("#collapseOne").css("display",'block'); 
+
+            $("#productId").val(product[0]["Id"]);
+            $("#productName").val(product[0]["Name"]);
+            $("#contactPerson").val(product[0]["ContactPerson"]);
+            $("#address").val(product[0]["Address"]);
+            $("#email").val(product[0]["Email"]);
+            $("#website").val(product[0]["Website"]);
+            $("#contactNumber").val(product[0]["ContactNo"]);
+            $("#bank").val(product[0]["Bank"]);
+            $("#accountNumber").val(product[0]["AccountNo"]);
+            $("#panNumber").val(product[0]["PanNo"]);
+            $("#userId").val(product[0]["UserId"]);
+            $("#password").val(product[0]["Password"]);
+            $("#smsToken").val(product[0]["SMSToken"]);
+            $("#smsSenderId").val(product[0]["SMSSenderId"]);
+            $("#type").val(product[0]["Type"]); 
+
+        } else {
+            alert("No product found for the selected item.");
+        }
+    }
+
+
+    async function deleteProduct(id) {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        });
+
+        if (result.isConfirmed) {
+            var parm = { Id: id };
+
+            var productData = await AjaxCall("/Agent/DeleteAgent", parm);
+            var productDataa = JSON.parse(productData);
+            var product = JSON.parse(productDataa);
+
+            getTableData();
+            Swal.fire(
+                'Deleted!',
+                'The Agent data has been deleted.',
+                'success'
+            );
+        }
+    }
+
+</script>

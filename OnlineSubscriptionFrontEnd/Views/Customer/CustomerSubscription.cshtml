@@ -384,6 +384,7 @@
     });
 
     $(document).on('click', '.viewSub', function () {
+        
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
         var ProductName = $(this).attr("data-productName");
@@ -425,8 +426,10 @@
        }
 
        //---------------------new/existing plan---------------------
-        var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
-        //var para = await AjaxCall("/CustomerPlanDetails/getCustomerPlanDetails", parm);
+        //var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
+        var para = await AjaxCall("/Customer/getSubsbyCusandProductIdWithUnpaidType", parm);
+       
+//var para = await AjaxCall("/CustomerPlanDetails/getCustomerPlanDetails", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
         if (Jsondata.length > 0) {
@@ -608,6 +611,15 @@
         if ($(this).is(":checked")) {
             $(".CheckPlan").not(this).prop("checked", false);
         }
+    });
+
+    $(".selectedPackages").on("change", async function () {
+        var noOfDays = parseInt($(this).find("option:selected").attr("data-noday")) || 0;
+        var today = new Date();
+        var expireDate = new Date(today);
+        expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
+        var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+        $("#statusModal").find(".expiryDate").val(isoExpireDate);
     });
 
 </script>
