@@ -162,45 +162,54 @@
         var data = JSON.parse(dataa);
 
         var tableDom = "";
-        for (var i = 0; i < data.length; i++) {
-            var rejectButton = '';
-            var verifyButton = '';
-            var rowClass = ''; 
+        if (data.length>0) {
+            for (var i = 0; i < data.length; i++) {
+                var rejectButton = '';
+                var verifyButton = '';
+                var rowClass = '';
 
-            if (data[i]["IsVerifiedPayment"] === -1) {
-                rowClass = 'rejected-row';
-                rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-danger" data-type="reject" disabled> <i class="feather icon-x"></i>&nbsp;Rejected</button>`;
-                verifyButton = ''; // No "Verify" button for status -1
-            } else if (data[i]["IsVerifiedPayment"] === 1) {
-                rowClass = 'verified-row';
-                rejectButton = ''; // No "Reject" button for status 1
-                verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-success" data-type="verify" disabled> <i class="feather icon-check-square"></i>&nbsp;Verified</button>`;
-            } else if (data[i]["IsVerifiedPayment"] === 0) {
-                rowClass = '';
-                rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-danger" data-type="reject" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-x"></i>&nbsp;Reject</button>`;
-                verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-success" data-type="verify" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-check-square"></i>&nbsp;Verify</button>`;
-            }
+                if (data[i]["IsVerifiedPayment"] === -1) {
+                    rowClass = 'rejected-row';
+                    rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-danger" data-type="reject" disabled> <i class="feather icon-x"></i>&nbsp;Rejected</button>`;
+                    verifyButton = ''; // No "Verify" button for status -1
+                } else if (data[i]["IsVerifiedPayment"] === 1) {
+                    rowClass = 'verified-row';
+                    rejectButton = ''; // No "Reject" button for status 1
+                    verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-success" data-type="verify" disabled> <i class="feather icon-check-square"></i>&nbsp;Verified</button>`;
+                } else if (data[i]["IsVerifiedPayment"] === 0) {
+                    rowClass = '';
+                    rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-danger" data-type="reject" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-x"></i>&nbsp;Reject</button>`;
+                    verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-success" data-type="verify" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-check-square"></i>&nbsp;Verify</button>`;
+                }
 
-            tableDom += `<tr data-ukid="` + data[i]["ukid"] + `" class="` + rowClass + `">
-                    <td class="center">`+ data[i]["CustomerName"] + `</td>
-                    <td class="center">`+ data[i]["Name"] + `</td>
-                    <td class="center">`+ data[i]["IssuedDate"] + `</td>
-                    <td class="center">`+ data[i]["PaidAmount"] + `</td>
-                    <td class="center">`+ data[i]["SPlan"] + `</td>
+                tableDom += `<tr data-ukid="` + data[i]["ukid"] + `" class="` + rowClass + `">
+                        <td class="center">`+ data[i]["CustomerName"] + `</td>
+                        <td class="center">`+ data[i]["Name"] + `</td>
+                        <td class="center">`+ data[i]["IssuedDate"] + `</td>
+                        <td class="center">`+ data[i]["PaidAmount"] + `</td>
+                        <td class="center">`+ data[i]["SPlan"] + `</td>
+                            <td class="center">
+                                <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />
+                             </td>
+
                         <td class="center">
-        <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />
-    </td>
-
-                    <td class="center">
-                        ` + rejectButton + `
-                        ` + verifyButton + `
-                    </td>
-                </tr>`;
-
+                            ` + rejectButton + `
+                            ` + verifyButton + `
+                        </td>
+                        </tr>`;
+            }
+            $("#agentTable tbody").empty().append(tableDom);
+        }else{
+            $("#agentTable tbody").empty().append(`
+                                <tr>
+                                        <td colspan="7" class="center">
+                                        <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                            <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                                    </td>
+                                </tr>
+                            `);
         }
-        $("#agentTable tbody").empty().append(tableDom);
     }
-
 
 
     $(document).on("click", ".VorR", async function () {

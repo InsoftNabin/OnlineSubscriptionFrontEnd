@@ -26,7 +26,20 @@
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
-
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="btn-group pull-right" style="float:right; padding:10px!important;">
+                                <div class="input-group">
+                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="search-addon">
+                                            <i class="feather icon-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
   @* <div class="container-xxl d-flex flex-stack">
     <div
@@ -338,7 +351,7 @@
   var orgData;
 
   $(document).on("click", ".btnView", async (event) => {
-      debugger
+      
     var userName = $(event.target).attr("data-userName");
     $("#userName").text(userName);
     $("#kt_upgrade_plan_startup").empty();
@@ -348,7 +361,7 @@
     const data = {
       CustomerId: parseInt(id),
     };
-    debugger
+    
     var result = await AjaxCall("/Dashboard/GetAllRegisteredOrg", data);
     var value = JSON.parse(JSON.parse(JSON.parse(result)));
     orgData = value;
@@ -681,4 +694,17 @@
       window.location.href = "/Login/Index";
     }
   });
+
+
+
+    $(".search").off("keyup").on("keyup", function () {
+        var $rows = $('.table tbody tr');
+        $('.search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    });
 </script>

@@ -4,6 +4,8 @@
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -399,7 +401,20 @@ select option {
         </div>
     </div>
 </div>
-
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="btn-group pull-right" style="float:right; padding:10px!important;">
+                                <div class="input-group">
+                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="search-addon">
+                                            <i class="feather icon-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="containerr" style="max-width:120em;">
                       <div class="button-container" style="margin-bottom: 10px;">
@@ -409,9 +424,9 @@ select option {
     <button onclick="copyTable()" class="rounded btn-sm btn-warning">
         <i class="feather icon-copy"></i> Copy
     </button>
-    <button onclick="exportToExcel()" class="rounded btn-sm btn-success">
-        <i class="feather icon-excel"></i> Excel
-    </button>
+                            <button onclick="exportToExcel()" class="btn rounded btn-sm btn-success">
+                                <i class="fa fa-regular fa-file-excel"></i> Excel
+                            </button>
     <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
         <i class="feather icon-file-pdf"></i> PDF
     </button>
@@ -573,7 +588,14 @@ select option {
             }
             $("#agentTable tbody").empty().append(tableDOM);
         } else {
-            $("#agentTable tbody").empty().append('<tr><td colspan="5">No agents found.</td></tr>');
+            $("#agentTable tbody").empty().append(`
+                            <tr >
+                                    <td colspan="17" class="center">
+                                    <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                        <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                                </td>
+                            </tr>
+                        `);
         }
     }
 
@@ -643,5 +665,14 @@ select option {
             }
         }
     }
-
+    $(".search").off("keyup").on("keyup", function () {
+        var $rows = $('.table tbody tr');
+        $('.search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    });
 </script>

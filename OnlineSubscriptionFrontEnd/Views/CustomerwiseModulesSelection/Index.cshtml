@@ -148,7 +148,14 @@
             }
             $("#agentTable tbody").empty().append(tableDOM);
         } else {
-            $("#agentTable tbody").empty().append('<tr><td colspan="5">No agents found.</td></tr>');
+            $("#agentTable tbody").empty().append(`
+                        <tr class="center">
+                            <td colspan="8">
+                                <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                    <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                            </td>
+                        </tr>
+                    `);
         }
     }
     

@@ -280,7 +280,15 @@
             }
             $(".products").find("#agentTable tbody").empty().append(tableDOM);
         } else {
-            $(".products").empty().append('<p>No products found.</p>');
+            
+            $(".products").empty().append(`
+                        <tr >
+                            <td colspan="8" class="center">
+                                <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                    <p style="color:red; font-size:22px;"><b>No Agents have been registered .</b></p>
+                            </td>
+                        </tr>
+                    `);
         }
     }
     $("#BtnInsert").on("click", async function () {
