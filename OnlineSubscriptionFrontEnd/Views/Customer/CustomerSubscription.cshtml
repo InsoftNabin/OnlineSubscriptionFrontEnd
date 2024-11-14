@@ -115,12 +115,14 @@
                                             <tr style="background-color: #0b3b56; color: white;">
                                                 <th class="center">Product Name</th>
                                                 <th class="center">Subscription Type</th>
+                                                    <th class="center">Amount</th>
                                                 <th class="center">Issued date</th>
+                                                <th class="center">Last Renewal date</th>
                                                 <th class="center">Expiry date</th>
                                                 <th class="center">Remarks</th>
                                                 <th class="center">Payment Method</th>
                                                 <th class="center">Payment Partner </th>
-                                                <th class="center">Amount</th>
+                                                
                                                 <th class="center">Serial Number</th>
 @*                                                 <th class="center">ExtendedBy</th>
  *@                                            </tr>
@@ -471,12 +473,13 @@
                 subDOM += `<tr>
                                 <td class="center">`+ jsonData[i]["productName"] + `</td>
                                 <td class="center">`+ jsonData[i]["SubscriptionType"] + `</td>
+                                <td class="center" style="color:green;"><b>Rs. `+ jsonData[i]["PaidAmount"] + `</b></td>
                                 <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
+                                <td class="center"> `+ jsonData[i]["LastRenewDate"] + `  </td>
                                 <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
                                 <td class="center">`+ jsonData[i]["Remarks"] + `</td>
                                 <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
                                 <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
-                                <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
                                 <td class="center">`+ jsonData[i]["GeneratedSerialNo"] + `</td>
                             `;
             }

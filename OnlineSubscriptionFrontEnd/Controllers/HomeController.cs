@@ -16,6 +16,14 @@ namespace OnlineSubscriptionFrontEnd.Controllers
     public class HomeController : Controller
     {
 
+
+        public IActionResult viewNewPage()
+        {
+
+            return View();
+        }
+
+
         public IActionResult Index()
         {
             var token = HttpContext.Session.GetString("TokenNo");

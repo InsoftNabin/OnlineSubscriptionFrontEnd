@@ -69,7 +69,7 @@
 </div>
 <script>
     $(document).ready(function () {
-         getTableData();
+        getTableData();
 
         $('.show-btn').on('click', function () {
             var currentRow = $(this).closest('tr');
@@ -79,47 +79,32 @@
             $(this).find(".iontoggle").removeClass("icon-chevron-down");
             $(this).find(".iontoggle").addClass("icon-chevron-up");
 
+            var custId = $(this).data('custid'); 
+            var uniqueTableId = "SubsDetail_" + custId; 
+
             var tableSubusLogDetails = `
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="center">Customer Code</th>
-                                <th class="center">Product ID</th>
-                                <th class="center">Issued Date</th>
-                                <th class="center">Expire Date</th>
-                                <th class="center">Transaction ID</th>
-                                <th class="center">Remarks</th>
-                                <th class="center">Payment Method</th>
-                                <th class="center">Reference ID</th>
-                                <th class="center">Payment Partner</th>
-                                <th class="center">Paid Amount</th>
-                                <th class="center">Generated Serial No</th>
-                                <th class="center">Created By</th>
-                                <th class="center">Created Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="center">CUST001</td>
-                                <td class="center">1</td>
-                                <td class="center">2024-01-01</td>
-                                <td class="center">2025-01-01</td>
-                                <td class="center">TRANS001</td>
-                                <td class="center">Initial Subscription</td>
-                                <td class="center">Credit Card</td>
-                                <td class="center">REF001</td>
-                                <td class="center">PaymentCorp</td>
-                                <td class="center">$100.00</td>
-                                <td class="center">SERIAL001</td>
-                                <td class="center">Admin</td>
-                                <td class="center">2024-01-01</td>
-                            </tr>
-                           
-                        </tbody>
-                    </table>`;
+                <table id="${uniqueTableId}" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="center">Product Name</th>
+                            <th class="center">Paid Amount</th>
+                            <th class="center">Issued Date</th>
+                            <th class="center">Next Renew Date</th>
+                            <th class="center">Transaction ID</th>
+                            <th class="center">Remarks</th>
+                            <th class="center">Payment Method</th>
+                            <th class="center">Reference ID</th>
+                            <th class="center">Payment Partner</th>
+                            <th class="center">Generated Serial No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Subscription data will be inserted here -->
+                    </tbody>
+                </table>`;
 
             if (detailRow.length === 0) {
-                detailRow = $('<tr class="detail-row" style="display: none; background-color:#ade8f4;">' +
+                detailRow = $('<tr class="detail-row" style=" background-color:#ade8f4;">' +
                     '<td class="center" colspan="17">' +
                     '<div class="card" style="border:1px solid black; width:100%;">' +
                     tableSubusLogDetails +
@@ -128,12 +113,43 @@
                     '</tr>');
                 currentRow.after(detailRow);
             }
+            detailRow.toggle(); 
 
-            detailRow.toggle();
+            getSubscriptionwithCustid(custId, uniqueTableId);
         });
 
+        async function getSubscriptionwithCustid(custId, uniqueTableId) {
+            var parm = {
+                Id: parseInt(custId)
+            };
+            var req = await AjaxCall("/Customer/getCustSubsc", parm);
+            var res = JSON.parse(req);
+            var responseData = JSON.parse(res);
+
+            var tableDOM = ``;
+            if (responseData.length > 0) {
+                for (var i = 0; i < responseData.length; i++) {
+                    tableDOM += `<tr>
+                        <td class="center">` + responseData[i]["name"] + `</td>
+                        <td class="center">` + responseData[i]["PaidAmount"] + `</td>
+                        <td class="center">` + responseData[i]["IssuedDate"] + `</td>
+                        <td class="center">` + responseData[i]["ExpireDate"] + `</td>
+                        <td class="center">` + responseData[i]["TransactionId"] + `</td>
+                        <td class="center">` + responseData[i]["Remarks"] + `</td>
+                        <td class="center">` + responseData[i]["PaymentMethod"] + `</td>
+                        <td class="center">` + responseData[i]["ReferenceId"] + `</td>
+                        <td class="center">` + responseData[i]["PaymentPartner"] + `</td>
+                        <td class="center">` + responseData[i]["GeneratedSerialNo"] + `</td>
+                    </tr>`;
+                }
+               
+                $("#" + uniqueTableId + " tbody").empty().append(tableDOM);
+            } else {
+                $("#" + uniqueTableId + " tbody").empty().append(`<tr><td style="background-color:#ffa9b6; color:black;" class="center" colspan="10"><b>No Data Found!!!</b></td></tr>`);
+            }
+        }
+
         function getTableData() {
-            debugger
             var a = AjaxCallWithoutDataNoAsync("/Customer/getCustomers");
             var ab = JSON.parse(a);
             var jsondata = JSON.parse(ab);
@@ -141,24 +157,24 @@
             if (jsondata.length > 0) {
                 for (var i = 0; i < jsondata.length; i++) {
                     tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
-                                        <td class="center">` + (i + 1) + `</td>
-                                        <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
-                                        <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
-                                        <td class="center"><button class="btn btn-info show-btn"><i class="iontoggle feather icon-chevron-down"></i></button></td>
-                                        <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
-                                        <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
-                                        <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
-                                        <td class="center custdblink">` + jsondata[i]["DataBaseLink"] + `</td>
-                                        <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
-                                        <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
-                                        <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
-                                        <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
-                                        <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
-                                        <td class="center website">` + jsondata[i]["Website"] + `</td>
-                                        <td class="center GUID">` + jsondata[i]["GUID"] + `</td>
-                                        <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
-                                        <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
-                                    </tr>`;
+                                    <td class="center">` + (i + 1) + `</td>
+                                    <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
+                                    <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
+                                    <td class="center"><button class="btn btn-info show-btn" data-custid="` + jsondata[i]["Id"] + `" ><i class="iontoggle feather icon-chevron-down"></i></button></td>
+                                    <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
+                                    <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
+                                    <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
+                                    <td class="center custdblink">` + jsondata[i]["DataBaseLink"] + `</td>
+                                    <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
+                                    <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
+                                    <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
+                                    <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
+                                    <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
+                                    <td class="center website">` + jsondata[i]["Website"] + `</td>
+                                    <td class="center GUID">` + jsondata[i]["GUID"] + `</td>
+                                    <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
+                                    <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
+                                </tr>`;
                 }
                 $(".agentTable tbody").empty().append(tableDOM);
             } else {
