@@ -23,6 +23,11 @@ namespace OnlineSubscriptionFrontEnd
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole();
+                builder.AddDebug();
+            });
             services.AddControllersWithViews();
             services.AddControllersWithViews(x => x.SuppressAsyncSuffixInActionNames = false)
             .AddRazorRuntimeCompilation();

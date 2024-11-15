@@ -185,7 +185,7 @@
                                     </div>
                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                                         <i class="bi bi-pencil-fill fs-7"></i>
-                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo1">
                                         <input type="hidden" name="avatar_remove">
                                     </label>
 
@@ -1190,7 +1190,8 @@
 
 
     // get the image and change it to data url for preview
-    $(document).on("change", "#inputLogo", async function () {
+    $(document).on("change", "#inputLogo", async function (event) {
+            event.preventDefault();
         if (this.files && this.files[0]) {
 
 
@@ -1314,6 +1315,131 @@
         }
     });
 
+    // get the image and change it to data url for preview
+    $(document).on("change", "#inputLogo1", async function (event) {
+            event.preventDefault();
+        if (this.files && this.files[0]) {
+
+
+            var readerForDataURL = new FileReader();
+            var compressedDataURL;
+
+            readerForDataURL.onloadend = function () {
+
+
+                var img = new Image();
+                img.onload = function () {
+
+                    var targetFileSize = 500 * 1024; // 500 KB max size for the image
+                    var currentFileSize = Number.MAX_SAFE_INTEGER;
+
+                    // Initialize compression quality
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                    // Convert canvas to data URL with the current compression quality
+                    compressedDataURL = canvas.toDataURL('image/jpeg');
+                    // Get the file size of the compressed image
+                    currentFileSize = compressedDataURL.length;
+
+
+
+
+                    $(".logoValue").attr("src", compressedDataURL);
+                };
+
+                img.src = readerForDataURL.result;
+            };
+
+            readerForDataURL.readAsDataURL(this.files[0]);
+        }
+
+        var input = $(this);
+        var files = input[0].files;
+        var formData = new FormData();
+        var imgName = '';
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+        var DocName = files[0].name;
+        var Exitension = DocName.split(".");
+        var imgextension = Exitension[1];
+        if (1) {
+
+            await $.ajax({
+                url: "/Register/UploadPhoto1",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        html: '<div class="loader" id="loader-6">' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '</div>' +
+                            '<div>' +
+                            '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                            '</div>',
+                        background: 'unset',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (data) {
+
+                    imgName = data;
+                    $(".logoValue").attr("data-name", imgName);
+                    Swal.close();
+
+                },
+                error: function () {
+
+                    const file =
+                        document.querySelector('#file');
+                    file.value = '';
+                    Swal.close();
+                }
+
+            });
+        }
+        else {
+            toastr.info("Only image are allowed");
+        }
+
+        var uploadFile = $(this);
+        var files = !!this.files ? this.files : [];
+
+        if (/^image/.test(files[0].type)) { // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+
+            reader.onloadend = function () { // set image data as background of div
+                //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+            }
+        }
+        else {
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+            reader.onloadend = function () { // set image data as background of div
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+                uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
+            }
+        }
+    });
 
 
     //get the module values
@@ -1737,7 +1863,8 @@
 
     }
     // Payment method change event
-    $('input[name="payment"]').change(async function () {
+    $('input[name="payment"]').change(async function (event) {
+            event.preventDefault();
     if ($(this).attr('id') === 'fonepay') {
         if ($(".rem").val() == "") {
             $(this).attr("required", true);
