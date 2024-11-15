@@ -562,6 +562,7 @@
       SiteURL: SiteURL,
       Remarks: Remarks,
     };
+    debugger
     var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin", sendData);
     if (JSON.parse(result) == '1') {
       toastr.success("Organization Verified");

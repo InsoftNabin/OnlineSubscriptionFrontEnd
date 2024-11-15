@@ -46,16 +46,6 @@ F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.
 F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
 F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
 F:\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.deps.json
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.dll
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.pdb
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.GeneratedMSBuildEditorConfig.editorconfig
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfoInputs.cache
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfo.cs
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.csproj.CoreCompileInputs.cache
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
 D:\online subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.deps.json
 D:\online subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.dll
 D:\online subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.pdb
@@ -66,3 +56,13 @@ D:\online subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\D
 D:\online subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json
 D:\online subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
 D:\online subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.deps.json
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.dll
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\bin\Debug\netcoreapp3.1\DataProvider.pdb
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.GeneratedMSBuildEditorConfig.editorconfig
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfoInputs.cache
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.AssemblyInfo.cs
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.csproj.CoreCompileInputs.cache
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.sourcelink.json
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.dll
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataProvider\obj\Debug\netcoreapp3.1\DataProvider.pdb

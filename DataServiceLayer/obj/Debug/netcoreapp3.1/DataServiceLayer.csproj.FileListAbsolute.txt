@@ -66,20 +66,6 @@ F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServi
 F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
 F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.sourcelink.json
 F:\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServ.9D159802.Up2Date
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.dll
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.pdb
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.AssemblyReference.cache
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfoInputs.cache
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfo.cs
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CoreCompileInputs.cache
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.sourcelink.json
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServ.9D159802.Up2Date
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
-D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
 D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
 D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
 D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
@@ -94,3 +80,17 @@ D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3
 D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServ.9D159802.Up2Date
 D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
 D:\online subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.deps.json
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataServiceLayer.pdb
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.dll
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\bin\Debug\netcoreapp3.1\DataProvider.pdb
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.AssemblyReference.cache
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfoInputs.cache
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.AssemblyInfo.cs
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.csproj.CoreCompileInputs.cache
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.sourcelink.json
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServ.9D159802.Up2Date
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.dll
+D:\Insoft Work-guru\Online Subs\OnlineSubscriptionFrontEnd\DataServiceLayer\obj\Debug\netcoreapp3.1\DataServiceLayer.pdb
