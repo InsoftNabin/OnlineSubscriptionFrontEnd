@@ -12,11 +12,16 @@
 <!-- jsPDF Core Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+
+
 <!-- jsPDF AutoTable Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.0/jspdf.plugin.autotable.min.js"></script>
 
 
 <style>
+   
     .nav-tabs {
         margin-bottom: 15px;
         height: 20px;
@@ -487,6 +492,11 @@
     </div>
 </div>
 
+<!-- Add this print button to your HTML -->
+<button id="printButton" style="margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; font-size: 16px; cursor: pointer;">Print Last Invoice</button>
+
+
+                            <div id="payinvoice"></div>
 
 
 <!-- Modal for customer status -->
@@ -1016,6 +1026,8 @@
             body += `</div></div></div>`;
             $('#Organizations').html(body);
         }
+
+
         await GetOrganizations();
         await $("#Main").append(body);
         await GetUserDetails();
@@ -1728,21 +1740,20 @@
 
     }
     // Payment method change event
-$('input[name="payment"]').change(async function () {
+    $('input[name="payment"]').change(async function () {
     if ($(this).attr('id') === 'fonepay') {
         if ($(".rem").val() == "") {
             $(this).attr("required", true);
             toastr.error("Please enter a remarks before proceeding to payment!!!");
         } else {
-            debugger;
             if ($('#fonepay').is(':checked')) {
                 var amount = parseFloat($("#statusModal").find(".Amount").val());
 
                 // Check if the fetched amount from the frontend matches the server amount
-                if (amountFetchedFromServer !== amount) {
-                    toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
-                    return;  // Exit the function if amounts do not match
-                }
+                // if (amountFetchedFromServer !== amount) {
+                //     toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
+                //     return;  // Exit the function if amounts do not match
+                // }
 
                 // Proceed only if the amounts are the same
                 var Product = $("#statusModal").find(".productN").text();
@@ -1750,11 +1761,13 @@ $('input[name="payment"]').change(async function () {
                 var newExpDate = $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate");
                 var PlanName = $("#statusModal").find(".selectedPackages :selected").text();
 
-                if (amount) {
+
+
+                    if (amount) {
                     var bankDetails = {
-                        amount: amount,
+                        amount:0.01,// amount,
                         Purpose: "Live",
-                        Remarks1: "Remarks 1",
+                        Remarks1: $("#statusModal").find(".rem").val(),
                         Remarks2: "Remarks 2"
                     };
 
@@ -1784,7 +1797,7 @@ $('input[name="payment"]').change(async function () {
                             colorLight: "#ffffff",
                             correctLevel: QRCode.CorrectLevel.H
                         });
-
+                            var $qrCode = $("#QRModal").find("#generated-qr-container");
                         $qrCode.show();
 
                         // Flag to check if payment has been successfully processed
@@ -1818,9 +1831,115 @@ $('input[name="payment"]').change(async function () {
                                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                                 if (cpp != 'Success') {
                                     toastr.error("Server side problem in extending the Plan");
-                                } else {
-                                    await GetOrganizations();
-                                }
+                                    } else
+                                    {
+
+                                        // Get necessary data from payment response
+                                        var invoiceDate = new Date().toLocaleDateString();
+                                        var dueDate = new Date(newExpDate).toLocaleDateString();
+                                        var customerName = $("#statusModal").find(".userPhone").text();
+                                        var customerAddress = "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal";
+                                        var product = Product;
+                                        var planName = PlanName;
+                                        var amount = Amount;
+                                        var transactionId = paymentResponse[0]["fonepayTraceId"];
+                                        var paymentGateway = "FonePay";
+                                        var totalAmount =  paymentResponse[0]["totalTransactionAmount"];
+                                        var vat = totalAmount * 0.13;
+                                        var subtotal = totalAmount - vat;
+
+                                        // HTML structure template
+                                        var invoiceHTML = `
+                                                                          <div id="invoice-container">
+                    <div style="font-family: Arial, sans-serif; color: #333; margin: 0 auto; width: 80%; padding: 20px; background-color: #fff; border: 1px solid #ddd; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Logo" style="max-width: 150px; height: auto;">
+                            <h1 style="font-size: 36px; color: #007bff;">Invoice</h1>
+                            <p style="font-size: 16px; color: #555;">
+                                <strong>Insoft Research And Development</strong><br>
+                                Pokhara-8, Ratnachowk, Mid Western, 44204, Nepal<br>
+                                PAN/VAT: hhahaha
+                            </p>
+                        </div>
+
+                        <!-- Invoice Details -->
+                        <div style="margin: 20px 0;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <p><strong>Invoice #${prn}</strong></p>
+                                    <p><strong>Invoice Date:</strong> ${invoiceDate}</p>
+                                    <p><strong>Due Date:</strong> ${dueDate}</p>
+                                </div>
+                                <div>
+                                    <p><strong>Invoiced To:</strong><br>${customerName}<br></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Invoice Items -->
+                        <div style="margin: 20px 0;">
+                            <div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px 0; display: flex; justify-content: space-between; background-color: #f9f9f9;">
+                                <div style="flex: 1; padding-left: 20px;">${product} - ${planName} (${invoiceDate} - ${dueDate})</div>
+                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${subtotal} NPR</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
+                                <div style="flex: 1; padding-left: 20px;">13.00% Value Added Tax (VAT)</div>
+                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${vat} NPR</div>
+                            </div>
+                            <div style="border-top: 1px solid #ddd; padding: 10px 0; font-weight: bold; display: flex; justify-content: space-between; background-color: #f2f2f2;">
+                                <div style="flex: 1; padding-left: 20px;">Total</div>
+                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${totalAmount} NPR</div>
+                            </div>
+                        </div>
+
+                        <!-- Transaction Information -->
+                        <div style="margin: 20px 0;">
+                            <h3 style="font-size: 18px; color: #007bff;">Transaction Details</h3>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; background-color: #f9f9f9;">
+                                <div style="flex: 1; padding-left: 20px;"><strong>Transaction Date</strong></div>
+                                <div style="flex: 1; text-align: center;"><strong>Payment Gateway</strong></div>
+                                <div style="flex: 1; text-align: center;"><strong>Fonepay Trace ID</strong></div>
+                                <div style="flex: 1; text-align: right; padding-right: 20px;"><strong>Amount</strong></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
+                                <div style="flex: 1; padding-left: 20px;">${invoiceDate}</div>
+                                <div style="flex: 1; text-align: center;">${paymentGateway}</div>
+                                <div style="flex: 1; text-align: center;">${transactionId}</div>
+                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${totalAmount} NPR</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
+                                <div style="flex: 3; padding-left: 20px; font-weight: bold;">Balance</div>
+                                <div style="flex: 1; text-align: right; padding-right: 20px; font-weight: bold;">Rs. 0.00 </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div style="text-align: center; font-size: 14px; color: #888; margin-top: 30px;">
+                            <p>IMPORTANT: This document DOES NOT SERVE AS A TAX INVOICE. To fulfill tax requirements, kindly collect the TAX invoice from our accounts department. For inquiries, please contact us at <a href="tel:061-543815" style="color: #007bff;">+977-1-5268549</a></p>
+                            <p style="font-size: 0.8em; color: #666;">PDF Generated on ${invoiceDate}</p>
+                        </div>
+                    </div>
+                </div>
+
+                                                                  `;
+                                        $("#payinvoice").append(invoiceHTML);
+
+                                        const element = document.getElementById('payinvoice');
+
+                                        html2pdf(element, {
+                                            margin: 10,
+                                            filename: 'invoice.pdf',
+                                            image: { type: 'jpeg', quality: 0.98 },
+                                            html2canvas: { scale: 2 },
+                                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                                        });
+
+
+                                        clearInterval(paymentStatusInterval); // Stop checking payment status
+                                        toastr.success("Subscription Extension Successful!!!");
+                                        $("#statusModal").find(".rem").val('');
+                                        $("#QRModal").modal('hide');
+                        
 
                                 // Send success SMS to the user
                                 var parm = {
@@ -1831,7 +1950,42 @@ $('input[name="payment"]').change(async function () {
                                 var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
 
                                 // Send confirmation email to the user
-                                const codeBody = `...`;  // Same email body as before
+                                    const codeBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                            <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                <div style="text-align: center;">
+                                                    <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                </div>
+                                                <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
+                                                <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
+                                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                    We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
+                                                    Below are the details of your extended subscription:
+                                                </p>
+                                                <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                    <tr style="background-color: #f4f4f4; text-align: left;">
+                                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                    </tr>
+                                                </table>
+                                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                    The new expiry date for your subscription is <strong>${newExpDate}</strong>.
+                                                    If you have any questions or require further assistance, feel free to contact us at 061-543815.
+                                                </p>
+                                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                    Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
+                                                </p>
+                                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                    Best regards, <br>
+                                                    Insoft Research & Development
+                                                </p>
+                                            </div>
+                                        </div>`; 
                                 const toUser = {
                                     ReceiverEmail: $("#statusModal").find(".userEmail").text(),
                                     Subject: "Subscription Extended",
@@ -1841,7 +1995,38 @@ $('input[name="payment"]').change(async function () {
                                 var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
 
                                 // Send email to Insoft team
-                                const insoftEmailBody = `...`;  // Same email body as before
+                                    const insoftEmailBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                            <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                <div style="text-align: center;">
+                                                    <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                </div>
+                                                <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Payment Successful - Subscription Extension</h2>
+                                                <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Team,</p>
+                                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                    The subscription of the <strong>${Product}</strong> product has been successfully extended by the Customer themselves through the FonePay QR provided in our Software..
+                                                    Below are the details of the transaction:
+                                                </p>
+                                                <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                    <tr style="background-color: #f4f4f4; text-align: left;">
+                                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                    </tr>
+                                                </table>
+                                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                    The customer is now subscribed to the new plan until <strong>${newExpDate}</strong>.
+                                                </p>
+                                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                    Best regards, <br>
+                                                    Insoft Research & Development
+                                                </p>
+                                            </div>
+                                        </div>`;  
                                 const toInsoft = {
                                     ReceiverEmail: "insoftrnd@gmail.com",
                                     Subject: "Payment Successful - Subscription Extension",
@@ -1850,57 +2035,26 @@ $('input[name="payment"]').change(async function () {
 
                                 var insoftEmail = await AjaxCall("/Dashboard/SendEmail", toInsoft);
 
-                                clearInterval(paymentStatusInterval); // Stop checking payment status
-                                toastr.success("Subscription Extension Successful!!!");
-                                $("#statusModal").find(".rem").val('');
-                                $("#QRModal").modal('hide');
+                               
 
-                                const { jsPDF } = window.jspdf;
-
-                                const doc = new jsPDF();
-
-                                doc.setFontSize(16);
-                                doc.text("Invoice for Subscription Extension", 20, 20);
-                                doc.setFontSize(12);
-
-                                // Populate the invoice details
-                                doc.text(`Customer Name: ${$("#statusModal").find(".userPhone").text()}`, 20, 30);
-                                doc.text(`Product: ${Product}`, 20, 40);
-                                doc.text(`Plan: ${PlanName}`, 20, 50);
-                                doc.text(`Amount Paid: Rs. ${Amount}`, 20, 60);
-                                doc.text(`Expiry Date: ${newExpDate}`, 20, 70);
-
-                                doc.autoTable({
-                                    startY: 130,
-                                    head: [['Subscription Plan', 'Amount Paid', 'Expiry Date']],
-                                    body: [
-                                        [PlanName, `Rs. ${Amount}`, newExpDate]
-                                    ],
-                                    theme: 'grid',
-                                    headStyles: {
-                                        fillColor: [0, 123, 255],
-                                        textColor: [255, 255, 255],
-                                    },
-                                    bodyStyles: {
-                                        fontSize: 10,
-                                        textColor: [0, 0, 0],
+                                        //await GetOrganizations();
                                     }
-                                });
 
-                                const pdfData = doc.output('blob');
-                                const pdfUrl = URL.createObjectURL(pdfData);
-                                window.open(pdfUrl, '_blank');
 
-                            }
+
+
+                                }
                         }, 2000); // Poll every 2 seconds
 
                         // Stop payment status polling when modal is closed or loses focus
                         $('#QRModal').on('hidden.bs.modal', function () {
+                      
                             clearInterval(paymentStatusInterval);
                             $("#statusModal").find(".rem").val('');
                             $("#statusModal").find("#upload").attr("checked", false);
                             $("#generated-qr-container").find("#generated-qr").empty();
                         });
+
                     } else {
                         $qrCode.hide();
                     }
