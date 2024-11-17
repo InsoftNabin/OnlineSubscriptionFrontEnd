@@ -182,7 +182,7 @@
             var accordionDOM = '';
             products.forEach(function (product) {
                 accordionDOM += `
-                        <div class="accordion-item" style="margin:20px; border-radius:12px; border:1px solid black;">
+                        <div class="accordion-item${product.Id}" style="margin:20px; border-radius:12px; border:1px solid black;">
                                 <h2 class="accordion-header" data-productid=${product.Id} id="heading${product.Id}" style="background-color:red; color:white; border-radius:12px;">
                             <button style="border-radius:12px;" class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse${product.Id}" aria-expanded="true" aria-controls="collapse${product.Id}" onclick="LoadSubProductsbyCustomerandProduct(${product.Id})"> ${product.Name}</button>
 
@@ -389,7 +389,7 @@
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
         };
-
+        debugger
         var dataAjax = await AjaxCall("CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);
@@ -414,12 +414,13 @@
                                     <td class="center"><input type="text"  class="Remarks" value="` + dataJson[i]["Remarks"] + `" ></td>
                                </tr>`;
             }
-            $("#exampleModal").find(".table tbody").empty().append(MODalTable);
-            $("#exampleModal").find(".table tbody tr").each(function () {
+                $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`#tablemo tbody`).empty().append(MODalTable);
+                $("#exampleModal").find("#tablemo tbody tr").each(function () {
          
                 var isActivated = $(this).data("activate");
                 if (isActivated === "Activated") {
                     $(this).find(".eachCb").prop("checked", true);
+                    //$(this).parents(`#exampleModal`).find(`.accordion-item${ProductId}`).find(".accordion-button").addClass("btn-success");
                     $(this).addClass("checked-row");
                 }
             });

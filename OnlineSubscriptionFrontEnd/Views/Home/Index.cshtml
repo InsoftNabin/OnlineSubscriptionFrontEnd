@@ -916,7 +916,7 @@
 
                                     ` : `
                                 <div class="card-toolbar d-flex justify-content-between align-items-center col-4">
-                                    <span class="badge badge-danger fw-bold px-4 py-3 fs-3"><i class="feather icon-cross-square"></i>&nbsp;UnVerified</span>
+                                    <span class="badge  fw-bold px-4 py-3 fs-3"><i class="feather icon-cross-square"></i></span>
                                     <span class="btn btn-warning">Pending</span>
                                 </div>
                             `}
@@ -1787,7 +1787,7 @@
         var Email = $("#Email").val();
         var Website = $("#Website").val();
         var logo = $(".logoValue").attr("data-name");
-        var module = $(".moduleSelect").val();
+        var module = $(".moduleSelect :selected").val();
         // Check for special characters in the initial
         var specialCharPattern = /[^a-zA-Z0-9]/;
         if (specialCharPattern.test(initial)) {
@@ -1822,7 +1822,7 @@
             OrganizationMotto: Country,
             Token: ""
         };
-
+        debugger
         if (result1.StatusCode == 201) {
             // Initial exists
             toastr.error("Initial already created. Please change it.");

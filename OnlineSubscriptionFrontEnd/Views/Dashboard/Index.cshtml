@@ -602,11 +602,12 @@
         Subject: "Organization Verification",
         EmailBody: codeBody,
       };
+      debugger
       var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
       $("#kt_modal_upgrade_plan").modal("hide");
       await getUsers();
     } else {
-      toastr.error("Something went wrong");
+      toastr.error("Something went wrong while sending email to the organisation but verified successfully!!!");
     }
   });
   $(document).on("click", ".btnDecline", async (event) => {
