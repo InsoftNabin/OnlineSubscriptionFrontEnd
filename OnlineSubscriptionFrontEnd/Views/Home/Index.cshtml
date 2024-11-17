@@ -404,7 +404,7 @@
                                 </div>
                                 <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
 
-                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="moduleSelect  ">
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="moduleSelect">
                                     </select>
                                 </div>
                             </div>
@@ -784,6 +784,16 @@
 
 <script type="text/javascript">
     $(document).ready(async function () {
+
+        
+        $(".defaultModuleValue").val('inschoolerp.com');
+
+        // Update value on change event
+        $(document).on("change", ".moduleSelect", function () {
+            var val = $(this).find("option:selected").attr("data-site");
+            $(".defaultModuleValue").val(val);
+        });
+
         var amountFetchedFromServer=0;
 
         function LoadCountries() {
@@ -1464,10 +1474,8 @@
         $(".moduleSelect").html(html);
     }
     //change the value when the user changes the module
-    $(document).on("change", ".moduleSelect", function () {
-        var val = $(this).find("option:selected").attr("data-site");
-        $(".defaultModuleValue").val(val);
-    });
+    
+
     //show the modal where the user updates the data
     $(document).on("click", "#editBtn", async function () {
 
@@ -1780,7 +1788,7 @@
     $(document).on("click", "#submitDetails", async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
 
-        ;
+     
         if ($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == '' || $(".moduleSelect").val() == '') {
             toastr.error("Please fill all the fields");
             return false;
@@ -1797,7 +1805,10 @@
         var Email = $("#Email").val();
         var Website = $("#Website").val();
         var logo = $(".logoValue").attr("data-name");
-        var module = $(".moduleSelect :selected").val();
+        var module = parseInt($("#staticBackdrop").find("#moduleSelect").val());
+       // var module = parseInt($("#staticBackdrop").find("#moduleSelect").val());
+
+        
         // Check for special characters in the initial
         var specialCharPattern = /[^a-zA-Z0-9]/;
         if (specialCharPattern.test(initial)) {
@@ -1832,7 +1843,7 @@
             OrganizationMotto: Country,
             Token: ""
         };
-        debugger
+
         if (result1.StatusCode == 201) {
             // Initial exists
             toastr.error("Initial already created. Please change it.");
