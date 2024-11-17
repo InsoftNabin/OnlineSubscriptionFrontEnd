@@ -959,13 +959,23 @@
                             </div>
                             <span>
                                 ${IncludeData[i].IsVerified == 0 ? `
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].custId}" data-name="${IncludeData[i].CompanyName}" data-address="${IncludeData[i].Address}" data-product="${IncludeData[i].ModuleName}" data-email="${IncludeData[i].Email}" data-contact="${IncludeData[i].ContactNumber}">
-                                        Add Details
-                                    </button>
+                                             <button
+
+                      type="button"
+                        class="btn btn-primary btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#updateOrganization"
+                      data-token="${IncludeData[i].Token}"
+                      id="editBtn"
+                    >Edit</button>
                                 ` : ''}
-                                <button type="button" class="btn btn-danger btn-sm delete-btn" data-custid="${IncludeData[i].custId}" data-productid="${IncludeData[i].ProductId}">
-                                    Delete Organization
-                                </button>
+                                       <button
+                      type="button"
+                      class="btn btn-sm btn-danger"
+
+                      data-token="${IncludeData[i].Token}"
+                      id="deleteBtn"
+                    >Delete</button>
                             </span>
                         </div>
 
