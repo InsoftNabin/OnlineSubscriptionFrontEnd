@@ -554,7 +554,7 @@
                                     <div class="row">
                                         <label>Current Plan: <span class="currentPlan">None</span></label>
                                         <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
-                                        <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red"></span> Days out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label>
+                                        <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red"></span> Days @* out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label> *@
                                     </div>
 
                                     <div class="row">
@@ -857,104 +857,91 @@
                 `;
 
                 // Loop through the organizations and create cards
-                for (var i = 0; i < IncludeData.length; i++) {
-                    let chartId = "ChartCircular" + (i + 1); // Create a unique ID for each chart
-                    let detailsCollapseId = "kt_customer_view_details_" + i; // Unique ID for each collapse section
-                    body += `
+    for (var i = 0; i < IncludeData.length; i++) {
+        let chartId = "ChartCircular" + (i + 1); // Create a unique ID for each chart
+        let detailsCollapseId = "kt_customer_view_details_" + i; // Unique ID for each collapse section
+        body += `
             <div class="col-12">
                 <div class="card my-4 col-12 shadow">
                     <div class="flex-column">
-                           <div class="row">
-        <!-- Image Section -->
-        <div class="col-6 col-md-4">
-            <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
-                <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65" style="object-fit:contain;">
-            </div>
-        </div>
+                        <div class="row">
+                            <!-- Image Section -->
+                            <div class="col-6 col-md-4">
+                                <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
+                                    <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65" style="object-fit:contain;">
+                                </div>
+                            </div>
 
-        <!-- Company Name & Address Section -->
-        <div class="col-6 col-md-4">
-            <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
-            <div class="d-flex flex-stack fs-4 my-4">
-                <div class="fw-bold">${IncludeData[i].Address}</div>
-            </div>
-        </div>
+                            <!-- Company Name & Address Section -->
+                            <div class="col-6 col-md-4">
+                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
+                                <div class="d-flex flex-stack fs-4 my-4">
+                                    <div class="fw-bold">${IncludeData[i].Address}</div>
+                                </div>
+                            </div>
 
-        <!-- Verified / Unverified Section -->
-        ${IncludeData[i].IsVerified == 1 ? `
-            <div class="col-12 col-md-4">
-                <div class="d-flex flex-column align-items-center">
-                    <!-- Badge and Button Container -->
-                    <div class="d-flex flex-column align-items-center mb-3">
-                        <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
-                            <i class="feather icon-check-circle"></i>&nbsp;Verified
-                        </span>
-                        <button
-                            data-bs-toggle="modal"
-                            data-bs-target="#statusModal"
-                            class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
-                            data-phone="${IncludeData[i].UserContact}"
-                            style="height:35px;"
-                            data-prod="${IncludeData[i].ModuleName}"
-                            data-userEmail="${IncludeData[i].userEmail}"
-                            data-productid="${IncludeData[i].ProductId}"
-                            data-custid="${IncludeData[i].custId}">
-                            Extend/Log &nbsp;
-                        </button>
-                    </div>
+                            <!-- Verified / Unverified Section -->
+                            ${IncludeData[i].IsVerified == 1 ? `
+                                <div class="col-12 col-md-4">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <!-- Badge and Button Container -->
+                                        <div class="d-flex flex-column align-items-center mb-3">
+                                            <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
+                                                <i class="feather icon-check-circle"></i>&nbsp;Verified
+                                            </span>
+                                            <button
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#statusModal"
+                                                class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
+                                                data-phone="${IncludeData[i].UserContact}"
+                                                style="height:35px;"
+                                                data-prod="${IncludeData[i].ModuleName}"
+                                                data-userEmail="${IncludeData[i].userEmail}"
+                                                data-productid="${IncludeData[i].ProductId}"
+                                                data-custid="${IncludeData[i].custId}">
+                                                Extend/Log &nbsp;
+                                            </button>
+                                        </div>
 
-                    <!-- Card and Radial Bar -->
-                    <div class="card w-100">
-                        <div id="${chartId}"
-                            data-label="0/0"
-                            class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
-                            style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
-                                   font-size: 12px;
-                                   display: flex;
-                                   align-items: center;
-                                   justify-content: center;">
-                            <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         
-    </div>
-
-    <hr>
-
-
-                                    ` : `
-                                <div class="card-toolbar d-flex justify-content-between align-items-center col-4">
-                                    <span class="badge  fw-bold px-4 py-3 fs-3"><i class="feather icon-cross-square"></i></span>
-                                    <span class="btn btn-warning">Pending</span>
+                                        <!-- Card and Radial Bar -->
+                                        <div class="card w-100">
+                                            <div id="${chartId}"
+                                                data-label="0/0"
+                                                class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
+                                                style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
+                                                       font-size: 12px;
+                                                       display: flex;
+                                                       align-items: center;
+                                                       justify-content: center;">
+                                                <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : IncludeData[i].IsVerified == -1 ? `
+                                <div class="col-12 col-md-4">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <!-- Badge and Declined Button -->
+                                        <div class="d-flex flex-column align-items-center mb-3">
+                                            <span class="badge badge-danger fw-bold px-4 py-3 fs-3 mb-2">
+                                                    <i class="fa fa-eye-slash" style="color:white;"></i>&nbsp;Declined
+                                            </span>
+                                            <div class="d-flex flex-column align-items-center mb-3">
+                                                <div style="margin-top: 10px; font-size: 14px;">Reason: ${IncludeData[i].Remarks}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : `
+                                <div class="col-12 col-md-4">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <span class="badge badge-warning fw-bold px-4 py-3 fs-3 mb-2">
+                                            <i class="feather icon-clock"></i>&nbsp;Pending
+                                        </span>
+                                    </div>
                                 </div>
                             `}
                         </div>
-
-                        <!-- If verified, show more details -->
-                        ${IncludeData[i].IsVerified == 1 ? `
-                            <div class="px-8">
-                                <div class="row"><b><span class="fw-bold fs-5 d-block ml-0  mt-2 col-12">Product:<span class="ProductName">${IncludeData[i].ModuleName}</span></b></label><br></div>
-                                <span class="fw-bold fs-5">Your Sitelink:
-                                    <a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>
-                                </span>
-                                <div class="d-flex mt-4">
-                                    <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
-                                    <input readonly id="foo_${i}" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
-                                    <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo_${i}">Copy</button>
-                                </div>
-                                <div class="d-flex mt-2">
-                                    <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
-                                    <input readonly id="foo2_${i}" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
-                                    <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2_${i}">Copy</button>
-                                </div>
-                                <div style="display: flex;">
-                                    <label class="fw-bold fs-4" style="margin-right: 15px;">Remarks:</label>
-                                    <span style="margin-top:4px;">${IncludeData[i].Remarks}</span>
-                                </div>
-                            </div>
-                        ` : ''}
 
                         <!-- Details Toggle Button -->
                         <div class="d-flex flex-stack fs-4 py-3 card-body">
@@ -967,25 +954,19 @@
                                     </span>
                                 </span>
                             </div>
+                        </div>
+
+                        <!-- Actions Buttons (Edit/Delete or Declined) -->
+                        <div class="d-flex flex-stack fs-4 py-3 card-body">
                             <span>
                                 ${IncludeData[i].IsVerified == 0 ? `
-                                             <button
-
-                      type="button"
-                        class="btn btn-primary btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#updateOrganization"
-                      data-token="${IncludeData[i].Token}"
-                      id="editBtn"
-                    >Edit</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
                                 ` : ''}
-                                       <button
-                      type="button"
-                      class="btn btn-sm btn-danger"
 
-                      data-token="${IncludeData[i].Token}"
-                      id="deleteBtn"
-                    >Delete</button>
+                                <!-- Hide Delete Button if Declined -->
+                                ${IncludeData[i].IsVerified !== -1 ? `
+                                    <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn"><i class="fas fa-trash"></i></button>
+                                ` : ''}
                             </span>
                         </div>
 
@@ -993,7 +974,6 @@
                         <div id="${detailsCollapseId}" class="collapse p-8">
                             <hr class="bg-dark border-2 border-top border-dark" />
                             <div class="py-5 fs-6">
-                               
                                 <div class="d-flex flex-row gap-4 mt-5">
                                     <div class="fw-bold col-4">Display Name</div>
                                     <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
@@ -1031,9 +1011,9 @@
             </div>
         `;
 
-                    // Load the plans for this specific organization (unique chartId)
-                    loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
-                }
+        // Load the plans for this specific organization (unique chartId)
+        loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
+    }
 
                 body += `</div>`;  // Close row
             } else {
@@ -1130,6 +1110,7 @@
 
         if (responsefr[0]["ErrorMessage"] == -202) {
             toastr.error("You are not subscribed to the subscription Plan yet!!!");
+           
         } else {
             if (responsefr.length > 0) {
                 // If a current plan exists

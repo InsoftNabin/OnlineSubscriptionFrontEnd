@@ -8,5 +8,6 @@ namespace OnlineSubscriptionFrontEnd.Models
         public string SitePassword { get; set; }
         public string SiteURL { get; set; }
         public string Remarks { get; set; }
+        public string RejectedReason { get; set; }
     }
 }

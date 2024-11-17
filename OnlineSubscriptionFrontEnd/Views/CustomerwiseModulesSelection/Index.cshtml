@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 
 
@@ -182,7 +183,7 @@
             var accordionDOM = '';
             products.forEach(function (product) {
                 accordionDOM += `
-                        <div class="accordion-item${product.Id}" style="margin:20px; border-radius:12px; border:1px solid black;">
+                        <div class="parent accordion-item${product.Id}" style="margin:20px; border-radius:12px; border:1px solid black;">
                                 <h2 class="accordion-header" data-productid=${product.Id} id="heading${product.Id}" style="background-color:red; color:white; border-radius:12px;">
                             <button style="border-radius:12px;" class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse${product.Id}" aria-expanded="true" aria-controls="collapse${product.Id}" onclick="LoadSubProductsbyCustomerandProduct(${product.Id})"> ${product.Name}</button>
 
@@ -193,7 +194,7 @@
                                     <div class="col-md-4">
                                         <div class="card card-sm">
                                             <div class="card-body">
-                                                <h5 class="card-title">Initial</h5>
+                                                <h5 class="card-title">Initial &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
                                                             <input type="text" class="form-control card-text initial" value="" style="max-width:200px;max-height:100px;">
                                                 </div>
                                         </div>
@@ -201,7 +202,7 @@
                                     <div class="col-md-4">
                                         <div class="card card-sm">
                                             <div class="card-body">
-                                                <h5 class="card-title">Site URL</h5>
+                                                <h5 class="card-title">Site URL &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
                                                         <input type="text" class="form-control card-text siteURL" value="" style="max-width:200px;max-height:100px;">
                                             </div>
                                         </div>
@@ -209,7 +210,7 @@
                                     <div class="col-md-4">
                                         <div class="card card-sm">
                                             <div class="card-body">
-                                                <h5 class="card-title">Serial Number</h5>
+                                                <h5 class="card-title">Serial Number &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
                                                                 <input type="text" class="form-control card-text serialNumber" value="" style="max-width:200px;max-height:100px;">
                                                 </div>
                                         </div>
@@ -270,6 +271,11 @@
     });
 
     $(document).on('click', '.saveeachData', async function () {
+    
+        if($(this).parents(".parent").find(".initial").val()==""||$(this).parents(".parent").find(".siteURL").val()==""||$(this).parents(".parent").find(".serialNumber").val()==""){
+            toastr.warning("Please fill in all the fields marked red star!!!");
+            return;
+        }
 
         var customerId = $(this).attr("data-custid");
         var productId = $(this).attr("data-productid");
@@ -287,7 +293,6 @@
             var isChecked = row.find('.eachCb').is(':checked');
 
             if (isChecked) {
-
                 if ($(row).find('.JoinDate').val() === "" || $(row).find('.ExpiryDate').val() === "" || $(row).find('.LastRenewDate').val() === "") {
                     $(row).find('.JoinDate').attr("required", true);
                     $(row).find('.ExpiryDate').attr("required", true);
@@ -389,7 +394,7 @@
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
         };
-        debugger
+
         var dataAjax = await AjaxCall("CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);

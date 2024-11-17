@@ -612,6 +612,8 @@
   });
   $(document).on("click", ".btnDecline", async (event) => {
     event.preventDefault();
+    debugger
+        $("#kt_modal_upgrade_plan").modal('hide');
     var email = $(event.target).attr("data-email");
 
     Swal.fire({
@@ -627,7 +629,8 @@
         var token = $(event.target).attr("data-token");
         var sendData = {
           Token: token,
-        };
+          Remarks : $("textarea[name='remarks']").val()
+            };
         var result = await AjaxCall(
           "/Dashboard/TrashOrgdetailsByAdmin",
           sendData
