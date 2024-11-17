@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {}
+    "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {}
   },
   "projects": {
-    "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+    "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "projectUniqueName": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
         "projectName": "DataProvider",
-        "projectPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
-        "packagesPath": "C:\\Users\\INSOFT\\.nuget\\packages\\",
-        "outputPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
+        "projectPath": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj",
+        "packagesPath": "C:\\Users\\guru\\.nuget\\packages\\",
+        "outputPath": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\INSOFT\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\guru\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,9 +39,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "netcoreapp3.1": {
@@ -65,25 +61,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {
+    "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+        "projectUniqueName": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
         "projectName": "DataServiceLayer",
-        "projectPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
-        "packagesPath": "C:\\Users\\INSOFT\\.nuget\\packages\\",
-        "outputPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
+        "projectPath": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\DataServiceLayer.csproj",
+        "packagesPath": "C:\\Users\\guru\\.nuget\\packages\\",
+        "outputPath": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataServiceLayer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\INSOFT\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\guru\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,14 +83,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
-                "projectPath": "D:\\Insoft Work-guru\\Online Subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
+              "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj": {
+                "projectPath": "D:\\online subs\\OnlineSubscriptionFrontEnd\\DataProvider\\DataProvider.csproj"
               }
             }
           }
@@ -111,9 +104,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "netcoreapp3.1": {
@@ -144,7 +136,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
