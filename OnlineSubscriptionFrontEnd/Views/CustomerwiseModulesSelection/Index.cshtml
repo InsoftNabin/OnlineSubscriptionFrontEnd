@@ -58,13 +58,14 @@
                                 <thead>
                                     <tr style="background-color:#0b3b56; color:white;">
                                         <th class="center">S.N</th>
+                                        <th class="center">Products</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
                                         <th class="center">Address</th>
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
                                         <th class="center">Company Code</th>
-                                        <th class="center">Products</th>
+                                      
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -138,13 +139,13 @@
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
                                         <td class="center">` + (i + 1) + `</td>
+                                        <td class="center"><button style="background-color:#1ABC9C;" data-unkidctable="` + jsondata[i]["Id"] + `" data-agentid="" class="btn btn-primary SelectModules  rounded" data-toggle="modal" data-target="#exampleModal">Select &nbsp;<i class="feather icon-check-square"></i></button></td>
                                          <td class="center" class="custCode">` + jsondata[i]["CustomerCode"] + `</td>
                                          <td class="center" class="custName">` + jsondata[i]["CustomerName"] + `</td>
                                          <td class="center" class="custAdd">` + jsondata[i]["Address"] + `</td>
                                          <td class="center" class="custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
                                          <td class="center" class="custContact">` + jsondata[i]["Contact"] + `</td>
                                          <td class="center" class="comcode">` + jsondata[i]["CompanyCode"] + `</td>
-                    <td class="center"><button style="background-color:#1ABC9C;" data-unkidctable="` + jsondata[i]["Id"] + `" data-agentid="" class="btn btn-primary SelectModules  rounded" data-toggle="modal" data-target="#exampleModal">Select &nbsp;<i class="feather icon-check-square"></i></button></td>
                                         </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
@@ -272,6 +273,7 @@
 
     $(document).on('click', '.saveeachData', async function () {
     
+        debugger
         if($(this).parents(".parent").find(".initial").val()==""||$(this).parents(".parent").find(".siteURL").val()==""||$(this).parents(".parent").find(".serialNumber").val()==""){
             toastr.warning("Please fill in all the fields marked red star!!!");
             return;
@@ -280,7 +282,7 @@
         var customerId = $(this).attr("data-custid");
         var productId = $(this).attr("data-productid");
 
-        var selectedAccordion = $(this).parents(".accordion-item");
+        var selectedAccordion = $(this).parents(".accordion-item"+productId);
 
         var initial = selectedAccordion.find(".initial").val();
         var siteURL = selectedAccordion.find(".siteURL").val();
@@ -327,7 +329,7 @@
                     var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
                     if (response.success) {
                         toastr.error("Failed to save data: ");
-                        location.reload();
+                       
                     } else {
                         $("#exampleModal").modal('close');
                         toastr.success("Data saved successfully!");
@@ -335,7 +337,7 @@
                 } catch (error) {
 
                     toastr.error("An error occurred while saving data.");
-                    location.reload();
+                
                 }
 
             } else {
@@ -398,7 +400,7 @@
         var dataAjax = await AjaxCall("CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);
-
+        
         var MODalTable = "";
         if (dataJson.length > 0) {
             for (var i = 0; i < dataJson.length; i++) {
@@ -414,7 +416,7 @@
                                     <td class="center" style="text-transform:uppercase;"><b>` + dataJson[i]["ModuleName"] + `</b></td>
                                     <td class="center"><input type="text" class="modulePrice" value="` + dataJson[i]["MonthlyCharge"] + `"></td>
                                     <td class="center"><input type="date"  class="JoinDate" value="` + dataJson[i]["JoinDate"] + `"></td>
-                                    <td class="center"><input type="date" class="ExpiryDate" value="` + dataJson[i]["ExpiryDate"] + `"></td>
+                                    <td class="center"><input type="date" class="ExpiryDate" value="`+dataJson[i]["ExpiryDate"]+`"></td>
                                     <td class="center"><input type="date"  class="LastRenewDate" value="` + dataJson[i]["LastRenewDate"] + `" ></td>
                                     <td class="center"><input type="text"  class="Remarks" value="` + dataJson[i]["Remarks"] + `" ></td>
                                </tr>`;

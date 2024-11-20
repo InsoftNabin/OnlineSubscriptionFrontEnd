@@ -1866,8 +1866,15 @@
     }
     // Payment method change event
     $('input[name="payment"]').change(async function (event) {
+             var $fileUpload = $('#file-upload');
+            var $qrCode = $('#qr-code');
+            var $fileInput = $('#fileInput');
+            var $fileError = $('#fileError');
             event.preventDefault();
-    if ($(this).attr('id') === 'fonepay') {
+                 if ($(this).attr('id') === 'upload') {
+                    $fileUpload.show();
+                    $qrCode.hide();
+                } else if ($(this).attr('id') === 'fonepay') {
         if ($(".rem").val() == "") {
             $(this).attr("required", true);
             toastr.error("Please enter a remarks before proceeding to payment!!!");
@@ -1886,8 +1893,6 @@
                 var Amount = parseFloat($("#statusModal").find(".Amount").val());
                 var newExpDate = $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate");
                 var PlanName = $("#statusModal").find(".selectedPackages :selected").text();
-
-
 
                     if (amount) {
                     var bankDetails = {

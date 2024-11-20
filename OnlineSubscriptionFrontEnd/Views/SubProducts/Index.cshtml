@@ -39,7 +39,7 @@
                             <div class="card">
                                 <div class="card-header" id="headingOne" >
                                     <h5 class="mb-0 d-flex justify-content-between">
-                                        <button class="btn btn-xs btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius: 12px;">
+                                        <button  class="btn btn-xs btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius: 12px;">
                                             <h5 class="addEdit"><span style="color:white;font-size:18px; vertical-align:middle;"><i class="feather icon-plus"></i> Add Module</span></h5>
                                         </button>
                                         <button class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="border-radius: 12px;">
@@ -55,7 +55,7 @@
                                                 <label for="productId">Sub-Product ID (Optional):</label>
                                                 <input type="number" class="form-control" id="productId" />
                                             </div>
-                                            <div class="form-group" hidden>
+                                            <div class="form-group" >
                                                 <label for="mainproductId">Product Id:</label>
                                                 <input type="number" class="form-control" id="mainproductId" />
                                             </div>
@@ -105,23 +105,29 @@
     });
 
     function resetForm() {
+        $("#productName").val("");
         $("#productId").val("");
         $("#mainproductId").val("");
         $("#name").val("");
         $("#desc").val("");
         $("#price").val("");
-        $(".toggleCollapse").trigger('click');
+       
         getTableData();
     }
 
-    $("#addProduct").on("click", function () {
-        $("#collapseOne").collapse('show');
+    // $("#addProduct").on("click", function () {
+    //     $("#collapseOne").collapse('show');
+    // });
+
+       $(".toggleCollapse").on("click", function () {
+        if ($("#collapseOne").hasClass('show')) {
+            $("#collapseOne").collapse('hide');
+        } else {
+            $("#collapseOne").collapse('show');
+            resetForm(); 
+        }
     });
 
-    $(".toggleCollapse").on("click", function () {
-        $("#collapseOne").collapse('hide');
-        resetForm();
-    });
 
     async function getTableData() {
         var a = await AjaxCallWithoutDataNoAsync("/Products/getProducts");
@@ -148,9 +154,9 @@
                                             <a class="accordion-toggle d-flex justify-content-between" data-toggle="collapse" data-parent="#accordion${productId}" href="#collapse${productId}${j}" style="border-radius:8px; width:100%; background:#0b3b56; color:white;">
                                                 <div class="nameDiv" style="vertical-align:middle;">${filteredSubproducts[j]["Name"]}</div>
                                                 <div class="PriceDiv">Rs. ${filteredSubproducts[j]["Price"]}</div>
-                                                <button data-productid="${filteredSubproducts[j]["ProductId"]}" class="btn btn-sm btn-primary editsubProduct" onclick="editProduct(${filteredSubproducts[j]["Id"]})">
-                                                    <i class="ace-icon fa fa-edit"></i>
-                                                </button>
+                                                   <button class="btn btn-sm btn-primary editsubProduct" onclick="editProduct(${filteredSubproducts[j]['Id']}, ${filteredSubproducts[j]['ProductId']})">
+                                                        <i class="ace-icon fa fa-edit"></i>
+                                                    </button>
                                                 <button class="btn btn-sm btn-danger delSubProduct" onclick="deleteProduct(${filteredSubproducts[j]["Id"]})">
                                                     <i class="ace-icon fa fa-trash"></i>
                                                 </button>
@@ -187,15 +193,17 @@
         }
     }
 
-    async function editProduct(id) {
+    async function editProduct(id, productId) {
+        
         $("#collapseOne").collapse('show');
+        $("#mainproductId").val(productId);
         var parm = { Id: id };
         var productData = await AjaxCall("/SubProducts/getProduct", parm);
         var product = JSON.parse(JSON.parse(productData));
         
         if (product.length > 0) {
             $("#productId").val(product[0]["Id"]);
-            $("#mainproductId").val(product[0]["ProductId"]);
+            $("#mainproductId").val(product[0]["Productid"]);
             $("#name").val(product[0]["Name"]);
             $("#productName").val(product[0]["productName"]);
             $("#desc").val(product[0]["Description"]);
@@ -230,9 +238,12 @@
             var modul = await AjaxCall("/SubProducts/InsertUpdate", parm);
             var modulesResponse = JSON.parse(modul);
             if (modulesResponse == 1) {
+                resetForm();
                 getTableData();
+                $("#collapseOne").collapse('hide');
                 toastr.success("Module action successfully completed!");
-                $(".toggleCollapse").trigger('click');
+              
+             
             } else {
                 toastr.error("Error while adding a Module!");
             }
