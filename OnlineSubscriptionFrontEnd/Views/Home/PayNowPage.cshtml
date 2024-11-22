@@ -1,0 +1,2198 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="~/files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/files/assets/icon/themify-icons/themify-icons.css">
+
+<link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script src="~/insoft/assets/assets/js/custom.js"></script>
+<!-- jsPDF Core Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+
+
+<!-- jsPDF AutoTable Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.0/jspdf.plugin.autotable.min.js"></script>
+
+
+<style>
+
+    .nav-tabs {
+        margin-bottom: 15px;
+        height: 20px;
+    }
+
+    .modal-header {
+        background: #80ed99;
+    }
+
+    .nav-tabs .nav-item {
+        margin-right: 5px;
+    }
+
+    .nav-tabs .nav-link {
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        padding: 10px 15px;
+        color: #0b3b56;
+        background-color: #f8f9fa;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+        .nav-tabs .nav-link:hover {
+            background-color: #e2e6ea;
+            color: #0b3b56;
+            border-color: #0b3b56;
+        }
+
+    .nav-tabs .nav-item.active .nav-link {
+        color: white;
+        background-color: #0b3b56;
+        border-color: #0b3b56;
+        border-bottom: 1px solid white;
+    }
+
+    .nav-tabs .nav-link:focus {
+        box-shadow: none;
+    }
+
+    .cardProceed {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+</style>
+<style>
+
+    .row {
+        margin: 20px;
+    }
+
+    .payment-methods {
+        display: flex;
+        gap: 15px;
+        vertical-align: middle;
+    }
+
+    .payment-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        padding: 10px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+        .payment-option input[type="radio"] {
+            display: none;
+        }
+
+        .payment-option img {
+            width: 50px;
+            vertical-align: middle;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .payment-option:hover {
+            border-color: #007BFF; /* Change border color on hover */
+        }
+
+        .payment-option input[type="radio"]:checked + label {
+            border-color: #007BFF; /* Highlight selected option */
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional shadow */
+        }
+
+</style>
+
+
+<div class="modal fade"
+     id="updateOrganization"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="kt_modal_update_Organization"
+     aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+                    Edit Your Organization details
+                </h2>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="row-12 mb-3">
+
+                                <label for="newcompanyName" class=" required form-label mb-3">Company Name</label>
+                                <input type="text"
+                                       class="form-control form-control-sm border border-dark rounded  "
+                                       id="newcompanyName" />
+                            </div>
+                            <div class="row-12">
+
+                                <label for="contact" class="required form-label mb-3">Contact No.</label>
+                                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newContactNumber" />
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="newcompanyLogo" class=" required form-label mb-3">Company Logo:</label>
+                            <div class="d-block">
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+                                    <div class="image-input-wrapper w-125px h-125px rounded">
+                                        <img src="~/assets/media/logos/logo.png"
+                                             id="logoValue" class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded " data-name="" />
+                                    </div>
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo1">
+                                        <input type="hidden" name="avatar_remove">
+                                    </label>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded NewCountrySelect" id="NewCountrySelect">
+                            </select>
+                        </div>
+
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Display Name</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newdisplayName" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12 no-wrap col-12">
+                            <label for="newinitial" class="required form-label mb-3">Initial</label>
+                            <div class="flex-row input-group">
+                                <div class="col-lg-3 col-sm-2 shrink-1 col-4">
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="newinitial" />
+                                </div>
+                                <div class="col-lg-4 col-sm-3 shrink-1 col-4">
+                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradepos.com" />
+
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4">
+
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="newmoduleSelect">
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newvat" class="required form-label mb-3">TPIN/PAN</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newvat" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newaddress" class="required form-label mb-3">Address</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newaddress" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newphone" class="required form-label mb-3">Phone No.</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newphone" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newEmail" class="required form-label mb-3">Email</label>
+                            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="newEmail" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12" style="display:none;">
+                            <label for="newmotto" class="required form-label mb-3">Organization Motto</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newmotto" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newWebsite" class="form-label mb-3">Website</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newWebsite" />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-stack pt-10">
+                        <div class="me-2">
+                            <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <span class="svg-icon svg-icon-3 me-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+                                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                                Back
+                            </button>
+                        </div>
+
+                        <div>
+                            <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
+                                <span class="indicator-label">
+                                    Update
+                                    <span class="svg-icon svg-icon-3 ms-2 me-0">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="indicator-progress">
+                                        Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </span>
+                            </button>@*
+                            <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
+                            <span class="svg-icon svg-icon-3 ms-1 me-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                            </svg> *@
+                            @* </span> *@
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade"
+     id="staticBackdrop"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+                    Add Your Organization details
+                </h2>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="row-12 mb-3">
+
+                                <label for="companyName" class=" required form-label mb-3">Company Name</label>
+                                <input type="text"
+                                       class="form-control form-control-sm border border-dark rounded  "
+                                       id="companyName" />
+                            </div>
+                            <div class="row-12">
+
+                                <label for="contact" class="required form-label mb-3">Contact No.</label>
+                                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="companyLogo" class="form-label mb-3">Company Logo:</label>
+                            <div class="d-block">
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+                                    <div class="image-input-wrapper w-125px h-125px rounded">
+                                        <img src="~/assets/media/logos/logo.png"
+                                             class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
+                                             data-name="" required />
+                                    </div>
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
+                                        <input type="hidden" name="avatar_remove">
+                                    </label>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded CountrySelect" id="CountrySelect">
+                                <option value="">----Select Country---</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Display Name</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="displayName" />
+                        </div>
+                        <div class="col-lg-12 col-sm-12 no-wrap col-12">
+                            <label for="initial" class="required form-label mb-3">Initial</label>
+                            <div class="flex-row input-group">
+                                <div class="col-lg-2 col-sm-3 shrink-1 col-4" style="margin-left:2px;">
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="initial" />
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
+                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradepos.com" />
+
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
+
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="moduleSelect">
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="vat" class="required form-label mb-3">TPIN/PAN</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="vat" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="address" class="required form-label mb-3">Address</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="address" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="phone" class="required form-label mb-3">Phone No.</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="phone" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="Email" class="required form-label mb-3">Email</label>
+                            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="Email" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12" style="display:none;">
+                            <label for="motto" class="required form-label mb-3">Organization Motto</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="motto" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="Website" class="form-label mb-3">Website</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="Website" />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-stack pt-10">
+                        <div class="me-2">
+                            <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <span class="svg-icon svg-icon-3 me-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+                                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                                Back
+                            </button>
+                        </div>
+
+                        <div>
+                            @* <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
+                            <span class="indicator-label">
+                            Update
+                            <span class="svg-icon svg-icon-3 ms-2 me-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                            </svg>
+                            </span>
+                            <span class="indicator-progress">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                            </button> *@
+                            <button class="btn btn-lg btn-primary" id="submitDetails" data-kt-stepper-action="next">
+                                Submit
+                                <span class="svg-icon svg-icon-3 ms-1 me-0">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="payinvoice" hidden></div>
+
+
+<!-- Modal for customer status -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="width:90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Status of Subscription  <br />
+                </h1>
+                @* <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="float:right;">
+                </div> *@
+                <span class="userEmail" hidden></span>
+                <span class="productN" hidden></span>
+                <span class="userPhone" hidden></span>
+
+                <button type="button" class="btn-close  btn btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="tabbable">
+
+                    <ul class="nav nav-tabs md-tabs padding-12" id="myTab4" role="tablist">
+                        <li class="nav-item ">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#Extend" role="tab" aria-expanded="false">Extend </a>
+                        </li>
+                        <li class=" nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#Log" role="tab" aria-expanded="true">Subscription Log</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" style="margin-top:20px;">
+                        <!-- Subscription Details Tab -->
+                        <div id="Log" class="tab-pane table-responsive">
+                            <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                <thead>
+                                    <tr style="background-color: #0b3b56; color: white;">
+                                        <th class="center">Product Name</th>
+                                        <th class="center">Subscription Type</th>
+                                        <th class="center">Issued date</th>
+                                        <th class="center">Expiry date</th>
+                                        <th class="center">Remarks</th>
+                                        <th class="center">Payment Method</th>
+                                        <th class="center">Payment Partner</th>
+                                        <th class="center">Amount</th>
+                                        <th class="center">Serial Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Add your data rows here -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Extend the Plan Tab -->
+                        <div id="Extend" class="tab-pane active">
+                            <div class="cardProceed">
+                                <form>
+                                    <div class="row">
+                                        <label>Current Plan: <span class="currentPlan">None</span></label>
+                                        <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
+                                        <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red"></span> Days @* out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label> *@
+                                    </div>
+
+                                    <div class="row">
+                                        <label>Select a Package:</label>
+                                        <select class="selectedPackages">
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <label>Expiry Date:</label>
+                                        <input type="date" class="expiryDate" disabled />
+                                    </div>
+
+                                    <div class="row">
+                                        <label>Amount:</label>
+                                        <input type="text" class="Amount" disabled required />
+                                    </div>
+                                    <div class="row">
+                                        <label>Remarks:</label>
+                                        <input type="text" class="rem" required />
+                                        <input type="text" id="custid" hidden />
+                                        <input type="text" id="prodid" hidden />
+                                    </div>
+                                    <div class="row">
+                                        <label>Payment Method:</label>
+                                        <div class="payment-methods">
+                                            <div class="payment-option" data-value="0">
+                                                <input type="radio" name="payment" id="upload" />
+                                                <label for="upload"><img src="~/files/assets/images/upload.svg" alt="Upload" /></label>
+                                            </div>
+                                            <div class="payment-option" data-value="3" style="vertical-align:middle;">
+                                                <input type="radio" name="payment" id="fonepay" />
+                                                <label for="fonepay"><img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="margin-top:20px;" /></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="file-upload" style="display:none;">
+                                        <input type="file" class="file" id="fileInput" data-filename="" />
+                                        <p id="fileError" style="color:red; display:none;"></p>
+                                    </div>
+
+
+                                    <div class="row center" id="qr-code" style="display:none;">
+                                        <div id="generated-qr" style="text-align:center;"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <button class="btn btn-sm btn-success btnExtendPlan">Proceed &nbsp;<i class="feather icon-save"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- PDF Preview Modal -->
+<div id="pdfPreviewModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Subscription Extension Receipt Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- PDF Preview embedded here -->
+                <iframe id="pdfPreview" width="100%" height="500px"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="downloadReceiptButton" class="btn btn-primary">Download Receipt</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for QR -->
+<div class="modal fade" id="QRModal" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="width:90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Scan the QR below to proceed to payment
+                </h1>
+                <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Using Bootstrap grid classes to make the image responsive -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="btn btn-sm w-100">
+                            <img src="~/files/assets/images/fonepay-payment-service-limited43.png" class="img-fluid" alt="Fonepay Image" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR code section -->
+                <div id="generated-qr-container" class="d-flex justify-content-center">
+                    <!-- QR Code will be dynamically inserted here -->
+                    <div id="generated-qr"></div>
+                </div>
+
+                <h1 class="text-center modal-title fs-5" id="hehe">
+                    <br /> INSOFT RESEARCH AND DEVELOPMENT<br /> an amount of <span id="AmountQr"></span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Remaining Days less than 5 -->
+<div class="modal fade" id="QRModal5" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="width:90%;">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Your Subscription is critical!! Please pay for further use of our software!!
+                </h1>
+                <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center">  <span>This QR amounts to<b> Rs <span class="AmCurPlan">99,999</span> </b>for the extension of your current plan.</span></h4>
+
+
+                <div id="generated-qr-container" class="d-flex justify-content-center">
+                    <!-- QR Code will be dynamically inserted here -->
+
+                    <div id="generated-qr"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                Please call us for further assistance!!
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="py-3 py-lg-6">
+    <div class="container-xxl d-flex flex-stack">
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <img src="~/assets/media/logos/LogoInsoft.png"
+                     class="theme-light-show w-100px"
+                     alt="" />
+            </h1>
+        </div>
+        <div class="d-flex">
+            <h3 class="fs-xl fw-bold mb-4 lead">
+                <button type="button"
+                        class="btn btn-primary addOrganization">
+                    <span class="svg-icon svg-icon-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5"
+                                  x="11.364"
+                                  y="20.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  transform="rotate(-90 11.364 20.364)"
+                                  fill="currentColor"></rect>
+                            <rect x="4.36396"
+                                  y="11.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  fill="currentColor"></rect>
+                        </svg>
+                    </span>
+                    Add New Organization
+                </button>
+            </h3>
+            <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
+                <!--begin::Menu wrapper-->
+                <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
+                        &nbsp;
+                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
+                    </i>
+                </div>
+                <!--begin::User account menu-->
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
+                    <!--begin::Menu item-->
+                    <div class="menu-item ">
+
+
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <a class="menu-link signoutBtn"> <i class="feather icon-log-out"></i>&nbsp; Sign Out</a>
+                        </div>
+                        <!--end::Menu item-->
+
+                    </div>
+
+
+
+                </div>
+                <!--end::User account menu-->
+                <!--end::Menu wrapper-->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+        $(document).ready(async function () {
+
+
+            $(".defaultModuleValue").val('inschoolerp.com');
+
+            // Update value on change event
+            $(document).on("change", ".moduleSelect", function () {
+                var val = $(this).find("option:selected").attr("data-site");
+                $(".defaultModuleValue").val(val);
+            });
+
+            var amountFetchedFromServer=0;
+
+            function LoadCountries() {
+                var a = AjaxCallWithoutDataNoAsync("/Customer/getCountries");
+                var aa = JSON.parse(a);
+                var countries = JSON.parse(aa);
+
+                var countrySelect = $('#CountrySelect');
+                countrySelect.empty();
+                countrySelect.append('<option value="">----Select Country---</option>');
+
+                countries.forEach(function (country) {
+                    countrySelect.append('<option value="' + country.NumericIsoCode + '">' + country.Name + '</option>');
+                });
+            }
+
+            var body = ``;
+            async function GetOrganizations() {
+                const result = await AjaxCall("/Home/GetOrganizations");
+                let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
+
+                body += `
+                    <div class="app-content flex-column-fluid">
+                        <div class="app-container container-xxl">
+                            <div class="row">
+                                <!-- Your Info Section (col-xs-3) -->
+                                <div class="col-12 col-xs-3">
+                                    <div class="card card-flush bg-body mb-9">
+                                                    <h2 class="card-header fs-2 fw-bold text-dark p-8">Your Info <i class="fs-1 fa fa-user"></i></h2><hr>
+                                        <div class="card-body pt-2 px-4">
+                                            <div class="mb-5">
+                                                <div class="d-flex row mb-5">
+                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
+                                                    <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
+                                                </div>
+                                                <div class="d-flex row mb-5">
+                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
+                                                    <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
+                                                </div>
+                                                <div class="d-flex row mb-5">
+                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
+                                                    <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
+                                                </div>
+                                                <div class="d-flex row mb-5">
+                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
+                                                    <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Organizations Section (col-xs-9) -->
+                                <div id="kt_app_content" class="col-12 col-xs-9">
+                `;
+
+                // Check if there are any organizations
+                if (IncludeData.length > 0) {
+                    body += `
+                        <div class="col-12">
+                    `;
+
+                    // Loop through the organizations and create cards
+        for (var i = 0; i < IncludeData.length; i++) {
+            let chartId = "ChartCircular" + (i + 1); // Create a unique ID for each chart
+            let detailsCollapseId = "kt_customer_view_details_" + i; // Unique ID for each collapse section
+            body += `
+                <div class="col-12">
+                    <div class="card my-4 col-12 shadow">
+                        <div class="flex-column">
+                            <div class="row">
+                                <!-- Image Section -->
+                                <div class="col-6 col-md-4">
+                                    <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
+                                        <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65" style="object-fit:contain;">
+                                    </div>
+                                </div>
+
+                                <!-- Company Name & Address Section -->
+                                <div class="col-6 col-md-4">
+                                    <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
+                                    <div class="d-flex flex-stack fs-4 my-4">
+                                        <div class="fw-bold">${IncludeData[i].Address}</div>
+                                    </div>
+                                </div>
+
+                                <!-- Verified / Unverified Section -->
+                                ${IncludeData[i].IsVerified == 1 ? `
+                                    <div class="col-12 col-md-4">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <!-- Badge and Button Container -->
+                                            <div class="d-flex flex-column align-items-center mb-3">
+                                                <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
+                                                    <i class="feather icon-check-circle"></i>&nbsp;Verified
+                                                </span>
+                                                <button
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#statusModal"
+                                                    class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
+                                                    data-phone="${IncludeData[i].UserContact}"
+                                                    style="height:35px;"
+                                                    data-prod="${IncludeData[i].ModuleName}"
+                                                    data-userEmail="${IncludeData[i].userEmail}"
+                                                    data-productid="${IncludeData[i].ProductId}"
+                                                    data-custid="${IncludeData[i].custId}">
+                                                    Extend/Log &nbsp;
+                                                </button>
+                                            </div>
+
+                                            <!-- Card and Radial Bar -->
+                                            <div class="card w-100">
+                                                <div id="${chartId}"
+                                                    data-label="0/0"
+                                                    class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
+                                                    style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
+                                                           font-size: 12px;
+                                                           display: flex;
+                                                           align-items: center;
+                                                           justify-content: center;">
+                                                    <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : IncludeData[i].IsVerified == -1 ? `
+                                    <div class="col-12 col-md-4">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <!-- Badge and Declined Button -->
+                                            <div class="d-flex flex-column align-items-center mb-3">
+                                                <span class="badge badge-danger fw-bold px-4 py-3 fs-3 mb-2">
+                                                        <i class="fa fa-eye-slash" style="color:white;"></i>&nbsp;Declined
+                                                </span>
+                                                <div class="d-flex flex-column align-items-center mb-3">
+                                                    <div style="margin-top: 10px; font-size: 14px;">Reason: ${IncludeData[i].Remarks}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : `
+                                    <div class="col-12 col-md-4">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="badge badge-warning fw-bold px-4 py-3 fs-3 mb-2">
+                                                <i class="feather icon-clock"></i>&nbsp;Pending
+                                            </span>
+                                        </div>
+                                    </div>
+                                `}
+                            </div>
+
+                            <!-- Details Toggle Button -->
+                            <div class="d-flex flex-stack fs-4 py-3 card-body">
+                                <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#${detailsCollapseId}" role="button" aria-expanded="false" aria-controls="${detailsCollapseId}" id="viewDetails_${i}">Details
+                                    <span class="ms-2 rotate-180">
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
+                                            </svg>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Actions Buttons (Edit/Delete or Declined) -->
+                            <div class="d-flex flex-stack fs-4 py-3 card-body">
+                                <span>
+                                    ${IncludeData[i].IsVerified == 0 ? `
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
+                                    ` : ''}
+
+                                    <!-- Hide Delete Button if Declined -->
+                                    ${IncludeData[i].IsVerified !== -1 ? `
+                                        <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn"><i class="fas fa-trash"></i></button>
+                                    ` : ''}
+                                </span>
+                            </div>
+
+                            <!-- Collapsing Section (Details) -->
+                            <div id="${detailsCollapseId}" class="collapse p-8">
+                                <hr class="bg-dark border-2 border-top border-dark" />
+                                <div class="py-5 fs-6">
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Display Name</div>
+                                        <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Country</div>
+                                        <div class="text-gray-700 col-8">${IncludeData[i].OrganizationMotto}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Email</div>
+                                        <div class="text-gray-700 col-8">
+                                            <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">PAN/VAT</div>
+                                        <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Phone No.</div>
+                                        <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Contact No.</div>
+                                        <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+                                    </div>
+                                    <div class="d-flex flex-row gap-4 mt-5">
+                                        <div class="fw-bold col-4">Website</div>
+                                        <div class="text-gray-700 col-8"><a href="${IncludeData[i].Website}">${IncludeData[i].Website}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Load the plans for this specific organization (unique chartId)
+            loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
+        }
+
+                    body += `</div>`;  // Close row
+                } else {
+                    body += `<div>No organizations found.</div>`;
+                }
+
+                body += `</div></div></div>`;
+                $('#Organizations').html(body);
+            }
+
+
+            await GetOrganizations();
+            await $("#Main").append(body);
+            await GetUserDetails();
+            LoadCountries();
+            var clipboard = await new ClipboardJS('.btnCopy'); //for copy to clipboard
+            var $fileUpload = $('#file-upload');
+            var $qrCode = $('#qr-code');
+            var $fileInput = $('#fileInput');
+            var $fileError = $('#fileError');
+
+
+
+            // File input validation
+            $fileInput.change(function () {
+                const file = this.files[0];
+                if (file) {
+                    if (file.size > 25 * 1024 * 1024) { // 25 MB limit
+                        $fileError.text("File size must be less than 25 MB.").show();
+                        $(this).val('');
+                    } else if (!file.type.startsWith("image/")) {
+                        $fileError.text("Only image files are allowed.").show();
+                        $(this).val('');
+                    } else {
+                        $fileError.hide();
+                    }
+                }
+            });
+            $('.viewSub').each(async function () {
+                var id = $(this).attr("data-custid");
+                var ProductId = $(this).attr("data-productid");
+                $("#custid").val(id);
+                $("#prodid").val(ProductId);
+
+                var userEmail = $(this).attr("data-useremail");
+                $("#statusModal").find(".userEmail").text(userEmail);
+
+                $("#statusModal").find(".userPhone").text($(this).attr("data-phone"));
+
+                $("#statusModal").find(".productN").text($(this).attr("data-prod"));
+
+                await loadsubscriptionLog(id, ProductId);
+                await loadplansforcustomerandproduct(id, ProductId);
+            });
+            $(".viewSub").trigger('click');
+
+        });
+
+        function updateCircularProgress(chartId, percentage, remainingDays) {
+            const element = $("#" + chartId);
+            var degree = (percentage / 100) * 360;
+
+            var color = '#06E763';
+            if (remainingDays < 3) {
+                color = '#fB4A4A'; // Red for critical
+            } else if (remainingDays < 5) {
+                color = '#fFB92B'; // Yellow for warning
+            }
+
+            element.css("background", `conic-gradient(${color} ${degree}deg, #fafafa ${degree}deg)`);
+        }
+
+        function resetCircularProgress(chartId) {
+            $("#" + chartId).css("background", "conic-gradient(#ff0000 0%, #ff0000 100%)");
+            $("#" + chartId).attr("data-label", "Error");
+        }
+
+
+        //fill the form to extend the plan
+        async function loadplansforcustomerandproduct(CustomerId, ProductId, chartId) {
+            $(".currentPlan").text('----None---');
+            $(".currentPlanEdate").text('__//__//____');
+            $(".remainingDaysinCPlan").text('0');
+            $(".TotalDaysInCurrentPlan").text('0');
+
+            var parm = {
+                CustomerId: parseInt(CustomerId),
+                ProductId: parseInt(ProductId)
+            };
+
+            // Fetch current plan details
+            var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
+            var response = JSON.parse(ddd);
+            var responsefr = JSON.parse(response);
+
+            if (responsefr[0]["ErrorMessage"] == -202) {
+                toastr.error("You are not subscribed to the subscription Plan yet!!!");
+
+            } else {
+                if (responsefr.length > 0) {
+                    // If a current plan exists
+                    $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
+                    $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                    var remainingDays =  parseInt(responsefr[0]["RemainingDays"]);
+                    var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
+                    $(".remainingDaysinCPlan").text(remainingDays);
+                    $(".TotalDaysInCurrentPlan").text(totalDays);
+
+                    if (remainingDays < 5) {
+                        toastr.error("Remaining days in the current plan are less than 5!");
+                        var qrText = `Your plan has ${remainingDays} days remaining!`;
+                        var qrModal5 = $("#QRModal5").find("#generated-qr");
+
+                        qrModal5.empty();  // Clear any previous QR code
+                        new QRCode(qrModal5[0], {
+                            text: qrText,
+                            width: 250,
+                            height: 250,
+                            colorDark: "#000000",
+                            colorLight: "#ffffff",
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                        $("#QRModal5").modal('show');
+                    }
+
+                    // Update the circular progress for the specific organization
+                    $("#" + chartId).attr("data-label", `${remainingDays}/${totalDays}`);
+                    var percentage = (remainingDays / totalDays) * 100;
+                    var roundedPercentage = percentage.toFixed(1);
+                    updateCircularProgress(chartId, roundedPercentage, remainingDays);
+
+                } else {
+                    $("#" + chartId).attr("data-label", `0/0`);
+                    resetCircularProgress(chartId);
+                }
+            }
+            // New/existing plan logic
+            var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
+            var data = JSON.parse(para);
+            var Jsondata = JSON.parse(data);
+            if (Jsondata.length > 0) {
+                var selectDOM = ``;
+                for (var i = 0; i < Jsondata.length; i++) {
+                    if (Jsondata[i]["IsFound"] == "found") {
+                        var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
+                        var today = new Date();
+                        var expireDate = new Date(today);
+                        expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text())); // Modify expireDate directly
+                        var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+
+                        $("#statusModal").find(".expiryDate").val(isoExpireDate);
+                        $("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
+                        amountFetchedFromServer=Jsondata[i]["Amount"];
+
+                        selectDOM += `<option data-noday=${noOfDays} data-expiredate=${isoExpireDate} value=${Jsondata[i]['SubscriptionId']}>${Jsondata[i]['Name']}</option>`;
+                    }
+                }
+                $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
+            } else {
+                toastr.error("No Subscription Setup is done!!!");
+            }
+        }
+
+
+
+        //get the user details
+        async function GetUserDetails() {
+            const result = await AjaxCallWithoutData("/Home/GetUserDetails");
+            var data = JSON.parse(JSON.parse(JSON.parse(result)));
+            $(".UserName").text(data[0].UserName);
+            $("#yourName").text(data[0].UserName);
+            $("#yourEmail").text(data[0].UserEmail);
+            $("#yourContact").text(data[0].UserContact);
+            $("#yourAddress").text(data[0].UserAddress);
+        }
+
+
+        // get the image and change it to data url for preview
+        $(document).on("change", "#inputLogo", async function (event) {
+                event.preventDefault();
+            if (this.files && this.files[0]) {
+
+
+                var readerForDataURL = new FileReader();
+                var compressedDataURL;
+
+                readerForDataURL.onloadend = function () {
+
+
+                    var img = new Image();
+                    img.onload = function () {
+
+                        var targetFileSize = 500 * 1024; // 500 KB max size for the image
+                        var currentFileSize = Number.MAX_SAFE_INTEGER;
+
+                        // Initialize compression quality
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                        // Convert canvas to data URL with the current compression quality
+                        compressedDataURL = canvas.toDataURL('image/jpeg');
+                        // Get the file size of the compressed image
+                        currentFileSize = compressedDataURL.length;
+
+
+
+
+                        $(".logoValue").attr("src", compressedDataURL);
+                    };
+
+                    img.src = readerForDataURL.result;
+                };
+
+                readerForDataURL.readAsDataURL(this.files[0]);
+            }
+
+            var input = $(this);
+            var files = input[0].files;
+            var formData = new FormData();
+            var imgName = '';
+            for (var i = 0; i != files.length; i++) {
+                formData.append("files", files[i]);
+            }
+            var DocName = files[0].name;
+            var Exitension = DocName.split(".");
+            var imgextension = Exitension[1];
+            if (1) {
+
+                await $.ajax({
+                    url: "/Register/UploadPhoto1",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    beforeSend: function () {
+                        Swal.fire({
+                            html: '<div class="loader" id="loader-6">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '</div>' +
+                                '<div>' +
+                                '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                                '</div>',
+                            background: 'unset',
+                            allowOutsideClick: false,
+                            showConfirmButton: false,
+                        });
+                    },
+                    success: function (data) {
+
+                        imgName = data;
+                        $(".logoValue").attr("data-name", imgName);
+                        Swal.close();
+
+                    },
+                    error: function () {
+
+                        const file =
+                            document.querySelector('#file');
+                        file.value = '';
+                        Swal.close();
+                    }
+
+                });
+            }
+            else {
+                toastr.info("Only image are allowed");
+            }
+
+            var uploadFile = $(this);
+            var files = !!this.files ? this.files : [];
+
+            if (/^image/.test(files[0].type)) { // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+
+                reader.onloadend = function () { // set image data as background of div
+                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+                }
+            }
+            else {
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+                reader.onloadend = function () { // set image data as background of div
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
+                }
+            }
+        });
+
+        // get the image and change it to data url for preview
+        $(document).on("change", "#inputLogo1", async function (event) {
+                event.preventDefault();
+            if (this.files && this.files[0]) {
+
+
+                var readerForDataURL = new FileReader();
+                var compressedDataURL;
+
+                readerForDataURL.onloadend = function () {
+
+
+                    var img = new Image();
+                    img.onload = function () {
+
+                        var targetFileSize = 500 * 1024; // 500 KB max size for the image
+                        var currentFileSize = Number.MAX_SAFE_INTEGER;
+
+                        // Initialize compression quality
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                        // Convert canvas to data URL with the current compression quality
+                        compressedDataURL = canvas.toDataURL('image/jpeg');
+                        // Get the file size of the compressed image
+                        currentFileSize = compressedDataURL.length;
+
+
+
+
+                        $(".logoValue").attr("src", compressedDataURL);
+                    };
+
+                    img.src = readerForDataURL.result;
+                };
+
+                readerForDataURL.readAsDataURL(this.files[0]);
+            }
+
+            var input = $(this);
+            var files = input[0].files;
+            var formData = new FormData();
+            var imgName = '';
+            for (var i = 0; i != files.length; i++) {
+                formData.append("files", files[i]);
+            }
+            var DocName = files[0].name;
+            var Exitension = DocName.split(".");
+            var imgextension = Exitension[1];
+            if (1) {
+
+                await $.ajax({
+                    url: "/Register/UploadPhoto1",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    beforeSend: function () {
+                        Swal.fire({
+                            html: '<div class="loader" id="loader-6">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '</div>' +
+                                '<div>' +
+                                '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                                '</div>',
+                            background: 'unset',
+                            allowOutsideClick: false,
+                            showConfirmButton: false,
+                        });
+                    },
+                    success: function (data) {
+
+                        imgName = data;
+                        $(".logoValue").attr("data-name", imgName);
+                        Swal.close();
+
+                    },
+                    error: function () {
+
+                        const file =
+                            document.querySelector('#file');
+                        file.value = '';
+                        Swal.close();
+                    }
+
+                });
+            }
+            else {
+                toastr.info("Only image are allowed");
+            }
+
+            var uploadFile = $(this);
+            var files = !!this.files ? this.files : [];
+
+            if (/^image/.test(files[0].type)) { // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+
+                reader.onloadend = function () { // set image data as background of div
+                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+                }
+            }
+            else {
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+                reader.onloadend = function () { // set image data as background of div
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
+                }
+            }
+        });
+
+
+        //get the module values
+        async function getModuleValues() {
+            const result = await AjaxCallWithoutData("/Home/GetModuleValues");
+
+            var data = JSON.parse(JSON.parse(JSON.parse(result)));
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html += `<option data-site="${data[i].SiteName}" value="${data[i].UkId}">${data[i].Name}</option>`;
+            }
+            $(".moduleSelect").html(html);
+        }
+        //change the value when the user changes the module
+
+
+        //show the modal where the user updates the data
+        $(document).on("click", "#editBtn", async function () {
+
+            await getModuleValues();
+            var token = $(this).attr("data-token");
+
+            // Retrieve organization data from API
+            var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
+            var data = JSON.parse(JSON.parse(JSON.parse(result)));
+            var imageData = data[0].ImageData;
+            var filename = imageData.substring(imageData.lastIndexOf('/') + 1);
+
+            $(".logoValue").attr("src", data[0].ImageData);
+
+            $("#newcompanyName").val(data[0].CompanyName);
+            $("#newdisplayName").val(data[0].DisplayName);
+            $("#newinitial").val(data[0].Initial);
+            $("#newvat").val(data[0].PanVatNo);
+            $("#newaddress").val(data[0].Address);
+            $("#newphone").val(data[0].PhoneNo);
+            $("#newContactNumber").val(data[0].ContactMobile);
+            $("#newEmail").val(data[0].OrganizationMail);
+            $("#newWebsite").val(data[0].Website);
+            $("#newmotto").val(data[0].OrganizationMotto);
+            $(".logoValue").attr("data-name", data[0].ImageName);
+            $("#newdefaultValue").val(data[0].SiteURL);
+            $("#updateDetails").attr("data-token", token);
+
+            $("#NewCountrySelect").empty();
+
+            // Append the organization motto as the first option in the dropdown
+            var organizationMotto = data[0].OrganizationMotto;
+            $("#NewCountrySelect").append($('<option>', {
+                value: organizationMotto,
+                text: organizationMotto
+            }));
+
+            // Fetch countries from the API
+            var apiUrl = 'https://api.countrystatecity.in/v1/countries';
+            var apiKey = 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==';
+            var response = await fetch(apiUrl, {
+                headers: { "X-CSCAPI-KEY": apiKey }
+            });
+            var countries = await response.json();
+
+            // Append other countries from the API to the dropdown
+            countries.forEach(function (country) {
+                if (country.iso2 !== organizationMotto) {
+                    $("#NewCountrySelect").append($('<option>', {
+                        value: country.iso2,
+                        text: country.name
+                    }));
+                }
+            });
+
+        });
+
+
+        //get the organisation subscription log
+        $(document).on('click', '.viewSub', async function () {
+
+            var id = $(this).attr("data-custid");
+            var ProductId = $(this).attr("data-productid");
+            $("#custid").val(id);
+            $("#prodid").val(ProductId);
+            await loadsubscriptionLog(id, ProductId);
+            await loadplansforcustomerandproduct(id, ProductId)
+        });
+
+
+        //get the organisation subscription log
+        async function loadsubscriptionLog(CustomerId, ProductId) {
+
+            var parm = {
+                CustomerId: parseInt(CustomerId),
+                ProductId: parseInt(ProductId)
+            };
+            var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId", parm);
+            var sub = JSON.parse(jsub);
+            var jsonData = JSON.parse(sub);
+
+
+            var subDOM = "";
+            if (jsonData.length > 0) {
+                for (var i = 0; i < jsonData.length; i++) {
+                    subDOM += `<tr>
+                                            <td class="center">`+ jsonData[i]["productName"] + `</td>
+                                            <td class="center">`+ jsonData[i]["SubscriptionType"] + `</td>
+                                            <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
+                                            <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
+                                            <td class="center">`+ jsonData[i]["Remarks"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
+                                            <td class="center">`+ jsonData[i]["GeneratedSerialNo"] + `</td>
+                                        `;
+                }
+                $("#statusModal").find("#cLogTable tbody").empty().append(subDOM);
+            } else {
+                toastr.error("No Log Found!!!");
+                $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
+            }
+        }
+
+
+        //delete the organization
+        $(document).on("click", "#deleteBtn", async function () {
+            var token = $(this).attr("data-token");
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true,
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    var result = await AjaxCall("/Home/DeleteSingleOrganization", { Token: token });
+                    var parsedResult = JSON.parse(result);
+                    //or parsedResult = result.json();
+                    if (parsedResult == 1) {
+                        toastr.success("Organization Deleted Successfully");
+                        location.reload();
+                    } else {
+                        toastr.error("Something went wrong");
+                    }
+                }
+            })
+
+        });
+
+        $(document).on("change", "#fileInput", async function () {
+            var filedom = $(this);
+            var input = $(this);
+            var files = input[0].files;
+
+            // Check if any file is selected
+            if (files.length === 0) {
+                alert("Please select a file to upload.");
+                return;
+            }
+
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append("files", files[i]); // Append the file with key 'files'
+            }
+
+            await $.ajax({
+                url: "/Register/UploadPhoto1", // Your controller endpoint
+                data: formData,
+                processData: false,    // Don't process the data
+                contentType: false,    // Let the browser set the content type
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        html: '<div class="loader" id="loader-6">' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '</div>' +
+                            '<div>' +
+                            '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                            '</div>',
+                        background: 'unset',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (data) {
+                    console.log(data);
+                    var imgName = data;
+                    $(filedom).attr("data-filename", imgName);
+                    $(filedom).parents(".gethere").find(".uploadedinfo").text("Uploaded !!!");
+                    Swal.close();
+                },
+                error: function (error) {
+                    Swal.close();
+                    console.log(error);
+                    $(filedom).parents(".gethere").find(".uploadedinfo").text("Upload Failed !!!");
+                }
+            });
+        });
+
+
+
+        $(document).on('click', '.btnExtendPlan', async function () {
+            var paymentSelected = $('input[name="payment"]:checked').length > 0;
+            if (!paymentSelected) {
+
+                toastr.warning('Please select a payment method before proceeding.', 'Warning');
+            }
+            if ($(".rem").val() == "") {
+                toastr.warning("Please fill in a Remarks!!!");
+            } else if ($("#fileInput").attr("data-filename") == "") {
+                toastr.warning("Please attach a voucher or pay through QR!!!");
+            }
+
+            else {
+                var parm = {
+                    SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+                    ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
+                    PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
+                    Remarks: $("#statusModal").find(".rem").val(),
+                    CustomerId: parseInt($("#custid").val()),
+                    ProductId: parseInt($("#prodid").val()),
+
+                    TransactionId: 0,
+                    PaymentMethod: 'cash',
+                    ReferenceId: 0,
+                    PaymentPartner: 'none',
+                    GeneratedSerialNo: 'sn001',
+                    VoucherImage: $("#fileInput").attr("data-filename"),
+                    IsVerifiedPayment: false
+                }
+
+
+                //insert the extension manually
+                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                var dataa = JSON.parse(cpp);
+                var jsondata = JSON.parse(dataaa);
+
+                if (jsondata > 0) {
+                    toastr.success("Plan extension successful");
+                }
+                else {
+                    toastr.error("Plan extension  not successful");
+
+                }
+            }
+
+
+        });
+
+
+
+
+
+        //update the organization
+        $(document).on("click", "#updateDetails", async (event) => {
+            event.preventDefault();
+
+            if ($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == '' || $(".moduleSelect").val() == '') {
+                toastr.error("Please fill all the fields");
+                return false;
+            }
+            var token = $("#updateDetails").attr("data-token");
+            var companyName = $("#newcompanyName").val();
+            var displayName = $("#newdisplayName").val();
+            var Country = $("#NewCountrySelect option:selected").text();
+            var initial = $("#newinitial").val();
+            var vat = $("#newvat").val();
+            var address = $("#newaddress").val();
+            var phone = $("#newphone").val();
+            var contact = $("#newContactNumber").val();
+            var Email = $("#newEmail").val();
+            var Website = $("#newWebsite").val();
+            var motto = $("#newmotto").val();
+            var module = $(".moduleSelect").val();
+            var logo = $(".logoValue").attr("data-name");
+
+            var specialCharPattern = /[^a-zA-Z0-9]/;
+            if (specialCharPattern.test(initial)) {
+                toastr.error("Special characters or spaces are not allowed in Initial.");
+                return false;
+            }
+
+
+
+            var data = {
+                CompanyName: companyName,
+                DisplayName: displayName,
+                ContactMobile: contact,
+                Initial: initial,
+                PanVatNo: vat,
+                Address: address,
+                PhoneNo: phone,
+                Module: parseInt(module),
+                OrganizationMail: Email,
+                Website: Website,
+                ImageName: logo,
+                ImageType: '',
+                ImageData: logo,
+                OrganizationMotto: Country,
+                Token: token
+            };
+            var result = await AjaxCall("/Home/UploadOrganizationData", data);
+            if (parseInt(result) == 1) {
+                $("#staticBackdrop").modal("hide");
+                toastr.success("Organization updated Successfully");
+                location.reload();
+                return false;
+            } else {
+                toastr.error("Something went wrong");
+            }
+        });
+
+        $(document).on("click", ".addOrganization", async () => {
+            await getModuleValues();
+            $("#staticBackdrop").modal("show");
+        });
+        $(document).on("click", ".signoutBtn", async () => {
+            var result = await AjaxCallWithoutData("/Login/LogOut");
+            if (result == "Success") {
+                window.location.href = "/Login/Index";
+            }
+        });
+
+        $(document).on("click", "#submitDetails", async (event) => {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+
+            if ($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == '' || $(".moduleSelect").val() == '') {
+                toastr.error("Please fill all the fields");
+                return false;
+            }
+
+            var companyName = $("#companyName").val();
+            var displayName = $("#displayName").val();
+            var Country = $("#CountrySelect option:selected").text();
+            var initial = $("#initial").val();
+            var vat = $("#vat").val();
+            var address = $("#address").val();
+            var phone = $("#phone").val();
+            var contact = $("#ContactNumber").val();
+            var Email = $("#Email").val();
+            var Website = $("#Website").val();
+            var logo = $(".logoValue").attr("data-name");
+            var module = parseInt($("#staticBackdrop").find("#moduleSelect").val());
+           // var module = parseInt($("#staticBackdrop").find("#moduleSelect").val());
+
+
+            // Check for special characters in the initial
+            var specialCharPattern = /[^a-zA-Z0-9]/;
+            if (specialCharPattern.test(initial)) {
+                toastr.error("Special characters or spaces are not allowed in Initial.");
+                return false;
+            }
+
+            if (!logo) {
+                await uploadLogoAndSubmitForm();
+                return; // Exit the function after uploading logo asynchronously
+            }
+
+            var checkdata = {
+                Initial: initial
+            };
+            var result1 = await AjaxCall("/Home/CheckInitialName", checkdata);
+
+            var data = {
+                CompanyName: companyName,
+                DisplayName: displayName,
+                ContactMobile: contact,
+                Initial: initial,
+                PanVatNo: vat,
+                Address: address,
+                PhoneNo: phone,
+                Module: parseInt(module),
+                OrganizationMail: Email,
+                Website: Website,
+                ImageName: '',
+                ImageType: '',
+                ImageData: logo,
+                OrganizationMotto: Country,
+                Token: ""
+            };
+
+            if (result1.StatusCode == 201) {
+                // Initial exists
+                toastr.error("Initial already created. Please change it.");
+            }
+            else {
+                var result = await AjaxCall("/Home/UploadOrganizationData", data);
+                if (parseInt(result) === 1) {
+                    $("#staticBackdrop").modal("hide");
+                    toastr.success("Organization Added Successfully");
+                    location.reload();
+
+                } else {
+                    toastr.error("Something went wrong");
+                }
+            }
+        });
+
+        async function uploadLogoAndSubmitForm() {
+            var imgSrc = $(".logoValue").attr("src");
+
+            var response = await fetch(imgSrc);
+            var blob = await response.blob();
+            var formData = new FormData();
+            formData.append("files", blob, "logo.png");
+
+
+            var data = await $.ajax({
+                url: "/Register/UploadPhoto",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST"
+            });
+
+
+            imgName = data;
+            $(".logoValue").attr("data-name", imgName);
+
+        }
+        // Payment method change event
+        $('input[name="payment"]').change(async function (event) {
+                 var $fileUpload = $('#file-upload');
+                var $qrCode = $('#qr-code');
+                var $fileInput = $('#fileInput');
+                var $fileError = $('#fileError');
+                event.preventDefault();
+                     if ($(this).attr('id') === 'upload') {
+                        $fileUpload.show();
+                        $qrCode.hide();
+                    } else if ($(this).attr('id') === 'fonepay') {
+            if ($(".rem").val() == "") {
+                $(this).attr("required", true);
+                toastr.error("Please enter a remarks before proceeding to payment!!!");
+            } else {
+                if ($('#fonepay').is(':checked')) {
+                    var amount = parseFloat($("#statusModal").find(".Amount").val());
+
+                    // Check if the fetched amount from the frontend matches the server amount
+                    // if (amountFetchedFromServer !== amount) {
+                    //     toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
+                    //     return;  // Exit the function if amounts do not match
+                    // }
+
+                    // Proceed only if the amounts are the same
+                    var Product = $("#statusModal").find(".productN").text();
+                    var Amount = parseFloat($("#statusModal").find(".Amount").val());
+                    var newExpDate = $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate");
+                    var PlanName = $("#statusModal").find(".selectedPackages :selected").text();
+
+                        if (amount) {
+                        var bankDetails = {
+                            amount:0.01,// amount,
+                            Purpose: "Live",
+                            Remarks1: $("#statusModal").find(".rem").val(),
+                            Remarks2: "Remarks 2"
+                        };
+
+                        // Call the backend to generate QR code and get the PRN
+                        var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
+                        var response = JSON.parse(aahaha);
+                        $("#statusModal").modal('hide');
+                        $("#QRModal").modal('show');
+
+                        // Ensure response contains hashKey and prn
+                        if (response && response.prn && response.hashKey) {
+                            var prn = response.prn;
+                            $("#QRModal").find("#AmountQr").text(amount);
+
+                            var hashKey = response.hashKey;
+                            var qrMessage = response.qrMessage;
+
+                            // Clear any existing QR code before generating a new one
+                            $("#generated-qr").empty();
+
+                            // Generate the QR code
+                            new QRCode($("#QRModal").find("#generated-qr")[0], {
+                                text: qrMessage,
+                                width: 250,
+                                height: 250,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                                var $qrCode = $("#QRModal").find("#generated-qr-container");
+                            $qrCode.show();
+
+                            // Flag to check if payment has been successfully processed
+                            var paymentSuccessHandled = false;
+
+                            // Start checking payment status every 2 seconds for this specific transaction (by prn)
+                            var paymentStatusInterval = setInterval(async function () {
+                                var getQRresponse = await AjaxCallNoAsync("/QRCodeForPayment/GetPaymentStatus", { qrHashKey: hashKey, prn: prn });
+                                var paymentResponse = JSON.parse(getQRresponse);
+
+                                if (paymentResponse[0]["paymentStatus"] === 'success' && !paymentSuccessHandled) {
+                                    paymentSuccessHandled = true;
+
+                                    // Handle successful payment, update database, send SMS/email, etc.
+                                    var parm = {
+                                        SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+                                        ExpiryDate: newExpDate,
+                                        PaidAmount: parseFloat(paymentResponse[0]["totalTransactionAmount"]),
+                                        Remarks: $("#statusModal").find(".rem").val(),
+                                        CustomerId: parseInt($("#custid").val()),
+                                        ProductId: parseInt($("#prodid").val()),
+                                        TransactionId: 0,
+                                        PaymentMethod: 'QR',
+                                        ReferenceId: 0,
+                                        PaymentPartner: 'FonePay',
+                                        GeneratedSerialNo: 'sn001',
+                                        VoucherImage: '',
+                                        fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"])
+                                    };
+
+                                    var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                                    if (cpp != 'Success') {
+                                        toastr.error("Server side problem in extending the Plan");
+                                        } else
+                                        {
+
+                                            // Get necessary data from payment response
+                                            var invoiceDate = new Date().toLocaleDateString();
+                                            var dueDate = new Date(newExpDate).toLocaleDateString();
+                                            var customerName = $("#statusModal").find(".userPhone").text();
+                                            var customerAddress = "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal";
+                                            var product = Product;
+                                            var planName = PlanName;
+                                            var amount = Amount;
+                                            var transactionId = paymentResponse[0]["fonepayTraceId"];
+                                            var paymentGateway = "FonePay";
+                                            var totalAmount =  paymentResponse[0]["totalTransactionAmount"];
+                                            var vat = totalAmount * 0.13;
+                                            var subtotal = totalAmount - vat;
+
+                                            // HTML structure template
+                                            var invoiceHTML = `
+                                                                              <div id="invoice-container">
+                        <div style="font-family: Arial, sans-serif; color: #333; margin: 0 auto; width: 80%; padding: 20px; background-color: #fff; border: 1px solid #ddd; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Logo" style="max-width: 150px; height: auto;">
+                                <h1 style="font-size: 36px; color: #007bff;">Invoice</h1>
+                                <p style="font-size: 16px; color: #555;">
+                                    <strong>Insoft Research And Development</strong><br>
+                                    Pokhara-8, Ratnachowk, Mid Western, 44204, Nepal<br>
+                                    PAN/VAT: hhahaha
+                                </p>
+                            </div>
+
+                            <!-- Invoice Details -->
+                            <div style="margin: 20px 0;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <p><strong>Invoice #${prn}</strong></p>
+                                        <p><strong>Invoice Date:</strong> ${invoiceDate}</p>
+                                        <p><strong>Due Date:</strong> ${dueDate}</p>
+                                    </div>
+                                    <div>
+                                        <p><strong>Invoiced To:</strong><br>${customerName}<br></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Invoice Items -->
+                            <div style="margin: 20px 0;">
+                                <div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px 0; display: flex; justify-content: space-between; background-color: #f9f9f9;">
+                                    <div style="flex: 1; padding-left: 20px;">${product} - ${planName} (${invoiceDate} - ${dueDate})</div>
+                                    <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${subtotal} NPR</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
+                                    <div style="flex: 1; padding-left: 20px;">13.00% Value Added Tax (VAT)</div>
+                                    <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${vat} NPR</div>
+                                </div>
+                                <div style="border-top: 1px solid #ddd; padding: 10px 0; font-weight: bold; display: flex; justify-content: space-between; background-color: #f2f2f2;">
+                                    <div style="flex: 1; padding-left: 20px;">Total</div>
+                                    <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${totalAmount} NPR</div>
+                                </div>
+                            </div>
+
+                            <!-- Transaction Information -->
+                            <div style="margin: 20px 0;">
+                                <h3 style="font-size: 18px; color: #007bff;">Transaction Details</h3>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; background-color: #f9f9f9;">
+                                    <div style="flex: 1; padding-left: 20px;"><strong>Transaction Date</strong></div>
+                                    <div style="flex: 1; text-align: center;"><strong>Payment Gateway</strong></div>
+                                    <div style="flex: 1; text-align: center;"><strong>Fonepay Trace ID</strong></div>
+                                    <div style="flex: 1; text-align: right; padding-right: 20px;"><strong>Amount</strong></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
+                                    <div style="flex: 1; padding-left: 20px;">${invoiceDate}</div>
+                                    <div style="flex: 1; text-align: center;">${paymentGateway}</div>
+                                    <div style="flex: 1; text-align: center;">${transactionId}</div>
+                                    <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${totalAmount} NPR</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
+                                    <div style="flex: 3; padding-left: 20px; font-weight: bold;">Balance</div>
+                                    <div style="flex: 1; text-align: right; padding-right: 20px; font-weight: bold;">Rs. 0.00 </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div style="text-align: center; font-size: 14px; color: #888; margin-top: 30px;">
+                                <p>IMPORTANT: This document DOES NOT SERVE AS A TAX INVOICE. To fulfill tax requirements, kindly collect the TAX invoice from our accounts department. For inquiries, please contact us at <a href="tel:061-543815" style="color: #007bff;">+977-1-5268549</a></p>
+                                <p style="font-size: 0.8em; color: #666;">PDF Generated on ${invoiceDate}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                                                                      `;
+                                            $("#payinvoice").append(invoiceHTML);
+
+                                            const element = document.getElementById('payinvoice');
+
+                                            html2pdf(element, {
+                                                margin: 10,
+                                                filename: 'invoice.pdf',
+                                                image: { type: 'jpeg', quality: 0.98 },
+                                                html2canvas: { scale: 2 },
+                                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                                            });
+
+
+                                            clearInterval(paymentStatusInterval); // Stop checking payment status
+                                            toastr.success("Subscription Extension Successful!!!");
+                                            $("#statusModal").find(".rem").val('');
+                                            $("#QRModal").modal('hide');
+
+
+                                    // Send success SMS to the user
+                                    var parm = {
+                                        SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan amounting to Rs.${Amount}. The plan will expire on ${newExpDate}. Thank you for choosing Insoft R & D.`,
+                                        MobileNo: $("#statusModal").find(".userPhone").text()
+                                    };
+
+                                    var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
+
+                                    // Send confirmation email to the user
+                                        const codeBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                                <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                    <div style="text-align: center;">
+                                                        <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                    </div>
+                                                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
+                                                    <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
+                                                        Below are the details of your extended subscription:
+                                                    </p>
+                                                    <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                        <tr style="background-color: #f4f4f4; text-align: left;">
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The new expiry date for your subscription is <strong>${newExpDate}</strong>.
+                                                        If you have any questions or require further assistance, feel free to contact us at 061-543815.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Best regards, <br>
+                                                        Insoft Research & Development
+                                                    </p>
+                                                </div>
+                                            </div>`;
+                                    const toUser = {
+                                        ReceiverEmail: $("#statusModal").find(".userEmail").text(),
+                                        Subject: "Subscription Extended",
+                                        EmailBody: codeBody,
+                                    };
+
+                                    var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+
+                                    // Send email to Insoft team
+                                        const insoftEmailBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                                <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                    <div style="text-align: center;">
+                                                        <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                    </div>
+                                                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Payment Successful - Subscription Extension</h2>
+                                                    <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Team,</p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The subscription of the <strong>${Product}</strong> product has been successfully extended by the Customer themselves through the FonePay QR provided in our Software..
+                                                        Below are the details of the transaction:
+                                                    </p>
+                                                    <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                        <tr style="background-color: #f4f4f4; text-align: left;">
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The customer is now subscribed to the new plan until <strong>${newExpDate}</strong>.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Best regards, <br>
+                                                        Insoft Research & Development
+                                                    </p>
+                                                </div>
+                                            </div>`;
+                                    const toInsoft = {
+                                        ReceiverEmail: "insoftrnd@gmail.com",
+                                        Subject: "Payment Successful - Subscription Extension",
+                                        EmailBody: insoftEmailBody,
+                                    };
+
+                                    var insoftEmail = await AjaxCall("/Dashboard/SendEmail", toInsoft);
+
+                                           await GetOrganizations();
+                                        }
+
+                                    }
+                            }, 2000); // Poll every 2 seconds
+
+                            // Stop payment status polling when modal is closed or loses focus
+                            $('#QRModal').on('hidden.bs.modal', function () {
+
+                                clearInterval(paymentStatusInterval);
+                                $("#statusModal").find(".rem").val('');
+                                $("#statusModal").find("#upload").attr("checked", false);
+                                $("#generated-qr-container").find("#generated-qr").empty();
+                            });
+
+                        } else {
+                            $qrCode.hide();
+                        }
+                    } else {
+                        $qrCode.hide();
+                    }
+                } else {
+                    // Handle other cases if needed
+                }
+            }
+        }
+    });
+
+</script>

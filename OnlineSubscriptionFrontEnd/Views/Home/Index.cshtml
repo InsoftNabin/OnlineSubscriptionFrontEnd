@@ -1,6 +1,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <link rel="stylesheet" href="~/files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -784,8 +785,6 @@
 
 <script type="text/javascript">
     $(document).ready(async function () {
-
-        
         $(".defaultModuleValue").val('inschoolerp.com');
 
         // Update value on change event
@@ -814,7 +813,7 @@
         async function GetOrganizations() {
             const result = await AjaxCall("/Home/GetOrganizations");
             let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
-
+            
             body += `
                 <div class="app-content flex-column-fluid">
                     <div class="app-container container-xxl">
@@ -1068,7 +1067,10 @@
             await loadsubscriptionLog(id, ProductId);
             await loadplansforcustomerandproduct(id, ProductId);
         });
-
+              
+                var customerId = '@ViewBag.Customer';
+                var productId = '@ViewBag.Product';
+                $(".viewSub[data-custid='" + customerId + "'][data-productid='" + productId + "']").click();
     });
   
     function updateCircularProgress(chartId, percentage, remainingDays) {

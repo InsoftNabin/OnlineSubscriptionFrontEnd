@@ -8,5 +8,6 @@
         public string password { get; set; }
         public string qrHashKey { get; set; }
 
+
     }
 }
