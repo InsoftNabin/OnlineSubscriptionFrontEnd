@@ -15,6 +15,10 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         {
             return View();
         }
+        public IActionResult ErrorPage()
+        {
+            return View();
+        }
 
 
         [HttpPost]

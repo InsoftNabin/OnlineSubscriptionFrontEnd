@@ -281,6 +281,7 @@
         var parm = {
             ProductId: parseInt($(".Products :selected").val())
         };
+        debugger
         var a = await AjaxCall("/Customer/getCustomerByProductId", parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);

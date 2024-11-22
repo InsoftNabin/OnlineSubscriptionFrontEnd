@@ -24,7 +24,8 @@
 
 
     <!-- Favicon icon -->
-    <link rel="icon" href="~/files/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="icon" href="~/files/assets/images/insoft-logo.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
@@ -71,6 +72,17 @@
             color: white;
         }
 
+        .pcoded-hasmenun::after {
+            content: none !important; /* Removes the arrow */
+        }
+
+        .pcoded-hasmenun a {
+            position: relative;
+        }
+
+            .pcoded-hasmenun a::after {
+                content: none !important; /* Ensure no extra content after the anchor */
+            }
         .red {
             color: red;
         }
@@ -195,7 +207,7 @@
                                                          alt="Generic placeholder image">
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <h5 class="notification-user">Agent</h5>
+                                                    <h5 class="notification-user">Agent </h5>
                                                     <p class="notification-msg">
                                                         Lorem ipsum dolor sit amet, consectetuer
                                                         elit.
@@ -252,11 +264,14 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="../files/assets/images/avatar-4.jpg" class="img-radius"
-                                             alt="User-Profile-Image">
-                                        <span class="userName">agent </span>
+                                        <img src="../files/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">Agent
+                                        <span class="userName">
+                                            @ViewBag.AgentName  <!-- Display the agent's name -->
+                                            <span id="AgentId" style="font-weight: normal; color: #888;">@ViewBag.AgentId</span> <!-- Display the agent's ID -->
+                                        </span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
+
                                     <ul class="show-notification profile-notification dropdown-menu"
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                         <li>
@@ -425,7 +440,7 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="pcoded-navigatio-lavel">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu active pcoded-trigger">
+                                <li class="pcoded-hasmenun ">
                                     <a href="#!">
                                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
@@ -433,13 +448,13 @@
                                 </li>
                                 
                                 
-                                <li class="pcoded-hasmenu">
-                                    <a href="#!">
+                                <li class="pcoded-hasmenun">
+                                    <a href="/CustomerforAgent">
                                         <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                                         <span class="pcoded-mtext">Customers</span>
 
                                     </a>
-                                    <ul class="pcoded-submenu">
+                                   @*  <ul class="pcoded-submenu">
                                         
                                         <li>
                                             <a href="/CustomerforAgent">
@@ -447,21 +462,26 @@
                                             </a>
                                         </li>
 
-                                    </ul>
+                                    </ul> *@
                                 </li>
-                                <li class="pcoded-hasmenu pcoded-trigger" dropdown-icon="style1" subitem-icon="style1">
-                                    <a href="#!">
+                                <li class="pcoded-hasmenun" dropdown-icon="style1" subitem-icon="style1">
+                                    <a href="/CustomerforAgent/SubscriptionExtensionByAgent">
                                         <span class="pcoded-micon"><i class="feather icon-credit-card"></i></span>
                                         <span class="pcoded-mtext">Subscription</span>
                                     </a>
-                                    <ul class="pcoded-submenu">
+                                   @*  <ul class="pcoded-submenu">
                                        
                                         <li>
                                             <a href="/CustomerforAgent/SubscriptionExtensionByAgent">
                                                 <span class="pcoded-mtext">Subscription Extension</span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> *@
+                                </li>
+                                <li>
+                                    <a href="" class="signoutBtn">
+                                        <i class="feather icon-log-out"></i> Logout
+                                    </a>
                                 </li>
 
                             </ul>
@@ -498,7 +518,16 @@
     <script type="text/javascript" src="~/files/assets/js/script.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+                $(document).ready(function() {
+          
+            $('.pcoded-hasmenun a').each(function() {
+                if (this.href === window.location.href) {
+                    $(this).parent().addClass('pcoded-trigger');
+                } else {
+                    $(this).parent().removeClass('pcoded-trigger');
+                }
+            });
+       
             $('.navbar-logo').attr("logo-theme", "white");
             $(".userName").text("@ViewBag.UserName");
         });

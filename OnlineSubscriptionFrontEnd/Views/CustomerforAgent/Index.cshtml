@@ -539,8 +539,9 @@
     }
 
     async function getTableData() {
+        debugger
         var parm={
-            Id:9
+            Id:parseInt($("#AgentId").text())
         }
         var a =await AjaxCall("/Customer/getCustomerByAgentId",parm);
         var ab = JSON.parse(a);

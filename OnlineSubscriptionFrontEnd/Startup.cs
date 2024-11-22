@@ -70,7 +70,7 @@ namespace OnlineSubscriptionFrontEnd
                 await next();
                 if (context.Response.StatusCode == 404)
                 {
-                    context.Request.Path = "/Error_404";
+                    context.Request.Path = "/Customer/ErrorPage";
                     await next();
                 }
             });

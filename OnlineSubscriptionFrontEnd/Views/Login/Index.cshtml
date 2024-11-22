@@ -72,6 +72,7 @@
     }
 
     $("#LoginBtn").on("click", async (e) => {
+        
         if ($("input[name='Email']").val() == '') {
             toastr.error("Please enter your username!");
             return;
@@ -85,7 +86,7 @@
             UserName: $("input[name='Email']").val(),
             Password: $("input[name='Password']").val(),
         };
-        
+        debugger
         const result = await AjaxCall("/Login/VerifyUser", data);
         var JSonResult=JSON.parse(result);
 

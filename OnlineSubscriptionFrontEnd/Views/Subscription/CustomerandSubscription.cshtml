@@ -88,13 +88,10 @@
         getTableData();
 
         $('.show-btn').on('click', function () {
+         
             var currentRow = $(this).closest('tr');
             var detailRow = currentRow.next('.detail-row');
-            $(this).removeClass("btn-info");
-            $(this).addClass("btn-danger");
-            $(this).find(".iontoggle").removeClass("icon-chevron-down");
-            $(this).find(".iontoggle").addClass("icon-chevron-up");
-
+            
             var custId = $(this).data('custid'); 
             var uniqueTableId = "SubsDetail_" + custId; 
 
@@ -129,9 +126,25 @@
                     '</tr>');
                 currentRow.after(detailRow);
             }
-            detailRow.toggle(); 
 
             getSubscriptionwithCustid(custId, uniqueTableId);
+
+            if($(this).find(".iontoggle").hasClass("icon-chevron-down")){
+                $(this).removeClass("btn-info");
+            $(this).addClass("btn-danger");
+            $(this).find(".iontoggle").removeClass("icon-chevron-down");
+            $(this).find(".iontoggle").addClass("icon-chevron-up");
+         
+            }
+            else{
+                 $(this).addClass("btn-info");
+            $(this).removeClass("btn-danger");
+            $(this).find(".iontoggle").addClass("icon-chevron-down");
+            $(this).find(".iontoggle").removeClass("icon-chevron-up");
+           $(this).parents("tr").next("tr").css("display",'none');
+            }
+            //detailRow.toggle(); 
+
         });
 
         async function getSubscriptionwithCustid(custId, uniqueTableId) {

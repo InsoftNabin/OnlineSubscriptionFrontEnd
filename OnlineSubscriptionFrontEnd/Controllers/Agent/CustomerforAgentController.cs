@@ -1,12 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
-using System.Net.NetworkInformation;
-using System.Net;
-using System.Net.Sockets;
 using Newtonsoft.Json.Linq;
 using DataService;
 
@@ -18,24 +11,48 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Agent
         {
             try
             {
-
                 string tokenNo = HttpContext.Session.GetString("TokenNo");
-                if (tokenNo==null)
+
+                if (tokenNo == null)
                 {
-                    return Ok("-21");
+                    return Ok("-21");  
                 }
                 else
                 {
-                    string responseAgent = await ApiCall.ApiCallWithString("//",tokenNo,"Post");
-                    //ViewBag.AgentId= responseAgent.AgentId;
-                    return View();
+                    string responseAgent = await ApiCall.ApiCallWithString("/Customer/getAgentIdwithToken", tokenNo, "Post");
+                    var parsedResponse = JsonConvert.DeserializeObject<string>(responseAgent);
+                    var agentArray = JsonConvert.DeserializeObject<JArray>(parsedResponse);
+
+                    if (agentArray != null && agentArray.Count > 0)
+                    {
+                        var agentId = agentArray[0]["AgentId"]?.ToString();
+                        var agentName = agentArray[0]["Name"]?.ToString();
+
+
+                        if (!string.IsNullOrEmpty(agentId))
+                        {
+                            ViewBag.AgentId = agentId;
+                            ViewBag.AgentName = agentName;
+
+                            return View();
+                        }
+                        else
+                        {
+                            return RedirectToAction("ErrorPage", "Customer");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("ErrorPage", "Customer");
+                    }
                 }
             }
             catch (Exception e)
             {
-                throw e;
+                return RedirectToAction("ErrorPage", "Home");
             }
         }
+
         public IActionResult SubscriptionExtensionByAgent()
         {
             

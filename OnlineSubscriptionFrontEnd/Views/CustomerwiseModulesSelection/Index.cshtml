@@ -219,6 +219,7 @@
                                 </div>
                            
                                 Agent: <select class="AgentsinModalTable"><option class="default">--Select An Agent--</option></select><br>
+                                Subscription GUID:<span class="subscriptionGUID"></span>
                                     <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
                                     <thead>
@@ -273,7 +274,6 @@
 
     $(document).on('click', '.saveeachData', async function () {
     
-        debugger
         if($(this).parents(".parent").find(".initial").val()==""||$(this).parents(".parent").find(".siteURL").val()==""||$(this).parents(".parent").find(".serialNumber").val()==""){
             toastr.warning("Please fill in all the fields marked red star!!!");
             return;
@@ -305,6 +305,7 @@
                 }
 
               
+              
                 var SubProduct = {
                     Id: parseInt(row.data("main")),
                     ProductId: parseInt(productId),
@@ -325,20 +326,21 @@
                     SerialNumber: serialNumber,
                     SubProducts: subProducts
                 };
-                try {
-                    var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
-                    if (response.success) {
-                        toastr.error("Failed to save data: ");
-                       
-                    } else {
-                        $("#exampleModal").modal('close');
-                        toastr.success("Data saved successfully!");
-                    }
-                } catch (error) {
+                    try {
+                         var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
 
-                    toastr.error("An error occurred while saving data.");
-                
-                }
+                         if (response == 'Success') {
+                            $(".btn-close").trigger('click');
+                             toastr.success("Data saved successfully!");
+                         } else {
+                             toastr.error("Failed to save data.");
+                             $("#exampleModal").modal('hide'); 
+                         }
+                     } catch (error) {
+                         toastr.error("An error occurred while saving data.");
+                         $("#exampleModal").modal('hide'); 
+                     }
+
 
             } else {
                 toastr.error("Select at least one row before editing the data!!");
@@ -408,7 +410,7 @@
                 $("#exampleModal").find(".initial").val(dataJson[0]["Initial"])
                 $("#exampleModal").find(".siteURL").val(dataJson[0]["siteURL"])
                 $("#exampleModal").find(".serialNumber").val(dataJson[0]["SerialNo"])
-
+                $("#exampleModal").find(".subscriptionGUID").text(dataJson[0]["SubscriptionGUID"])
                 var rowColor = dataJson[i]["IsActivated"] === "Activated" ? '#DDFFF7' : '';
 
                 MODalTable += `<tr data-activate="` + dataJson[i]["IsActivated"] + `" data-main="` + dataJson[i]["Id"] + `" data-subproductid="` + dataJson[i]["SubProductId"] + `" style="background-color: ${rowColor};">

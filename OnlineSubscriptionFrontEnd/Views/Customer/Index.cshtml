@@ -289,9 +289,9 @@ select option {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-third">
+                        <div class="col-third" hidden>
                             <div class="input-group input-group-icon">
-                                <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" required hidden>
+                                <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink"  hidden>
                                 <div class="input-icon">
                                     <i class="feather icon-link"></i>
                                 </div>
@@ -353,7 +353,7 @@ select option {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-third">
+                        <div class="col-third" hidden>
                             <div class="input-group input-group-icon">
                                 <input type="text" id="guid" placeholder="GUID" name="GUID" required>
                                 <div class="input-icon">
@@ -436,7 +436,7 @@ select option {
 </div>
 
 
-                        <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
+                        <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:60dvh;position:relative">
                             <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width:100%;border-collapse: separate;padding:0px;">
                                 <thead>
                                     <tr style="background-color:#0b3b56; color:white;">
@@ -449,14 +449,12 @@ select option {
                                         <th class="center">Address</th>
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
-                                      
                                         <th class="center">Contact Person 1</th>
                                         <th class="center">Contact Person 1_Mobile number</th>
                                         <th class="center">Contact Person 2</th>
                                         <th class="center">Contact Person 2_Mobile number</th>
                                         <th class="center">Email Address</th>
                                         <th class="center">Website</th>
-                                        <th class="center">GUID</th>
                                         <th class="center">Company Code</th>
                                         <th class="center">BySMSApiToken</th>
                                     </tr>
@@ -487,8 +485,9 @@ select option {
             resetForm();
         });
 
-        $("#BtnInsert").on("click", async function () {
-            if ($("#CustCode").val() == "" || $("#CustName").val() == "" || $("#CustAddress").val() == "" || $("#panvat").val() == "" || $("#Custcontact").val() == "" || $("#Custdblink").val() == "" || $("#CP1").val() == "" || $("#CP1Mobno").val() == "" || $("#CP2").val() == "" || $("#CP2Mobno").val() == "" || $("#email").val() == "" || $("#website").val() == "" || $("#guid").val() == "" || $("#CompanyCode").val() == "" || $("#BySMSApiToken").val() == "") {
+        $("#BtnInsert").on("click", async function (event) {
+          event.preventDefault();
+            if ($("#CustCode").val() == "" || $("#CustName").val() == "" || $("#CustAddress").val() == "" || $("#panvat").val() == "" || $("#Custcontact").val() == "" ||  $("#CP1").val() == "" || $("#CP1Mobno").val() == "" || $("#CP2").val() == "" || $("#CP2Mobno").val() == "" || $("#email").val() == "" || $("#website").val() == "" || $("#CompanyCode").val() == "" || $("#BySMSApiToken").val() == "") {
                 toastr.error("Please fill in all the fields!!!");
             } else {
                 var parm = {
@@ -505,20 +504,21 @@ select option {
                     ContactPerson2_MobileNo: $("#CP2Mobno").val(),
                     EmailAddress: $("#email").val(),
                     Website: $("#website").val(),
-                    GUID: $("#guid").val(),
+                    GUID: '',//$("#guid").val(),
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val()
                 };
-             debugger
+    
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
-
-                if (jsondataresponse == 1) {
+                
+                if (jsondataresponse >0) {
                     resetForm();
                     getTableData();
-                    toastr.success("Agent action successfull!");
+                    $("#toggleArrow").trigger('click');
+                    toastr.success("Customer Action successfull!");
                 } else {
-                    toastr.error("Failed to insert/update agent.");
+                    toastr.error("Failed to insert/update Customer.");
                 }
             }
         });
@@ -581,7 +581,6 @@ select option {
                                 <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
                                 <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
                                 <td class="center website">` + jsondata[i]["Website"] + `</td>
-                                <td class="center GUID">` + jsondata[i]["GUID"] + `</td>
                                 <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
                                 <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
                             </tr>`;

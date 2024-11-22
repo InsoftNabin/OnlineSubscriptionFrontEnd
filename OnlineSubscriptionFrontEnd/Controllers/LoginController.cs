@@ -71,7 +71,10 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 }
                 else
                 {
-                    return Ok("Error");
+                    return Ok("400");
+                    //return RedirectToAction("Index", "Login", new { msg = "Invalid Credentials" });
+
+                    //return RedirectToAction("ErrorPage", "Customer");
                 }
             }
             catch (Exception ex)
