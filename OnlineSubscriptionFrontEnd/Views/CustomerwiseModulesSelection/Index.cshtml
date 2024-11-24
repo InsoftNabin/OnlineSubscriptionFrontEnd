@@ -167,6 +167,7 @@
         $("#CustomerId").val(customerId);
         loadProducts(customerId);
         getAgents();
+        debugger
     });
 
     function loadProducts(customerId) {
@@ -398,7 +399,7 @@
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
         };
-
+        debugger
         var dataAjax = await AjaxCall("CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);

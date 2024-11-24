@@ -30,7 +30,18 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
             return View();
         }
+        [HttpPost]
+        public JsonResult CreateInvoice([FromBody] InvoiceData invoiceData)
+        {
+      
+            return Json(new { success = true, message = "Invoice Data Received" });
+        }
 
+     
+        public IActionResult InvoicePage(InvoiceData invoiceData)
+        {
+            return View(invoiceData);
+        }
         public IActionResult Index()
         {
             var token = HttpContext.Session.GetString("TokenNo");

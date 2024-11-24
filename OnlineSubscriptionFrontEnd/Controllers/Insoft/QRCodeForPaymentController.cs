@@ -104,8 +104,6 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                     username=fplu.FonePayUserName,
                     password=fplu.FonePayPassword,
                    qrHashKey=aa.qrHashKey
-
-
                 };
 
                 string reqData = await ApiCall.FonePayApiCallWithObject("/DynamicQR/GetPaymentStatus", fpr, "Post");

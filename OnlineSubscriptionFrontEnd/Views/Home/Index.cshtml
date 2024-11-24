@@ -1,25 +1,34 @@
 @{
     ViewData["Title"] = "Index";
 }
-
 <link rel="stylesheet" href="~/files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
+<!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="~/files/assets/icon/themify-icons/themify-icons.css">
 
+<!-- Include Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Include Icon Libraries -->
+<link rel="stylesheet" type="text/css" href="~/files/assets/icon/themify-icons/themify-icons.css">
 <link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
+
+<!-- QR Code Library -->
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<!-- Custom JS -->
 <script src="~/insoft/assets/assets/js/custom.js"></script>
+
 <!-- jsPDF Core Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<!-- Latest html2canvas (Version 0.4.2) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.2/html2canvas.min.js"></script>
 
-
+<!-- Latest html2pdf (Version 0.9.3) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
 
 <!-- jsPDF AutoTable Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.0/jspdf.plugin.autotable.min.js"></script>
-
 
 <style>
    
@@ -494,7 +503,7 @@
 </div>
 
 
-                            <div id="payinvoice" hidden></div>
+                            <div id="payinvoice" ></div>
 
 
 <!-- Modal for customer status -->
@@ -680,7 +689,7 @@
 
 
 <!-- Modal for Remaining Days less than 5 -->
-<div class="modal fade" id="QRModal5" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="QRModal5" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-xl" style="width:90%;">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
@@ -1126,18 +1135,20 @@
                 if (remainingDays < 5) {
                     toastr.error("Remaining days in the current plan are less than 5!");
                     var qrText = `Your plan has ${remainingDays} days remaining!`;
-                    var qrModal5 = $("#QRModal5").find("#generated-qr");
+                    // var qrModal5 = $("#QRModal5").find("#generated-qr");
 
-                    qrModal5.empty();  // Clear any previous QR code
-                    new QRCode(qrModal5[0], {
-                        text: qrText,
-                        width: 250,
-                        height: 250,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
-                    $("#QRModal5").modal('show');
+                    // qrModal5.empty();  // Clear any previous QR code
+                    // new QRCode(qrModal5[0], {
+                    //     text: qrText,
+                    //     width: 250,
+                    //     height: 250,
+                    //     colorDark: "#000000",
+                    //     colorLight: "#ffffff",
+                    //     correctLevel: QRCode.CorrectLevel.H
+                    // });
+                    // $("#QRModal5").modal('show');
+                    //     $("#statusModal").modal('close');
+
                 }
 
                 // Update the circular progress for the specific organization
@@ -1961,118 +1972,45 @@
                                     fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"])
                                 };
 
-                                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-                                if (cpp != 'Success') {
-                                    toastr.error("Server side problem in extending the Plan");
-                                    } else
-                                    {
-
-                                        // Get necessary data from payment response
-                                        var invoiceDate = new Date().toLocaleDateString();
-                                        var dueDate = new Date(newExpDate).toLocaleDateString();
-                                        var customerName = $("#statusModal").find(".userPhone").text();
-                                        var customerAddress = "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal";
-                                        var product = Product;
-                                        var planName = PlanName;
-                                        var amount = Amount;
-                                        var transactionId = paymentResponse[0]["fonepayTraceId"];
-                                        var paymentGateway = "FonePay";
-                                        var totalAmount =  paymentResponse[0]["totalTransactionAmount"];
-                                        var vat = totalAmount * 0.13;
-                                        var subtotal = totalAmount - vat;
-
-                                        // HTML structure template
-                                        var invoiceHTML = `
-                                                                          <div id="invoice-container">
-                    <div style="font-family: Arial, sans-serif; color: #333; margin: 0 auto; width: 80%; padding: 20px; background-color: #fff; border: 1px solid #ddd; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Logo" style="max-width: 150px; height: auto;">
-                            <h1 style="font-size: 36px; color: #007bff;">Invoice</h1>
-                            <p style="font-size: 16px; color: #555;">
-                                <strong>Insoft Research And Development</strong><br>
-                                Pokhara-8, Ratnachowk, Mid Western, 44204, Nepal<br>
-                                PAN/VAT: hhahaha
-                            </p>
-                        </div>
-
-                        <!-- Invoice Details -->
-                        <div style="margin: 20px 0;">
-                            <div style="display: flex; justify-content: space-between;">
-                                <div>
-                                    <p><strong>Invoice #${prn}</strong></p>
-                                    <p><strong>Invoice Date:</strong> ${invoiceDate}</p>
-                                    <p><strong>Due Date:</strong> ${dueDate}</p>
-                                </div>
-                                <div>
-                                    <p><strong>Invoiced To:</strong><br>${customerName}<br></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Invoice Items -->
-                        <div style="margin: 20px 0;">
-                            <div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px 0; display: flex; justify-content: space-between; background-color: #f9f9f9;">
-                                <div style="flex: 1; padding-left: 20px;">${product} - ${planName} (${invoiceDate} - ${dueDate})</div>
-                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${subtotal} NPR</div>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
-                                <div style="flex: 1; padding-left: 20px;">13.00% Value Added Tax (VAT)</div>
-                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${vat} NPR</div>
-                            </div>
-                            <div style="border-top: 1px solid #ddd; padding: 10px 0; font-weight: bold; display: flex; justify-content: space-between; background-color: #f2f2f2;">
-                                <div style="flex: 1; padding-left: 20px;">Total</div>
-                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${totalAmount} NPR</div>
-                            </div>
-                        </div>
-
-                        <!-- Transaction Information -->
-                        <div style="margin: 20px 0;">
-                            <h3 style="font-size: 18px; color: #007bff;">Transaction Details</h3>
-                            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; background-color: #f9f9f9;">
-                                <div style="flex: 1; padding-left: 20px;"><strong>Transaction Date</strong></div>
-                                <div style="flex: 1; text-align: center;"><strong>Payment Gateway</strong></div>
-                                <div style="flex: 1; text-align: center;"><strong>Fonepay Trace ID</strong></div>
-                                <div style="flex: 1; text-align: right; padding-right: 20px;"><strong>Amount</strong></div>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
-                                <div style="flex: 1; padding-left: 20px;">${invoiceDate}</div>
-                                <div style="flex: 1; text-align: center;">${paymentGateway}</div>
-                                <div style="flex: 1; text-align: center;">${transactionId}</div>
-                                <div style="flex: 1; text-align: right; padding-right: 20px;">Rs. ${totalAmount} NPR</div>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 10px 0; background-color: #f9f9f9;">
-                                <div style="flex: 3; padding-left: 20px; font-weight: bold;">Balance</div>
-                                <div style="flex: 1; text-align: right; padding-right: 20px; font-weight: bold;">Rs. 0.00 </div>
-                            </div>
-                        </div>
-
-                        <!-- Footer -->
-                        <div style="text-align: center; font-size: 14px; color: #888; margin-top: 30px;">
-                            <p>IMPORTANT: This document DOES NOT SERVE AS A TAX INVOICE. To fulfill tax requirements, kindly collect the TAX invoice from our accounts department. For inquiries, please contact us at <a href="tel:061-543815" style="color: #007bff;">+977-1-5268549</a></p>
-                            <p style="font-size: 0.8em; color: #666;">PDF Generated on ${invoiceDate}</p>
-                        </div>
-                    </div>
-                </div>
-
-                                                                  `;
-                                        $("#payinvoice").append(invoiceHTML);
-
-                                        const element = document.getElementById('payinvoice');
-
-                                        html2pdf(element, {
-                                            margin: 10,
-                                            filename: 'invoice.pdf',
-                                            image: { type: 'jpeg', quality: 0.98 },
-                                            html2canvas: { scale: 2 },
-                                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                                        });
-
-
-                                        clearInterval(paymentStatusInterval); // Stop checking payment status
-                                        toastr.success("Subscription Extension Successful!!!");
-                                        $("#statusModal").find(".rem").val('');
-                                        $("#QRModal").modal('hide');
+                                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                         
+                        if (cpp != 'Success') {
+                            toastr.error("Server side problem in extending the Plan");
+                        } else {
+                            //prepare the invoice bill
+                            try {
+                              var invoiceData = {
+                                invoiceDate: new Date().toLocaleDateString(),
+                                dueDate: new Date(newExpDate).toLocaleDateString(),
+                                customerName: $("#statusModal").find(".userPhone").text(),
+                                customerAddress: "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal",
+                                product: Product,
+                                planName: PlanName,
+                                amount: Amount,
+                                transactionId: paymentResponse[0]["fonepayTraceId"],
+                                paymentGateway: "FonePay",
+                                totalAmount: paymentResponse[0]["totalTransactionAmount"],
+                                vat: paymentResponse[0]["totalTransactionAmount"] * 0.13,
+                                subtotal: paymentResponse[0]["totalTransactionAmount"] - (paymentResponse[0]["totalTransactionAmount"] * 0.13)
+                            };
+                            
+                                var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
+                               // if (reqInvoice.success) {
+                                       window.location.href = '/Home/InvoicePage?' + $.param(invoiceData);
+                               //                         }else {
+                               //     toastr.error("Error creating invoice");
+                               // }
+
+    
+          
+                                toastr.success("Subscription Extension Successful!!!");
+                                $("#statusModal").find(".rem").val('');
+                                $("#QRModal").modal('hide');
+                            } catch (error) {
+                                toastr.error("An error occurred while generating the invoice.");
+                            }
+   
+
 
                                 // Send success SMS to the user
                                 var parm = {
@@ -2168,16 +2106,13 @@
 
                                 var insoftEmail = await AjaxCall("/Dashboard/SendEmail", toInsoft);
 
-                               
-
-                                       await GetOrganizations();
                                     }
 
 
 
 
                                 }
-                        }, 2000); // Poll every 2 seconds
+                        }, 500); // Poll every 2 seconds
 
                         // Stop payment status polling when modal is closed or loses focus
                         $('#QRModal').on('hidden.bs.modal', function () {
