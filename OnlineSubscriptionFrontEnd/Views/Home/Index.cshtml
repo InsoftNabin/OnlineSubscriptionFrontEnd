@@ -508,7 +508,7 @@
 
 <!-- Modal for customer status -->
 <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="width:90%;">
+    <div class="modal-dialog modal-xl" style="width:100%; max-width:1500px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
@@ -548,7 +548,9 @@
                                         <th class="center">Payment Method</th>
                                         <th class="center">Payment Partner</th>
                                         <th class="center">Amount</th>
-                                        <th class="center">Serial Number</th>
+                                        <th class="center">Reference Id</th>
+                                        <th class="center">Print</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -592,11 +594,14 @@
                                         <div class="payment-methods">
                                             <div class="payment-option" data-value="0">
                                                 <input type="radio" name="payment" id="upload" />
-                                                <label for="upload"><img src="~/files/assets/images/upload.svg" alt="Upload" /></label>
+                                                <label for="upload">Bank Deposit <img src="~/files/assets/images/upload.svg" alt="Upload" /></label>
                                             </div>
                                             <div class="payment-option" data-value="3" style="vertical-align:middle;">
                                                 <input type="radio" name="payment" id="fonepay" />
-                                                <label for="fonepay"><img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="margin-top:20px;" /></label>
+                                                <label for="fonepay">
+                                                    <img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="margin-top:20px;" />
+                                                    FonePay
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -605,7 +610,6 @@
                                         <input type="file" class="file" id="fileInput" data-filename="" />
                                         <p id="fileError" style="color:red; display:none;"></p>
                                     </div>
-
 
                                     <div class="row center" id="qr-code" style="display:none;">
                                         <div id="generated-qr" style="text-align:center;"></div>
@@ -864,27 +868,31 @@
                     <div class="col-12">
                 `;
 
-                // Loop through the organizations and create cards
+
     for (var i = 0; i < IncludeData.length; i++) {
-        let chartId = "ChartCircular" + (i + 1); // Create a unique ID for each chart
-        let detailsCollapseId = "kt_customer_view_details_" + i; // Unique ID for each collapse section
+            let chartId = "ChartCircular" + (i + 1);      
+        let imageUrl = IncludeData[i].ImageData || '~/files/assets/images/faq_man.png'; 
+        debugger
         body += `
             <div class="col-12">
-                <div class="card my-4 col-12 shadow">
+                <div class="card card-success my-4 col-12 shadow">
                     <div class="flex-column">
                         <div class="row">
                             <!-- Image Section -->
                             <div class="col-6 col-md-4">
                                 <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
-                                    <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65" style="object-fit:contain;">
+                                    <img src="${imageUrl}" alt="image" width="125" height="65" style="object-fit:contain; border:1px solid black;">
+                                   
                                 </div>
                             </div>
 
                             <!-- Company Name & Address Section -->
                             <div class="col-6 col-md-4">
-                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
+                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}, ${IncludeData[i].Address}</a>
                                 <div class="d-flex flex-stack fs-4 my-4">
-                                    <div class="fw-bold">${IncludeData[i].Address}</div>
+                                    <div class="fw-bold">
+                                        <a href="${IncludeData[i].ReturnURL}">${IncludeData[i].ReturnURL}</a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -892,36 +900,39 @@
                             ${IncludeData[i].IsVerified == 1 ? `
                                 <div class="col-12 col-md-4">
                                     <div class="d-flex flex-column align-items-center">
-                                        <!-- Badge and Button Container -->
-                                        <div class="d-flex flex-column align-items-center mb-3">
-                                            <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
-                                                <i class="feather icon-check-circle"></i>&nbsp;Verified
-                                            </span>
-                                            <button
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#statusModal"
-                                                class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
-                                                data-phone="${IncludeData[i].UserContact}"
-                                                style="height:35px;"
-                                                data-prod="${IncludeData[i].ModuleName}"
-                                                data-userEmail="${IncludeData[i].userEmail}"
-                                                data-productid="${IncludeData[i].ProductId}"
-                                                data-custid="${IncludeData[i].custId}">
-                                                Extend/Log &nbsp;
-                                            </button>
-                                        </div>
+                                       
 
-                                        <!-- Card and Radial Bar -->
-                                        <div class="card w-100">
-                                            <div id="${chartId}"
-                                                data-label="0/0"
-                                                class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
-                                                style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
-                                                       font-size: 12px;
-                                                       display: flex;
-                                                       align-items: center;
-                                                       justify-content: center;">
-                                                <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
+                                        <!-- Radial Bar and Button Side by Side -->
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="card w-100">
+                                                <div id="${chartId}"
+                                                    data-label="0/0"
+                                                    class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
+                                                    style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
+                                                           font-size: 12px;
+                                                           display: flex;
+                                                           align-items: center;
+                                                           justify-content: center;">
+                                                    <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
+                                                </div>
+                                            </div>
+                                                 &nbsp;<span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
+                                            <i class="feather icon-check-circle"></i>&nbsp;Verified
+                                        </span>
+                                            <!-- Extend/Log Button to the Right of Radial Bar -->
+                                            <div class="ms-3">
+                                                <button
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#statusModal"
+                                                    class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
+                                                    data-phone="${IncludeData[i].UserContact}"
+                                                    style="height:35px;"
+                                                    data-prod="${IncludeData[i].ModuleName}"
+                                                    data-userEmail="${IncludeData[i].userEmail}"
+                                                    data-productid="${IncludeData[i].ProductId}"
+                                                    data-custid="${IncludeData[i].custId}">
+                                                    Extend/Log &nbsp;
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -929,10 +940,9 @@
                             ` : IncludeData[i].IsVerified == -1 ? `
                                 <div class="col-12 col-md-4">
                                     <div class="d-flex flex-column align-items-center">
-                                        <!-- Badge and Declined Button -->
                                         <div class="d-flex flex-column align-items-center mb-3">
                                             <span class="badge badge-danger fw-bold px-4 py-3 fs-3 mb-2">
-                                                    <i class="fa fa-eye-slash" style="color:white;"></i>&nbsp;Declined
+                                                <i class="fa fa-eye-slash" style="color:white;"></i>&nbsp;Declined
                                             </span>
                                             <div class="d-flex flex-column align-items-center mb-3">
                                                 <div style="margin-top: 10px; font-size: 14px;">Reason: ${IncludeData[i].Remarks}</div>
@@ -951,40 +961,12 @@
                             `}
                         </div>
 
-                        <!-- Details Toggle Button -->
-                        <div class="d-flex flex-stack fs-4 py-3 card-body">
-                            <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#${detailsCollapseId}" role="button" aria-expanded="false" aria-controls="${detailsCollapseId}" id="viewDetails_${i}">Details
-                                <span class="ms-2 rotate-180">
-                                    <span class="svg-icon svg-icon-3">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
-                                        </svg>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Actions Buttons (Edit/Delete or Declined) -->
-                        <div class="d-flex flex-stack fs-4 py-3 card-body">
-                            <span>
-                                ${IncludeData[i].IsVerified == 0 ? `
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
-                                ` : ''}
-
-                                <!-- Hide Delete Button if Declined -->
-                                ${IncludeData[i].IsVerified !== -1 ? `
-                                    <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn"><i class="fas fa-trash"></i></button>
-                                ` : ''}
-                            </span>
-                        </div>
-
-                        <!-- Collapsing Section (Details) -->
-                        <div id="${detailsCollapseId}" class="collapse p-8">
-                            <hr class="bg-dark border-2 border-top border-dark" />
+                        <!-- Details Section - Add all details directly in the card -->
+                        <div class="card-body" style="border-top:1px solid black;">
                             <div class="py-5 fs-6">
-                                <div class="d-flex flex-row gap-4 mt-5">
+                                <div class="d-flex flex-row ">
                                     <div class="fw-bold col-4">Display Name</div>
-                                    <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
+                                    <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
                                 </div>
                                 <div class="d-flex flex-row gap-4 mt-5">
                                     <div class="fw-bold col-4">Country</div>
@@ -1013,6 +995,20 @@
                                     <div class="text-gray-700 col-8"><a href="${IncludeData[i].Website}">${IncludeData[i].Website}</a></div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Actions Buttons (Edit/Delete or Declined) -->
+                        <div class="d-flex flex-stack fs-4 py-3 card-body">
+                            <span>
+                                ${IncludeData[i].IsVerified == 0 ? `
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
+                                ` : ''}
+
+                                <!-- Hide Delete Button if Declined -->
+                                ${IncludeData[i].IsVerified !== 1 && IncludeData[i].IsVerified !== -1 ? `
+                                    <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn"><i class="fas fa-trash"></i></button>
+                                ` : ''}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -1045,21 +1041,21 @@
 
        
 
-        // File input validation
-        $fileInput.change(function () {
-            const file = this.files[0];
-            if (file) {
-                if (file.size > 25 * 1024 * 1024) { // 25 MB limit
-                    $fileError.text("File size must be less than 25 MB.").show();
-                    $(this).val('');
-                } else if (!file.type.startsWith("image/")) {
-                    $fileError.text("Only image files are allowed.").show();
-                    $(this).val('');
-                } else {
-                    $fileError.hide();
-                }
-            }
-        });
+        // // File input validation
+        // $fileInput.change(function () {
+        //     const file = this.files[0];
+        //     if (file) {
+        //         if (file.size > 25 * 1024 * 1024) { // 25 MB limit
+        //             $fileError.text("File size must be less than 25 MB.").show();
+        //             $(this).val('');
+        //         } else if (!file.type.startsWith("image/")) {
+        //             $fileError.text("Only image files are allowed.").show();
+        //             $(this).val('');
+        //         } else {
+        //             $fileError.hide();
+        //         }
+        //     }
+        // });
         $('.viewSub').each(async function () {
             var id = $(this).attr("data-custid");
             var ProductId = $(this).attr("data-productid");
@@ -1104,6 +1100,7 @@
 
     //fill the form to extend the plan
     async function loadplansforcustomerandproduct(CustomerId, ProductId, chartId) {
+        debugger
         $(".currentPlan").text('----None---');
         $(".currentPlanEdate").text('__//__//____');
         $(".remainingDaysinCPlan").text('0');
@@ -1530,7 +1527,7 @@
 
     //get the organisation subscription log
     $(document).on('click', '.viewSub', async function () {
-
+        
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
         $("#custid").val(id);
@@ -1564,7 +1561,8 @@
                                         <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
                                         <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
                                         <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
-                                        <td class="center">`+ jsonData[i]["GeneratedSerialNo"] + `</td>
+                                            <td class="center">`+ jsonData[i]["ReferenceId"] + `</td>
+                                                <td class="center"><button class="btn btn-danger PrintLog" data-ukid="`+jsonData[i]["ukid"]+`">  <i class="fas fa-print"></i></button></td>
                                     `;
             }
             $("#statusModal").find("#cLogTable tbody").empty().append(subDOM);
@@ -1677,7 +1675,6 @@
                 Remarks: $("#statusModal").find(".rem").val(),
                 CustomerId: parseInt($("#custid").val()),
                 ProductId: parseInt($("#prodid").val()),
-
                 TransactionId: 0,
                 PaymentMethod: 'cash',
                 ReferenceId: 0,
@@ -1877,6 +1874,47 @@
         $(".logoValue").attr("data-name", imgName);
 
     }
+
+
+    $(document).on("click", ".PrintLog", async function () {
+        
+        var parm={
+                    unqId:parseInt($(this).attr("data-ukid"))
+        };
+        
+             var reqestInvoicePrint=await AjaxCall("/Home/getInvoiceForPrint",parm);
+             var responseInvoiceData=JSON.parse(reqestInvoicePrint);
+             var JSONData=JSON.parse(responseInvoiceData);
+             
+             if(JSONData.length>0){
+
+             var invoiceData={
+                     CustomerName :JSONData[0]["CustomerName"],
+                     CustomerAddress :JSONData[0]["CustomerAddress"],
+                     Product : JSONData[0]["Product"],
+                     PlanName :JSONData[0]["PlanName"],
+                     Amount : parseFloat(JSONData[0]["Subtotal"]),
+                     TransactionId :JSONData[0]["TransactionId"].trim(),
+                     PaymentGateway :JSONData[0]["PaymentGateway"],
+                     TotalAmount :parseFloat(JSONData[0]["TotalAmount"]),
+                     Vat :parseFloat(JSONData[0]["Vat"]),
+                     Subtotal:parseFloat(JSONData[0]["Subtotal"]),
+                     InvoiceDate:JSONData[0]["InvoiceDate"],
+                     DueDate:JSONData[0]["DueDate"],
+
+                     };
+
+                   var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
+
+                        window.location.href = "/Home/InvoicePage";
+
+             }else{
+                 toastr.error("No Entry found for the Log");
+             }
+    });
+
+
+
     // Payment method change event
     $('input[name="payment"]').change(async function (event) {
              var $fileUpload = $('#file-upload');
@@ -1996,7 +2034,7 @@
                             
                                 var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
                                // if (reqInvoice.success) {
-                                       window.location.href = '/Home/InvoicePage?' + $.param(invoiceData);
+                                       window.location.href = "/Home/InvoicePage";
                                //                         }else {
                                //     toastr.error("Error creating invoice");
                                // }

@@ -61,6 +61,7 @@
                                         <th class="center">Products</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
+                                        <th class="center">Initial</th>
                                         <th class="center">Address</th>
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
@@ -142,6 +143,8 @@
                                         <td class="center"><button style="background-color:#1ABC9C;" data-unkidctable="` + jsondata[i]["Id"] + `" data-agentid="" class="btn btn-primary SelectModules  rounded" data-toggle="modal" data-target="#exampleModal">Select &nbsp;<i class="feather icon-check-square"></i></button></td>
                                          <td class="center" class="custCode">` + jsondata[i]["CustomerCode"] + `</td>
                                          <td class="center" class="custName">` + jsondata[i]["CustomerName"] + `</td>
+                                         <td class="center" class="custName">` + jsondata[i]["initial"] + `</td>
+
                                          <td class="center" class="custAdd">` + jsondata[i]["Address"] + `</td>
                                          <td class="center" class="custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
                                          <td class="center" class="custContact">` + jsondata[i]["Contact"] + `</td>

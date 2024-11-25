@@ -30,18 +30,30 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
             return View();
         }
+
+
         [HttpPost]
-        public JsonResult CreateInvoice([FromBody] InvoiceData invoiceData)
+        public async Task<JsonResult> CreateInvoice([FromBody] InvoiceData invoiceData)
         {
-      
+           
+            TempData["InvoiceData"] = JsonConvert.SerializeObject(invoiceData);
+
             return Json(new { success = true, message = "Invoice Data Received" });
         }
 
-     
-        public IActionResult InvoicePage(InvoiceData invoiceData)
+
+        public IActionResult InvoicePage()
         {
-            return View(invoiceData);
+            var invoiceDataJson = TempData["InvoiceData"] as string;
+            if (invoiceDataJson != null)
+            {
+                var invoiceData = JsonConvert.DeserializeObject<InvoiceData>(invoiceDataJson);
+                return View(invoiceData);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
+
         public IActionResult Index()
         {
             var token = HttpContext.Session.GetString("TokenNo");
@@ -59,6 +71,21 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> getInvoiceForPrint([FromBody] InvoiceData org)
+        {
+            var token = HttpContext.Session.GetString("TokenNo");
+            if (token != null)
+            {
+
+                var result = await ApiCall.ApiCallWithObject("Customer/getInvoiceForPrint", org, "Post");
+                return Ok(result);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
 
 
         public async Task<IActionResult> External(string CustomerSubcriptionGuid)
