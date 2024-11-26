@@ -545,6 +545,7 @@
                                         <th class="center">Issued date</th>
                                         <th class="center">Expiry date</th>
                                         <th class="center">Remarks</th>
+                                        <th class="center">Payment Remarks</th>
                                         <th class="center">Payment Method</th>
                                         <th class="center">Payment Partner</th>
                                         <th class="center">Amount</th>
@@ -872,7 +873,6 @@
     for (var i = 0; i < IncludeData.length; i++) {
             let chartId = "ChartCircular" + (i + 1);      
         let imageUrl = IncludeData[i].ImageData || '/files/assets/images/faq_man.png'; 
-        debugger
         body += `
             <div class="col-12">
                 <div class="card card-success my-4 col-12 shadow">
@@ -1100,7 +1100,7 @@
 
     //fill the form to extend the plan
     async function loadplansforcustomerandproduct(CustomerId, ProductId, chartId) {
-        debugger
+    
         $(".currentPlan").text('----None---');
         $(".currentPlanEdate").text('__//__//____');
         $(".remainingDaysinCPlan").text('0');
@@ -1558,6 +1558,7 @@
                                         <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
                                         <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
                                         <td class="center">`+ jsonData[i]["Remarks"] + `</td>
+                                        <td class="center">`+ jsonData[i]["PaymentRemarks"] + `</td>
                                         <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
                                         <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
                                         <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
@@ -1881,7 +1882,7 @@
         var parm={
                     unqId:parseInt($(this).attr("data-ukid"))
         };
-        
+        debugger
              var reqestInvoicePrint=await AjaxCall("/Home/getInvoiceForPrint",parm);
              var responseInvoiceData=JSON.parse(reqestInvoicePrint);
              var JSONData=JSON.parse(responseInvoiceData);

@@ -121,12 +121,14 @@
                <form>
                    <div class="form-control" >
                        <label>Remarks:</label>
-                       <input type="text" class="remarksStatus" required />
-                   </div>
+@*                        <input type="text" class="remarksStatus" required />
+ *@
+                        <textarea id="remarksStatus" class="remarksStatus" rows="4" cols="50" placeholder="Enter your remarks here..." required></textarea>
+                    </div>
                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                 <button type="button" class="btnSaveStatus btn btn-primary">Yes,Proceed</button>
             </div>
         </div>
@@ -191,7 +193,7 @@
                             <td class="center">
                                 <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />
                              </td>
-
+                      
                         <td class="center">
                             ` + rejectButton + `
                             ` + verifyButton + `
