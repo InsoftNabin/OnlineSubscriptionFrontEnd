@@ -74,13 +74,14 @@
                         <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                             <thead>
                                 <tr style="background-color: #0b3b56; color: white;">
-                                 
+                                    <th class="center">S.No.</th>
                                     <th class="center">Customer Name</th>
                                     <th class="center">Product Name</th>
                                     <th class="center">Issued Date</th>
                                     <th class="center">Amount </th>
                                     <th class="center">Plan</th>
                                     <th class="center">Voucher Image </th>
+                                    <th class="center">Payment Remarks </th>
                                     <th class="center hideme">Subscription</th>
                                 </tr>
                             </thead>
@@ -185,6 +186,7 @@
                 }
 
                 tableDom += `<tr data-ukid="` + data[i]["ukid"] + `" class="` + rowClass + `">
+                        <td class="center"><b>`+(i+1)+`</b></td>
                         <td class="center">`+ data[i]["CustomerName"] + `</td>
                         <td class="center">`+ data[i]["Name"] + `</td>
                         <td class="center">`+ data[i]["IssuedDate"] + `</td>
@@ -193,7 +195,7 @@
                             <td class="center">
                                 <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />
                              </td>
-                      
+                          <td class="center">`+ data[i]["PaymentRemarks"] + `</td>
                         <td class="center">
                             ` + rejectButton + `
                             ` + verifyButton + `
