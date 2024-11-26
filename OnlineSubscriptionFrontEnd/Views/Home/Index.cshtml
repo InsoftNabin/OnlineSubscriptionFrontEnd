@@ -871,7 +871,7 @@
 
     for (var i = 0; i < IncludeData.length; i++) {
             let chartId = "ChartCircular" + (i + 1);      
-        let imageUrl = IncludeData[i].ImageData || '~/files/assets/images/faq_man.png'; 
+        let imageUrl = IncludeData[i].ImageData || '/files/assets/images/faq_man.png'; 
         debugger
         body += `
             <div class="col-12">
@@ -881,7 +881,7 @@
                             <!-- Image Section -->
                             <div class="col-6 col-md-4">
                                 <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
-                                    <img src="${imageUrl}" alt="image" width="125" height="65" style="object-fit:contain; border:1px solid black;">
+                                    <img src="${imageUrl}" alt="image" width="125" height="120" style="object-fit:contain; padding-top:0px;">
                                    
                                 </div>
                             </div>
