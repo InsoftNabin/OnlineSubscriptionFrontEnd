@@ -113,6 +113,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <h2>Are you Sure you want to <b><span class="verifyorRejectSubs"></span></b> this ???</h2>
+                    <input type="text" id="ActualExpiryDate" hidden />
                 </h5>
                 <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -163,7 +164,7 @@
         var request = AjaxCallWithoutDataNoAsync("/VerifySubscriptionVoucher/getSubscriptionVoucher");
         var dataa = JSON.parse(request);
         var data = JSON.parse(dataa);
-        debugger
+
         var tableDom = "";
         if (data.length>0) {
             for (var i = 0; i < data.length; i++) {
@@ -173,16 +174,16 @@
 
                 if (data[i]["IsVerifiedPayment"] === -1) {
                     rowClass = 'rejected-row';
-                    rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-danger" data-type="reject" disabled> <i class="feather icon-x"></i>&nbsp;Rejected</button>`;
+                    rejectButton = `<button data-expdate="`+data[i]["ActualExpiryDate"]+`" data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-danger" data-type="reject" disabled> <i class="feather icon-x"></i>&nbsp;Rejected</button>`;
                     verifyButton = ''; // No "Verify" button for status -1
                 } else if (data[i]["IsVerifiedPayment"] === 1) {
                     rowClass = 'verified-row';
                     rejectButton = ''; // No "Reject" button for status 1
-                    verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-success" data-type="verify" disabled> <i class="feather icon-check-square"></i>&nbsp;Verified</button>`;
+                    verifyButton = `<button data-expdate="`+data[i]["ActualExpiryDate"]+`" data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-success" data-type="verify" disabled> <i class="feather icon-check-square"></i>&nbsp;Verified</button>`;
                 } else if (data[i]["IsVerifiedPayment"] === 0) {
                     rowClass = '';
-                    rejectButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-danger" data-type="reject" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-x"></i>&nbsp;Reject</button>`;
-                    verifyButton = `<button data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-success" data-type="verify" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-check-square"></i>&nbsp;Verify</button>`;
+                    rejectButton = `<button data-expdate="`+data[i]["ActualExpiryDate"]+`" data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-danger" data-type="reject" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-x"></i>&nbsp;Reject</button>`;
+                    verifyButton = `<button data-expdate="`+data[i]["ActualExpiryDate"]+`" data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-success" data-type="verify" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-check-square"></i>&nbsp;Verify</button>`;
                 }
 
                 tableDom += `<tr data-ukid="` + data[i]["ukid"] + `" class="` + rowClass + `">
@@ -192,6 +193,7 @@
                         <td class="center">`+ data[i]["IssuedDate"] + `</td>
                         <td class="center">`+ data[i]["PaidAmount"] + `</td>
                         <td class="center">`+ data[i]["SPlan"] + `</td>
+                       
                             <td class="center">
                                 <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />
                              </td>
@@ -217,6 +219,8 @@
 
 
     $(document).on("click", ".VorR", async function () {
+      
+        $("#exampleModal").find("#ActualExpiryDate").val($(this).attr("data-expdate"));
         $("#exampleModal").find(".verifyorRejectSubs").text($(this).attr("data-type"));
         $("#exampleModal").find(".btnSaveStatus").attr("data-status",$(this).attr("data-type"));
         $("#exampleModal").find(".btnSaveStatus").attr("data-ukid",$(this).parents("tr").attr("data-ukid"));
@@ -244,7 +248,8 @@
             var parm = {
                 ProductId: parseInt($(this).attr("data-ukid")),
                 CustomerId: parseInt(status),
-                Remarks: $("#exampleModal").find(".remarksStatus").val()
+                Remarks: $("#exampleModal").find(".remarksStatus").val(),
+                ActualExpiryDate: $("#exampleModal").find("#ActualExpiryDate").val()
             };
 
             var requestVerification = await AjaxCall("/CustomerPlanDetails/VerifyorRejectSubscription", parm);

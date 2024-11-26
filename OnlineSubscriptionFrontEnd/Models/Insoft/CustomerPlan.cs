@@ -17,6 +17,7 @@
         public int SubscriptionType { get; set; }
         public int Id { get; set; }
         public string VoucherImage { get; set; }
+        public string ActualExpiryDate { get; set; }
         public bool IsVerifiedPayment { get; set; }
         //public List<ImageData> ImageFile { get; set; }
 
