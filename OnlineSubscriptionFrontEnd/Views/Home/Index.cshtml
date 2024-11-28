@@ -71,7 +71,7 @@
         box-shadow: none;
     }
 
-    .cardProceed {
+   /*  .cardProceed {
         background-color: #f9f9f9;
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -79,11 +79,34 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         max-width: 400px;
         margin: auto;
+    } */
+
+    .cardWrapper {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Space between left, right, and center */
+    }
+
+    .leftSide, .rightSide {
+        width: 40%; 
+        padding: 15px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        text-align:center;
+    }
+
+    .cardProceed {
+        width: 55%; /* Main form area in the center */
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .row {
         margin-bottom: 15px;
     }
+
 
     label {
         font-weight: bold;
@@ -147,6 +170,76 @@
         }
 
 </style>
+<div class="py-3 py-lg-6">
+    <div class="container-xxl d-flex flex-stack">
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <img src="~/assets/media/logos/LogoInsoft.png"
+                     class="theme-light-show w-100px"
+                     alt="" />
+            </h1>
+        </div>
+        <div class="d-flex">
+            <h3 class="fs-xl fw-bold mb-4 lead">
+                <button type="button"
+                        class="btn btn-primary addOrganization">
+                    <span class="svg-icon svg-icon-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5"
+                                  x="11.364"
+                                  y="20.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  transform="rotate(-90 11.364 20.364)"
+                                  fill="currentColor"></rect>
+                            <rect x="4.36396"
+                                  y="11.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  fill="currentColor"></rect>
+                        </svg>
+                    </span>
+                    Add New Organization
+                </button>
+            </h3>
+            <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
+                <!--begin::Menu wrapper-->
+                <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
+                        &nbsp;
+                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
+                    </i>
+                </div>
+                <!--begin::User account menu-->
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
+                    <!--begin::Menu item-->
+                    <div class="menu-item ">
+
+
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <a class="menu-link signoutBtn"> <i class="feather icon-log-out"></i>&nbsp; Sign Out</a>
+                        </div>
+                        <!--end::Menu item-->
+
+                    </div>
+
+
+
+                </div>
+                <!--end::User account menu-->
+                <!--end::Menu wrapper-->
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 <div class="modal fade"
@@ -195,8 +288,8 @@
                                     </div>
                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                                         <i class="bi bi-pencil-fill fs-7"></i>
-                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo1">
-                                        <input type="hidden" name="avatar_remove">
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo1"/>
+                                        <input type="hidden" name="avatar_remove"/>
                                     </label>
 
                                     <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
@@ -370,8 +463,8 @@
                                     </div>
                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                                         <i class="bi bi-pencil-fill fs-7"></i>
-                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
-                                        <input type="hidden" name="avatar_remove">
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo"/>
+                                        <input type="hidden" name="avatar_remove"/>
                                     </label>
 
                                     <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
@@ -543,7 +636,7 @@
                                         <th class="center">Product Name</th>
                                         <th class="center">Subscription Type</th>
                                         <th class="center">Issued date</th>
-                                        <th class="center">Expiry date</th>
+                                        <th class="center">Next Due Date</th>
                                         <th class="center">Remarks</th>
                                         <th class="center">Payment Remarks</th>
                                         <th class="center">Payment Method</th>
@@ -561,74 +654,96 @@
                         </div>
 
                         <!-- Extend the Plan Tab -->
-                        <div id="Extend" class="tab-pane active">
-                            <div class="cardProceed">
-                                <form>
-                                    <div class="row">
-                                        <label>Current Plan: <span class="currentPlan">None</span></label>
-                                        <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
-                                        <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red"></span> Days @* out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label> *@
-                                    </div>
+                        <div id="Extend" class="tab-pane active" style="padding: 20px; background-color: #f4f7fc; border-radius: 8px;">
+                            <div class="cardWrapper" style="display: flex; justify-content: space-between; gap: 20px; padding: 20px;">
 
-                                    <div class="row">
-                                        <label>Select a Package:</label>
-                                        <select class="selectedPackages">
-                                        </select>
-                                    </div>
-                                    <div class="row">
-                                        <label>Expiry Date:</label>
-                                        <input type="date" class="expiryDate" disabled />
-                                    </div>
+                                <!-- Left Side Panel -->
+                                <div class="leftSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                    <p style="font-size: 14px; color: #333; line-height: 1.6;">
+                                        <strong>Note:</strong><br>
+                                        The payment from Bank Deposit takes up to three days from our side to verify your subscription. Please have patience and enjoy your journey with us!
+                                    </p>
+                                </div>
 
-                                    <div class="row">
-                                        <label>Amount:</label>
-                                        <input type="text" class="Amount" disabled required />
-                                    </div>
-                                    <div class="row">
-                                        <label>Remarks:</label>
-                                        <input type="text" class="rem" required />
-                                        <input type="text" id="custid" hidden />
-                                        <input type="text" id="prodid" hidden />
-                                    </div>
-                                    <div class="row">
-                                        <label>Payment Method:</label>
-                                        <div class="payment-methods">
-                                            <div class="payment-option" data-value="0">
-                                                <input type="radio" name="payment" id="upload" />
-                                                <label for="upload">Bank Deposit <img src="~/files/assets/images/upload.svg" alt="Upload" /></label>
-                                            </div>
-                                            <div class="payment-option" data-value="3" style="vertical-align:middle;">
-                                                <input type="radio" name="payment" id="fonepay" />
-                                                <label for="fonepay">
-                                                    <img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="margin-top:20px;" />
-                                                    FonePay
-                                                </label>
+                                <!-- Main Card Section -->
+                                <div class="cardProceed" style="width: 50%; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                    <form>
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Current Plan: <span class="currentPlan" style="color: #888;">None</span></label>
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Next Due Date: <span class="currentPlanEdate" style="color: red;">__/__/____</span></label>
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;" hidden>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red" style="color: red;"></span> Days out of <span class="TotalDaysInCurrentPlan red" style="color: red;">30</span> Days</label>
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Select a Package:</label>
+                                            <select class="selectedPackages" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                                            </select>
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Next Due Date:</label>
+                                            <input type="date" class="expiryDate" disabled style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Amount:</label>
+                                            <input type="text" class="Amount" disabled required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Remarks:</label>
+                                            <input type="text" class="rem" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                            <input type="text" id="custid" hidden />
+                                            <input type="text" id="prodid" hidden />
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
+                                            <div class="payment-methods" style="display: flex; gap: 20px;">
+                                                <div class="payment-option" data-value="0" style="border:1px solid black;">
+                                                    <input type="radio" name="payment" id="upload" />
+                                                    <label for="upload" style="font-size: 14px; color: #333; display: flex; align-items: center;">
+                                                        Bank Deposit <img src="~/files/assets/images/upload.svg" alt="Upload" style="width: 20px; margin-left: 5px;" />
+                                                    </label>
+                                                </div>
+                                                <div class="payment-option" data-value="3" style="vertical-align: middle; border:1px solid black;">
+                                                    <input type="radio" name="payment" id="fonepay" />
+                                                    <label for="fonepay" style="font-size: 14px; color: #333; display: flex; align-items: center;">
+                                                        <img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="width: 30px; margin-top: 20px;" />
+                                                        FonePay
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row" id="file-upload" style="display:none;">
-                                        <input type="file" class="file" id="fileInput" data-filename="" />
-                                        <p id="fileError" style="color:red; display:none;"></p>
-                                    </div>
+                                        <div class="row" id="file-upload" style="display:none; margin-bottom: 15px;">
+                                            <input type="file" class="file" id="fileInput" data-filename="" style="padding: 10px;" />
+                                            <p id="fileError" style="color:red; display:none;"></p>
+                                        </div>
 
-                                    <div class="row center" id="qr-code" style="display:none;">
-                                        <div id="generated-qr" style="text-align:center;"></div>
-                                    </div>
+                                        <div class="row center" id="qr-code" style="display:none; margin-bottom: 15px;">
+                                            <div id="generated-qr" style="text-align:center;"></div>
+                                        </div>
 
-                                    <div class="row">
-                                        <button class="btn btn-sm btn-success btnExtendPlan">Proceed &nbsp;<i class="feather icon-save"></i></button>
-                                    </div>
-                                </form>
+                                        <div class="row">
+                                            <button class="btn btn-sm btn-success btnExtendPlan" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 4px; border: none; background-color: #28a745; color: white; cursor: pointer;">
+                                                Proceed &nbsp;<i class="feather icon-save"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Right Side Panel -->
+                                <div class="rightSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                    <p style="font-size: 14px; color: #333; line-height: 1.6;">
+                                        <strong>Note:</strong><br>
+                                        Your subscription to the respective Product will be updated as soon as we receive your payment made through FonePay QR.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-
             </div>
-
-
 
 
         </div>
@@ -723,79 +838,9 @@
     </div>
 </div>
 
-
-
-
-<div class="py-3 py-lg-6">
-    <div class="container-xxl d-flex flex-stack">
-        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                <img src="~/assets/media/logos/LogoInsoft.png"
-                     class="theme-light-show w-100px"
-                     alt="" />
-            </h1>
-        </div>
-        <div class="d-flex">
-            <h3 class="fs-xl fw-bold mb-4 lead">
-                <button type="button"
-                        class="btn btn-primary addOrganization">
-                    <span class="svg-icon svg-icon-2">
-                        <svg width="24"
-                             height="24"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <rect opacity="0.5"
-                                  x="11.364"
-                                  y="20.364"
-                                  width="16"
-                                  height="2"
-                                  rx="1"
-                                  transform="rotate(-90 11.364 20.364)"
-                                  fill="currentColor"></rect>
-                            <rect x="4.36396"
-                                  y="11.364"
-                                  width="16"
-                                  height="2"
-                                  rx="1"
-                                  fill="currentColor"></rect>
-                        </svg>
-                    </span>
-                    Add New Organization
-                </button>
-            </h3>
-            <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
-                <!--begin::Menu wrapper-->
-                <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
-                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
-                        &nbsp;
-                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
-                    </i>
-                </div>
-                <!--begin::User account menu-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
-                    <!--begin::Menu item-->
-                    <div class="menu-item ">
-
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item">
-                            <a class="menu-link signoutBtn"> <i class="feather icon-log-out"></i>&nbsp; Sign Out</a>
-                        </div>
-                        <!--end::Menu item-->
-
-                    </div>
-
-
-
-                </div>
-                <!--end::User account menu-->
-                <!--end::Menu wrapper-->
-            </div>
-        </div>
-
-    </div>
 </div>
+
+
 
 <script type="text/javascript">
     $(document).ready(async function () {
@@ -888,7 +933,7 @@
 
                             <!-- Company Name & Address Section -->
                             <div class="col-6 col-md-4">
-                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}, ${IncludeData[i].Address}</a>
+                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}<br> ${IncludeData[i].Address}</a>
                                 <div class="d-flex flex-stack fs-4 my-4">
                                     <div class="fw-bold">
                                         <a href="${IncludeData[i].ReturnURL}">${IncludeData[i].ReturnURL}</a>
@@ -961,42 +1006,77 @@
                             `}
                         </div>
 
-                        <!-- Details Section - Add all details directly in the card -->
-                        <div class="card-body" style="border-top:1px solid black;">
-                            <div class="py-5 fs-6">
-                                <div class="d-flex flex-row ">
-                                    <div class="fw-bold col-4">Display Name</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
-
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Country</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].OrganizationMotto}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Email</div>
-                                    <div class="text-gray-700 col-8">
-                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">PAN/VAT</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Phone No.</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Contact No.</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Website</div>
-                                    <div class="text-gray-700 col-8"><a href="${IncludeData[i].Website}">${IncludeData[i].Website}</a></div>
-                                </div>
-                            </div>
+                            <!-- Details Section - Add all details directly in the card -->
+    <div class="card-body" style="border-top:1px solid black; background-color: #f9f9f9; border-radius: 8px; padding: 20px;">
+        <div class="d-flex justify-content-between">
+            <!-- Left Section with Details -->
+            <div class="left-section" style="flex: 0 0 65%; padding-right: 20px;">
+                <div class="py-5 fs-6">
+                    <div class="d-flex flex-row">
+                        <div class="fw-bold col-4">Display Name</div>
+                        <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
+                    </div>
+                    <div class="d-flex flex-row gap-4 mt-5">
+                        <div class="fw-bold col-4">Country</div>
+                        <div class="text-gray-700 col-8">${IncludeData[i].OrganizationMotto}</div>
+                    </div>
+                    <div class="d-flex flex-row gap-4 mt-5">
+                        <div class="fw-bold col-4">Email</div>
+                        <div class="text-gray-700 col-8">
+                            <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
                         </div>
+                    </div>
+                    <div class="d-flex flex-row gap-4 mt-5">
+                        <div class="fw-bold col-4">PAN/VAT</div>
+                        <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+                    </div>
+                    <div class="d-flex flex-row gap-4 mt-5">
+                        <div class="fw-bold col-4">Phone No.</div>
+                        <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+                    </div>
+                    <div class="d-flex flex-row gap-4 mt-5">
+                        <div class="fw-bold col-4">Contact No.</div>
+                        <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+                    </div>
+                    <div class="d-flex flex-row gap-4 mt-5">
+                        <div class="fw-bold col-4">Website</div>
+                        <div class="text-gray-700 col-8">
+                            <a href="${IncludeData[i].Website}" class="text-gray-700 text-hover-primary">${IncludeData[i].Website}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section with "Current Plan", "Next Due Date", and "Pricing" -->
+            <div class="right-section" style="flex: 0 0 30%; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div class="text-center mb-4">
+                    <h5 style="color: #4e73df; font-weight: 600; color:green; font-size:20px;">Plan Details</h5>
+                </div><hr>
+
+                <div class="d-flex flex-column">
+                    <!-- Current Plan Section -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
+                        <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;"></div>
+                    </div>
+
+                    <!-- Next Due Date Section -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <div class="fw-bold" style="color: #4e73df;">Next Due Date</div>
+                        <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;"></div>
+                    </div>
+
+                    <!-- Pricing Section -->
+                    <div class="d-flex justify-content-between" hidden>
+                        <div class="fw-bold" style="color: #4e73df;" hidden>Pricing</div>
+                        <div class="text-gray-700" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
                         <!-- Actions Buttons (Edit/Delete or Declined) -->
                         <div class="d-flex flex-stack fs-4 py-3 card-body">
@@ -1129,6 +1209,13 @@
                 var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
                 $(".remainingDaysinCPlan").text(remainingDays);
                 $(".TotalDaysInCurrentPlan").text(totalDays);
+           
+                 $("#" + chartId).parents(".card").find("#NextDueDate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                 $("#" + chartId).parents(".card").find("#CurrentPlan").text(responsefr[0]["CurrentlySubscription"]);
+                     
+
+                 
+             
 
                 if (remainingDays < 5) {
                     toastr.error("Remaining days in the current plan are less than 5!");
@@ -1618,6 +1705,8 @@
             formData.append("files", files[i]); // Append the file with key 'files'
         }
 
+             
+
         await $.ajax({
             url: "/Register/UploadPhoto1", // Your controller endpoint
             data: formData,
@@ -1651,13 +1740,14 @@
                 Swal.close();
                 console.log(error);
                 $(filedom).parents(".gethere").find(".uploadedinfo").text("Upload Failed !!!");
-            }
+       }
         });
     });
 
 
 
     $(document).on('click', '.btnExtendPlan', async function () {
+
         var paymentSelected = $('input[name="payment"]:checked').length > 0;
         if (!paymentSelected) {
 
@@ -1665,11 +1755,13 @@
         }
         if ($(".rem").val() == "") {
             toastr.warning("Please fill in a Remarks!!!");
-        } else if ($("#fileInput").attr("data-filename") == "") {
+        } 
+        else if ($("#fileInput").attr("data-filename") == "") {
             toastr.warning("Please attach a voucher or pay through QR!!!");
         }
 
         else {
+         
             var parm = {
                 SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
                 ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
@@ -1682,10 +1774,9 @@
                 ReferenceId: 0,
                 PaymentPartner: 'none',
                 GeneratedSerialNo: 'sn001',
-                VoucherImage: $("#fileInput").attr("data-filename"),
+                        VoucherImage: $("#fileInput").attr("data-filename"),   // '13786331378633-1543-sagar.jpg',//
                 IsVerifiedPayment: false
             }
-
 
             //insert the extension manually
             var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
@@ -1883,7 +1974,7 @@
         var parm={
                     unqId:parseInt($(this).attr("data-ukid"))
         };
-        debugger
+        
              var reqestInvoicePrint=await AjaxCall("/Home/getInvoiceForPrint",parm);
              var responseInvoiceData=JSON.parse(reqestInvoicePrint);
              var JSONData=JSON.parse(responseInvoiceData);
@@ -1907,8 +1998,7 @@
                      };
 
                    var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
-
-                        window.location.href = "/Home/InvoicePage";
+                   window.open("/Home/InvoicePage", "_blank");
 
              }else{
                  toastr.error("No Entry found for the Log");
@@ -1935,6 +2025,7 @@
             if ($('#fonepay').is(':checked')) {
                 var amount = parseFloat($("#statusModal").find(".Amount").val());
 
+                                                 
                 // Check if the fetched amount from the frontend matches the server amount
                 // if (amountFetchedFromServer !== amount) {
                 //     toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
@@ -1958,7 +2049,7 @@
                     // Call the backend to generate QR code and get the PRN
                     var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
                     var response = JSON.parse(aahaha);
-                    $("#statusModal").modal('hide');
+                    // $("#statusModal").modal('hide');
                     $("#QRModal").modal('show');
 
                     // Ensure response contains hashKey and prn
@@ -2009,37 +2100,38 @@
                                     PaymentPartner: 'FonePay',
                                     GeneratedSerialNo: 'sn001',
                                     VoucherImage: '',
-                                    fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"])
+                                    fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"]),
+                                    IsVerifiedPayment: true
                                 };
-
+                                    
                                  var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-                        
+                          
                         if (cpp != 'Success') {
                             toastr.error("Server side problem in extending the Plan");
                         } else {
-                            //prepare the invoice bill
+                         
                             try {
-                              var invoiceData = {
-                                invoiceDate: new Date().toLocaleDateString(),
-                                dueDate: new Date(newExpDate).toLocaleDateString(),
-                                customerName: $("#statusModal").find(".userPhone").text(),
-                                customerAddress: "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal",
-                                product: Product,
-                                planName: PlanName,
-                                amount: Amount,
-                                transactionId: paymentResponse[0]["fonepayTraceId"],
-                                paymentGateway: "FonePay",
-                                totalAmount: paymentResponse[0]["totalTransactionAmount"],
-                                vat: paymentResponse[0]["totalTransactionAmount"] * 0.13,
-                                subtotal: paymentResponse[0]["totalTransactionAmount"] - (paymentResponse[0]["totalTransactionAmount"] * 0.13)
-                            };
-                            
-                                var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
-                               // if (reqInvoice.success) {
-                                       window.location.href = "/Home/InvoicePage";
-                               //                         }else {
-                               //     toastr.error("Error creating invoice");
-                               // }
+                                             var invoiceData = {
+                                                     invoiceDate: new Date().toLocaleDateString(),
+                                                     dueDate: new Date(newExpDate).toLocaleDateString(),
+                                                     customerName: $("#statusModal").find(".userPhone").text(),
+                                                     customerAddress: "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal",
+                                                     product: Product,
+                                                     planName: PlanName,
+                                                     amount: Amount,
+                                                     transactionId: paymentResponse[0]["fonepayTraceId"],
+                                                     paymentGateway: "FonePay",
+                                                     totalAmount: paymentResponse[0]["totalTransactionAmount"],
+                                                     vat: paymentResponse[0]["totalTransactionAmount"] * 0.13,
+                                                     subtotal: paymentResponse[0]["totalTransactionAmount"] - (paymentResponse[0]["totalTransactionAmount"] * 0.13)
+                                             };
+                                        var reqInvoice1 = await AjaxCall("/Home/CreateInvoice", invoiceData);
+                                        var haha=JSON.parse(reqInvoice1);
+
+                                   if(haha.success)
+                                   {
+                                        window.location.href("/Home/InvoicePage");
+                                   }
 
     
           

@@ -293,7 +293,16 @@
     var value = JSON.parse(JSON.parse(JSON.parse(result)));
     orgData = value;
     var showOrg = ``;
+    debugger
+        
+
     value.forEach((element, Index) => {
+
+        let imageData = element.ImageData;
+
+        if (imageData === "https://incloud.academeplus.com/fileuploads/Subscription/") {
+                imageData = '/files/assets/images/employee.png';
+        }
       showOrg += `
     <label class=" nav-link btn btn-outline btn-outline-dashed btn-color-dark  d-flex flex-stack text-start p-6 active mb-6" >
       <!--end::Description-->
@@ -309,7 +318,8 @@
         <div class="d-flex">
           <!--begin::Avatar-->
           <div>
-            <img src="${element.ImageData}" width="100px" height="60px" />
+              <img src="${element.ImageData}" width="100px" height="60px" />
+
           </div>
           <!--end::Avatar-->
           <!--begin::Details-->

@@ -33,7 +33,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
 
         [HttpPost]
-        public async Task<JsonResult> CreateInvoice([FromBody] InvoiceData invoiceData)
+        public  IActionResult CreateInvoice([FromBody] InvoiceData invoiceData)
         {
            
             TempData["InvoiceData"] = JsonConvert.SerializeObject(invoiceData);
