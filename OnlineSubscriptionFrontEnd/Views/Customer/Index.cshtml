@@ -10,202 +10,235 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <style>
-  
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-h4 {
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+
+    h4 {
         color: #b30514;
-}
-input,
-input[type="radio"] + label,
-input[type="checkbox"] + label:before,
-select option,
-select {
-  width: 100%;
-  padding: 1em;
-  line-height: 1;
-  background-color: #f9f9f9;
-  border: 1px solid #e5e5e5;
-  border-radius: 3px;
-/*   -webkit-transition: 0.35s ease-in-out;
- */  -moz-transition: 0.35s ease-in-out;
-  -o-transition: 0.35s ease-in-out;
-  transition: 0.35s ease-in-out;
-  transition: all 0.35s ease-in-out;
-}
-input:focus {
-  outline: 0;
-  border-color: #bd8200;
-}
-input:focus + .input-icon i {
-  color: #f0a500;
-}
-input:focus + .input-icon:after {
-  border-right-color: #f0a500;
-}
-input[type="radio"] {
-  display: none;
-}
-input[type="radio"] + label,
-select {
-  display: inline-block;
-  width: 50%;
-  text-align: center;
-  float: left;
-  border-radius: 0;
-}
-input[type="radio"] + label:first-of-type {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-input[type="radio"] + label:last-of-type {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-input[type="radio"] + label i {
-  padding-right: 0.4em;
-}
-input[type="radio"]:checked + label,
-input:checked + label:before,
-select:focus,
-select:active {
-  background-color: #f0a500;
-  color: #fff;
-  border-color: #bd8200;
-}
-input[type="checkbox"] {
- width:20px;
- height:20px;
- accent-color: #b30514;
-}
+    }
 
-select {
-  height: 3.4em;
-  line-height: 2;
-}
-select:first-of-type {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-select:last-of-type {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-select:focus,
-select:active {
-  outline: 0;
-}
-select option {
-  background-color: #f0a500;
-  color: #fff;
-}
-.input-group {
-  margin-bottom: 1em;
-  zoom: 1;
-}
-.input-group:before,
-.input-group:after {
-  content: "";
-  display: table;
-}
-.input-group:after {
-  clear: both;
-}
-.input-group-icon {
-  position: relative;
-}
-.input-group-icon input {
-  padding-left: 4.4em;
-}
+    input,
+    input[type="radio"] + label,
+    input[type="checkbox"] + label:before,
+    select option,
+    select {
+        width: 100%;
+        padding: 1em;
+        line-height: 1;
+        background-color: #f9f9f9;
+        border: 1px solid #e5e5e5;
+        border-radius: 3px;
+        /*   -webkit-transition: 0.35s ease-in-out;
+         */ -moz-transition: 0.35s ease-in-out;
+        -o-transition: 0.35s ease-in-out;
+        transition: 0.35s ease-in-out;
+        transition: all 0.35s ease-in-out;
+    }
 
-.input-group-icon .input-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3.5em;
-  height: 3em;
-  line-height: 2em;
-  text-align: center;
-  vertical-align:middle;
-  pointer-events: none;
-}
-.input-group-icon .input-icon:after {
-  position: absolute;
-  top: 0em;
-  bottom: -0.5em;
-  left: 3.4em;
-  display: block;
-  border-right: 1px solid #e5e5e5;
-  content: "";
-/*   -webkit-transition: 0.35s ease-in-out;
- */  -moz-transition: 0.35s ease-in-out;
-  -o-transition: 0.35s ease-in-out;
-  transition: 0.35s ease-in-out;
-  transition: all 0.35s ease-in-out;
-}
-.input-group-icon .input-icon i {
-/*   -webkit-transition: 0.35s ease-in-out;
- */  -moz-transition: 0.35s ease-in-out;
-  -o-transition: 0.35s ease-in-out;
-  transition: 0.35s ease-in-out;
-  transition: all 0.35s ease-in-out;
-}
-.container {
-  max-width: 100em;
-  padding: 1em 3em 2em 3em;
-  margin: 0em auto;
+        input:focus {
+            outline: 0;
+            border-color: #bd8200;
+        }
+
+            input:focus + .input-icon i {
+                color: #f0a500;
+            }
+
+            input:focus + .input-icon:after {
+                border-right-color: #f0a500;
+            }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+            input[type="radio"] + label,
+            select {
+                display: inline-block;
+                width: 50%;
+                text-align: center;
+                float: left;
+                border-radius: 0;
+            }
+
+                input[type="radio"] + label:first-of-type {
+                    border-top-left-radius: 3px;
+                    border-bottom-left-radius: 3px;
+                }
+
+                input[type="radio"] + label:last-of-type {
+                    border-top-right-radius: 3px;
+                    border-bottom-right-radius: 3px;
+                }
+
+                input[type="radio"] + label i {
+                    padding-right: 0.4em;
+                }
+
+                input[type="radio"]:checked + label,
+                input:checked + label:before,
+                select:focus,
+                select:active {
+                    background-color: #f0a500;
+                    color: #fff;
+                    border-color: #bd8200;
+                }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #b30514;
+        }
+
+    select {
+        height: 3.4em;
+        line-height: 2;
+    }
+
+        select:first-of-type {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        select:last-of-type {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        select:focus,
+        select:active {
+            outline: 0;
+        }
+
+        select option {
+            background-color: #f0a500;
+            color: #fff;
+        }
+
+    .input-group {
+        margin-bottom: 1em;
+        zoom: 1;
+    }
+
+        .input-group:before,
+        .input-group:after {
+            content: "";
+            display: table;
+        }
+
+        .input-group:after {
+            clear: both;
+        }
+
+    .input-group-icon {
+        position: relative;
+    }
+
+        .input-group-icon input {
+            padding-left: 4.4em;
+        }
+
+        .input-group-icon .input-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3.5em;
+            height: 3em;
+            line-height: 2em;
+            text-align: center;
+            vertical-align: middle;
+            pointer-events: none;
+        }
+
+            .input-group-icon .input-icon:after {
+                position: absolute;
+                top: 0em;
+                bottom: -0.5em;
+                left: 3.4em;
+                display: block;
+                border-right: 1px solid #e5e5e5;
+                content: "";
+                /*   -webkit-transition: 0.35s ease-in-out;
+         */ -moz-transition: 0.35s ease-in-out;
+                -o-transition: 0.35s ease-in-out;
+                transition: 0.35s ease-in-out;
+                transition: all 0.35s ease-in-out;
+            }
+
+            .input-group-icon .input-icon i {
+                /*   -webkit-transition: 0.35s ease-in-out;
+         */ -moz-transition: 0.35s ease-in-out;
+                -o-transition: 0.35s ease-in-out;
+                transition: 0.35s ease-in-out;
+                transition: all 0.35s ease-in-out;
+            }
+
+    .container {
+        max-width: 100em;
+        padding: 1em 3em 2em 3em;
+        margin: 0em auto;
         background-color: #EFE9F4;
-  border-radius: 4.2px;
-  box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
-}
-.row {
-  zoom: 1;
-}
-.row:before,
-.row:after {
-  content: "";
-  display: table;
-}
-.row:after {
-  clear: both;
-}
-.col-half {
-  padding-right: 10px;
-  float: left;
-  width: 50%;
-}
-.col-half:last-of-type {
-  padding-right: 0;
-}
-.col-third {
-  padding-right: 10px;
-  float: left;
-  width: 33.33333333%;
-}
-.col-third:last-of-type {
-  padding-right: 0;
-}
-@@media only screen and (max-width: 540px) {
-  .col-half {
-    width: 100%;
-    padding-right: 0;
-  }
-  .table td{
-      vertical-align:middle;
-  }
-}
-    .input-icon{
-        vertical-align:middle;
+        border-radius: 4.2px;
+        box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    .row {
+        zoom: 1;
+    }
+
+        .row:before,
+        .row:after {
+            content: "";
+            display: table;
+        }
+
+        .row:after {
+            clear: both;
+        }
+
+    .col-half {
+        padding-right: 10px;
+        float: left;
+        width: 50%;
+    }
+
+        .col-half:last-of-type {
+            padding-right: 0;
+        }
+
+    .col-third {
+        padding-right: 10px;
+        float: left;
+        width: 33.33333333%;
+    }
+
+        .col-third:last-of-type {
+            padding-right: 0;
+        }
+
+    @@media only screen and (max-width: 540px) {
+        .col-half {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+    }
+
+    .input-icon {
+        vertical-align: middle;
     }
 
     .input-group feather {
- 
-    font-size:2em;
-}
+        font-size: 2em;
+    }
 </style>
 <div class="pcoded-content">
     <div class="page-header-breadcrumb" style="margin-left: 10px;">
@@ -222,185 +255,185 @@ select option {
                 <a href="#!">Customer List</a>
             </li>
         </ul>
-    </div>  
+    </div>
     <div class="pcoded-inner-content">
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
-<div class="accordion" id="productAccordion" style="margin:15px;">
-    <div class="card">
-        <div class="card-header" id="headingOne">
-            <h5 class="mb-0 d-flex justify-content-between">
-                <button class="btn btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius:12px; text-decoration: none;">
+                    <div class="accordion" id="productAccordion" style="margin:15px;">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0 d-flex justify-content-between">
+                                    <button class="btn btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius:12px; text-decoration: none;">
                                         <h5 class="addEdit" style="color:white;"> Add Customer &nbsp; <i class="feather icon-plus"></i></h5>
-                </button>
-                <button id="toggleArrow" class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
-                    <i class="feather icon-chevron-up" ></i>
-                </button>
-            </h5>
-        </div>
+                                    </button>
+                                    <button id="toggleArrow" class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
+                                        <i class="feather icon-chevron-up"></i>
+                                    </button>
+                                </h5>
+                            </div>
 
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion">
-            <div class="card-body">
-                <div class="container">
-                <form>
-                    <h4>Customer Details</h4>
-                    <input type="text" id="id" hidden/>
-                    <div class="row">
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CustCode" placeholder="Customer Code" name="customercode" required>
-                                <div class="input-icon">
-                                    <i class="feather icon-hash"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
-                                <div class="input-icon">
-                                    <i class="feather icon-user"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CustAddress" placeholder="Address" name="address" required>
-                                <div class="input-icon">
-                                    <i class="feather icon-map-pin"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
-                                <div class="input-icon">
-                                  <i class="feather icon-credit-card"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="Custcontact" placeholder="Contact Number" name="contact" required>
-                                <div class="input-icon">
-                                    <i class="feather icon-phone"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-third" hidden>
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink"  hidden>
-                                <div class="input-icon">
-                                    <i class="feather icon-link"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>Contact Persons</h4>
-                    <div class="row" style="display: flex; justify-content: space-between;">
-                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
-                                <div class="input-icon">
-                                    <i class="feather icon-user"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
-                                <div class="input-icon">
-                                    <i class="feather icon-phone"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
-                                <div class="input-icon">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion">
+                                <div class="card-body">
+                                    <div class="container">
+                                        <form>
+                                            <h4>Customer Details</h4>
+                                            <input type="text" id="id" hidden />
+                                            <div class="row">
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CustCode" placeholder="Customer Code" name="customercode" required>
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-hash"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
+                                                        <div class="input-icon">
                                                             <i class="feather icon-user"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
-                                <div class="input-icon">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CustAddress" placeholder="Address" name="address" required>
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-map-pin"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-credit-card"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="Custcontact" placeholder="Contact Number" name="contact" required>
+                                                        <div class="input-icon">
                                                             <i class="feather icon-phone"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-third" hidden>
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" hidden>
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-link"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                    <h4>Additional Information</h4>
-                    <div class="row">
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="email" id="email" placeholder="Email Address" name="email" required>
-                                <div class="input-icon">
+                                            <h4>Contact Persons</h4>
+                                            <div class="row" style="display: flex; justify-content: space-between;">
+                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-user"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-user"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
+                                                        <div class="input-icon">
+                                                            <i class="feather icon-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <h4>Additional Information</h4>
+                                            <div class="row">
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="email" id="email" placeholder="Email Address" name="email" required>
+                                                        <div class="input-icon">
                                                             <i class="feather icon-mail"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="website" placeholder="Website" name="website">
-                                <div class="input-icon">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="website" placeholder="Website" name="website">
+                                                        <div class="input-icon">
                                                             <i class="feather icon-globe"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-third" hidden>
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="guid" placeholder="GUID" name="GUID" required>
-                                <div class="input-icon">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-third" hidden>
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="guid" placeholder="GUID" name="GUID" required>
+                                                        <div class="input-icon">
                                                             <i class="feather icon-pin"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
-                                <div class="input-icon">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
+                                                        <div class="input-icon">
                                                             <i class="feather icon-briefcase"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-third">
-                            <div class="input-group input-group-icon">
-                                <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
-                                <div class="input-icon">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-third">
+                                                    <div class="input-group input-group-icon">
+                                                        <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
+                                                        <div class="input-icon">
                                                             <i class="feather icon-pin"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row ">
+                                                <div class="col-auto" style="float:left;">
+                                                    <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
+                                                        <i class="feather icon-rotate-cw"></i> Reset
+                                                    </button>
+                                                </div>
+                                                <div class="col-auto" style="float:right;">
+                                                    <button id="BtnInsert" style="border-radius:12px;" class="btn btn-success">
+                                                        <i class="feather icon-save"></i> Save
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                        <div class="row ">
-                            <div class="col-auto" style="float:left;">
-                                <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
-                                    <i class="feather icon-rotate-cw"></i> Reset
-                                </button>
-                            </div>
-                            <div class="col-auto" style="float:right;">
-                                <button id="BtnInsert" style="border-radius:12px;" class="btn btn-success">
-                                 <i class="feather icon-save"></i> Save
-                                </button>
-                            </div>
-                        </div>
-
-                </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="btn-group pull-right" style="float:right; padding:10px!important;">
@@ -417,23 +450,23 @@ select option {
                     </div>
 
                     <div class="containerr" style="max-width:120em;">
-                      <div class="button-container" style="margin-bottom: 10px;">
-    <button onclick="exportToCSV()" class="rounded btn-sm btn-primary">
-        <i class="feather icon-file-text"></i> CSV
-    </button>
-    <button onclick="copyTable()" class="rounded btn-sm btn-warning">
-        <i class="feather icon-copy"></i> Copy
-    </button>
+                        <div class="button-container" style="margin-bottom: 10px;">
+                            <button onclick="exportToCSV()" class="rounded btn-sm btn-primary">
+                                <i class="feather icon-file-text"></i> CSV
+                            </button>
+                            <button onclick="copyTable()" class="rounded btn-sm btn-warning">
+                                <i class="feather icon-copy"></i> Copy
+                            </button>
                             <button onclick="exportToExcel()" class="btn rounded btn-sm btn-success">
                                 <i class="fa fa-regular fa-file-excel"></i> Excel
                             </button>
-    <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
-        <i class="feather icon-file-pdf"></i> PDF
-    </button>
-    <button onclick="printTable()" class="rounded btn-sm btn-info">
-        <i class="feather icon-print"></i> Print
-    </button>
-</div>
+                            <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
+                                <i class="feather icon-file-pdf"></i> PDF
+                            </button>
+                            <button onclick="printTable()" class="rounded btn-sm btn-info">
+                                <i class="feather icon-print"></i> Print
+                            </button>
+                        </div>
 
 
                         <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:60dvh;position:relative">
@@ -465,7 +498,7 @@ select option {
                             </table>
                         </div>
                     </div>
-              
+
 
 
                 </div>
@@ -473,7 +506,111 @@ select option {
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="StatementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="feather icon-file-text"></i> Customer Statement</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- Top Section: Customer and Statement Summary -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h6 class="mb-0"><i class="feather icon-user"></i> Customer Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Name:</strong> <span class="CustomerName"></span></p>
+                                <p><strong>Email:</strong> <span class="CustomerEmail"></span></p>
+                                <p><strong>Contact:</strong> <span class="CustomerPhone"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Join Date:</strong><span class="JoinDate"></span> </p>
+                                <p><strong>Last Renew Date:</strong><span class="LastRenewDate"></span></p>
+                                <p><strong>Expiry Date:</strong> <span class="ExpiryDate"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Button Container for Export Options -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-muted">Export Options</h6>
+                    <div class="button-container">
+                        <button onclick="exportToCSV()" class="btn btn-sm btn-primary me-2">
+                            <i class="feather icon-file-text"></i> CSV
+                        </button>
+                        <button onclick="copyTable()" class="btn btn-sm btn-warning me-2">
+                            <i class="feather icon-copy"></i> Copy
+                        </button>
+                        <button onclick="exportToExcel()" class="btn btn-sm btn-success me-2">
+                            <i class="fa fa-regular fa-file-excel"></i> Excel
+                        </button>
+                        <button onclick="exportToPDF()" class="btn btn-sm btn-danger me-2">
+                            <i class="feather icon-file-pdf"></i> PDF
+                        </button>
+                        <button onclick="printTable()" class="btn btn-sm btn-info">
+                            <i class="feather icon-print"></i> Print
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="TableDiv" style="width:100%;overflow-x:auto;max-height:50vh;">
+                    <table id="statementTable" class="table table-striped table-bordered table-hover text-center align-middle" style="width:100%;">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Transaction Date</th>
+                                <th>Transaction Type</th>
+                                <th>Description</th>
+                                <th>Product</th>
+                                <th>Paid Amount</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic rows inserted here -->
+                            <tr>
+                                <td>1</td>
+                                <td>2024-01-10</td>
+                                <td>Payment</td>
+                                <td>Monthly Subscription</td>
+                                <td>Premium Plan</td>
+                                <td>$50.00</td>
+                                <td>$500.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Bottom Section: Summary -->
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h6 class="mb-0"><i class="feather icon-bar-chart"></i> Summary</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Total Paid Amount:</strong><span class="TotalTillToday" style="color:green;font-weight:600;"></span> </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Outstanding Amount:</strong> <span class="Outstanding"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -509,10 +646,10 @@ select option {
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val()
                 };
-    
+
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
-                
+
                 if (jsondataresponse >0) {
                     resetForm();
                     getTableData();
@@ -553,7 +690,6 @@ select option {
         $("#guid").val("");
         $("#CompanyCode").val("");
         $("#BySMSApiToken").val("");
-
          getTableData();
     }
 
@@ -568,6 +704,7 @@ select option {
                                 <td class="center">` + (i + 1) + `</td>
                                 <td class="center"><button class="hideme btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
                                 <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+                                <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
 
                                 <td class="center addedBy">` + jsondata[i]["AddedBy"] + `</td>
                                 <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
@@ -576,7 +713,7 @@ select option {
                                 <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
                                 <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
                                 <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
-                              
+
                                 <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
                                 <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
                                 <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
@@ -632,6 +769,50 @@ select option {
 
 
     });
+
+
+    $(document).on("click", ".btn-statement", async function () {
+        var custId=$(this).attr("data-id");
+        var parm={
+            Id:parseInt(custId)
+        };
+        var reqdatA=await AjaxCall("/SubscriptionReport/getCustomerStatement",parm);
+        var responsedData=JSON.parse(reqdatA);
+        var JSONData=JSON.parse(responsedData);
+
+        var tableDOM="";
+        debugger
+        if(JSONData.length>0){
+            for(var i=0;i<JSONData.length;i++){
+
+                tableDOM+=`
+                            <tr>
+                            <td class="center"><b>`+(i+1)+`.</b></td>
+                                <td class="center">`+JSONData[i]["LastRenewDate"]+`</td>
+                                <td class="center">`+JSONData[i]["SubscriptionPlan"]+`</td>
+                                <td class="center">`+JSONData[i]["Remarks"]+`</td>
+                                <td class="center">`+JSONData[i]["ProductName"]+`</td>
+                                <td class="center">`+JSONData[i]["PaidAmount"]+`</td>
+                               
+                            </tr>
+                
+                            `;
+
+                
+
+            }
+            $("#StatementModal").find("#statementTable tbody").empty().append(tableDOM);
+            $("#StatementModal").find(".TotalTillToday").text(JSONData[0]["TotalTillToday"]);
+            $("#StatementModal").find(".CustomerName").text(JSONData[0]["CustomerName"]);
+            $("#StatementModal").find(".CustomerEmail").text(JSONData[0]["EmailAddress"]);
+            $("#StatementModal").find(".CustomerPhone").text(JSONData[0]["Contact"]);
+            $("#StatementModal").find(".JoinDate").text(JSONData[0]["JoinDate"]);
+            $("#StatementModal").find(".LastRenewDate").text(JSONData[0]["LastRenewDate"]);
+            $("#StatementModal").find(".ExpiryDate").text(JSONData[0]["ExpiryDate"]);
+        }
+
+    });
+
 
 
     $(document).on("click", ".btn-delete", async function () {

@@ -22,7 +22,26 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
+
+            /* Full-page stamp - Image */
+            .invoice-container::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png'); /* Path to your image */
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                opacity: 0.1; /* Light opacity for watermark */
+                transform: rotate(45deg);
+                z-index: -1; /* Position it behind the content */
+            }
 
         .invoice-header {
             display: flex;
@@ -38,10 +57,12 @@
             .invoice-header .paid-badge {
                 background-color: #28a745;
                 color: white;
-                padding: 5px 15px;
-                font-size: 14px;
+                padding: 15px 30px; /* Increase padding */
+                font-size: 24px; /* Increase font size */
                 font-weight: bold;
                 border-radius: 5px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
             }
 
         .invoice-details {
@@ -117,37 +138,44 @@
             .print-btn:hover {
                 background-color: #555;
             }
+
         /* Print-specific Styles */
         @@media print {
-            .print-btn, go-back-btn {
-                display: none; /* Hide print button when printing */
-            }
+            .print-btn, .go-back-btn
 
-            .invoice-container::after {
-                opacity: 0.1; /* Ensure watermark is visible during printing */
-            }
+        {
+            display: none; /* Hide print button when printing */
+        }
+
+        .invoice-container::after {
+            opacity: 0.1; /* Ensure watermark is visible during printing */
+        }
+
         }
 
         /* Responsive Design */
         @@media only screen and (max-width: 768px) {
-            .invoice-container {
-                width: 100%;
-                padding: 20px;
-            }
+            .invoice-container
 
-            .invoice-header h1 {
-                font-size: 28px;
-            }
+        {
+            width: 100%;
+            padding: 20px;
+        }
 
-            .invoice-items div,
-            .transaction-info div {
-                flex-direction: column;
-                text-align: left;
-            }
+        .invoice-header h1 {
+            font-size: 28px;
+        }
 
-            .invoice-footer p {
-                font-size: 0.9em;
-            }
+        .invoice-items div,
+        .transaction-info div {
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .invoice-footer p {
+            font-size: 0.9em;
+        }
+
         }
     </style>
 </head>
@@ -162,7 +190,7 @@
         <!-- Company and Customer Information -->
         <div class="invoice-details">
             <p><strong>Insoft Research and Development</strong></p>
-           
+
             <p>Pokhara-8, Ratnachowk, Mid Western, 44204, Nepal</p>
 
             <p><strong>Invoice #:</strong> @Model.TransactionId</p>

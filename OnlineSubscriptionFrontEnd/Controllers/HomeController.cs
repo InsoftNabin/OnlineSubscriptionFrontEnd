@@ -30,16 +30,20 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
             return View();
         }
-
-
+        
+        
         [HttpPost]
-        public  IActionResult CreateInvoice([FromBody] InvoiceData invoiceData)
+        public IActionResult CreateInvoice([FromBody] InvoiceData invoiceData)
         {
-           
-            TempData["InvoiceData"] = JsonConvert.SerializeObject(invoiceData);
+            if (invoiceData == null)
+            {
+                return Json(new { success = false, message = "Invalid data received." });
+            }
 
+            TempData["InvoiceData"] = JsonConvert.SerializeObject(invoiceData);
             return Json(new { success = true, message = "Invoice Data Received" });
         }
+
 
 
         public IActionResult InvoicePage()
