@@ -915,190 +915,175 @@
                     `;
 
 
-        for (var i = 0; i < IncludeData.length; i++) {
-                let chartId = "ChartCircular" + (i + 1);
-            let imageUrl = IncludeData[i].ImageData || '/files/assets/images/employee.png';
-            body += `
-                <div class="col-12">
-                    <div class="card card-success my-4 col-12 shadow">
-                        <div class="flex-column">
-                            <div class="row">
-                                <!-- Image Section -->
-                                <div class="col-6 col-md-4">
-                                    <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
-                                        <img src="${imageUrl}" alt="image" width="125" height="120" style="object-fit:contain; padding-top:0px;">
-
-                                    </div>
-                                </div>
-
-                                <!-- Company Name & Address Section -->
-                                <div class="col-6 col-md-4">
-                                    <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}<br> ${IncludeData[i].Address}</a>
-                                    <div class="d-flex flex-stack fs-4 my-4">
-                                        <div class="fw-bold">
-                                            <a href="${IncludeData[i].ReturnURL}">${IncludeData[i].ReturnURL}</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Verified / Unverified Section -->
-                                ${IncludeData[i].IsVerified == 1 ? `
-                                    <div class="col-12 col-md-4">
-                                        <div class="d-flex flex-column align-items-center">
-
-
-                                            <!-- Radial Bar and Button Side by Side -->
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="card w-100">
-                                                    <div id="${chartId}"
-                                                        data-label="0/0"
-                                                        class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
-                                                        style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
-                                                               font-size: 12px;
-                                                               display: flex;
-                                                               align-items: center;
-                                                               justify-content: center;">
-                                                        <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
-                                                    </div>
-                                                </div>
-                                                     &nbsp;<span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
-                                                <i class="feather icon-check-circle"></i>&nbsp;Verified
-                                            </span>
-                                                <!-- Extend/Log Button to the Right of Radial Bar -->
-                                                <div class="ms-3">
-                                                    <button
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#statusModal"
-                                                        class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
-                                                        data-phone="${IncludeData[i].UserContact}"
-                                                        style="height:35px;"
-                                                        data-prod="${IncludeData[i].ModuleName}"
-                                                        data-userEmail="${IncludeData[i].userEmail}"
-                                                        data-productid="${IncludeData[i].ProductId}"
-                                                        data-custid="${IncludeData[i].custId}">
-                                                        Extend/Log &nbsp;
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ` : IncludeData[i].IsVerified == -1 ? `
-                                    <div class="col-12 col-md-4">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <div class="d-flex flex-column align-items-center mb-3">
-                                                <span class="badge badge-danger fw-bold px-4 py-3 fs-3 mb-2">
-                                                    <i class="fa fa-eye-slash" style="color:white;"></i>&nbsp;Declined
-                                                </span>
-                                                <div class="d-flex flex-column align-items-center mb-3">
-                                                    <div style="margin-top: 10px; font-size: 14px;">Reason: ${IncludeData[i].Remarks}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ` : `
-                                    <div class="col-12 col-md-4">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <span class="badge badge-warning fw-bold px-4 py-3 fs-3 mb-2">
-                                                <i class="feather icon-clock"></i>&nbsp;Pending
-                                            </span>
-                                        </div>
-                                    </div>
-                                `}
-                            </div>
-
-                                <!-- Details Section - Add all details directly in the card -->
-        <div class="card-body" style="border-top:1px solid black; background-color: #f9f9f9; border-radius: 8px; padding: 20px;">
-            <div class="d-flex justify-content-between">
-                <!-- Left Section with Details -->
-                <div class="left-section" style="flex: 0 0 65%; padding-right: 20px;">
-                    <div class="py-5 fs-6">
-                        <div class="d-flex flex-row">
-                            <div class="fw-bold col-4">Display Name</div>
-                            <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
-                        </div>
-                        <div class="d-flex flex-row gap-4 mt-5">
-                            <div class="fw-bold col-4">Country</div>
-                            <div class="text-gray-700 col-8">${IncludeData[i].OrganizationMotto}</div>
-                        </div>
-                        <div class="d-flex flex-row gap-4 mt-5">
-                            <div class="fw-bold col-4">Email</div>
-                            <div class="text-gray-700 col-8">
-                                <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row gap-4 mt-5">
-                            <div class="fw-bold col-4">PAN/VAT</div>
-                            <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
-                        </div>
-                        <div class="d-flex flex-row gap-4 mt-5">
-                            <div class="fw-bold col-4">Phone No.</div>
-                            <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
-                        </div>
-                        <div class="d-flex flex-row gap-4 mt-5">
-                            <div class="fw-bold col-4">Contact No.</div>
-                            <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
-                        </div>
-                        <div class="d-flex flex-row gap-4 mt-5">
-                            <div class="fw-bold col-4">Website</div>
-                            <div class="text-gray-700 col-8">
-                                <a href="${IncludeData[i].Website}" class="text-gray-700 text-hover-primary">${IncludeData[i].Website}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Section with "Current Plan", "Next Due Date", and "Pricing" -->
-                <div class="right-section" style="flex: 0 0 30%; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                    <div class="text-center mb-4">
-                        <h5 style="color: #4e73df; font-weight: 600; color:green; font-size:20px;">Plan Details</h5>
-                    </div><hr>
-
+    for (var i = 0; i < IncludeData.length; i++) {
+        let chartId = "ChartCircular" + (i + 1);
+        let imageUrl = IncludeData[i].ImageData || '/files/assets/images/employee.png';
+        body += `
+            <div class="col-12">
+                <div class="card card-success my-4 col-12 shadow">
                     <div class="d-flex flex-column">
-                        <!-- Current Plan Section -->
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
-                            <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;"></div>
+                        <div class="row">
+                            <!-- Image Section -->
+                            <div class="col-6 col-md-4">
+                                <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
+                                    <img src="${imageUrl}" alt="image" style="object-fit:contain; padding-top:0px;">
+                                </div>
+                            </div>
+
+                            <!-- Company Name & Address Section -->
+                            <div class="col-6 col-md-4">
+                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}<br> ${IncludeData[i].Address}</a>
+                                <div>
+                                    <div class="fw-bold">
+                                        <a href="${IncludeData[i].ReturnURL}">${IncludeData[i].ReturnURL}</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Verified / Unverified Section -->
+                            ${IncludeData[i].IsVerified == 1 ? `
+                                    <div class="col-12 col-md-4">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
+            <!-- Radial Chart -->
+            <div class="d-flex justify-content-center mx-auto">
+                <div id="${chartId}" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto">
+                    <span style="position: absolute; font-size: 12px; color: #000;"></span>
+                </div>
+            </div>
+
+            <!-- Verified / Unverified Section -->
+            <div class="ms-3 mt-2 mt-md-0">
+                <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
+                    <i class="feather icon-check-circle"></i>&nbsp;Verified
+                </span>
+                <div class="">
+                    <button data-bs-toggle="modal" data-bs-target="#statusModal"
+                        class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
+                        data-phone="${IncludeData[i].UserContact}" style="height:35px;"
+                        data-prod="${IncludeData[i].ModuleName}"
+                        data-userEmail="${IncludeData[i].userEmail}"
+                        data-productid="${IncludeData[i].ProductId}"
+                        data-custid="${IncludeData[i].custId}">
+                        Extend/Log &nbsp;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                            ` : IncludeData[i].IsVerified == -1 ? `
+                                <div class="col-12 col-md-4">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <span class="badge badge-danger fw-bold px-4 py-3 fs-3 mb-2">
+                                            <i class="fa fa-eye-slash" style="color:white;"></i>&nbsp;Declined
+                                        </span>
+                                        <div class="d-flex flex-column align-items-center mb-3">
+                                            <div style="margin-top: 10px; font-size: 14px;">Reason: ${IncludeData[i].Remarks}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : `
+                                <div class="col-12 col-md-4">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <span class="badge badge-warning fw-bold px-4 py-3 fs-3 mb-2">
+                                            <i class="feather icon-clock"></i>&nbsp;Pending
+                                        </span>
+                                    </div>
+                                </div>
+                            `}
                         </div>
 
-                        <!-- Next Due Date Section -->
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="fw-bold" style="color: #4e73df;">Next Due Date</div>
-                            <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;"></div>
+                        <!-- Details Section - Add all details directly in the card -->
+                        <div class="card-body" style="border-top:1px solid black; background-color: #f9f9f9; border-radius: 8px; padding: 20px;">
+                            <div class="d-flex flex-column flex-md-row">
+                                <!-- Left Section with Details -->
+                                <div class="left-section col-12 col-md-8 mb-4 mb-md-0" style="padding-right: 20px;">
+                                    <div class="py-5 fs-6">
+                                        <div class="d-flex flex-row">
+                                            <div class="fw-bold col-4">Display Name</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Country</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].OrganizationMotto}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Email</div>
+                                            <div class="text-gray-700 col-8">
+                                                <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">PAN/VAT</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Phone No.</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Contact No.</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Website</div>
+                                            <div class="text-gray-700 col-8">
+                                                <a href="${IncludeData[i].Website}" class="text-gray-700 text-hover-primary">${IncludeData[i].Website}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Section with "Current Plan", "Next Due Date", and "Pricing" -->
+                                <div class="right-section col-12 col-md-4" style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                                    <div class="text-center mb-4">
+                                        <h5 style="color: #4e73df; font-weight: 600; font-size:20px;">Plan Details</h5>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex flex-column">
+                                        <!-- Current Plan Section -->
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
+                                            <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;"></div>
+                                        </div>
+
+                                        <!-- Next Due Date Section -->
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <div class="fw-bold" style="color: #4e73df;">Next Due Date</div>
+                                            <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;"></div>
+                                        </div>
+
+                                        <!-- Pricing Section -->
+                                        <div class="d-flex justify-content-between" hidden>
+                                            <div class="fw-bold" style="color: #4e73df;" hidden>Pricing</div>
+                                            <div class="text-gray-700" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Pricing Section -->
-                        <div class="d-flex justify-content-between" hidden>
-                            <div class="fw-bold" style="color: #4e73df;" hidden>Pricing</div>
-                            <div class="text-gray-700" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;"></div>
+                        <!-- Actions Buttons (Edit/Delete or Declined) -->
+                        <div class="d-flex flex-stack fs-4 py-3 card-body">
+                            <span>
+                                ${IncludeData[i].IsVerified == 0 ? `
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
+                                ` : ''}
+
+                                <!-- Hide Delete Button if Declined -->
+                                ${IncludeData[i].IsVerified !== 1 && IncludeData[i].IsVerified !== -1 ? `
+                                    <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn"><i class="fas fa-trash"></i></button>
+                                ` : ''}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        `;
 
-
-
-                            <!-- Actions Buttons (Edit/Delete or Declined) -->
-                            <div class="d-flex flex-stack fs-4 py-3 card-body">
-                                <span>
-                                    ${IncludeData[i].IsVerified == 0 ? `
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
-                                    ` : ''}
-
-                                    <!-- Hide Delete Button if Declined -->
-                                    ${IncludeData[i].IsVerified !== 1 && IncludeData[i].IsVerified !== -1 ? `
-                                        <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn"><i class="fas fa-trash"></i></button>
-                                    ` : ''}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Load the plans for this specific organization (unique chartId)
-            loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
-        }
+        // Load the plans for this specific organization (unique chartId)
+        loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
+    }
 
                     body += `</div>`;  // Close row
                 } else {
