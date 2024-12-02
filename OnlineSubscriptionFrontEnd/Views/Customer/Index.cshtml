@@ -280,15 +280,17 @@
                                             <h4>Customer Details</h4>
                                             <input type="text" id="id" hidden />
                                             <div class="row">
-                                                <div class="col-third">
+                                                <div class="col-third" hidden>
+                                                    <label for="CustCode">Customer Code</label>
                                                     <div class="input-group input-group-icon">
-                                                        <input type="text" id="CustCode" placeholder="Customer Code" name="customercode" required>
+                                                        <input type="number" id="CustCode" placeholder="Customer Code" name="customercode" >
                                                         <div class="input-icon">
                                                             <i class="feather icon-hash"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-third">
+                                                    <label for="CustName">Customer Name</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
                                                         <div class="input-icon">
@@ -297,6 +299,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-third">
+                                                    <label for="CustAddress">Address</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="CustAddress" placeholder="Address" name="address" required>
                                                         <div class="input-icon">
@@ -307,6 +310,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-third">
+                                                    <label for="panvat">PAN/VAT No</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
                                                         <div class="input-icon">
@@ -315,14 +319,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-third">
+                                                    <label for="Custcontact">Contact Number</label>
                                                     <div class="input-group input-group-icon">
-                                                        <input type="text" id="Custcontact" placeholder="Contact Number" name="contact" required>
+                                                        <input type="number" id="Custcontact" placeholder="Contact Number" name="contact" required>
                                                         <div class="input-icon">
                                                             <i class="feather icon-phone"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-third" hidden>
+                                                    <label for="Custdblink">Database Link</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" hidden>
                                                         <div class="input-icon">
@@ -335,6 +341,7 @@
                                             <h4>Contact Persons</h4>
                                             <div class="row" style="display: flex; justify-content: space-between;">
                                                 <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <label for="CP1">Contact Person 1</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
                                                         <div class="input-icon">
@@ -343,14 +350,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <label for="CP1Mobno">CP1 Mobile No</label>
                                                     <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
+                                                        <input type="number" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
                                                         <div class="input-icon">
                                                             <i class="feather icon-phone"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <label for="CP2">Contact Person 2</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
                                                         <div class="input-icon">
@@ -359,8 +368,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                                                    <label for="CP2Mobno">CP2 Mobile No</label>
                                                     <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
+                                                        <input type="number" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
                                                         <div class="input-icon">
                                                             <i class="feather icon-phone"></i>
                                                         </div>
@@ -371,6 +381,7 @@
                                             <h4>Additional Information</h4>
                                             <div class="row">
                                                 <div class="col-third">
+                                                    <label for="email">Email Address</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="email" id="email" placeholder="Email Address" name="email" required>
                                                         <div class="input-icon">
@@ -379,6 +390,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-third">
+                                                    <label for="website">Website</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="website" placeholder="Website" name="website">
                                                         <div class="input-icon">
@@ -387,8 +399,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-third" hidden>
+                                                    <label for="guid">GUID</label>
                                                     <div class="input-group input-group-icon">
-                                                        <input type="text" id="guid" placeholder="GUID" name="GUID" required>
+                                                        <input type="text" id="guid" placeholder="GUID" name="GUID" >
                                                         <div class="input-icon">
                                                             <i class="feather icon-pin"></i>
                                                         </div>
@@ -397,6 +410,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-third">
+                                                    <label for="CompanyCode">Company Code</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
                                                         <div class="input-icon">
@@ -405,6 +419,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-third">
+                                                    <label for="BySMSApiToken">By SMS API Token</label>
                                                     <div class="input-group input-group-icon">
                                                         <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
                                                         <div class="input-icon">
@@ -414,7 +429,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row ">
+                                            <div class="row">
                                                 <div class="col-auto" style="float:left;">
                                                     <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
                                                         <i class="feather icon-rotate-cw"></i> Reset
@@ -426,7 +441,6 @@
                                                     </button>
                                                 </div>
                                             </div>
-
                                         </form>
                                     </div>
 
@@ -439,11 +453,7 @@
                             <div class="btn-group pull-right" style="float:right; padding:10px!important;">
                                 <div class="input-group">
                                     <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="search-addon">
-                                            <i class="feather icon-search"></i>
-                                        </span>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -476,6 +486,7 @@
                                         <th class="center">S.N</th>
                                         <th class="center hideme">Edit</th>
                                         <th class="center hideme">Delete</th>
+                                        <th class="center hideme">Statement</th>
                                         <th class="center">Added By</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
@@ -625,12 +636,47 @@
 
         $("#BtnInsert").on("click", async function (event) {
           event.preventDefault();
-            if ($("#CustCode").val() == "" || $("#CustName").val() == "" || $("#CustAddress").val() == "" || $("#panvat").val() == "" || $("#Custcontact").val() == "" ||  $("#CP1").val() == "" || $("#CP1Mobno").val() == "" || $("#CP2").val() == "" || $("#CP2Mobno").val() == "" || $("#email").val() == "" || $("#website").val() == "" || $("#CompanyCode").val() == "" || $("#BySMSApiToken").val() == "") {
-                toastr.error("Please fill in all the fields!!!");
-            } else {
-                var parm = {
+             if($("#CustName").val() == ""){
+                toastr.warning("Please fill in  the Customer Name!!!");
+            }
+            else if($("#CustAddress").val() == ""){
+                toastr.warning("Please fill in  the Customer Address!!!");
+            }
+            else if($("#panvat").val() == ""){
+                toastr.warning("Please fill in  the PAN / VAT Number!!!");
+            }
+            else if($("#Custcontact").val() == ""){
+                toastr.warning("Please fill in  the Contact Number!!!");
+            }
+            else if($("#CP1").val() == ""){
+                toastr.warning("Please fill in  the Contact Person 1 Name !!!");
+            }
+            else if($("#CP1Mobno").val() == ""){
+                toastr.warning("Please fill in  the Contact Person 1 Contact Number  !!!");
+            }
+            else if($("#CP2").val() == ""){
+                toastr.warning("Please fill in  the Contact Person 2 Name  !!!");
+            }
+            else if($("#CP2Mobno").val() == ""){
+                toastr.warning("Please fill in  the Contact Person 2 Contact Number  !!!");
+            }
+            else if($("#email").val() == ""){
+                toastr.warning("Please fill in  the email Address  !!!");
+            }
+             else if($("#website").val() == ""){
+                toastr.warning("Please fill in  the website!!!");
+            }
+             else if($("#CompanyCode").val() == ""){
+                toastr.warning("Please fill in  the Company Code !!!");
+            }
+             else if($("#BySMSApiToken").val() == ""){
+                toastr.warning("Please fill in  the SMS Api Token !!!");
+            }
+
+            else {
+              var parm = {
                     Id: $("#id").val() ? parseInt($("#id").val()) : 0,
-                    CustomerCode: $("#CustCode").val(),
+                    CustomerCode:'', //$("#CustCode").val(),
                     CustomerName: $("#CustName").val(),
                     Address: $("#CustAddress").val(),
                     panvatno: $("#panvat").val(),
@@ -646,7 +692,7 @@
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val()
                 };
-
+                debugger
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
 
@@ -690,7 +736,7 @@
         $("#guid").val("");
         $("#CompanyCode").val("");
         $("#BySMSApiToken").val("");
-         getTableData();
+        
     }
 
     function getTableData() {
@@ -781,7 +827,7 @@
         var JSONData=JSON.parse(responsedData);
 
         var tableDOM="";
-        debugger
+      
         if(JSONData.length>0){
             for(var i=0;i<JSONData.length;i++){
 

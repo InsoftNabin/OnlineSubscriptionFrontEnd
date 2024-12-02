@@ -64,6 +64,34 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
 
         [HttpPost]
+        public async Task<IActionResult> GetAllProductsByCustomer([FromBody] CustomerwiseModules p)
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    p.TokenNo = TokenNo;
+                    string i = await ApiCall.ApiCallWithObject("Products/GetAllProductsByCustomer", p, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
+
+
+        [HttpPost]
         public async Task<IActionResult> getProduct([FromBody] Products p)
         {
             try

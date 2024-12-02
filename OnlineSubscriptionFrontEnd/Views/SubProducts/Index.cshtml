@@ -55,9 +55,9 @@
                                                 <label for="productId">Sub-Product ID (Optional):</label>
                                                 <input type="number" class="form-control" id="productId" />
                                             </div>
-                                            <div class="form-group" >
+                                            <div class="form-group"  hidden>
                                                 <label for="mainproductId">Product Id:</label>
-                                                <input type="number" class="form-control" id="mainproductId" />
+                                                <input type="number" class="form-control" id="mainproductId" hidden/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="productName">Product Name:</label>
@@ -74,7 +74,7 @@
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="price">Price:</label>
-                                                    <input type="text" class="form-control border border-dark rounded" id="price" placeholder="Enter the Price for the module" required />
+                                                    <input type="number" class="form-control border border-dark rounded" id="price" placeholder="Enter the Price for the module" required />
                                                 </div>
                                             </div>
                                             <button type="button" class="btn btn-success" id="BtnInsert">

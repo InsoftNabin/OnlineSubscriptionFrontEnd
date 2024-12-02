@@ -117,7 +117,7 @@
                                         <label for="password">Password:</label>
                                         <input type="password" class="form-control border border-dark rounded" id="password" placeholder="Enter Password" required />
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-4"  hidden>
                                         <label for="type">Type:</label>
                                         <select class="form-control border border-dark rounded" id="type" required>
                                             <option value="" disabled selected>Select Type</option>
@@ -130,12 +130,12 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="smsToken">SMSToken:</label>
+                                        <label for="smsToken">SMS Token:</label>
                                         <input type="text" class="form-control border border-dark rounded" id="smsToken" placeholder="Enter SMSToken" required />
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="smsSenderId">SMSSenderId:</label>
-                                        <input type="text" class="form-control border border-dark rounded" id="smsSenderId" placeholder="Enter SMSSenderId" required />
+                                        <label for="smsSenderId">SMS SenderId:</label>
+                                        <input type="text" class="form-control border border-dark rounded" id="smsSenderId" placeholder="Enter SMS SenderId" required />
                                     </div>
                                 </div>
 
@@ -169,8 +169,8 @@
                                     <th class="center">PAN number</th>
                                     <th class="center">User Id</th>
                                     <th class="center">Password</th>
-                                    <th class="center">SMSToken</th>
-                                    <th class="center">SMSSenderId</th>
+                                    <th class="center">SMS Token</th>
+                                    <th class="center">SMS SenderId</th>
                              </tr>
                         </thead>
                         <tbody>
@@ -312,7 +312,7 @@
                 Password: $("#password").val(),
                 SMSToken: $("#smsToken").val(),
                 SMSSenderId: $("#smsSenderId").val(),
-                Type: $("#type").val()
+                Type:'none'// $("#type").val()
             };
 
             var data = await AjaxCall("/Agent/InsertUpdate", parm);

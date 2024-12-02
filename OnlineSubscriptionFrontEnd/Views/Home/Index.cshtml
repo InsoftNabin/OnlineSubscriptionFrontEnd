@@ -872,7 +872,7 @@
             async function GetOrganizations() {
                 const result = await AjaxCall("/Home/GetOrganizations");
                 let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
-
+                debugger
                 body += `
                     <div class="app-content flex-column-fluid">
                         <div class="app-container container-xxl">
@@ -1044,13 +1044,13 @@
                                         <!-- Current Plan Section -->
                                         <div class="d-flex justify-content-between mb-4">
                                             <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
-                                            <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;"></div>
+                                            <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;">NONE</div>
                                         </div>
 
                                         <!-- Next Due Date Section -->
                                         <div class="d-flex justify-content-between mb-4">
                                             <div class="fw-bold" style="color: #4e73df;">Next Due Date</div>
-                                            <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;"></div>
+                                            <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;">__/__/____</div>
                                         </div>
 
                                         <!-- Pricing Section -->
@@ -1176,7 +1176,7 @@
                 CustomerId: parseInt(CustomerId),
                 ProductId: parseInt(ProductId)
             };
-
+            debugger
             // Fetch current plan details
             var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
             var response = JSON.parse(ddd);

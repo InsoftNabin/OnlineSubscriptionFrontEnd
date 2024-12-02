@@ -87,11 +87,7 @@
                             <div class="btn-group  btn-sm pull-right" style="float:right; padding:10px!important;">
                                 <div class="input-group">
                                     <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
-                                    <div class="input-group-append">
-                                        <span class="btn m-2 p-2 input-group-text" id="search-addon">
-                                            <i class="feather icon-search"></i>
-                                        </span>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -105,7 +101,7 @@
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                                         Status of <b><span class="Customerr"></span></b>'s' Subscription of <b><span class="selectedProduct"></span></b>
                                         <span class="userEmail" hidden></span>
-                                        <span class="userPhone" ></span>
+                                        <span class="userPhone" hidden></span>
                                     </h1>
                                     <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
@@ -148,16 +144,16 @@
                                             </div>
                                             <div class="row">
                                                 <label>Expiry Date:</label>
-                                                <input type="date" class="expiryDate" disabled/>
+                                                <input type="date" class="expiryDate form-control" disabled/>
                                             </div>
                                            
                                             <div class="row">
                                                 <label>Amount:</label>
-                                                <input type="text" class="Amount" required disabled />
+                                                <input type="text" class="Amount form-control" required disabled />
                                             </div>
                                             <div class="row">
                                                 <label>Remarks:</label>
-                                                <input type="text" class="rem" required />
+                                                <input type="text" class="rem form-control" required />
                                                 <input type="text" id="custid"  hidden/>
                                                 <input type="text"  id="prodid" hidden/>
                                             </div>
@@ -293,7 +289,7 @@
                                     <td class="center"><b>${i + 1}.</b></td>
                                         <td class="center hideme">
                                             <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class="btn btn-sm btn-primary SelectModules rounded hideme" data-bs-toggle="modal" data-target="#exampleModal">
-                                                Select &nbsp;<i class="feather icon-check-square"></i>
+                                                Plan &nbsp;<i class="feather icon-check-square"></i>
                                             </button>
                                                 <button data-bs-toggle="modal" data-bs-target="#statusModal" class="hideme viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
                                         </td>

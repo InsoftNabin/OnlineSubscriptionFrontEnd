@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineSubscriptionFrontEnd.Classes;
 using OnlineSubscriptionFrontEnd.Models.Insoft;
+using System.Data;
 
 namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 {
@@ -63,6 +64,29 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         }
 
 
+
+        [HttpPost]
+        public async Task<IActionResult> SubsbyCustProdandTypeInitially([FromBody] CustomerwiseModules ai)
+        {
+            try
+            {
+                string tokenNo = HttpContext.Session.GetString("TokenNo");
+                if (tokenNo == null)
+                {
+                    return Ok("-21");
+                }
+
+                ai.TokenNo = tokenNo; 
+
+                var result = await ApiCall.ApiCallWithObject("Subscription/SubsbyCustProdandTypeInitially", ai, "Post");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                TempData["Exception"] = ex.ToString();
+                return RedirectToAction("Index", "UnexpectedError");
+            }
+        }
 
 
 

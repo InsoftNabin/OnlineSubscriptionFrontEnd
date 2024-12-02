@@ -65,6 +65,7 @@
         return otp
     }
     $("#SendCodeButton").click(async function (e) {
+        debugger
         e.preventDefault();
         if ($("#email").val() === "") {
             toastr.warning("Invalid Email.")

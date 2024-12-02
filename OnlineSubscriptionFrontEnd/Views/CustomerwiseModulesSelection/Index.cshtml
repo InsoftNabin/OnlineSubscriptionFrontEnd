@@ -111,7 +111,7 @@
         getTableData();
     });
     function getAgents() {
-
+          
         var jd = AjaxCallWithoutDataNoAsync("Agent/getAgents");
         var jdataaa = JSON.parse(jd);
         var jdata = JSON.parse(jdataaa);
@@ -170,14 +170,18 @@
         $("#CustomerId").val(customerId);
         loadProducts(customerId);
         getAgents();
-        debugger
+     
     });
 
-    function loadProducts(customerId) {
-        var parm = AjaxCallWithoutDataNoAsync("/Products/getProducts");
+  async  function loadProducts(customerId) {
+
+        var parm={
+            CustomerId:parseInt(customerId)
+        };
+        var parm =await AjaxCall("/Products/GetAllProductsByCustomer",parm);
         var parma = JSON.parse(parm);
         var products = JSON.parse(parma);
-
+        
         if (products.length == 0) {
             $("#modalProductAccordion").html(`
                 <div class="accordion" id="accordionExample">
@@ -187,8 +191,12 @@
         } else {
             var accordionDOM = '';
             products.forEach(function (product) {
+              
+                  var accordionStyle = product.Activated == 'Activated' ? 'border: 3px solid darkgreen;' : '';
+
+
                 accordionDOM += `
-                        <div class="parent accordion-item${product.Id}" style="margin:20px; border-radius:12px; border:1px solid black;">
+                          <div class="parent accordion-item${product.Id}" style="margin:20px; border-radius:12px;${accordionStyle}">
                                 <h2 class="accordion-header" data-productid=${product.Id} id="heading${product.Id}" style="background-color:red; color:white; border-radius:12px;">
                             <button style="border-radius:12px;" class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse${product.Id}" aria-expanded="true" aria-controls="collapse${product.Id}" onclick="LoadSubProductsbyCustomerandProduct(${product.Id})"> ${product.Name}</button>
 
@@ -200,7 +208,7 @@
                                         <div class="card card-sm">
                                             <div class="card-body">
                                                 <h5 class="card-title">Initial &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
-                                                            <input type="text" class="form-control card-text initial" value="" style="max-width:200px;max-height:100px;">
+                                                            <input type="text" class="form-control card-text initial" value="" style="max-width:100%;max-height:100px;">
                                                 </div>
                                         </div>
                                     </div>
@@ -208,7 +216,7 @@
                                         <div class="card card-sm">
                                             <div class="card-body">
                                                 <h5 class="card-title">Site URL &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
-                                                        <input type="text" class="form-control card-text siteURL" value="" style="max-width:200px;max-height:100px;">
+                                                        <input type="text" class="form-control card-text siteURL" value="" style="max-width:100%;max-height:100px;">
                                             </div>
                                         </div>
                                     </div>
@@ -216,13 +224,27 @@
                                         <div class="card card-sm">
                                             <div class="card-body">
                                                 <h5 class="card-title">Serial Number &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
-                                                                <input type="text" class="form-control card-text serialNumber" value="" style="max-width:200px;max-height:100px;">
+                                                                <input type="text" class="form-control card-text serialNumber" value="" style="max-width:100%;max-height:100px;">
                                                 </div>
                                         </div>
                                     </div>
                                 </div>
-                           
-                                Agent: <select class="AgentsinModalTable"><option class="default">--Select An Agent--</option></select><br>
+                                   <div class="row" style="display: flex; align-items: center; gap: 10px;">
+                                     <div style="flex: 1;">
+                                         Agent:
+                                         <select class="AgentsinModalTable form-control">
+                                             <option class="default">--Select An Agent--</option>
+                                         </select>
+                                     </div>
+                                     <div style="flex: 1;">
+                                         Plan:
+                                         <select class="PlansInTable form-control">
+                                             <option class="default">--Select a Plan--</option>
+                                         </select>
+                                     </div>
+                                 </div>
+
+                                <br>
                                 Subscription GUID:<span class="subscriptionGUID"></span>
                                     <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
@@ -279,12 +301,26 @@
     $(document).on('click', '.saveeachData', async function () {
     
         if($(this).parents(".parent").find(".initial").val()==""||$(this).parents(".parent").find(".siteURL").val()==""||$(this).parents(".parent").find(".serialNumber").val()==""){
-            toastr.warning("Please fill in all the fields marked red star!!!");
+            toastr.warning("Please fill the initial!!!");
             return;
         }
 
         var customerId = $(this).attr("data-custid");
         var productId = $(this).attr("data-productid");
+
+
+    //----------saving the plan details here---------
+    const parm = {
+        Id: parseInt($(this).parents(".parent").find(".PlansInTable :selected").attr("data-subCusid")),
+        CustomerId: parseInt(customerId),
+        ProductId: parseInt(productId),
+        AgentId: parseInt($(this).parents(".parent").find(".PlansInTable :selected").attr("data-substypeid")),
+        Active: true
+    };
+
+    const savePromise = await AjaxCall("/Subscription/SubsbyCustProdandTypeInitially", parm);
+    //------------end of plan save functionality----------
+
 
         var selectedAccordion = $(this).parents(".accordion-item"+productId);
 
@@ -299,15 +335,18 @@
             var isChecked = row.find('.eachCb').is(':checked');
 
             if (isChecked) {
-                if ($(row).find('.JoinDate').val() === "" || $(row).find('.ExpiryDate').val() === "" || $(row).find('.LastRenewDate').val() === "") {
+                if ($(row).find('.JoinDate').val() === "" ) {
                     $(row).find('.JoinDate').attr("required", true);
-                    $(row).find('.ExpiryDate').attr("required", true);
-                    $(row).find('.LastRenewDate').attr("required", true);
-                    $(row).find('.Remarks').attr("required", true);
-                    toastr.error("Please fill all the fields in the selected rows before saving!");
-                    return;  // Exit the function early if fields are not filled
+                    toastr.warning("Join Date can't be empty!");
                 }
-
+                 else if ( $(row).find('.ExpiryDate').val() === "" ) {
+                      $(row).find('.ExpiryDate').attr("required", true);
+                      toastr.warning("Expiry Date can't be empty!");
+                  }
+                       else if ( $(row).find('.LastRenewDate').val() === "" ) {
+                          $(row).find('.LastRenewDate').attr("required", true);
+                        toastr.warning("LastRenewDate Renew Date can't be empty!");
+                    }
               
               
                 var SubProduct = {
@@ -332,7 +371,6 @@
                 };
                     try {
                          var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
-
                          if (response == 'Success') {
                             $(".btn-close").trigger('click');
                              toastr.success("Data saved successfully!");
@@ -401,8 +439,45 @@
         var parmdata = {
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
-        };
-        debugger
+        }
+          //----------------------placing the plans Selection ------------
+    var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parmdata);
+    var data = JSON.parse(para);
+    var Jsondata = JSON.parse(data);
+
+    var PlansDD = '';
+    var selectedValue = null; // Variable to hold the value of the selected option
+
+    if (Jsondata.length > 0) {
+        for (var i = 0; i < Jsondata.length; i++) {
+            var isChecked = Jsondata[i]["IsFound"] === "found" ? true : false;
+
+            PlansDD += `<option
+                           value="${Jsondata[i]['Id']}"
+                            data-subCusid="${Jsondata[i]['Id']}"
+                            data-substypeid="${Jsondata[i]['SubscriptionId']}"
+                            ${isChecked ? 'selected' : ''}>
+                            ${Jsondata[i]['Name']}
+                        </option>`;
+
+            if (isChecked) {
+                selectedValue = Jsondata[i]['Id']; // Store the value for later verification
+            }
+        }
+
+        $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`.PlansInTable`).empty().append(PlansDD);
+
+        // Ensure the correct option is selected programmatically
+        if (selectedValue) {
+            $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`.PlansInTable`).val(selectedValue);
+        }
+    }
+
+    //---------------------placing other details in the card--------------------
+
+    getAgents();
+
+
         var dataAjax = await AjaxCall("CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);
@@ -418,13 +493,13 @@
                 var rowColor = dataJson[i]["IsActivated"] === "Activated" ? '#DDFFF7' : '';
 
                 MODalTable += `<tr data-activate="` + dataJson[i]["IsActivated"] + `" data-main="` + dataJson[i]["Id"] + `" data-subproductid="` + dataJson[i]["SubProductId"] + `" style="background-color: ${rowColor};">
-                                    <td class="center"><input type="checkbox" class="eachCb"/></td>
+                                    <td class="center"><input type="checkbox" class="eachCb "/></td>
                                     <td class="center" style="text-transform:uppercase;"><b>` + dataJson[i]["ModuleName"] + `</b></td>
-                                    <td class="center"><input type="text" class="modulePrice" value="` + dataJson[i]["MonthlyCharge"] + `"></td>
-                                    <td class="center"><input type="date"  class="JoinDate" value="` + dataJson[i]["JoinDate"] + `"></td>
-                                    <td class="center"><input type="date" class="ExpiryDate" value="`+dataJson[i]["ExpiryDate"]+`"></td>
-                                    <td class="center"><input type="date"  class="LastRenewDate" value="` + dataJson[i]["LastRenewDate"] + `" ></td>
-                                    <td class="center"><input type="text"  class="Remarks" value="` + dataJson[i]["Remarks"] + `" ></td>
+                                      <td class="center"><input type="number" class="modulePrice form-control" value="` + dataJson[i]["MonthlyCharge"] + `" min=0 ></td>
+                                      <td class="center"><input type="date"  class="JoinDate form-control" value="` + dataJson[i]["JoinDate"] + `"></td>
+                                      <td class="center"><input type="date" class="ExpiryDate form-control" value="`+dataJson[i]["ExpiryDate"]+`"></td>
+                                      <td class="center"><input type="date"  class="LastRenewDate form-control" value="` + dataJson[i]["LastRenewDate"] + `" ></td>
+                                      <td class="center"><input type="text"  class="Remarks form-control" value="` + dataJson[i]["Remarks"] + `" ></td>
                                </tr>`;
             }
                 $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`#tablemo tbody`).empty().append(MODalTable);
