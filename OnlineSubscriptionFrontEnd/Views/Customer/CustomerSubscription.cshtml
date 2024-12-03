@@ -247,6 +247,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getProducts();
+        updateAmountAndExpiry();
     });
 
     $(".Products").on("change", function () {
@@ -277,7 +278,7 @@
         var parm = {
             ProductId: parseInt($(".Products :selected").val())
         };
-        debugger
+       
         var a = await AjaxCall("/Customer/getCustomerByProductId", parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
@@ -375,6 +376,7 @@
             $("#prodid").val('');
             $("#exampleModal").modal('hide');
             toastr.success("Operation Successfull!!!");
+            getTableData();
         }
         else
         {
@@ -390,29 +392,29 @@
             return !~text.indexOf(val);
         }).hide();
     });
+        $(document).on('click', '.viewSub', function () {
+        debugger;
 
-      $(document).on('click', '.viewSub', function () {
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
         var ProductName = $(this).attr("data-productName");
+
         $(".Customerr").text($(this).parents("tr").find(".custName").text());
         $(".selectedProduct").text(ProductName);
+
         var userEmail = $(this).parents("tr").attr("data-email");
         $("#statusModal").find(".userEmail").text(userEmail);
-
         $("#statusModal").find(".userPhone").text($(this).parents("tr").attr("data-phone"));
-        loadplansforcustomerandproduct(id, ProductId);
+
         $("#custid").val(id);
         $("#prodid").val(ProductId);
-        loadsubscriptionLog(id, ProductId);
-         
-        
-        $("#statusModal").find(".selectedPackages").on("change", async function () {
-            var selectedPlanValue = $(this).val(); 
-            var selectedOption = $(this).find("option:selected"); 
 
+        // Function to update amount and expiry date
+        function updateAmountAndExpiry() {
+            var selectedOption = $("#statusModal").find(".selectedPackages option:selected");
             var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
             var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
+            debugger;
 
             var today = new Date();
             var expireDate = new Date(today);
@@ -422,12 +424,22 @@
             $("#statusModal").find(".expiryDate").val(isoExpireDate);
 
             if (noOfDays === 3 || noOfDays === 7) {
-                $("#statusModal").find(".Amount").val('0');
+                $("#statusModal").find(".Amount").val('0').prop('disabled', true); // Disable for 3/7-day plans
             } else {
-                $("#statusModal").find(".Amount").val(amountInPlan);
+                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', false); // Enable otherwise
             }
+        }
 
-            $(this).val(selectedPlanValue).attr("selected", true);
+        // Load plans and logs, then update amount and expiry
+        loadplansforcustomerandproduct(id, ProductId).then(() => {
+            updateAmountAndExpiry(); // Ensure this is called after plans are loaded
+        });
+
+        loadsubscriptionLog(id, ProductId);
+
+        // Bind the function to change event
+        $("#statusModal").find(".selectedPackages").off("change").on("change", function () {
+            updateAmountAndExpiry();
         });
     });
 
@@ -445,7 +457,7 @@
         var response = JSON.parse(ddd);
         var responsefr = JSON.parse(response);
 
-        if (responsefr.length > 0) { // Existing current plan
+        if (responsefr.length > 0) {
             $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
             $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
             $(".remainingDaysinCPlan ").text(responsefr[0]["RemainingDays"]);
@@ -455,6 +467,7 @@
         var para = await AjaxCall("/Customer/getSubsbyCusandProductIdWithUnpaidType", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
+
         if (Jsondata.length > 0) {
             var selectDOM = ``;
             for (var i = 0; i < Jsondata.length; i++) {
@@ -489,13 +502,13 @@
         var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId",parm);
         var sub = JSON.parse(jsub);
         var jsonData = JSON.parse(sub);
-
+        
         var subDOM = "";
         if (jsonData.length>0) {
             for (var i = 0; i < jsonData.length;i++) {
                 subDOM += `<tr>
                                 <td class="center">`+ jsonData[i]["productName"] + `</td>
-                                <td class="center">`+ jsonData[i]["SubscriptionType"] + `</td>
+                                <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
                                 <td class="center" style="color:green;"><b>Rs. `+ jsonData[i]["PaidAmount"] + `</b></td>
                                 <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
                                 <td class="center"> `+ jsonData[i]["LastRenewDate"] + `  </td>
@@ -637,10 +650,6 @@
             $(".CheckPlan").not(this).prop("checked", false);
         }
     });
-
-                 
-
-
 
    
 </script>

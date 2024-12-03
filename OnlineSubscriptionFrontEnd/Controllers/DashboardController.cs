@@ -72,6 +72,25 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> getCusProdIdByToken([FromBody] approveOrg ao)
+        {
+            var tokenval = HttpContext.Session.GetString("TokenNo");
+            if (tokenval != null)
+            {
+                ao.TokenNo = tokenval;
+                var sendJson = await ApiCall.ApiCallWithObject("User/getCusProdIdByToken", ao, "Post");
+                return Json(sendJson);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> TrashOrgdetailsByAdmin([FromBody] approveOrg ao)
         {

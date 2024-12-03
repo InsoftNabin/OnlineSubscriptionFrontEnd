@@ -15,6 +15,8 @@
         public float PaidAmount { get; set; }
         public string GeneratedSerialNo { get; set; }
         public int SubscriptionType { get; set; }
+
+        public string SubscriptionPlan { get; set; }
         public int Id { get; set; }
         public string VoucherImage { get; set; }
         public string ActualExpiryDate { get; set; }

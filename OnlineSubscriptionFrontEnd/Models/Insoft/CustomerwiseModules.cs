@@ -8,7 +8,7 @@
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
         public int AgentId { get; set; }
-       
+        public float TotalPrice { get; set; }
         public string Initial { get; set; }
        
         public string SerialNumber { get; set; }
@@ -27,5 +27,6 @@
         public string ExpiryDate { get; set; }
         public float MonthlyCharge { get; set; }
         public string Remarks { get; set; }
+        public int Plan { get; set; }
     }
 }

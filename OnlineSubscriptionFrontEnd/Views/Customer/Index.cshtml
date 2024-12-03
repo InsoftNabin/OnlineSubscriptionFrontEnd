@@ -491,6 +491,9 @@
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
                                         <th class="center">initial</th>
+                                        <th class="center">Login Id</th>
+                                        <th class="center">Password</th>
+
                                         <th class="center">Address</th>
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
@@ -747,39 +750,59 @@
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
-                                <td class="center">` + (i + 1) + `</td>
-                                <td class="center"><button class="hideme btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
-                                <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
-                                <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
+                                    <td class="center">` + (i + 1) + `</td>
+                                    <td class="center"><button class="hideme btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
+                                    <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+                                    <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
 
-                                <td class="center addedBy">` + jsondata[i]["AddedBy"] + `</td>
-                                <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
-                                <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
-                                <td class="center custName">` + jsondata[i]["initial"] + `</td>
-                                <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
-                                <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
-                                <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
+                                    <td class="center addedBy">` + jsondata[i]["AddedBy"] + `</td>
+                                    <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
+                                    <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
+                                    <td class="center custName">` + jsondata[i]["initial"] + `</td>
+                                    <td class="center custName">` + jsondata[i]["UserEmail"] + `</td>
+                                    <td class="center custName">
+                                        <span class="password" data-password="` + jsondata[i]["UserPass"] + `">***</span>
+                                        <button type="button" class="toggle-password btn btn-link">
+                                            <i class="feather icon-eye"></i>
+                                        </button>
+                                    </td>
+                                    <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
+                                    <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
+                                    <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
 
-                                <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
-                                <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
-                                <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
-                                <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
-                                <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
-                                <td class="center website">` + jsondata[i]["Website"] + `</td>
-                                <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
-                                <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
-                            </tr>`;
+                                    <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
+                                    <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
+                                    <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
+                                    <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
+                                    <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
+                                    <td class="center website">` + jsondata[i]["Website"] + `</td>
+                                    <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
+                                    <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
+                                </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
+
+            // Add event listener for toggling password visibility
+            $(".toggle-password").on("click", function () {
+                var passwordSpan = $(this).siblings(".password");
+                var isHidden = passwordSpan.text() === "***";
+                if (isHidden) {
+                    passwordSpan.text(passwordSpan.data("password"));
+                    $(this).find("i").removeClass("icon-eye").addClass("icon-eye-off");
+                } else {
+                    passwordSpan.text("***");
+                    $(this).find("i").removeClass("icon-eye-off").addClass("icon-eye");
+                }
+            });
         } else {
             $("#agentTable tbody").empty().append(`
-                            <tr >
-                                    <td colspan="17" class="center">
-                                    <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
-                                        <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
-                                </td>
-                            </tr>
-                        `);
+                                <tr >
+                                        <td colspan="17" class="center">
+                                        <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                            <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                                    </td>
+                                </tr>
+                            `);
         }
     }
 

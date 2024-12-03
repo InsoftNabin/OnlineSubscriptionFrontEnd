@@ -245,14 +245,16 @@
                                  </div>
 
                                 <br>
-                                Subscription GUID:<span class="subscriptionGUID"></span>
-                                    <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
+                                Customer Subscription GUID:<span class="subscriptionGUID"></span>
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                     Product GUID:<span class="ProductGUID"></span>
+                               <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
                                     <thead>
                                         <tr>
                                             <th class="center"><input type="checkbox" class="ChkAll"></th>
                                             <th class="center">Module Name</th>
-                                            <th class="center">Price</th>
+                                            <th class="center">Monthly Price</th>
                                             <th class="center">Join Date</th>
                                             <th class="center">Expiry Date</th>
                                             <th class="center">Last Renew Date</th>
@@ -307,8 +309,9 @@
 
         var customerId = $(this).attr("data-custid");
         var productId = $(this).attr("data-productid");
-
-
+        var selectedPlan=parseInt($(this).parents(".parent").find(".PlansInTable :selected").attr("data-substypeid"));
+        var noofdaysinPlan=$(this).parents(".parent").find(".PlansInTable :selected").attr("data-noofdays");
+          
     //----------saving the plan details here---------
     const parm = {
         Id: parseInt($(this).parents(".parent").find(".PlansInTable :selected").attr("data-subCusid")),
@@ -320,8 +323,7 @@
 
     const savePromise = await AjaxCall("/Subscription/SubsbyCustProdandTypeInitially", parm);
     //------------end of plan save functionality----------
-
-
+    
         var selectedAccordion = $(this).parents(".accordion-item"+productId);
 
         var initial = selectedAccordion.find(".initial").val();
@@ -357,11 +359,12 @@
                     LastRenewDate: row.find('.LastRenewDate').val(),
                     ExpiryDate: row.find('.ExpiryDate').val(),
                     MonthlyCharge: parseFloat(row.find('.modulePrice').val()),
-                    Remarks: row.find('.Remarks').val()
+                    Remarks: row.find('.Remarks').val(),
+                    Plan:selectedPlan
                 };
                 subProducts.push(SubProduct);
                 var CustomerwiseModules = {
-
+                    TotalPrice:(parseFloat(row.find('.modulePrice').val())/30)*noofdaysinPlan,
                     CustomerId: parseInt(customerId),
                     AgentId: parseInt(agentId),
                     Initial: initial,
@@ -369,6 +372,7 @@
                     SerialNumber: serialNumber,
                     SubProducts: subProducts
                 };
+                debugger
                     try {
                          var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
                          if (response == 'Success') {
@@ -441,10 +445,9 @@
             ProductId: ProductId
         }
           //----------------------placing the plans Selection ------------
-    var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parmdata);
+      var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parmdata);
     var data = JSON.parse(para);
     var Jsondata = JSON.parse(data);
-
     var PlansDD = '';
     var selectedValue = null; // Variable to hold the value of the selected option
 
@@ -453,6 +456,7 @@
             var isChecked = Jsondata[i]["IsFound"] === "found" ? true : false;
 
             PlansDD += `<option
+                data-noofdays="${Jsondata[i]['NoOfMonth']}"
                            value="${Jsondata[i]['Id']}"
                             data-subCusid="${Jsondata[i]['Id']}"
                             data-substypeid="${Jsondata[i]['SubscriptionId']}"
@@ -466,7 +470,7 @@
         }
 
         $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`.PlansInTable`).empty().append(PlansDD);
-
+        
         // Ensure the correct option is selected programmatically
         if (selectedValue) {
             $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`.PlansInTable`).val(selectedValue);
@@ -490,6 +494,7 @@
                 $("#exampleModal").find(".siteURL").val(dataJson[0]["siteURL"])
                 $("#exampleModal").find(".serialNumber").val(dataJson[0]["SerialNo"])
                 $("#exampleModal").find(".subscriptionGUID").text(dataJson[0]["SubscriptionGUID"])
+                    $("#exampleModal").find(".ProductGUID").text(dataJson[0]["ProductGUID"])
                 var rowColor = dataJson[i]["IsActivated"] === "Activated" ? '#DDFFF7' : '';
 
                 MODalTable += `<tr data-activate="` + dataJson[i]["IsActivated"] + `" data-main="` + dataJson[i]["Id"] + `" data-subproductid="` + dataJson[i]["SubProductId"] + `" style="background-color: ${rowColor};">

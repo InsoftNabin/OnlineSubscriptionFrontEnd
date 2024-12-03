@@ -293,24 +293,23 @@
     var value = JSON.parse(JSON.parse(JSON.parse(result)));
     orgData = value;
     var showOrg = ``;
-    debugger
-        
-
     value.forEach((element, Index) => {
-
         let imageData = element.ImageData;
 
         if (imageData === "https://incloud.academeplus.com/fileuploads/Subscription/") {
                 imageData = '/files/assets/images/employee.png';
         }
       showOrg += `
-    <label class=" nav-link btn btn-outline btn-outline-dashed btn-color-dark  d-flex flex-stack text-start p-6 active mb-6" >
+    <label class=" nav-link btn btn-outline btn-outline-dashed btn-color-dark  d-flex flex-stack text-start p-6 active mb-6" style="border:1px solid black;margin:5px;">
       <!--end::Description-->
       <div class="d-flex align-items-center me-2">
         <!--begin::Radio-->
         <div class="form-check form-check-custom form-check-dotted form-check-success  flex-shrink-0 me-6">
           <input class="form-check-input orgData" type="radio" name="org"  value="${Index}" data-email="${email}" data-userName="${userName}" />
+
         </div>
+                                  <span class="status " style="color:white; margin:3px;"></span>
+
         <!--end::Radio-->
         <!--begin::Info-->
       <div class="d-flex flex-stack pb-3">
@@ -370,7 +369,23 @@
     </label>
     `;
     });
-    $(".showOrganizations").html(showOrg);
+    
+        $(".showOrganizations").html(showOrg);
+
+        //     for(var i=0;i<value.length;i++){
+        //          if(value[i]["IsVerified"]==1){
+        //                             $("#kt_modal_upgrade_plan").find(".status").addClass("badge-success");
+        //                             $("#kt_modal_upgrade_plan").find(".status").text("Verified");
+        //          }
+        //          else if(value[i]["IsVerified"]==-1){
+        //                             $("#kt_modal_upgrade_plan").find(".status").addClass("badge-danger");
+        //                             $("#kt_modal_upgrade_plan").find(".status").text("Rejected");
+        //          } else if(value[i]["IsVerified"]==0){
+        //                             $("#kt_modal_upgrade_plan").find(".status").addClass("badge-warning");
+        //                             $("#kt_modal_upgrade_plan").find(".status").text("Pending");
+        //          }
+        // }
+    
   });
 
     $(document).on("change", ".orgData", async (event) => {
@@ -382,12 +397,10 @@
         var hideButtons = ``; //hide edit and modify buttons
         var initialVal = data.Initial + "." + data.ModuleName;
         var initailUserName = data.Initial + "." + "admin";
-        if (orgData[id].IsVerified == 1) {
+            if (orgData[id].IsVerified == 1||orgData[id].IsVerified==-1) {
             hideButtons = `style="display:none"`;
         }
-
-
-
+       
         details += `
       <div>
         <h2 class="fw-bold text-dark">${data.CompanyName}</h2>
@@ -484,72 +497,82 @@
   `;
     $("#kt_upgrade_plan_startup").empty().append(details);
   });
-  $(document).on("click", ".btnVerify", async (event) => {
-    event.preventDefault();
-    var token = $(event.target).attr("data-token");
-    var email = $(event.target).attr("data-email");
-    var SiteUserName = $("input[name='userName']").val();
-    var SitePassword = $("input[name='password']").val();
-    var SiteURL = $("input[name='siteUrl']").val();
-    var Remarks = $("textarea[name='remarks']").val();
-    var sendData = {
-      Token: token,
-      SiteUserName: SiteUserName,
-      SitePassword: SitePassword,
-      SiteURL: SiteURL,
-      Remarks: Remarks,
-    };
-    debugger
-    var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin", sendData);
-    if (JSON.parse(result) == '1') {
-      toastr.success("Organization Verified");
+      $(document).on("click", ".btnVerify", async (event) => {
+        event.preventDefault();
+        var token = $(event.target).attr("data-token");
+        var email = $(event.target).attr("data-email");
+        var SiteUserName = $("input[name='userName']").val();
+        var SitePassword = $("input[name='password']").val();
+        var SiteURL = $("input[name='siteUrl']").val();
+        var Remarks = $("textarea[name='remarks']").val();
+        var sendData = {
+            Token: token,
+            SiteUserName: SiteUserName,
+            SitePassword: SitePassword,
+            SiteURL: SiteURL,
+            Remarks: Remarks,
+        };
 
-      var codeBody = `
-    
-  <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
-    <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 36px 20px;">
-        <div style="padding: 0;">
-            <div style='display: flex; justify-content: center;'>
-                <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="max-width: 100%; height: auto;">
-            </div>
-            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Organization verification</h2>
-            <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;">You have successfully verified your organization.</p>
-            <div style="font-size: 14px; font-weight: 500; margin: 0 30px;">
-                <form style="text-align:left;">
-                    <div style="margin-bottom: 20px;">
-                                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Site URL: <a href="${SiteURL}" target="_blank">  ${SiteURL}</a></label>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">UserName:${SiteUserName}</label>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Password: ${SitePassword}</label>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Remarks: ${Remarks}</label>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>`;
+        var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin", sendData);
+   
+        if (JSON.parse(result) >'1') {
+            toastr.success("Organization Verified");
+                var OrgCode='';
+                       debugger
+                     var request=await AjaxCall("/Dashboard/getCusProdIdByToken", sendData);
+                     var response=JSON.parse(request);
+                         var JSONResponse=JSON.parse(response);
 
-      const toUser = {
-        ReceiverEmail: email,
-        Subject: "Organization Verification",
-        EmailBody: codeBody,
-      };
-      debugger
-      var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
-      $("#kt_modal_upgrade_plan").modal("hide");
-      await getUsers();
-    } else {
-      toastr.error("Something went wrong while sending email to the organisation but verified successfully!!!");
-    }
-  });
+                                 var cid=parseInt(JSONResponse[0]["CustomerId"]);
+                                 var pid=parseInt(JSONResponse[0]["ProductId"]);
+
+
+    window.location.href = `/CustomerwiseModulesSelection?customercode=${cid}&productcode=${pid}`;
+
+                var codeBody = `
+                            <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 36px 20px;">
+                                    <div style="padding: 0;">
+                                        <div style='display: flex; justify-content: center;'>
+                                            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="max-width: 100%; height: auto;">
+                                        </div>
+                                        <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Organization verification</h2>
+                                        <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;">You have successfully verified your organization.</p>
+                                        <div style="font-size: 14px; font-weight: 500; margin: 0 30px;">
+                                            <form style="text-align:left;">
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Site URL: <a href="${SiteURL}" target="_blank">  ${SiteURL}</a></label>
+                                                </div>
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">UserName: ${SiteUserName}</label>
+                                                </div>
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Password: ${SitePassword}</label>
+                                                </div>
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Remarks: ${Remarks}</label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+
+            const toUser = {
+                ReceiverEmail: email,
+                Subject: "Organization Verification",
+                EmailBody: codeBody,
+            };
+            var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+           
+        } else {
+            toastr.error("Something went wrong while sending email to the organisation but verified successfully!!!");
+            $("#kt_modal_upgrade_plan").modal("hide");
+        }
+    });
+
   $(document).on("click", ".btnDecline", async (event) => {
     event.preventDefault();
-    debugger
         $("#kt_modal_upgrade_plan").modal('hide');
     var email = $(event.target).attr("data-email");
 

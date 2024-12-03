@@ -873,6 +873,9 @@
                 const result = await AjaxCall("/Home/GetOrganizations");
                 let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
                 debugger
+
+                
+
                 body += `
                     <div class="app-content flex-column-fluid">
                         <div class="app-container container-xxl">
@@ -916,6 +919,9 @@
 
 
     for (var i = 0; i < IncludeData.length; i++) {
+
+        if(IncludeData[i]["Error"]!=-202){
+
         let chartId = "ChartCircular" + (i + 1);
         let imageUrl = IncludeData[i].ImageData || '/files/assets/images/employee.png';
         body += `
@@ -1003,9 +1009,9 @@
                                             <div class="fw-bold col-4">Display Name</div>
                                             <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
                                         </div>
-                                        <div class="d-flex flex-row gap-4 mt-5">
-                                            <div class="fw-bold col-4">Country</div>
-                                            <div class="text-gray-700 col-8">${IncludeData[i].OrganizationMotto}</div>
+                                        <div class="d-flex flex-row gap-4 mt-5" hidden>
+                                            <div class="fw-bold col-4" hidden>Country</div>
+                                            <div class="text-gray-700 col-8" hidden>${IncludeData[i].OrganizationMotto}</div>
                                         </div>
                                         <div class="d-flex flex-row gap-4 mt-5">
                                             <div class="fw-bold col-4">Email</div>
@@ -1041,6 +1047,11 @@
                                     </div>
                                     <hr>
                                     <div class="d-flex flex-column">
+                                     <!-- Pricing Section -->
+                                        <div class="d-flex justify-content-between" >
+                                            <div class="fw-bold" style="color: #4e73df;" >Product:</div>
+                                            <div class="" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;">${IncludeData[i].ModuleName}</div>
+                                        </div>
                                         <!-- Current Plan Section -->
                                         <div class="d-flex justify-content-between mb-4">
                                             <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
@@ -1053,11 +1064,7 @@
                                             <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;">__/__/____</div>
                                         </div>
 
-                                        <!-- Pricing Section -->
-                                        <div class="d-flex justify-content-between" hidden>
-                                            <div class="fw-bold" style="color: #4e73df;" hidden>Pricing</div>
-                                            <div class="text-gray-700" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;"></div>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -1083,6 +1090,7 @@
 
         // Load the plans for this specific organization (unique chartId)
         loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
+    }
     }
 
                     body += `</div>`;  // Close row
@@ -1176,7 +1184,7 @@
                 CustomerId: parseInt(CustomerId),
                 ProductId: parseInt(ProductId)
             };
-            debugger
+           
             // Fetch current plan details
             var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
             var response = JSON.parse(ddd);
@@ -1274,130 +1282,130 @@
 
 
         // get the image and change it to data url for preview
-        $(document).on("change", "#inputLogo", async function (event) {
-                event.preventDefault();
-            if (this.files && this.files[0]) {
+        // $(document).on("change", "#inputLogo", async function (event) {
+        //         event.preventDefault();
+        //     if (this.files && this.files[0]) {
 
 
-                var readerForDataURL = new FileReader();
-                var compressedDataURL;
+        //         var readerForDataURL = new FileReader();
+        //         var compressedDataURL;
 
-                readerForDataURL.onloadend = function () {
-
-
-                    var img = new Image();
-                    img.onload = function () {
-
-                        var targetFileSize = 500 * 1024; // 500 KB max size for the image
-                        var currentFileSize = Number.MAX_SAFE_INTEGER;
-
-                        // Initialize compression quality
-                        var canvas = document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0, img.width, img.height);
-
-                        // Convert canvas to data URL with the current compression quality
-                        compressedDataURL = canvas.toDataURL('image/jpeg');
-                        // Get the file size of the compressed image
-                        currentFileSize = compressedDataURL.length;
+        //         readerForDataURL.onloadend = function () {
 
 
+        //             var img = new Image();
+        //             img.onload = function () {
+
+        //                 var targetFileSize = 500 * 1024; // 500 KB max size for the image
+        //                 var currentFileSize = Number.MAX_SAFE_INTEGER;
+
+        //                 // Initialize compression quality
+        //                 var canvas = document.createElement('canvas');
+        //                 var ctx = canvas.getContext('2d');
+        //                 canvas.width = img.width;
+        //                 canvas.height = img.height;
+        //                 ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        //                 // Convert canvas to data URL with the current compression quality
+        //                 compressedDataURL = canvas.toDataURL('image/jpeg');
+        //                 // Get the file size of the compressed image
+        //                 currentFileSize = compressedDataURL.length;
 
 
-                        $(".logoValue").attr("src", compressedDataURL);
-                    };
-
-                    img.src = readerForDataURL.result;
-                };
-
-                readerForDataURL.readAsDataURL(this.files[0]);
-            }
-
-            var input = $(this);
-            var files = input[0].files;
-            var formData = new FormData();
-            var imgName = '';
-            for (var i = 0; i != files.length; i++) {
-                formData.append("files", files[i]);
-            }
-            var DocName = files[0].name;
-            var Exitension = DocName.split(".");
-            var imgextension = Exitension[1];
-            if (1) {
-
-                await $.ajax({
-                    url: "/Register/UploadPhoto1",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
-                    beforeSend: function () {
-                        Swal.fire({
-                            html: '<div class="loader" id="loader-6">' +
-                                '<span></span>' +
-                                '<span></span>' +
-                                '<span></span>' +
-                                '<span></span>' +
-                                '</div>' +
-                                '<div>' +
-                                '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
-                                '</div>',
-                            background: 'unset',
-                            allowOutsideClick: false,
-                            showConfirmButton: false,
-                        });
-                    },
-                    success: function (data) {
-
-                        imgName = data;
-                        $(".logoValue").attr("data-name", imgName);
-                        Swal.close();
-
-                    },
-                    error: function () {
-
-                        const file =
-                            document.querySelector('#file');
-                        file.value = '';
-                        Swal.close();
-                    }
-
-                });
-            }
-            else {
-                toastr.info("Only image are allowed");
-            }
-
-            var uploadFile = $(this);
-            var files = !!this.files ? this.files : [];
-
-            if (/^image/.test(files[0].type)) { // only image file
-                var reader = new FileReader(); // instance of the FileReader
-                reader.readAsDataURL(files[0]); // read the local file
 
 
-                reader.onloadend = function () { // set image data as background of div
-                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
-                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
-                }
-            }
-            else {
-                var reader = new FileReader(); // instance of the FileReader
-                reader.readAsDataURL(files[0]); // read the local file
+        //                 $(".logoValue").attr("src", compressedDataURL);
+        //             };
 
-                reader.onloadend = function () { // set image data as background of div
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
-                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
-                }
-            }
-        });
+        //             img.src = readerForDataURL.result;
+        //         };
+
+        //         readerForDataURL.readAsDataURL(this.files[0]);
+        //     }
+
+        //     var input = $(this);
+        //     var files = input[0].files;
+        //     var formData = new FormData();
+        //     var imgName = '';
+        //     for (var i = 0; i != files.length; i++) {
+        //         formData.append("files", files[i]);
+        //     }
+        //     var DocName = files[0].name;
+        //     var Exitension = DocName.split(".");
+        //     var imgextension = Exitension[1];
+        //     if (1) {
+
+        //         await $.ajax({
+        //             url: "/Register/UploadPhoto1",
+        //             data: formData,
+        //             processData: false,
+        //             contentType: false,
+        //             type: "POST",
+        //             beforeSend: function () {
+        //                 Swal.fire({
+        //                     html: '<div class="loader" id="loader-6">' +
+        //                         '<span></span>' +
+        //                         '<span></span>' +
+        //                         '<span></span>' +
+        //                         '<span></span>' +
+        //                         '</div>' +
+        //                         '<div>' +
+        //                         '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+        //                         '</div>',
+        //                     background: 'unset',
+        //                     allowOutsideClick: false,
+        //                     showConfirmButton: false,
+        //                 });
+        //             },
+        //             success: function (data) {
+
+        //                 imgName = data;
+        //                 $(".logoValue").attr("data-name", imgName);
+        //                 Swal.close();
+
+        //             },
+        //             error: function () {
+
+        //                 const file =
+        //                     document.querySelector('#file');
+        //                 file.value = '';
+        //                 Swal.close();
+        //             }
+
+        //         });
+        //     }
+        //     else {
+        //         toastr.info("Only image are allowed");
+        //     }
+
+        //     var uploadFile = $(this);
+        //     var files = !!this.files ? this.files : [];
+
+        //     if (/^image/.test(files[0].type)) { // only image file
+        //         var reader = new FileReader(); // instance of the FileReader
+        //         reader.readAsDataURL(files[0]); // read the local file
+
+
+        //         reader.onloadend = function () { // set image data as background of div
+        //             //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+        //         }
+        //     }
+        //     else {
+        //         var reader = new FileReader(); // instance of the FileReader
+        //         reader.readAsDataURL(files[0]); // read the local file
+
+        //         reader.onloadend = function () { // set image data as background of div
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
+        //         }
+        //     }
+        // });
 
         // get the image and change it to data url for preview
         $(document).on("change", "#inputLogo1", async function (event) {
@@ -1627,7 +1635,7 @@
                 for (var i = 0; i < jsonData.length; i++) {
                     subDOM += `<tr>
                                             <td class="center">`+ jsonData[i]["productName"] + `</td>
-                                            <td class="center">`+ jsonData[i]["SubscriptionType"] + `</td>
+                                            <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
                                             <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
                                             <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
                                             <td class="center">`+ jsonData[i]["Remarks"] + `</td>
@@ -1858,10 +1866,51 @@
             event.preventDefault(); // Prevent the default form submission behavior
 
 
-            if ($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == '' || $(".moduleSelect").val() == '') {
-                toastr.error("Please fill all the fields");
-                return false;
-            }
+               if ($("#companyName").val() == '') {
+        toastr.warning("Please fill in the Company Name");
+        return false;
+    }
+
+    if ($("#displayName").val() == '') {
+        toastr.warning("Please fill in the Display Name");
+        return false;
+    }
+
+    if ($("#initial").val() == '') {
+        toastr.warning("Please fill in the Initial");
+        return false;
+    }
+
+    if ($("#vat").val() == '') {
+        toastr.warning("Please fill in the VAT");
+        return false;
+    }
+
+    if ($("#address").val() == '') {
+        toastr.warning("Please fill in the Address");
+        return false;
+    }
+
+    if ($("#phone").val() == '') {
+        toastr.warning("Please fill in the Phone");
+        return false;
+    }
+
+    if ($("#ContactNumber").val() == '') {
+        toastr.warning("Please fill in the Contact Number");
+        return false;
+    }
+
+    if ($("#Email").val() == '') {
+        toastr.warning("Please fill in the Email");
+        return false;
+    }
+
+    if ($(".moduleSelect").val() == '') {
+        toastr.warning("Please select a Module");
+        return false;
+    }
+
 
             var companyName = $("#companyName").val();
             var displayName = $("#displayName").val();
@@ -1885,10 +1934,10 @@
                 return false;
             }
 
-            if (!logo) {
-                await uploadLogoAndSubmitForm();
-                return; // Exit the function after uploading logo asynchronously
-            }
+            // if (!logo) {
+            //     await uploadLogoAndSubmitForm();
+            //     return; // Exit the function after uploading logo asynchronously
+            // }
 
             var checkdata = {
                 Initial: initial
@@ -1908,7 +1957,7 @@
                 Website: Website,
                 ImageName: '',
                 ImageType: '',
-                ImageData: logo,
+                ImageData:'',     // logo,
                 OrganizationMotto: Country,
                 Token: ""
             };
