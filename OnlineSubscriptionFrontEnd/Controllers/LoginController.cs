@@ -9,14 +9,33 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineSubscriptionFrontEnd.Models;
 using OnlineSubscriptionFrontEnd.Classes;
 using Newtonsoft.Json;
-using Renci.SshNet; // Added for JsonConvert
+using Renci.SshNet;
+using System.Security.Claims; // Added for JsonConvert
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
+using Newtonsoft.Json;
+using System.Xml.Linq;
+using TwoFactorAuthNet;
 namespace OnlineSubscriptionFrontEnd.Controllers
 {
-
+    [Authorize]
     public class LoginController : Controller
     {
         string baseurl = Startup.baseapiurl;
+        private static TwoFactorAuthenticatorService _2FA;
+     
+
+        public LoginController(TwoFactorAuthenticatorService _2FAAuth)
+        {
+            _2FA = _2FAAuth;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -25,35 +44,17 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public async Task<IActionResult> VerifyUser([FromBody] Login login)
-        //{
-        //    try
-        //    {
-        //        var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUser", login, "Post");
-        //        var result = JsonConvert.DeserializeObject<loginValidator>(value);
-        //        if (result.status == 200)
-        //        {
-        //            HttpContext.Session.SetString("TokenNo", result.tokenNo);
-        //            HttpContext.Session.SetString("UserName", result.UserName);
-        //            ViewBag.UserName = result.UserName;
-        //            Session["UserName"] = result.UserName;
-        //            return Ok(value);
-        //        }
-        //        else
-        //        {
-        //            // TempData["MessageType"] = "Ërror";
-        //            // TempData["Message"] = "Invalid UserName Or Password";
-        //            return Ok("Error");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok("error");
-        //    }
-        //}
+       
+        public ActionResult GetQR()
+        {
+            var name = User.FindFirst(ClaimTypes.Hash).Value;
+           
+            return StatusCode(StatusCodes.Status200OK, _2FA.GenerateUri(name));
+        }
 
         [HttpPost]
+        [AllowAnonymous]
+       
         public async Task<IActionResult> VerifyUser([FromBody] Login login)
         {
             try
@@ -61,10 +62,46 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUser", login, "Post");
                 var result = JsonConvert.DeserializeObject<loginValidator>(value);
 
+
+
+                if (string.IsNullOrEmpty(result.Secret))
+                {
+                    var req = _2FA.GenerateSecret();
+                    result.Secret = req;
+
+                    var request = await ApiCall.ApiCallWithObject("");
+                }
+
+
+
                 if (result.status == 200)
                 {
                     HttpContext.Session.SetString("TokenNo", result.tokenNo);
                     HttpContext.Session.SetString("UserName", result.UserName);
+
+                    var claims = new List<Claim> 
+                            {
+                                new Claim(ClaimTypes.Name, result.UserName),
+                                new Claim(ClaimTypes.Authentication, result.tokenNo),
+                                new Claim(ClaimTypes.Role,result.Role),
+                                new Claim(ClaimTypes.Hash,result.Secret)
+                            };
+
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var authProperties = new AuthenticationProperties
+                    {
+                        /*  If IsPersistent is set to true, the authentication cookie will persist even after the browser is closed. 
+                            If it's false, the authentication cookie will be deleted when the browser is closed.
+                            This is often used to implement "Remember Me" functionality in login forms.*/
+                        IsPersistent = true
+                    };
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+
                     //ViewBag.UserName = result.UserName;
                     //TempData["UserName"] = result.UserName;
                     return Ok(value);
@@ -83,8 +120,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                
             }
         }
-
-
+        
         [HttpPost]
         public IActionResult LogOut()
         {

@@ -273,10 +273,10 @@
                                 </h5>
                             </div>
 
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion" hidden>
                                 <div class="card-body">
                                     <div class="container">
-                                        <form>
+                                        @* <form>
                                             <h4>Customer Details</h4>
                                             <input type="text" id="id" hidden />
                                             <div class="row">
@@ -441,7 +441,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form> *@
                                     </div>
 
                                 </div>
@@ -626,6 +626,192 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="editOrgModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="feather icon-file-text"></i> Edit Organization Info</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <h4>Customer Details</h4>
+                    <input type="text" id="id" hidden />
+                    <div class="row">
+                        <div class="col-third" hidden>
+                            <label for="CustCode">Customer Code</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="CustCode" placeholder="Customer Code" name="customercode">
+                                <div class="input-icon">
+                                    <i class="feather icon-hash"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="CustName">Customer Name</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="CustAddress">Address</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CustAddress" placeholder="Address" name="address" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-map-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-third">
+                            <label for="panvat">PAN/VAT No</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-credit-card"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="Custcontact">Contact Number</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="Custcontact" placeholder="Contact Number" name="contact" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-phone"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third" hidden>
+                            <label for="Custdblink">Database Link</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" hidden>
+                                <div class="input-icon">
+                                    <i class="feather icon-link"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Contact Persons</h4>
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP1">Contact Person 1</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP1Mobno">CP1 Mobile No</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-phone"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP2">Contact Person 2</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
+                                <div class="input-icon">
+                                    <i class="feather icon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP2Mobno">CP2 Mobile No</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
+                                <div class="input-icon">
+                                    <i class="feather icon-phone"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Additional Information</h4>
+                    <div class="row">
+                        <div class="col-third">
+                            <label for="email">Email Address</label>
+                            <div class="input-group input-group-icon">
+                                <input type="email" id="email" placeholder="Email Address" name="email" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-mail"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="website">Website</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="website" placeholder="Website" name="website">
+                                <div class="input-icon">
+                                    <i class="feather icon-globe"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third" hidden>
+                            <label for="guid">GUID</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="guid" placeholder="GUID" name="GUID">
+                                <div class="input-icon">
+                                    <i class="feather icon-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-third">
+                            <label for="CompanyCode">Company Code</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
+                                <div class="input-icon">
+                                    <i class="feather icon-briefcase"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="BySMSApiToken">By SMS API Token</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-auto" style="float:left;">
+                            <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
+                                <i class="feather icon-rotate-cw"></i> Reset
+                            </button>
+                        </div>
+                        <div class="col-auto" style="float:right;">
+                            <button id="BtnInsert" style="border-radius:12px;" class="btn btn-success">
+                                <i class="feather icon-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+              
+               </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <script type="text/javascript">
@@ -704,6 +890,8 @@
                     getTableData();
                     $("#toggleArrow").trigger('click');
                     toastr.success("Customer Action successfull!");
+                    $("#editOrgModal").modal('hide');
+                    getTableData();
                 } else {
                     toastr.error("Failed to insert/update Customer.");
                 }
@@ -713,7 +901,9 @@
     });
 
     $("#addProduct").on("click", function () {
-        $("#collapseOne").css("display", 'block');
+       // $("#collapseOne").css("display", 'block');
+        $("#editOrgModal").modal('show');
+
     });
     $("#toggleArrow").on("click", function () {
         $("#collapseOne").css("display", 'none');
@@ -751,7 +941,7 @@
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
                                     <td class="center">` + (i + 1) + `</td>
-                                    <td class="center"><button class="hideme btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
+                                    <td class="center"><button class="hideme btn btn-edit btn-success" data-bs-toggle="modal" data-bs-target="#editOrgModal"><i class="feather icon-edit"></i></button></td>
                                     <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
                                     <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
 

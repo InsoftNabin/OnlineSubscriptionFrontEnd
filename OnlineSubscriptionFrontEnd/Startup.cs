@@ -4,6 +4,7 @@ using DataProvider;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -50,6 +51,9 @@ namespace OnlineSubscriptionFrontEnd
                {
                    options.Cookie.Expiration = TimeSpan.FromHours(1);
                });
+
+            //Add the 2FAAuth class to the services
+            services.AddScoped<TwoFactorAuthenticatorService>();
 
         }
 

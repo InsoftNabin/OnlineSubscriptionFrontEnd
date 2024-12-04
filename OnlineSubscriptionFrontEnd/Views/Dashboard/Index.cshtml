@@ -65,35 +65,33 @@
     </div>
   </div>
 </div>
-            <div id="kt_app_content_container responsive" class="app-container container-xxl">
+            <div  class="CC">
                 <!--begin::Card-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <div id="kt_customers_table_wrapper"
-                         class="dataTables_wrapper dt-bootstrap4 no-footer">
-                        <div class="table" style="max-width: 110%;">
-                            <table class="table table-hover align-middle fs-6 no-footer"
-                                   id="kt_customers_table">
+                    <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:70vh;position:relative; border-radius:12px;">
+                        <div class="table">
+                            <table id="kt_customers_table" class="agentTable table-hover table-fixed table table-striped table-bordered tblclear">
                                 <!--begin::Table head-->
                                 <thead>
-                                    <tr class="px-4 text-start text-gray-700 fw-bold fs-7 text-uppercase gs-0">
-                                        <th class="min-w-125px sorting">
+                                    <tr class="px-4 text-start text-gray-700 fw-bold fs-7 text-uppercase gs-0" style="background-color:#0b3b56; color:white;">
+                                        <th class="center min-w-125px sorting">
                                             User Name
                                         </th>
-                                        <th class="min-w-125px sorting">
+                                        <th class="center min-w-125px sorting">
                                             Email
                                         </th>
-                                        <th class="max-w-125px sorting">
+                                        <th class="center max-w-125px sorting">
                                             Address
                                         </th>
-                                        <th class="min-w-125px sorting">
+                                        <th class="center min-w-125px sorting">
                                             Phone
                                         </th>
-                                        <th class="min-w-125px sorting">
+                                        <th class="center min-w-125px sorting">
                                             Organization status
                                         </th>
-                                        <th class="text-end min-w-70px sorting_disabled">
+                                        <th class="center text-end min-w-70px sorting_disabled">
                                             Action
                                         </th>
                                     </tr>
@@ -230,14 +228,14 @@
                 <!--begin::Name=-->
                 <td>
                   <p
-                    class="text-gray-800 text-hover-primary mb-1"
+                    class=" center text-gray-800 text-hover-primary mb-1"
                     >${value.UserName}</p
                   >
                 </td>
                 <!--end::Name=-->
                 <!--begin::Email=-->
-                <td>
-                  <p  class="text-gray-600 text-hover-primary mb-1"
+                <td class="center">
+                  <p  class="center text-gray-600 text-hover-primary mb-1"
                     >${value.UserEmail}</p
                   >
                 </td>
@@ -245,17 +243,17 @@
                
               
                 <!--begin::Date=-->
-                <td >
+                <td class="center" >
                   ${value.UserAddress}
                 </td>
-               <td>${value.UserContact}</td>
-                <td >
+               <td class="center">${value.UserContact}</td>
+                <td class="center">
                   <div class="d-flex primary" >
 
                   
                   <span class="badge badge-light-danger fs-base  mx-2">
                     <div class="d-flex flex-column pt-2">
-                          <p class="fs-3 py-0 my-0" style="color:red;">${value.UnVerifiedOrg}</p><p class="fs-8" style="color:red;">Unverified</p></span>
+                          <p class=" fs-3 py-0 my-0" style="color:red;">${value.UnVerifiedOrg}</p><p class="fs-8" style="color:red;">Unverified</p></span>
                     </div>
                   </span>
                   <span class="badge badge-light-success fs-base ">
@@ -267,7 +265,7 @@
                 </td>
                 <!--end::Date=-->
                 <!--begin::Action=-->
-                <td class="text-end  gap-2 align-items-center">
+                <td class="center text-end  gap-2 align-items-center">
                   <a href="#" class="btn btn-primary btn-sm btnView"  data-id="${value.UserId}" data-email="${value.UserEmail}" data-userName="${value.UserName}">View</a> 
                 <!--end::Action=-->
               </tr>
@@ -305,7 +303,7 @@
       <div class="d-flex align-items-center me-2">
         <!--begin::Radio-->
         <div class="form-check form-check-custom form-check-dotted form-check-success  flex-shrink-0 me-6">
-          <input class="form-check-input orgData" type="radio" name="org"  value="${Index}" data-email="${email}" data-userName="${userName}" />
+          <input class="form-check-input form-control orgData" type="radio" name="org"  value="${Index}" data-email="${email}" data-userName="${userName}" />
 
         </div>
                                   <span class="status " style="color:white; margin:3px;"></span>
@@ -516,7 +514,9 @@
         var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin", sendData);
    
         if (JSON.parse(result) >'1') {
+                 $("#kt_modal_upgrade_plan").modal("hide");
             toastr.success("Organization Verified");
+
                 var OrgCode='';
                        debugger
                      var request=await AjaxCall("/Dashboard/getCusProdIdByToken", sendData);
@@ -567,7 +567,7 @@
            
         } else {
             toastr.error("Something went wrong while sending email to the organisation but verified successfully!!!");
-            $("#kt_modal_upgrade_plan").modal("hide");
+           
         }
     });
 

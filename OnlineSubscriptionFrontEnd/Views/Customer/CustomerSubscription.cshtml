@@ -393,8 +393,6 @@
         }).hide();
     });
         $(document).on('click', '.viewSub', function () {
-        debugger;
-
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
         var ProductName = $(this).attr("data-productName");
@@ -414,7 +412,7 @@
             var selectedOption = $("#statusModal").find(".selectedPackages option:selected");
             var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
             var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
-            debugger;
+        
 
             var today = new Date();
             var expireDate = new Date(today);
@@ -422,11 +420,11 @@
 
             var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
             $("#statusModal").find(".expiryDate").val(isoExpireDate);
-
+               
             if (noOfDays === 3 || noOfDays === 7) {
                 $("#statusModal").find(".Amount").val('0').prop('disabled', true); // Disable for 3/7-day plans
             } else {
-                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', false); // Enable otherwise
+                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', true); // Enable otherwise
             }
         }
 
