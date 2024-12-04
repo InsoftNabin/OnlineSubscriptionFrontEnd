@@ -306,7 +306,7 @@
           <input class="form-check-input form-control orgData" type="radio" name="org"  value="${Index}" data-email="${email}" data-userName="${userName}" />
 
         </div>
-                                  <span class="status " style="color:white; margin:3px;"></span>
+                                  <span class="status${Index} " style="color:white; margin:3px;border-radius:4px;"></span>
 
         <!--end::Radio-->
         <!--begin::Info-->
@@ -369,20 +369,20 @@
     });
     
         $(".showOrganizations").html(showOrg);
+        debugger
+              for (var i = 0; i < value.length; i++) {
+        if (value[i]["IsVerified"] == 1) {
+            $("#kt_modal_upgrade_plan").find(".status" + i).addClass("badge-success");
+            $("#kt_modal_upgrade_plan").find(".status" + i).text("Verified");
+        } else if (value[i]["IsVerified"] == -1) {
+            $("#kt_modal_upgrade_plan").find(".status" + i).addClass("badge-danger");
+            $("#kt_modal_upgrade_plan").find(".status" + i).text("Rejected");
+        } else if (value[i]["IsVerified"] == 0) {
+            $("#kt_modal_upgrade_plan").find(".status" + i).addClass("badge-warning");
+            $("#kt_modal_upgrade_plan").find(".status" + i).text("Pending");
+        }
+    }
 
-        //     for(var i=0;i<value.length;i++){
-        //          if(value[i]["IsVerified"]==1){
-        //                             $("#kt_modal_upgrade_plan").find(".status").addClass("badge-success");
-        //                             $("#kt_modal_upgrade_plan").find(".status").text("Verified");
-        //          }
-        //          else if(value[i]["IsVerified"]==-1){
-        //                             $("#kt_modal_upgrade_plan").find(".status").addClass("badge-danger");
-        //                             $("#kt_modal_upgrade_plan").find(".status").text("Rejected");
-        //          } else if(value[i]["IsVerified"]==0){
-        //                             $("#kt_modal_upgrade_plan").find(".status").addClass("badge-warning");
-        //                             $("#kt_modal_upgrade_plan").find(".status").text("Pending");
-        //          }
-        // }
     
   });
 

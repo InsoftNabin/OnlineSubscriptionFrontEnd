@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using System.Xml.Linq;
 using TwoFactorAuthNet;
+using System.Data;
 namespace OnlineSubscriptionFrontEnd.Controllers
 {
     [Authorize]
@@ -35,7 +36,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             _2FA = _2FAAuth;
         }
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
@@ -62,15 +63,22 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUser", login, "Post");
                 var result = JsonConvert.DeserializeObject<loginValidator>(value);
 
+                //if (string.IsNullOrEmpty(result.Secret))
+                //{
+                //    var req = _2FA.GenerateSecret();
+                //    result.Secret = req;
 
+                //    var request = await ApiCall.ApiCallWithObject("/Login/saveSecret", result,"Post");
+                //    if (request =="true")
+                //    {
+                //        return GetQR();
+                //    }
+                //    else
+                //    {
+                //        return RedirectToAction("Index", "Login", new { msg = "Invalid Authenticator Secret Key" });
 
-                if (string.IsNullOrEmpty(result.Secret))
-                {
-                    var req = _2FA.GenerateSecret();
-                    result.Secret = req;
-
-                    var request = await ApiCall.ApiCallWithObject("");
-                }
+                //    }
+                //}
 
 
 

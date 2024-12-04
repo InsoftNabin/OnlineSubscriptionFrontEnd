@@ -46,12 +46,17 @@ namespace OnlineSubscriptionFrontEnd
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);
             });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-               .AddCookie(options =>
-               {
-                   options.Cookie.Expiration = TimeSpan.FromHours(1);
-               });
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //   .AddCookie(options =>
+            //   {
+            //       options.Cookie.Expiration = TimeSpan.FromHours(1);
+            //   });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+             .AddCookie(options =>
+             {
+                 options.ExpireTimeSpan = TimeSpan.FromHours(1); 
+             });
             //Add the 2FAAuth class to the services
             services.AddScoped<TwoFactorAuthenticatorService>();
 

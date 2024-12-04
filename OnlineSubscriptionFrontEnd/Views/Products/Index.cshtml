@@ -50,6 +50,12 @@
                                             <label for="productDescription">Description:</label>
                                             <input type="text" class="form-control border border-dark rounded" id="productDescription" placeholder="Enter Description" required />
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="siteURL">site Url:</label>
+                                            <input type="text" class="form-control border border-dark rounded" id="siteURL" placeholder="productdomain.com" required />
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="productVersion">Version:</label>
                                             <input type="text" class="form-control border border-dark rounded" id="productVersion" placeholder="Enter Version" required />
@@ -92,6 +98,12 @@
                         <label for="editProductDescription">Product Description:</label>
                         <input type="text" class="form-control description" id="editProductDescription" placeholder="Description" required />
                     </div>
+
+                    <div class="form-group">
+                        <label for="editProductDescription">Site Name </label>
+                        <input type="text" class="form-control siteUrl" id="editsiteUrl" placeholder="productdomain.com" required />
+                    </div>
+
                     <div class="form-group">
                         <label for="editProductVersion">Product Version:</label>
                         <input type="text" class="form-control version" id="editProductVersion" placeholder="Version" required />
@@ -132,6 +144,7 @@
         $("#productId").val("");
         $("#productName").val("");
         $("#productDescription").val("");
+        $("#siteURL").val("");
         $("#productVersion").val("");
         $(".toggleCollapse").trigger('click');
         getTableData();
@@ -158,8 +171,12 @@
                                 <h2 style="text-transform: uppercase; font-size:22px;"><b>${jsondata[i]["Name"]}</b></h2>
                             </div>
                             <div class="card-body">
+                                
+                                <h4>site URL:  &nbsp;<span style="color:green;">${jsondata[i]["SiteName"]}</span></h4><br>
+
+
                                 <h4>${jsondata[i]["Description"]}</h4><br>
-                                <h6>${jsondata[i]["ProductGUID"]}</h6><br>
+                                <span class="ProductGuid">GUID:<h6>${jsondata[i]["ProductGUID"]}</h6></span><br>
                               
                                 <h6>Version: ${jsondata[i]["Version"]}</h4>
                             </div>
@@ -180,16 +197,17 @@
     }
 
     $(".BtnInsert").on("click", async function () {
-        if ($("#productName").val() === "" || $("#productDescription").val() === "" || $("#productVersion").val() === "") {
+        if ($("#productName").val() === "" || $("#productDescription").val() === "" || $("#productVersion").val() === ""|| $("#siteURL").val()==="" ) {
             toastr.error("Please fill in all the fields!!!.");
         } else {
             var parm = {
                 Id: $(".id").val() ? parseInt($(".id").val()) : 0,
                 Name: $("#productName").val(),
                 Description: $("#productDescription").val(),
-                Version: $("#productVersion").val()
+                Version: $("#productVersion").val(),
+                siteURL:$("#siteURL").val()
             };
-
+            debugger
             var data = await AjaxCall("/Products/InsertUpdate", parm);
             var jsondataresponse = JSON.parse(data);
 
@@ -211,6 +229,7 @@
             $("#editProductModal .id").val(product[0]["Id"]);
             $("#editProductModal #editProductName").val(product[0]["Name"]);
             $("#editProductModal .description").val(product[0]["Description"]);
+            $("#editProductModal .siteUrl").val(product[0]["siteURL"]);
             $("#editProductModal .version").val(product[0]["Version"]);
             $("#editProductModal").modal('show');
         } else {
@@ -223,7 +242,8 @@
             Id: parseInt($("#editProductModal .id").val()),
             Name: $("#editProductModal #editProductName").val(),
             Description: $("#editProductModal .description").val(),
-            Version: $("#editProductModal .version").val()
+            Version: $("#editProductModal .version").val(),
+              siteURL: $("#editProductModal .siteUrl").val()   //   $("#siteURL").val()
         };
 
         var productData = await AjaxCall("/Products/InsertUpdate", parm);
