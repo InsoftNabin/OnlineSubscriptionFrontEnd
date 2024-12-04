@@ -1256,7 +1256,7 @@
                         //$("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
                        
 
-                        selectDOM += `<option data-noday=${noOfDays} data-expiredate=${isoExpireDate} amount=${Jsondata[i]['Amount']}>${Jsondata[i]['Name']}</option>`;
+                        selectDOM += `<option value="${Jsondata[i]["id"]}" data-noday=${noOfDays} data-expiredate=${isoExpireDate} amount=${Jsondata[i]['Amount']}>${Jsondata[i]['Name']}</option>`;
                    // }
                 }
                 $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
@@ -1778,7 +1778,7 @@
                             VoucherImage: $("#fileInput").attr("data-filename"),   // '13786331378633-1543-sagar.jpg',//
                     IsVerifiedPayment: false
                 }
-
+                debugger
                 //insert the extension manually
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                 var dataa = JSON.parse(cpp);
