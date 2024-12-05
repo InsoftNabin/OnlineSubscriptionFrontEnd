@@ -1757,9 +1757,9 @@
             if ($(".rem").val() == "") {
                 toastr.warning("Please fill in a Remarks!!!");
             }
-            else if ($("#fileInput").attr("data-filename") == "") {
-                toastr.warning("Please attach a voucher or pay through QR!!!");
-            }
+            // else if ($("#fileInput").attr("data-filename") == "") {
+            //     toastr.warning("Please attach a voucher or pay through QR!!!");
+            // }
 
             else {
 
@@ -1775,8 +1775,8 @@
                     ReferenceId: 0,
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
-                            VoucherImage: $("#fileInput").attr("data-filename"),   // '13786331378633-1543-sagar.jpg',//
-                    IsVerifiedPayment: false
+                    VoucherImage: '930930471930930471-1543-sagar1_bg.jpg', //$("#fileInput").attr("data-filename"),   // '13786331378633-1543-sagar.jpg',//
+                    IsVerifiedPayment: 0
                 }
                 debugger
                 //insert the extension manually

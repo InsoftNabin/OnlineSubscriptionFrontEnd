@@ -71,7 +71,8 @@
                                     <i class="feather icon-printer"></i> Print
                                 </button>
                             </div>
-                        <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                            <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:70vh;position:relative; border-radius:12px;">
+                            <table id="agentTable" class="agentTable table-hover table-fixed table table-striped table-bordered tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                             <thead>
                                 <tr style="background-color: #0b3b56; color: white;">
                                     <th class="center">S.No.</th>
@@ -91,7 +92,7 @@
                             </tbody>
 
                         </table>
-
+                            </div>
 
                     </div>
 
@@ -224,7 +225,7 @@
         $("#exampleModal").find(".verifyorRejectSubs").text($(this).attr("data-type"));
         $("#exampleModal").find(".btnSaveStatus").attr("data-status",$(this).attr("data-type"));
         $("#exampleModal").find(".btnSaveStatus").attr("data-ukid",$(this).parents("tr").attr("data-ukid"));
-
+        debugger
     });
 
     $(document).on("click", ".voucher-image-preview", function () {
@@ -251,7 +252,7 @@
                 Remarks: $("#exampleModal").find(".remarksStatus").val(),
                 ActualExpiryDate: $("#exampleModal").find("#ActualExpiryDate").val()
             };
-
+            debugger
             var requestVerification = await AjaxCall("/CustomerPlanDetails/VerifyorRejectSubscription", parm);
             toastr.success("Operation Successful!!!");
           

@@ -84,8 +84,8 @@
                 input:checked + label:before,
                 select:focus,
                 select:active {
-                    background-color: #f0a500;
-                    color: #fff;
+                    background-color: white;
+                    color: black;
                     border-color: #bd8200;
                 }
 
@@ -116,8 +116,8 @@
         }
 
         select option {
-            background-color: #f0a500;
-            color: #fff;
+            background-color: white;
+            color: black;
         }
 
     .input-group {
@@ -276,172 +276,7 @@
                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion" hidden>
                                 <div class="card-body">
                                     <div class="container">
-                                        @* <form>
-                                            <h4>Customer Details</h4>
-                                            <input type="text" id="id" hidden />
-                                            <div class="row">
-                                                <div class="col-third" hidden>
-                                                    <label for="CustCode">Customer Code</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="number" id="CustCode" placeholder="Customer Code" name="customercode" >
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-hash"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <label for="CustName">Customer Name</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-user"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <label for="CustAddress">Address</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CustAddress" placeholder="Address" name="address" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-map-pin"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-third">
-                                                    <label for="panvat">PAN/VAT No</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-credit-card"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <label for="Custcontact">Contact Number</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="number" id="Custcontact" placeholder="Contact Number" name="contact" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-phone"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third" hidden>
-                                                    <label for="Custdblink">Database Link</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" hidden>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-link"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <h4>Contact Persons</h4>
-                                            <div class="row" style="display: flex; justify-content: space-between;">
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <label for="CP1">Contact Person 1</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-user"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <label for="CP1Mobno">CP1 Mobile No</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="number" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-phone"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <label for="CP2">Contact Person 2</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-user"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <label for="CP2Mobno">CP2 Mobile No</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="number" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-phone"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <h4>Additional Information</h4>
-                                            <div class="row">
-                                                <div class="col-third">
-                                                    <label for="email">Email Address</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="email" id="email" placeholder="Email Address" name="email" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-mail"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <label for="website">Website</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="website" placeholder="Website" name="website">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-globe"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third" hidden>
-                                                    <label for="guid">GUID</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="guid" placeholder="GUID" name="GUID" >
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-pin"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-third">
-                                                    <label for="CompanyCode">Company Code</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-briefcase"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <label for="BySMSApiToken">By SMS API Token</label>
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-pin"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-auto" style="float:left;">
-                                                    <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
-                                                        <i class="feather icon-rotate-cw"></i> Reset
-                                                    </button>
-                                                </div>
-                                                <div class="col-auto" style="float:right;">
-                                                    <button id="BtnInsert" style="border-radius:12px;" class="btn btn-success">
-                                                        <i class="feather icon-save"></i> Save
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form> *@
+                          
                                     </div>
 
                                 </div>
@@ -686,6 +521,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded CountrySelect" id="CountrySelect">
+                                <option value="">----Select Country---</option>
+                            </select>
+                        </div>
                         <div class="col-third" hidden>
                             <label for="Custdblink">Database Link</label>
                             <div class="input-group input-group-icon">
@@ -817,6 +658,20 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getTableData();
+        LoadCountries();
+          function LoadCountries() {
+                var a = AjaxCallWithoutDataNoAsync("/Customer/getCountries");
+                var aa = JSON.parse(a);
+                var countries = JSON.parse(aa);
+
+                var countrySelect = $('#CountrySelect');
+                countrySelect.empty();
+                countrySelect.append('<option value="">----Select Country---</option>');
+
+                countries.forEach(function (country) {
+                    countrySelect.append('<option value="' + country.NumericIsoCode + '">' + country.Name + '</option>');
+                });
+            }
 
         // Reset button functionality
         $("#BtnReset").on("click", function () {
@@ -861,6 +716,9 @@
              else if($("#BySMSApiToken").val() == ""){
                 toastr.warning("Please fill in  the SMS Api Token !!!");
             }
+            else if($("#CountrySelect").val()==""){
+                 toastr.warning("Please choose a country where you live in !!!");
+            }
 
             else {
               var parm = {
@@ -879,9 +737,10 @@
                     Website: $("#website").val(),
                     GUID: '',//$("#guid").val(),
                     CompanyCode: $("#CompanyCode").val(),
-                    BySMSApiToken: $("#BySMSApiToken").val()
+                    BySMSApiToken: $("#BySMSApiToken").val(),
+                    country:$("#CountrySelect option:selected").text()
                 };
-                debugger
+         
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
 
@@ -1023,6 +882,8 @@
         $("#guid").val(ParsedData[0]["GUID"]);
         $("#CompanyCode").val(ParsedData[0]["CompanyCode"]);
         $("#BySMSApiToken").val(ParsedData[0]["BySMSApiToken"]);
+
+        $("#CountrySelect").val(ParsedData[0]["country"]);
 
         $("#collapseOne").css("display", 'block');
 
