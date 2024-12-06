@@ -194,17 +194,17 @@
         } else {
             var accordionDOM = '';
             products.forEach(function (product) {
-              
-                  var accordionStyle = product.Activated == 'Activated' ? 'border: 3px solid darkgreen;' : '';
+
+                      var accordionStyle = product.Activated == 'Activated' ? 'background-color:green;color:white' : 'background-color:#a59e8c; color:white;';
                     // var moduleName = product.Activated === 'Activated' ? `${product.Name}` : '';
 
 
 
 
                 accordionDOM += `
-                          <div class="parent accordion-item${product.Id}" style="margin:20px; border-radius:12px;${accordionStyle}">
+                          <div class="parent accordion-item${product.Id}" style="margin:20px; border-radius:12px;">
                                 <h2 class="accordion-header" data-productid=${product.Id} id="heading${product.Id}" style="background-color:red; color:white; border-radius:12px;">
-                            <button style="border-radius:12px;" class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse${product.Id}" aria-expanded="true" aria-controls="collapse${product.Id}" onclick="LoadSubProductsbyCustomerandProduct(${product.Id})"> ${product.Name}</button>
+                                          <button style="border-radius:12px;${accordionStyle} " class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse${product.Id}" aria-expanded="true" aria-controls="collapse${product.Id}" onclick="LoadSubProductsbyCustomerandProduct(${product.Id})"> ${product.Name}</button>
 
                         </h2>
                         <div id="collapse${product.Id}" class="accordion-collapse collapse" aria-labelledby="heading${product.Id}" data-bs-parent="#modalProductAccordion">
@@ -251,9 +251,10 @@
                                  </div>
 
                                 <br>
-                                Customer Subscription GUID:<span class="subscriptionGUID"></span>
-                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                     Product GUID:<span class="ProductGUID"></span>
+                                Customer Subscription GUID:<span class="subscriptionGUID" style="border:1px solid black; margin:15px;"></span>
+                                      <br>
+                                       Product GUID:<span class="ProductGUID" style="border:1px solid black; margin:15px;"></span><br>
+                                       Client GUID:<span class="clientGUID" style="border:1px solid black; margin:15px;"></span>
                                <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
                                     <thead>
@@ -383,8 +384,10 @@
                     ExpiryDate: row.find('.ExpiryDate').val(),
                     MonthlyCharge: parseFloat(row.find('.modulePrice').val()),
                     Remarks: row.find('.Remarks').val(),
-                    Plan:selectedPlan
-                };
+                    Plan:selectedPlan,
+                     ProductGUID: row.parents(".parent").find(".ProductGUID").text()   ,
+                        clientGUID:   row.parents(".parent").find(".clientGUID").text()
+                  };
                 subProducts.push(SubProduct);
                 var CustomerwiseModules = {
                     TotalPrice:(parseFloat(row.find('.modulePrice').val())/30)*noofdaysinPlan,
@@ -395,8 +398,8 @@
                     SerialNumber: serialNumber,
                     SubProducts: subProducts
                 };
-                debugger
                     try {
+                       
                          var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
                          if (response == 'Success') {
                             $(".btn-close").trigger('click');
@@ -523,6 +526,7 @@
                 $("#exampleModal").find(".serialNumber").val(dataJson[0]["SerialNo"])
                 $("#exampleModal").find(".subscriptionGUID").text(dataJson[0]["SubscriptionGUID"])
                     $("#exampleModal").find(".ProductGUID").text(dataJson[0]["ProductGUID"])
+                      $("#exampleModal").find(".clientGUID").text(dataJson[0]["clientGUID"])
                 var rowColor = dataJson[i]["IsActivated"] === "Activated" ? '#DDFFF7' : '';
 
                 MODalTable += `<tr data-activate="` + dataJson[i]["IsActivated"] + `" data-main="` + dataJson[i]["Id"] + `" data-subproductid="` + dataJson[i]["SubProductId"] + `" style="background-color: ${rowColor};">

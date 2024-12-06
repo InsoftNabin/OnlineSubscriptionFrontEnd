@@ -738,7 +738,7 @@
                     GUID: '',//$("#guid").val(),
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val(),
-                    country:$("#CountrySelect option:selected").text()
+                    country:$("#CountrySelect").val()
                 };
          
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
@@ -864,7 +864,6 @@
         var dataawithoutParsing=JSON.parse(data);
         var ParsedData = JSON.parse(dataawithoutParsing);
 
-
         // Set the corresponding input fields with data from the row
         $("#id").val(row.data("id"));
         $("#CustCode").val(ParsedData[0]["Customercode"]);
@@ -882,12 +881,8 @@
         $("#guid").val(ParsedData[0]["GUID"]);
         $("#CompanyCode").val(ParsedData[0]["CompanyCode"]);
         $("#BySMSApiToken").val(ParsedData[0]["BySMSApiToken"]);
-
-        $("#CountrySelect").val(ParsedData[0]["country"]);
-
+        $("#CountrySelect").val(ParsedData[0]["Country"]);
         $("#collapseOne").css("display", 'block');
-
-
     });
 
 
