@@ -1757,9 +1757,9 @@
             if ($(".rem").val() == "") {
                 toastr.warning("Please fill in a Remarks!!!");
             }
-            // else if ($("#fileInput").attr("data-filename") == "") {
-            //     toastr.warning("Please attach a voucher or pay through QR!!!");
-            // }
+            else if ($("#fileInput").attr("data-filename") == "") {
+                toastr.warning("Please attach a voucher or pay through QR!!!");
+            }
 
             else {
 
@@ -1775,10 +1775,10 @@
                     ReferenceId: 0,
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
-                    VoucherImage: '930930471930930471-1543-sagar1_bg.jpg', //$("#fileInput").attr("data-filename"),   // '13786331378633-1543-sagar.jpg',//
+                    VoucherImage:  $("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
                     IsVerifiedPayment: 0
                 }
-                debugger
+                
                 //insert the extension manually
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                 var dataa = JSON.parse(cpp);
@@ -2070,7 +2070,6 @@
 
                     // Check if the fetched amount from the frontend matches the server amount
                     if (parseFloat(amountFetchedFromServer) !== amount) {
-                        debugger
                         toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
                         return;  // Exit the function if amounts do not match
                     }
@@ -2314,7 +2313,6 @@
 
 
     $(document).on('change', '.selectedPackages ', function () {
-    debugger
          var CurrentExpirydate=$("#statusModal").find(".currentPlanEdate").text();
           var noOfDays = parseInt($(".selectedPackages option:selected").attr("data-noday"), 10);
            amountFetchedFromServer=$(".selectedPackages option:selected").attr("amount");

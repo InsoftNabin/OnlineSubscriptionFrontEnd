@@ -413,29 +413,24 @@
             var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
             var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
         
-
             var today = new Date();
             var expireDate = new Date(today);
             expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
 
-            var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+            var isoExpireDate = expireDate.toISOString().split('T')[0]; 
             $("#statusModal").find(".expiryDate").val(isoExpireDate);
                
             if (noOfDays === 3 || noOfDays === 7) {
-                $("#statusModal").find(".Amount").val('0').prop('disabled', true); // Disable for 3/7-day plans
+                $("#statusModal").find(".Amount").val('0').prop('disabled', true); 
             } else {
-                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', true); // Enable otherwise
+                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', true);
             }
         }
 
-        // Load plans and logs, then update amount and expiry
         loadplansforcustomerandproduct(id, ProductId).then(() => {
-            updateAmountAndExpiry(); // Ensure this is called after plans are loaded
+            updateAmountAndExpiry(); 
         });
-
         loadsubscriptionLog(id, ProductId);
-
-        // Bind the function to change event
         $("#statusModal").find(".selectedPackages").off("change").on("change", function () {
             updateAmountAndExpiry();
         });

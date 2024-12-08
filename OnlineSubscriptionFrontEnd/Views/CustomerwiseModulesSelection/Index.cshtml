@@ -110,6 +110,8 @@
 <script>
     $(document).ready(function () {
         getTableData();
+        $(".AgentsinModalTable").val(-1)
+
     });
     function getAgents() {
           
@@ -239,7 +241,7 @@
                                      <div style="flex: 1;">
                                          Agent:
                                          <select class="AgentsinModalTable form-control">
-                                             <option class="default">--Select An Agent--</option>
+                                               <option value="-1" class="default">--Select An Agent--</option>
                                          </select>
                                      </div>
                                      <div style="flex: 1;">
@@ -254,7 +256,7 @@
                                 Customer Subscription GUID:<span class="subscriptionGUID" style="border:1px solid black; margin:15px;"></span>
                                       <br>
                                        Product GUID:<span class="ProductGUID" style="border:1px solid black; margin:15px;"></span><br>
-                                       Client GUID:<span class="clientGUID" style="border:1px solid black; margin:15px;"></span>
+                                       <span class="clientGUID" style="border:1px solid black; margin:15px;" hidden></span>
                                <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
                                     <thead>
@@ -479,7 +481,7 @@
     var Jsondata = JSON.parse(data);
     var PlansDD = '';
     var selectedValue = null; // Variable to hold the value of the selected option
-
+    debugger
     if (Jsondata.length > 0) {
         for (var i = 0; i < Jsondata.length; i++) {
             var isChecked = Jsondata[i]["IsFound"] === "found" ? true : false;
@@ -520,6 +522,7 @@
         var MODalTable = "";
         if (dataJson.length > 0) {
             for (var i = 0; i < dataJson.length; i++) {
+            
                 $(".AgentsinModalTable").val(dataJson[0]["AgentName"])
                 $("#exampleModal").find(".initial").val(dataJson[0]["Initial"])
                 $("#exampleModal").find(".siteURL").val(dataJson[0]["siteURL"])

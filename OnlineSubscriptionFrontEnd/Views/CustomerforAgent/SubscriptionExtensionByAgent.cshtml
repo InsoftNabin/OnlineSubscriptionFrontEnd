@@ -230,7 +230,7 @@
                                 <thead>
                                     <tr style="background-color:#0b3b56; color:white;">
                                         <th class="center">S.N</th>
-                                       
+                                    <th class="center hideme">Subscription</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
                                     <th class="center">Initial</th>
@@ -238,8 +238,6 @@
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
                                         <th class="center">Product</th>
-                                    <th class="center hideme">Subscription</th>
-                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -247,19 +245,10 @@
                             </table>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
-
-
-
 
 
 <script type="text/javascript">
@@ -295,7 +284,7 @@
 
     async function getTableData() {
         var parm={
-            Id:9,
+            Id:8,
             ProductId: parseInt($(".Products :selected").val())
         }
         var a = await AjaxCall("/Customer/getCustomerByAgentandProductId", parm);
@@ -307,6 +296,9 @@
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `> 
                                 <td class="center">` + (i + 1) + `</td>
+                                <td class="center hideme">
+                                  <button data-bs-toggle="modal" data-bs-target="#statusModal" class="viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
+                                </td>
                                 <td class="center custCode">` + jsondata[i]["Customercode"] + `</td>
                                 <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
                                 <td class="center custName">` + jsondata[i]["initial"] + `</td>
@@ -314,9 +306,7 @@
                                 <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
                                 <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
                                 <td class="center prodName">${jsondata[i]['ProductName']}</td>
-                                <td class="center hideme">
-                                  <button data-bs-toggle="modal" data-bs-target="#statusModal" class="viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
-                                </td>
+                                
                             </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
@@ -393,26 +383,24 @@
         }).hide();
     });
 
-     $(document).on('click', '.viewSub', function () {
+        $(document).on('click', '.viewSub', function () {
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
         var ProductName = $(this).attr("data-productName");
+
         $(".Customerr").text($(this).parents("tr").find(".custName").text());
         $(".selectedProduct").text(ProductName);
+
         var userEmail = $(this).parents("tr").attr("data-email");
         $("#statusModal").find(".userEmail").text(userEmail);
-
         $("#statusModal").find(".userPhone").text($(this).parents("tr").attr("data-phone"));
-        loadplansforcustomerandproduct(id, ProductId);
+
         $("#custid").val(id);
         $("#prodid").val(ProductId);
-        loadsubscriptionLog(id, ProductId);
 
-
-        $("#statusModal").find(".selectedPackages").on("change", async function () {
-            var selectedPlanValue = $(this).val();
-            var selectedOption = $(this).find("option:selected");
-
+        // Function to update amount and expiry date
+        function updateAmountAndExpiry() {
+            var selectedOption = $("#statusModal").find(".selectedPackages option:selected");
             var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
             var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
 
@@ -420,16 +408,22 @@
             var expireDate = new Date(today);
             expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
 
-            var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+            var isoExpireDate = expireDate.toISOString().split('T')[0];
             $("#statusModal").find(".expiryDate").val(isoExpireDate);
 
             if (noOfDays === 3 || noOfDays === 7) {
-                $("#statusModal").find(".Amount").val('0');
+                $("#statusModal").find(".Amount").val('0').prop('disabled', true);
             } else {
-                $("#statusModal").find(".Amount").val(amountInPlan);
+                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', true);
             }
+        }
 
-            $(this).val(selectedPlanValue).attr("selected", true);
+        loadplansforcustomerandproduct(id, ProductId).then(() => {
+            updateAmountAndExpiry();
+        });
+        loadsubscriptionLog(id, ProductId);
+        $("#statusModal").find(".selectedPackages").off("change").on("change", function () {
+            updateAmountAndExpiry();
         });
     });
 
@@ -468,13 +462,7 @@
                     expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
                     var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
 
-                    selectDOM += `<option
-                                    data-noday=${noOfDays}
-                                    data-expiredate=${isoExpireDate}
-                                    data-amount=${Jsondata[i]["Amount"]}
-                                    value=${Jsondata[i]['SubscriptionId']}>
-                                    ${Jsondata[i]['Name']}
-                                 </option>`;
+                    selectDOM += `<option data-noday=${noOfDays} data-expiredate=${isoExpireDate} data-amount=${Jsondata[i]["Amount"]} value=${Jsondata[i]['SubscriptionId']}>  ${Jsondata[i]['Name']} </option>`;
                 }
             }
             $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
@@ -497,7 +485,7 @@
             for (var i = 0; i < jsonData.length;i++) {
                 subDOM += `<tr>
                                 <td class="center">`+ jsonData[i]["productName"] + `</td>
-                                <td class="center">`+ jsonData[i]["SubscriptionType"] + `</td>
+                                <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
                                 <td class="center" style="color:green;"><b>Rs. `+ jsonData[i]["PaidAmount"] + `</b></td>
                                 <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
                                 <td class="center"> `+ jsonData[i]["LastRenewDate"] + `  </td>
