@@ -4,6 +4,8 @@
 }
 
 <style>
+
+
     .nameDiv, .PriceDiv {
         display: flex;
         align-items: center;
@@ -150,15 +152,35 @@
             <div class="modal-body">
                 <img id="voucherImagePreview" class="img-fluid" alt="Voucher Image" style="width:100%; height:100%;" />
             </div>
+            <div class="modal-footer">
+                <button class="btn rounded btn-sm btn-danger" id="printButton">
+                    <i class="feather icon-printer"></i> Print
+                </button>
+            </div>
         </div>
     </div>
 </div>
+
+
 
 
 <script type="text/javascript">
     $(document).ready(function () {
         getTableData();
     });
+
+    $(document).on('click', '#printButton', function () {
+        debugger
+        const imageSrc = $('#voucherImagePreview').attr('src');
+
+        // Create a new window for printing
+        const printWindow = window.open('', '_blank');
+        printWindow.document.open();
+        printWindow.document.write(`<img src="${imageSrc}" style=" max-width: 100%; max-height: 100%;" alt="Voucher Image"> `);
+        printWindow.document.close();
+        printWindow.print();
+    });
+
 
 
     function getTableData() {

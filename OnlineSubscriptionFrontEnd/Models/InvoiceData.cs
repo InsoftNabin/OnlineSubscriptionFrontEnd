@@ -2,6 +2,7 @@
 {
     public class InvoiceData
     {
+        public string PaymentStatus { get; set; }
         public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
         public string Product { get; set; }

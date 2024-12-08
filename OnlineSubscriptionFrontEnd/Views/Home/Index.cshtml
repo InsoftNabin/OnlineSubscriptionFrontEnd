@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 <link rel="stylesheet" href="~/files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
@@ -31,6 +31,70 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.0/jspdf.plugin.autotable.min.js"></script>
 
 <style>
+    /* Mobile screens (≤ 480px) */
+    @@media (max-width: 480px) {
+        .fs-1
+
+    {
+        font-size: 14px;
+    }
+
+    .fs-2 {
+        font-size: 16px;
+    }
+
+    .fs-4 {
+        font-size: 12px;
+    }
+
+    /* Adjust the image size further */
+    .image-input-wrapper {
+        width: 80px;
+        height: 40px;
+    }
+
+    /* Reduce the card padding and font size */
+    .card-body {
+        padding: 15px;
+    }
+
+    .left-section, .right-section {
+        padding: 5px;
+    }
+
+    .card-header {
+        font-size: 16px;
+    }
+
+    /* Display the "Your Info" section vertically on smaller screens */
+    .col-xs-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Center the buttons on mobile */
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    }
+
+    .payment-option {
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #uploadArea:hover {
+        background-color: #eef6ff;
+        border-color: #0056b3;
+    }
+
+    #uploadArea p span {
+        cursor: pointer;
+    }
+
+
 
     .nav-tabs {
         margin-bottom: 15px;
@@ -82,6 +146,7 @@
                             } */
 
     .cardWrapper {
+        width:100%;
         display: flex;
         justify-content: space-between;
         gap: 20px; /* Space between left, right, and center */
@@ -96,7 +161,7 @@
     }
 
     .cardProceed {
-        width: 55%; /* Main form area in the center */
+        /* Main form area in the center */
         padding: 20px;
         background-color: #fff;
         border-radius: 8px;
@@ -170,20 +235,25 @@
         }
 
 </style>
+
 <div class="py-3 py-lg-6">
-    <div class="container-xxl d-flex flex-stack">
-        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+    <div class="container-xxl d-flex flex-wrap justify-content-between align-items-center">
+        <!-- Page title section -->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-md-3 mb-3 mb-md-0">
             <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
                 <img src="~/assets/media/logos/LogoInsoft.png"
                      class="theme-light-show w-100px"
-                     alt="" />
+                     alt="Logo" />
             </h1>
         </div>
-        <div class="d-flex">
-            <h3 class="fs-xl fw-bold mb-4 lead">
+
+        <!-- Right section (Buttons and User Menu) -->
+        <div class="d-flex align-items-center">
+            <!-- New Organization Button -->
+            <h6 class="fs-xl fw-bold mb-4 lead">
                 <button type="button"
-                        class="btn btn-primary addOrganization">
-                    <span class="svg-icon svg-icon-2">
+                        class="btn btn-primary addOrganization d-flex align-items-center">
+                    <span class="svg-icon svg-icon-2 me-2">
                         <svg width="24"
                              height="24"
                              viewBox="0 0 24 24"
@@ -205,39 +275,29 @@
                                   fill="currentColor"></rect>
                         </svg>
                     </span>
-                    Add New Organization
+                    New Organization
                 </button>
-            </h3>
-            <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
-                <!--begin::Menu wrapper-->
+            </h6>
+
+            <!-- User Account Menu -->
+            <div class="app-navbar-item ms-1 ms-md-3 ml-md-4" id="kt_header_user_menu_toggle">
                 <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
                     <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
                         &nbsp;
                         <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
                     </i>
                 </div>
-                <!--begin::User account menu-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
-                    <!--begin::Menu item-->
-                    <div class="menu-item ">
 
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item">
-                            <a class="menu-link signoutBtn"> <i class="feather icon-log-out"></i>&nbsp; Sign Out</a>
-                        </div>
-                        <!--end::Menu item-->
-
+                <!-- User Account Menu Dropdown -->
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold fs-6 w-100px" data-kt-menu="true">
+                    <div class="menu-item">
+                        <a class="menu-link signoutBtn">
+                            <i class="feather icon-log-out"></i>&nbsp; Sign Out
+                        </a>
                     </div>
-
-
-
                 </div>
-                <!--end::User account menu-->
-                <!--end::Menu wrapper-->
             </div>
         </div>
-
     </div>
 </div>
 
@@ -609,13 +669,17 @@
                 </h1>
                 @* <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="float:right;">
                 </div> *@
-                <span class="userEmail" hidden></span>
-                <span class="productN" hidden></span>
-                <span class="userPhone" hidden></span>
+               
 
-                <button type="button" class="btn-close  btn btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close  btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
+                <div class="row">
+                    <span class="userEmail" hidden></span>
+                    <span class="productN" hidden></span>
+                    <span class="userPhone" hidden></span>
+                </div>
                 <div class="tabbable">
 
                     <ul class="nav nav-tabs md-tabs padding-12" id="myTab4" role="tablist">
@@ -658,7 +722,7 @@
                             <div class="cardWrapper" style="display: flex; justify-content: space-between; gap: 20px; padding: 20px;">
 
                                 <!-- Left Side Panel -->
-                                <div class="leftSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                <div class="d-none d-sm-block leftSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
                                     <p style="font-size: 14px; color: #333; line-height: 1.6;">
                                         <strong>Note:</strong><br>
                                         The payment from Bank Deposit takes up to three days from our side to verify your subscription. Please have patience and enjoy your journey with us!
@@ -666,7 +730,7 @@
                                 </div>
 
                                 <!-- Main Card Section -->
-                                <div class="cardProceed" style="width: 50%; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                <div class="cardProceed col-12 col-sm-6" style="padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
                                     <form>
                                         <div class="row" style="margin-bottom: 15px;">
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Current Plan: <span class="currentPlan" style="color: #888;">None</span></label>
@@ -682,22 +746,22 @@
 
                                         <div class="row" style="margin-bottom: 15px;">
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Next Due Date:</label>
-                                            <input type="date" class="expiryDate" disabled style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                            <input type="date" class="form-control expiryDate" disabled style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
                                         </div>
 
                                         <div class="row" style="margin-bottom: 15px;">
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Amount:</label>
-                                            <input type="text" class="Amount" disabled required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                            <input type="text" class="form-control Amount" disabled required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
                                         </div>
 
                                         <div class="row" style="margin-bottom: 15px;">
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Remarks:</label>
-                                            <input type="text" class="rem" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                            <input type="text" class="form-control rem" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
                                             <input type="text" id="custid" hidden />
                                             <input type="text" id="prodid" hidden />
                                         </div>
 
-                                        <div class="row" style="margin-bottom: 15px;">
+                                       @*  <div class="row" style="margin-bottom: 15px;">
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
                                             <div class="payment-methods" style="display: flex; gap: 20px;">
                                                 <div class="payment-option" data-value="0" style="border:1px solid black;">
@@ -714,7 +778,49 @@
                                                     </label>
                                                 </div>
                                             </div>
+                                        </div> *@
+
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
+                                            <div class="payment-methods" style="display: flex; gap: 20px;">
+
+                                                <!-- Bank Deposit with Drag-and-Drop Upload -->
+                                                <div class="payment-option" data-value="0" style="border: 1px solid black; padding: 10px; width: 300px; text-align: center;">
+                                                    <input type="radio" class="form-control" name="payment" id="upload" />
+                                                    <label for="upload" style="font-size: 14px; color: #333; display: block; margin-bottom: 10px;">
+                                                        Bank Deposit
+                                                    </label>
+                                                    @* <div id="uploadArea" style="border: 2px dashed #999; padding: 20px; position: relative; background-color: #f9f9f9; cursor: pointer;">
+                                                        <p style="font-size: 14px; color: #666;">Drag & Drop your voucher here or <span style="color: #007bff; text-decoration: underline;">browse files</span></p>
+                                                        <input type="file" id="fileInput" accept="image/*" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;" />
+                                                    </div> *@
+
+                                                    <div id="uploadArea" class="gethere" style="border: 2px dashed #999; padding: 20px; position: relative; background-color: #f9f9f9; cursor: pointer;">
+                                                        <p style="font-size: 14px; color: #666;">Drag & Drop or<span style="color: #007bff; text-decoration: underline;">browse files</span></p>
+                                                        <span class="uploadedinfo" style="color: green; font-weight: bold;"></span>
+                                                        <input type="file" class="form-control" id="fileInput" accept="image/*" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;" />
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- FonePay Option -->
+                                                <div class="payment-option" data-value="3" style="vertical-align: middle; border: 1px solid black; padding: 10px; width: 300px; text-align: center;">
+                                                    <input type="radio" name="payment" id="fonepay" />
+                                                    <label for="fonepay" style="font-size: 14px; color: #333; display: flex; align-items: center; justify-content: center;">
+                                                        <img src="~/files/assets/images/fonepay_payments_fatafat.png" alt="Fonepay" style="margin-right: 5px;" />
+                                                       
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
+
+
+
+
+
+
+
 
                                         <div class="row" id="file-upload" style="display:none; margin-bottom: 15px;">
                                             <input type="file" class="file" id="fileInput" data-filename="" style="padding: 10px;" />
@@ -734,7 +840,7 @@
                                 </div>
 
                                 <!-- Right Side Panel -->
-                                <div class="rightSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                <div class="d-none d-sm-block rightSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);" >
                                     <p style="font-size: 14px; color: #333; line-height: 1.6;">
                                         <strong>Note:</strong><br>
                                         Your subscription to the respective Product will be updated as soon as we receive your payment made through FonePay QR.
@@ -876,35 +982,35 @@
                     <div class="app-content flex-column-fluid">
                         <div class="app-container container-xxl">
                             <div class="row">
-                                <!-- Your Info Section (col-xs-3) -->
-                                <div class="col-12 col-xs-3">
-                                    <div class="card card-flush bg-body mb-9">
-                                                    <h2 class="card-header fs-2 fw-bold text-dark p-8">Your Info <i class="fs-1 fa fa-user"></i></h2><hr>
-                                        <div class="card-body pt-2 px-4">
-                                            <div class="mb-5">
-                                                <div class="d-flex row mb-5">
-                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
-                                                    <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
-                                                </div>
-                                                <div class="d-flex row mb-5">
-                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
-                                                    <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
-                                                </div>
-                                                <div class="d-flex row mb-5">
-                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
-                                                    <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
-                                                </div>
-                                                <div class="d-flex row mb-5">
-                                                    <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
-                                                    <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                               
+                              <!-- Your Info Section (col-xs-3) -->
+                  <div class="col-3 col-xs-3" >
+                      <div class="card card-flush bg-body mb-9">
+                                      <h2 class="card-header fs-2 fw-bold text-dark p-8">Your Info <i class="fs-1 fa fa-user"></i></h2><hr>
+                          <div class="card-body pt-2 px-4">
+                              <div class="mb-5">
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">User Name</span>
+                                      <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
+                                  </div>
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
+                                      <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
+                                  </div>
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">Phone</span>
+                                      <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
+                                  </div>
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
+                                      <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                                 <!-- Dynamic Organizations Section (col-xs-9) -->
-                                <div id="kt_app_content" class="col-12 col-xs-9">
+                                <div id="kt_app_content" class="col-12 col-sm-9 col-md-9">
                 `;
 
                 // Check if there are any organizations
@@ -945,33 +1051,33 @@
                             <!-- Verified / Unverified Section -->
                             ${IncludeData[i].IsVerified == 1 ? `
                                     <div class="col-12 col-md-4">
-        <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
-            <!-- Radial Chart -->
-            <div class="d-flex justify-content-center mx-auto">
-                <div id="${chartId}" data-label="0d" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto">
-                    <span style="position: absolute; font-size: 12px; color: #000;"></span>
-                </div>
-            </div>
+                                      <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
+                                          <!-- Radial Chart -->
+                                          <div class="d-flex justify-content-center mx-auto">
+                                              <div id="${chartId}" data-label="0d" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto">
+                                                  <span style="position: absolute; font-size: 12px; color: #000;"></span>
+                                              </div>
+                                          </div>
 
-            <!-- Verified / Unverified Section -->
-            <div class="ms-3 mt-2 mt-md-0">
-                <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
-                    <i class="feather icon-check-circle"></i>&nbsp;Verified
-                </span>
-                <div class="">
-                    <button data-bs-toggle="modal" data-bs-target="#statusModal"
-                        class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
-                        data-phone="${IncludeData[i].UserContact}" style="height:35px;"
-                        data-prod="${IncludeData[i].ModuleName}"
-                        data-userEmail="${IncludeData[i].userEmail}"
-                        data-productid="${IncludeData[i].ProductId}"
-                        data-custid="${IncludeData[i].custId}">
-                        Extend/Log &nbsp;
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+                                          <!-- Verified / Unverified Section -->
+                                          <div class="ms-3 mt-2 mt-md-0">
+                                              <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
+                                                  <i class="feather icon-check-circle"></i>&nbsp;Verified
+                                              </span>
+                                              <div class="">
+                                                  <button data-bs-toggle="modal" data-bs-target="#statusModal"
+                                                      class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
+                                                      data-phone="${IncludeData[i].UserContact}" style="height:35px;"
+                                                      data-prod="${IncludeData[i].ModuleName}"
+                                                      data-userEmail="${IncludeData[i].userEmail}"
+                                                      data-productid="${IncludeData[i].ProductId}"
+                                                      data-custid="${IncludeData[i].custId}">
+                                                      Extend/Log &nbsp;
+                                                  </button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
 
                             ` : IncludeData[i].IsVerified == -1 ? `
                                 <div class="col-12 col-md-4">
@@ -995,11 +1101,44 @@
                             `}
                         </div>
 
+
+
+
                         <!-- Details Section - Add all details directly in the card -->
                         <div class="card-body" style="border-top:1px solid black; background-color: #f9f9f9; border-radius: 8px; padding: 20px;">
                             <div class="d-flex flex-column flex-md-row">
-                                <!-- Left Section with Details -->
-                                <div class="left-section col-12 col-md-8 mb-4 mb-md-0" style="padding-right: 20px;">
+
+
+                              <!-- Left Section with "Current Plan", "Next Due Date", and "Pricing" -->
+                                <div class="left-section col-12 col-md-4" style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                                    <div class="text-center mb-4">
+                                        <h5 style="color: #4e73df; font-weight: 600; font-size:20px;">Plan Details</h5>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex flex-column">
+                                     <!-- Pricing Section -->
+                                        <div class="d-flex justify-content-between" >
+                                            <div class="fw-bold" style="color: #4e73df;" >Product:</div>
+                                            <div class="" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;">${IncludeData[i].ModuleName}</div>
+                                        </div>
+                                        <!-- Current Plan Section -->
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
+                                            <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;">NONE</div>
+                                        </div>
+
+                                        <!-- Next Due Date Section -->
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <div class="fw-bold" style="color: #4e73df;">Next Due Date</div>
+                                            <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;">__/__/____</div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- right Section with Details -->
+                                <div class="left-section col-12 col-md-8 mb-4 mb-md-0" style="padding-left: 20px;">
                                     <div class="py-5 fs-6">
                                         <div class="d-flex flex-row">
                                             <div class="fw-bold col-4">Display Name</div>
@@ -1036,33 +1175,9 @@
                                     </div>
                                 </div>
 
-                                <!-- Right Section with "Current Plan", "Next Due Date", and "Pricing" -->
-                                <div class="right-section col-12 col-md-4" style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                                    <div class="text-center mb-4">
-                                        <h5 style="color: #4e73df; font-weight: 600; font-size:20px;">Plan Details</h5>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex flex-column">
-                                     <!-- Pricing Section -->
-                                        <div class="d-flex justify-content-between" >
-                                            <div class="fw-bold" style="color: #4e73df;" >Product:</div>
-                                            <div class="" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;">${IncludeData[i].ModuleName}</div>
-                                        </div>
-                                        <!-- Current Plan Section -->
-                                        <div class="d-flex justify-content-between mb-4">
-                                            <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
-                                            <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;">NONE</div>
-                                        </div>
+             
 
-                                        <!-- Next Due Date Section -->
-                                        <div class="d-flex justify-content-between mb-4">
-                                            <div class="fw-bold" style="color: #4e73df;">Next Due Date</div>
-                                            <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;">__/__/____</div>
-                                        </div>
 
-                                       
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -1089,12 +1204,18 @@
     }
     }
 
-                    body += `</div>`;  // Close row
+                    body += `</div>
+                    `;  // Close row
                 } else {
                     body += `<div>No organizations found.</div>`;
                 }
 
-                body += `</div></div></div>`;
+                body += `</div>
+               
+
+
+               </div>
+            </div>`;
                 $('#Organizations').html(body);
             }
 
@@ -1416,130 +1537,95 @@
         // });
 
         // get the image and change it to data url for preview
-        $(document).on("change", "#inputLogo1", async function (event) {
-                event.preventDefault();
-            if (this.files && this.files[0]) {
+    $(document).ready(function () {
+        const $uploadArea = $("#uploadArea");
+        const $fileInput = $("#fileInput");
 
+        // Drag-and-drop handlers
+        $uploadArea.on("dragover", function (e) {
+            e.preventDefault();
+            $(this).css({
+                backgroundColor: "#e6f7ff",
+                borderColor: "#007bff",
+            });
+        });
 
-                var readerForDataURL = new FileReader();
-                var compressedDataURL;
+        $uploadArea.on("dragleave", function () {
+            $(this).css({
+                backgroundColor: "#f9f9f9",
+                borderColor: "#999",
+            });
+        });
 
-                readerForDataURL.onloadend = function () {
+        $uploadArea.on("drop", async function (e) {
+            e.preventDefault();
+            $(this).css({
+                backgroundColor: "#f9f9f9",
+                borderColor: "#999",
+            });
+            debugger
 
+            const files = e.originalEvent.dataTransfer.files;
 
-                    var img = new Image();
-                    img.onload = function () {
-
-                        var targetFileSize = 500 * 1024; // 500 KB max size for the image
-                        var currentFileSize = Number.MAX_SAFE_INTEGER;
-
-                        // Initialize compression quality
-                        var canvas = document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0, img.width, img.height);
-
-                        // Convert canvas to data URL with the current compression quality
-                        compressedDataURL = canvas.toDataURL('image/jpeg');
-                        // Get the file size of the compressed image
-                        currentFileSize = compressedDataURL.length;
-
-
-
-
-                        $(".logoValue").attr("src", compressedDataURL);
-                    };
-
-                    img.src = readerForDataURL.result;
-                };
-
-                readerForDataURL.readAsDataURL(this.files[0]);
-            }
-
-            var input = $(this);
-            var files = input[0].files;
-            var formData = new FormData();
-            var imgName = '';
-            for (var i = 0; i != files.length; i++) {
-                formData.append("files", files[i]);
-            }
-            var DocName = files[0].name;
-            var Exitension = DocName.split(".");
-            var imgextension = Exitension[1];
-            if (1) {
-
-                await $.ajax({
-                    url: "/Register/UploadPhoto1",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
-                    beforeSend: function () {
-                        Swal.fire({
-                            html: '<div class="loader" id="loader-6">' +
-                                '<span></span>' +
-                                '<span></span>' +
-                                '<span></span>' +
-                                '<span></span>' +
-                                '</div>' +
-                                '<div>' +
-                                '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
-                                '</div>',
-                            background: 'unset',
-                            allowOutsideClick: false,
-                            showConfirmButton: false,
-                        });
-                    },
-                    success: function (data) {
-
-                        imgName = data;
-                        $(".logoValue").attr("data-name", imgName);
-                        Swal.close();
-
-                    },
-                    error: function () {
-
-                        const file =
-                            document.querySelector('#file');
-                        file.value = '';
-                        Swal.close();
-                    }
-
-                });
-            }
-            else {
-                toastr.info("Only image are allowed");
-            }
-
-            var uploadFile = $(this);
-            var files = !!this.files ? this.files : [];
-
-            if (/^image/.test(files[0].type)) { // only image file
-                var reader = new FileReader(); // instance of the FileReader
-                reader.readAsDataURL(files[0]); // read the local file
-
-
-                reader.onloadend = function () { // set image data as background of div
-                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
-                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
-                }
-            }
-            else {
-                var reader = new FileReader(); // instance of the FileReader
-                reader.readAsDataURL(files[0]); // read the local file
-
-                reader.onloadend = function () { // set image data as background of div
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-                    uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
-                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
-                }
+            if (files.length > 0) {
+                handleFileUpload(files);
             }
         });
+
+        // File input change handler
+        $(document).on("change", "#fileInput", function () {
+            const files = this.files;
+            if (files.length > 0) {
+                handleFileUpload(files);
+            }
+        });
+
+        // File upload logic (reuses existing functionality)
+        async function handleFileUpload(files) {
+            debugger
+            const formData = new FormData();
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append("files", files[i]); // Append files with key 'files'
+            }
+            debugger
+            await $.ajax({
+                url: "/Register/UploadPhoto1", // Your controller endpoint
+                data: formData,
+                processData: false, // Prevent jQuery from processing data
+                contentType: false, // Let the browser set the content type
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        html: `<div class="loader" id="loader-6">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div>
+                                <p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>
+                            </div>`,
+                        background: "unset",
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (data) {
+                    console.log(data);
+                    const imgName = data;
+                    $uploadArea.attr("data-filename", imgName);
+                    $uploadArea.find(".uploadedinfo").text("Uploaded !!!");
+                    Swal.close();
+                },
+                error: function (error) {
+                    Swal.close();
+                    console.error(error);
+                    $uploadArea.find(".uploadedinfo").text("Upload Failed !!!");
+                },
+            });
+        }
+    });
 
 
         //get the module values
@@ -2020,10 +2106,11 @@
                  var reqestInvoicePrint=await AjaxCall("/Home/getInvoiceForPrint",parm);
                  var responseInvoiceData=JSON.parse(reqestInvoicePrint);
                  var JSONData=JSON.parse(responseInvoiceData);
-
+                 
                  if(JSONData.length>0){
 
                     var invoiceData = {
+                            PaymentStatus:  JSONData[0]["PaymentStatus"],
                              CustomerName: JSONData[0]["CustomerName"] ? JSONData[0]["CustomerName"].toString() : "",
                              CustomerAddress: JSONData[0]["CustomerAddress"] ? JSONData[0]["CustomerAddress"].toString() : "",
                              Product: JSONData[0]["Product"] ? JSONData[0]["Product"].toString() : "",

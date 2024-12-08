@@ -584,6 +584,7 @@
             $('.navbar-logo').attr("logo-theme", "white");
         });
                 $(document).on("click", ".signoutBtn", async () => {
+                    debugger
             var result = await AjaxCallWithoutData("/Login/LogOut");
                 if (result == "Success") {
                     window.location.href = "/Login/Index";

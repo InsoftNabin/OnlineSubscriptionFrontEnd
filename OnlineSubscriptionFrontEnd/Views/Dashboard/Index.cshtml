@@ -73,6 +73,12 @@
                                 <thead>
                                     <tr class="px-4 text-start text-gray-700 fw-bold fs-7 text-uppercase gs-0" style="background-color:#0b3b56; color:white;">
                                         <th class="center min-w-125px sorting">
+                                            Organizations
+                                        </th>
+                                        <th class="center text-end min-w-70px sorting_disabled">
+                                            Action
+                                        </th>
+                                        <th class="center min-w-125px sorting">
                                             User Name
                                         </th>
                                         <th class="center min-w-125px sorting">
@@ -84,12 +90,7 @@
                                         <th class="center min-w-125px sorting">
                                             Phone
                                         </th>
-                                        <th class="center min-w-125px sorting">
-                                            Organization status
-                                        </th>
-                                        <th class="center text-end min-w-70px sorting_disabled">
-                                            Action
-                                        </th>
+                                       
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
@@ -220,7 +221,27 @@
     result.forEach((value) => {
       tbody += `
     <tr >
-                
+                    <td class="center">
+                      <div class="d-flex primary" >
+
+
+                      <span class="badge badge-light-danger fs-base  mx-2">
+                        <div class="d-flex flex-column pt-2">
+                              <p class=" fs-3 py-0 my-0" style="color:red;">${value.UnVerifiedOrg}</p><p class="fs-8" style="color:red;">Unverified</p></span>
+                        </div>
+                      </span>
+                      <span class="badge badge-light-success fs-base ">
+                        <div class="d-flex flex-column mx-4 align-center">
+                                      <p class="fs-3 py-0 my-0" style="color:green;">${value.VerifiedOrg}</p><p class="fs-8 my-0" style="color:green;">Verified</p></span>
+                        </div>
+                        </span>
+                      </div>
+                    </td>
+                    <!--end::Date=-->
+                    <!--begin::Action=-->
+                    <td class="center text-end  gap-2 align-items-center">
+                      <a href="#" class="btn btn-primary btn-sm btnView"  data-id="${value.UserId}" data-email="${value.UserEmail}" data-userName="${value.UserName}">View</a>
+                    <!--end::Action=-->
                 <!--begin::Name=-->
                 <td>
                   <p
@@ -243,27 +264,7 @@
                   ${value.UserAddress}
                 </td>
                <td class="center">${value.UserContact}</td>
-                <td class="center">
-                  <div class="d-flex primary" >
-
-                  
-                  <span class="badge badge-light-danger fs-base  mx-2">
-                    <div class="d-flex flex-column pt-2">
-                          <p class=" fs-3 py-0 my-0" style="color:red;">${value.UnVerifiedOrg}</p><p class="fs-8" style="color:red;">Unverified</p></span>
-                    </div>
-                  </span>
-                  <span class="badge badge-light-success fs-base ">
-                    <div class="d-flex flex-column mx-4 align-center">
-                                  <p class="fs-3 py-0 my-0" style="color:green;">${value.VerifiedOrg}</p><p class="fs-8 my-0" style="color:green;">Verified</p></span>
-                    </div>
-                    </span>
-                  </div>
-                </td>
-                <!--end::Date=-->
-                <!--begin::Action=-->
-                <td class="center text-end  gap-2 align-items-center">
-                  <a href="#" class="btn btn-primary btn-sm btnView"  data-id="${value.UserId}" data-email="${value.UserEmail}" data-userName="${value.UserName}">View</a> 
-                <!--end::Action=-->
+                
               </tr>
     `;
     });
