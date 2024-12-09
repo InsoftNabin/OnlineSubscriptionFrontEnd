@@ -87,28 +87,28 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                     HttpContext.Session.SetString("TokenNo", result.tokenNo);
                     HttpContext.Session.SetString("UserName", result.UserName);
 
-                    var claims = new List<Claim> 
-                            {
-                                new Claim(ClaimTypes.Name, result.UserName),
-                                new Claim(ClaimTypes.Authentication, result.tokenNo),
-                                new Claim(ClaimTypes.Role,result.Role),
-                                new Claim(ClaimTypes.Hash,result.Secret)
-                            };
+                    //var claims = new List<Claim> 
+                    //        {
+                    //            new Claim(ClaimTypes.Name, result.UserName),
+                    //            new Claim(ClaimTypes.Authentication, result.tokenNo),
+                    //            new Claim(ClaimTypes.Role,result.Role),
+                    //            new Claim(ClaimTypes.Hash,result.Secret)
+                    //        };
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    //var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var authProperties = new AuthenticationProperties
-                    {
-                        /*  If IsPersistent is set to true, the authentication cookie will persist even after the browser is closed. 
-                            If it's false, the authentication cookie will be deleted when the browser is closed.
-                            This is often used to implement "Remember Me" functionality in login forms.*/
-                        IsPersistent = true
-                    };
+                    //var authProperties = new AuthenticationProperties
+                    //{
+                    //    /*  If IsPersistent is set to true, the authentication cookie will persist even after the browser is closed. 
+                    //        If it's false, the authentication cookie will be deleted when the browser is closed.
+                    //        This is often used to implement "Remember Me" functionality in login forms.*/
+                    //    IsPersistent = true
+                    //};
 
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),
-                        authProperties);
+                    //await HttpContext.SignInAsync(
+                    //    CookieAuthenticationDefaults.AuthenticationScheme,
+                    //    new ClaimsPrincipal(claimsIdentity),
+                    //    authProperties);
 
                     //ViewBag.UserName = result.UserName;
                     //TempData["UserName"] = result.UserName;

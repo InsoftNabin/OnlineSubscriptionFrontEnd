@@ -211,7 +211,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
-                <a href="#!">Customer @ViewBag.UserName</a>
+                <a href="#!">Customer </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
                 <a href="#!">Customer List </a>
@@ -461,6 +461,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+    //$("#userName").text(@ViewBag.AgentName);
         getTableData();
 
         // Reset button functionality
@@ -469,11 +470,11 @@
         });
 
         $("#BtnInsert").on("click", async function () {
-            debugger
+      
             if ($("#CustCode").val() == "" || $("#CustName").val() == "") {
                 toastr.error("Please fill in all the fields!!!");
             } else {
-                debugger
+          
                 var parm = {
                     Id: $("#id").val() ? parseInt($("#id").val()) : 0,
                     CustomerCode: $("#CustCode").val(),
@@ -540,15 +541,16 @@
     }
 
     async function getTableData() {
-        debugger
+      
         var parm={
             Id:parseInt($("#AgentId").text())
         }
+        debugger
         var a =await AjaxCall("/Customer/getCustomerByAgentId",parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
         var tableDOM = "";
-        debugger
+       
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>

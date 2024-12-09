@@ -33,6 +33,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Agent
                         {
                             ViewBag.AgentId = agentId;
                             ViewBag.AgentName = agentName;
+                           HttpContext.Session.SetString("AgentId", agentId);
 
                             return View();
                         }
@@ -55,7 +56,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Agent
 
         public IActionResult SubscriptionExtensionByAgent()
         {
-            
+            string AgentId = HttpContext.Session.GetString("AgentId");
+            ViewBag.AgentId = AgentId;
             return View();
         }
 

@@ -9,6 +9,7 @@ namespace OnlineSubscriptionFrontEnd.Models
         public int Customer { get; set; }
         public int Product { get; set; }
         public string Role { get; set; }
+        public string Id { get; set; }
         public string Secret { get; set; }
     }
 }

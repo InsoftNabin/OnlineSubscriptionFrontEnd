@@ -207,7 +207,7 @@
                 Version: $("#productVersion").val(),
                 siteURL:$("#siteURL").val()
             };
-            debugger
+         
             var data = await AjaxCall("/Products/InsertUpdate", parm);
             var jsondataresponse = JSON.parse(data);
 

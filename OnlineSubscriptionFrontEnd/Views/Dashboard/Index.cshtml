@@ -366,7 +366,6 @@
     });
     
         $(".showOrganizations").html(showOrg);
-        debugger
               for (var i = 0; i < value.length; i++) {
         if (value[i]["IsVerified"] == 1) {
             $("#kt_modal_upgrade_plan").find(".status" + i).addClass("badge-success");
@@ -518,13 +517,16 @@
                        debugger
                      var request=await AjaxCall("/Dashboard/getCusProdIdByToken", sendData);
                      var response=JSON.parse(request);
-                         var JSONResponse=JSON.parse(response);
+                     var JSONResponse=JSON.parse(response);
 
-                                 var cid=parseInt(JSONResponse[0]["CustomerId"]);
-                                 var pid=parseInt(JSONResponse[0]["ProductId"]);
+                         var haha=JSON.parse(JSONResponse);
 
+                         var cid=parseInt(haha[0]["CustomerId"]);
+                         var pid=parseInt(haha[0]["ProductId"]);
+                                 var ukid=parseInt(haha[0]["RedirectCode"]);
 
-    window.location.href = `/CustomerwiseModulesSelection?customercode=${cid}&productcode=${pid}`;
+                         window.location.href = `/CustomerwiseModulesSelection/AfterVerification?recode=${ukid}`;
+                     // window.location.href = `/CustomerwiseModulesSelection?customercode=${cid}&productcode=${pid}`;
 
                 var codeBody = `
                             <div style="margin: 0; padding: 0; background-color: #f8f9fa;">

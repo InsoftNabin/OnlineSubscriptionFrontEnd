@@ -284,9 +284,10 @@
 
     async function getTableData() {
         var parm={
-            Id:8,
+            Id:parseInt($(".navbar").find("#AgentId").text()),
             ProductId: parseInt($(".Products :selected").val())
         }
+        debugger
         var a = await AjaxCall("/Customer/getCustomerByAgentandProductId", parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);

@@ -891,6 +891,7 @@
         var parm={
             Id:parseInt(custId)
         };
+        debugger
         var reqdatA=await AjaxCall("/SubscriptionReport/getCustomerStatement",parm);
         var responsedData=JSON.parse(reqdatA);
         var JSONData=JSON.parse(responsedData);

@@ -110,15 +110,15 @@
 <script>
     $(document).ready(function () {
         getTableData();
-        $(".AgentsinModalTable").val(-1)
-
+      
+          var ukid = '@ViewBag.ukid';
+            $(".SelectModules[data-unkidctable='" + ukid + "']").click();
     });
     function getAgents() {
-          
-        var jd = AjaxCallWithoutDataNoAsync("Agent/getAgents");
+        var jd = AjaxCallWithoutDataNoAsync("/Agent/getAgents");
         var jdataaa = JSON.parse(jd);
         var jdata = JSON.parse(jdataaa);
-
+    
         var AgentsDom = ``;
         if(jdata.length>0){
             for (var i = 0; i<jdata.length;i++) {
@@ -346,10 +346,10 @@
         AgentId: parseInt($(this).parents(".parent").find(".PlansInTable :selected").attr("data-substypeid")),
         Active: true
     };
-
+    debugger
     const savePromise = await AjaxCall("/Subscription/SubsbyCustProdandTypeInitially", parm);
     //------------end of plan save functionality----------
-    
+    debugger
         var selectedAccordion = $(this).parents(".accordion-item"+productId);
 
         var initial = selectedAccordion.find(".initial").val();
@@ -402,7 +402,7 @@
                 };
                     try {
                        
-                         var response = await AjaxCall("CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
+                         var response = await AjaxCall("/CustomerwiseModulesSelection/InsertUpdate", CustomerwiseModules);
                          if (response == 'Success') {
                             $(".btn-close").trigger('click');
                              toastr.success("Data saved successfully!");
@@ -471,17 +471,18 @@
 
 
     async function LoadSubProductsbyCustomerandProduct(ProductId) {
+    
         var parmdata = {
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
         }
+        debugger
           //----------------------placing the plans Selection ------------
       var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parmdata);
     var data = JSON.parse(para);
     var Jsondata = JSON.parse(data);
     var PlansDD = '';
     var selectedValue = null; // Variable to hold the value of the selected option
-    debugger
     if (Jsondata.length > 0) {
         for (var i = 0; i < Jsondata.length; i++) {
             var isChecked = Jsondata[i]["IsFound"] === "found" ? true : false;
@@ -514,11 +515,9 @@
 
     getAgents();
 
-
-        var dataAjax = await AjaxCall("CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
+        var dataAjax = await AjaxCall("/CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);
-        
         var MODalTable = "";
         if (dataJson.length > 0) {
             for (var i = 0; i < dataJson.length; i++) {
@@ -556,24 +555,28 @@
             toastr.error("No Data Found For the Customer's Modules", 'Error');
         }
     }
-       $(document).on('change', '.PlansInTable ', function () {
-    
-          var joinDate = $(this).parents(".parent").find(".JoinDate").val();
-          var noOfDays = parseInt($(".PlansInTable   option:selected").attr("data-noofdays"), 10);
+          $(document).on('change', '.PlansInTable', function () {
+        debugger;
 
-          if (joinDate && !isNaN(noOfDays)) {
-                var parsedJoinDate = new Date(joinDate);
-                if (!isNaN(parsedJoinDate.getTime())) {
-                    parsedJoinDate.setDate(parsedJoinDate.getDate() + noOfDays);
-                    var expiryDate = parsedJoinDate.toISOString().split('T')[0];
+        var $selectedPlan = $(this).find(":selected"); 
+        var joinDate = $(this).parents(".parent").find(".JoinDate").val(); 
+        var noOfDays = parseInt($selectedPlan.data("noofdays"), 10); 
 
-                    $(this).parents(".parent").find(".ExpiryDate").val(expiryDate);
-                } else {
-                    console.error("Invalid join date format");
-                }
-          } else {
-              toastr.error("Invalid join date or number of days");
-          }
-      });
+        if (joinDate && !isNaN(noOfDays)) {
+            var parsedJoinDate = new Date(joinDate);
+            if (!isNaN(parsedJoinDate.getTime())) {
+                parsedJoinDate.setDate(parsedJoinDate.getDate() + noOfDays);
+                var expiryDate = parsedJoinDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+
+                
+                $(this).parents(".parent").find(".ExpiryDate").val(expiryDate);
+            } else {
+                console.error("Invalid join date format");
+                toastr.error("Invalid join date format. Please enter a valid date.");
+            }
+        } else {
+            toastr.error("Invalid join date or number of days. Please check your input.");
+        }
+    });
 
 </script>

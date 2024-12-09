@@ -86,7 +86,7 @@
             UserName: $("input[name='Email']").val(),
             Password: $("input[name='Password']").val(),
         };
-        
+        debugger
         const result = await AjaxCall("/Login/VerifyUser", data);
         var JSonResult=JSON.parse(result);
 

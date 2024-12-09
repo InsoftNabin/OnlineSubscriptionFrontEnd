@@ -1021,7 +1021,7 @@
 
 
     for (var i = 0; i < IncludeData.length; i++) {
-
+        debugger
         if(IncludeData[i]["Error"]!=-202){
 
         let chartId = "ChartCircular" + (i + 1);
@@ -1100,10 +1100,6 @@
                                 </div>
                             `}
                         </div>
-
-
-
-
                         <!-- Details Section - Add all details directly in the card -->
                         <div class="card-body" style="border-top:1px solid black; background-color: #f9f9f9; border-radius: 8px; padding: 20px;">
                             <div class="d-flex flex-column flex-md-row">
@@ -1144,9 +1140,10 @@
                                             <div class="fw-bold col-4">Display Name</div>
                                             <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
                                         </div>
-                                        <div class="d-flex flex-row gap-4 mt-5" hidden>
-                                            <div class="fw-bold col-4" hidden>Country</div>
-                                            <div class="text-gray-700 col-8" hidden>${IncludeData[i].OrganizationMotto}</div>
+                                        
+                                        <div class="d-flex flex-row gap-4 mt-5" >
+                                            <div class="fw-bold col-4" >Country</div>
+                                            <div class="text-gray-700 col-8" >${IncludeData[i].OrganizationMotto}</div>
                                         </div>
                                         <div class="d-flex flex-row gap-4 mt-5">
                                             <div class="fw-bold col-4">Email</div>
@@ -1563,7 +1560,6 @@
                 backgroundColor: "#f9f9f9",
                 borderColor: "#999",
             });
-            debugger
 
             const files = e.originalEvent.dataTransfer.files;
 
@@ -1582,13 +1578,11 @@
 
         // File upload logic (reuses existing functionality)
         async function handleFileUpload(files) {
-            debugger
             const formData = new FormData();
 
             for (let i = 0; i < files.length; i++) {
                 formData.append("files", files[i]); // Append files with key 'files'
             }
-            debugger
             await $.ajax({
                 url: "/Register/UploadPhoto1", // Your controller endpoint
                 data: formData,

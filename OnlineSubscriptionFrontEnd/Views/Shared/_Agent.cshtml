@@ -264,10 +264,11 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="../files/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">Agent
-                                        <span class="userName">
+                                        <img src="../files/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                        <span id="userName">
+                                            
                                             @ViewBag.AgentName  <!-- Display the agent's name -->
-                                            <span id="AgentId" style="font-weight: normal; color: #888;">@ViewBag.AgentId</span> <!-- Display the agent's ID -->
+                                            <span id="AgentId" style="font-weight: normal; color: #888;" hidden>@ViewBag.AgentId</span> <!-- Display the agent's ID -->
                                         </span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
