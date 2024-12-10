@@ -346,10 +346,8 @@
         AgentId: parseInt($(this).parents(".parent").find(".PlansInTable :selected").attr("data-substypeid")),
         Active: true
     };
-    debugger
     const savePromise = await AjaxCall("/Subscription/SubsbyCustProdandTypeInitially", parm);
     //------------end of plan save functionality----------
-    debugger
         var selectedAccordion = $(this).parents(".accordion-item"+productId);
 
         var initial = selectedAccordion.find(".initial").val();
@@ -476,7 +474,6 @@
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
         }
-        debugger
           //----------------------placing the plans Selection ------------
       var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parmdata);
     var data = JSON.parse(para);
@@ -556,7 +553,6 @@
         }
     }
           $(document).on('change', '.PlansInTable', function () {
-        debugger;
 
         var $selectedPlan = $(this).find(":selected"); 
         var joinDate = $(this).parents(".parent").find(".JoinDate").val(); 

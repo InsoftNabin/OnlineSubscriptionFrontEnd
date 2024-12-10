@@ -17,8 +17,8 @@
                                 <div class="card-block">
                                     <div class="row align-items-end">
                                         <div class="col-8">
-                                            <h4 class="text-white">$30200</h4>
-                                            <h6 class="text-white m-b-0">All Earnings</h6>
+                                            <h4 class="text-white noofOrg"></h4>
+                                            <h6 class="text-white m-b-0">Total Organizations</h6>
                                         </div>
                                         <div class="col-4 text-end">
                                             <canvas id="update-chart-1" height="50"></canvas>
@@ -38,8 +38,8 @@
                                 <div class="card-block">
                                     <div class="row align-items-end">
                                         <div class="col-8">
-                                            <h4 class="text-white">290+</h4>
-                                            <h6 class="text-white m-b-0">Page Views</h6>
+                                            <h4 class="text-white noofAgents"></h4>
+                                            <h6 class="text-white m-b-0">Total Agents</h6>
                                         </div>
                                         <div class="col-4 text-end">
                                             <canvas id="update-chart-2" height="50"></canvas>
@@ -59,8 +59,8 @@
                                 <div class="card-block">
                                     <div class="row align-items-end">
                                         <div class="col-8">
-                                            <h4 class="text-white">145</h4>
-                                            <h6 class="text-white m-b-0">Task Completed</h6>
+                                            <h4 class="text-white noofProducts"></h4>
+                                            <h6 class="text-white m-b-0">Total Products</h6>
                                         </div>
                                         <div class="col-4 text-end">
                                             <canvas id="update-chart-3" height="50"></canvas>
@@ -81,7 +81,7 @@
                                     <div class="row align-items-end">
                                         <div class="col-8">
                                             <h4 class="text-white">500</h4>
-                                            <h6 class="text-white m-b-0">Downloads</h6>
+                                            <h6 class="text-white m-b-0">Total Companies</h6>
                                         </div>
                                         <div class="col-4 text-end">
                                             <canvas id="update-chart-4" height="50"></canvas>
@@ -98,7 +98,7 @@
                         </div>
                         <!-- task, page, download counter  end -->
                         <!--  sale analytics start -->
-                        <div class="col-xl-9 col-md-12">
+                        @* <div class="col-xl-9 col-md-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Sales Analytics</h5>
@@ -122,7 +122,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-12">
+                        <div class="col-xl-3 col-md-12" hidden>
                             <div class="card user-card2">
                                 <div class="card-block text-center">
                                     <h6 class="m-b-15">Project Risk</h6>
@@ -153,11 +153,11 @@
                             </div>
                         </div>
                         <!--  sale analytics end -->
-
+                         *@
                         <div class="col-xl-8 col-md-12">
                             <div class="card table-card">
                                 <div class="card-header">
-                                    <h5>Application Sales</h5>
+                                    <h5>Pending Verifications</h5>
                                     <div class="card-header-right">
                                         <ul class="list-unstyled card-option">
                                             <li><i class="feather icon-maximize full-card"></i></li>
@@ -170,49 +170,19 @@
                                 </div>
                                 <div class="card-block">
                                     <div class="table-responsive">
-                                        <table class="table table-hover  table-borderless">
+                                        <table class="table table-hover unverifiedOrg table-borderless">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        <div class="chk-option">
-                                                            <div class="checkbox-fade fade-in-primary">
-                                                                <label class="form-label check-task">
-                                                                    <input type="checkbox" value="">
-                                                                    <span class="cr">
-                                                                        <i class="cr-icon feather icon-check txt-default"></i>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        Application
-                                                    </th>
-                                                    <th>Sales</th>
-                                                    <th>Change</th>
-                                                    <th>Avg Price</th>
-                                                    <th>Total</th>
+                                                    <th>Organization</th>
+                                                    <th>Initial</th>
+                                                    <th>Email</th>
+                                                    <th>Contact</th>
+                                                    <th>Product</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>
-                                                        <div class="chk-option">
-                                                            <div class="checkbox-fade fade-in-primary">
-                                                                <label class="form-label check-task">
-                                                                    <input type="checkbox" value="">
-                                                                    <span class="cr">
-                                                                        <i class="cr-icon feather icon-check txt-default"></i>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6>Able Pro</h6>
-                                                            <p class="text-muted m-b-0">
-                                                                Powerful
-                                                                Admin Theme
-                                                            </p>
-                                                        </div>
-                                                    </td>
+                                                    <td></td>
                                                     <td>16,300</td>
                                                     <td>
                                                         <canvas id="app-sale1" height="50"
@@ -221,95 +191,15 @@
                                                     <td>$53</td>
                                                     <td class="text-c-blue">$15,652</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="chk-option">
-                                                            <div class="checkbox-fade fade-in-primary">
-                                                                <label class="form-label check-task">
-                                                                    <input type="checkbox" value="">
-                                                                    <span class="cr">
-                                                                        <i class="cr-icon feather icon-check txt-default"></i>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6>Photoshop</h6>
-                                                            <p class="text-muted m-b-0">
-                                                                Design
-                                                                Software
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>26,421</td>
-                                                    <td>
-                                                        <canvas id="app-sale2" height="50"
-                                                                width="100"></canvas>
-                                                    </td>
-                                                    <td>$35</td>
-                                                    <td class="text-c-blue">$18,785</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="chk-option">
-                                                            <div class="checkbox-fade fade-in-primary">
-                                                                <label class="form-label check-task">
-                                                                    <input type="checkbox" value="">
-                                                                    <span class="cr">
-                                                                        <i class="cr-icon feather icon-check txt-default"></i>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6>Guruable</h6>
-                                                            <p class="text-muted m-b-0">
-                                                                Best Admin
-                                                                Template
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>8,265</td>
-                                                    <td>
-                                                        <canvas id="app-sale3" height="50"
-                                                                width="100"></canvas>
-                                                    </td>
-                                                    <td>$98</td>
-                                                    <td class="text-c-blue">$9,652</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="chk-option">
-                                                            <div class="checkbox-fade fade-in-primary">
-                                                                <label class="form-label check-task">
-                                                                    <input type="checkbox" value="">
-                                                                    <span class="cr">
-                                                                        <i class="cr-icon feather icon-check txt-default"></i>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6>Flatable</h6>
-                                                            <p class="text-muted m-b-0">
-                                                                Admin App
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>10,652</td>
-                                                    <td>
-                                                        <canvas id="app-sale4" height="50"
-                                                                width="100"></canvas>
-                                                    </td>
-                                                    <td>$20</td>
-                                                    <td class="text-c-blue">$7,856</td>
-                                                </tr>
+                                               
+                                               
+                                              
                                             </tbody>
                                         </table>
                                         <div class="text-center">
-                                            <a href="#!" class=" b-b-primary text-primary">
-                                                View all
-                                                Projects
+                                            <a href="/Dashboard/Index" class=" b-b-primary text-primary">
+                                                View all requests
+                                                
                                             </a>
                                         </div>
                                     </div>
@@ -660,4 +550,60 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getOrganizations();
+        getAgents();
+        getProducts();
+        getUnverifierdOrganizations();
+    });
+
+    async function getProducts(){
+         var a = await AjaxCallWithoutDataNoAsync("/Products/getProducts");
+        var jsondata = JSON.parse(JSON.parse(a));
+        $(".noofProducts").text(jsondata.length);
+    }
+
+
+    async function getOrganizations(){
+    const data = await AjaxCallWithoutData("/Dashboard/GetUsers");
+    const result = JSON.parse(JSON.parse(JSON.parse(data)));
+        $(".noofOrg").text(result.length);
+    }
+
+    async function getAgents(){
+    var a = AjaxCallWithoutDataNoAsync("/Agent/getAgents");
+    var ab = JSON.parse(a);
+    var data=JSON.parse(ab)
+        $(".noofAgents").text(data.length);
+    }
+
+
+     async function getUnverifierdOrganizations(){
+         var a = await AjaxCallWithoutDataNoAsync("/Dashboard/GetUnverifiedOrganizations");
+        var jsondata = JSON.parse(JSON.parse(a));
+    
+        if(jsondata.length>0){
+            var dom=``;
+            for(var i=0;i<jsondata.length;i++){
+                dom+=`<tr>
+                        <td>`+jsondata[i]["CompanyName"]+`</td>
+                        <td>`+jsondata[i]["Initial"]+`</td>
+                        <td>`+jsondata[i]["OrganizationMail"]+`</td>
+                        <td>`+jsondata[i]["ContactMobile"]+`</td>
+                        <td>`+jsondata[i]["ProductName"]+`</td>
+                      </tr>`;
+            }
+            $(".unverifiedOrg tbody").empty().append(dom);
+
+        }else{
+                        $(".unverifiedOrg tbody").empty().append(`<tr><td colspan="5">No Pending Verifications.</td></tr>`);
+
+        }
+
+    }
+
+</script>
 

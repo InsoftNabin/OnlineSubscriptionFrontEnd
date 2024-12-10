@@ -2390,28 +2390,28 @@
         }
     });
 
+        $(document).on('change', '.selectedPackages', function () {
+        debugger;
+        var CurrentExpirydate = $("#statusModal").find(".currentPlanEdate").text();
+        var noOfDays = parseInt($(".selectedPackages option:selected").attr("data-noday"), 10);
+        amountFetchedFromServer = $(".selectedPackages option:selected").attr("amount");
 
+        if (CurrentExpirydate && !isNaN(noOfDays)) {
+            // Convert to a valid date format
+            var parsedJoinDate = new Date(CurrentExpirydate.replace(/\s+/g, ' ').replace('PM', ' PM').replace('AM', ' AM'));
+            if (!isNaN(parsedJoinDate.getTime())) {
+                parsedJoinDate.setDate(parsedJoinDate.getDate() + noOfDays);
+                var expiryDate = parsedJoinDate.toISOString().split('T')[0];
 
-
-    $(document).on('change', '.selectedPackages ', function () {
-         var CurrentExpirydate=$("#statusModal").find(".currentPlanEdate").text();
-          var noOfDays = parseInt($(".selectedPackages option:selected").attr("data-noday"), 10);
-           amountFetchedFromServer=$(".selectedPackages option:selected").attr("amount");
-          if (CurrentExpirydate && !isNaN(noOfDays)) {
-                var parsedJoinDate = new Date(CurrentExpirydate);
-                if (!isNaN(parsedJoinDate.getTime())) {
-                    parsedJoinDate.setDate(parsedJoinDate.getDate() + noOfDays);
-                    var expiryDate = parsedJoinDate.toISOString().split('T')[0];
-
-                    $(this).parents("#statusModal").find(".expiryDate").val(expiryDate);
-                    $(this).parents("#statusModal").find(".Amount").val($(".selectedPackages option:selected").attr("amount"));
-                } else {
-                    console.error("Invalid join date format");
-                }
-          } else {
-              toastr.error("Invalid join date or number of days");
-          }
-      });
+                $(this).parents("#statusModal").find(".expiryDate").val(expiryDate);
+                $(this).parents("#statusModal").find(".Amount").val($(".selectedPackages option:selected").attr("amount"));
+            } else {
+                console.error("Invalid join date format");
+            }
+        } else {
+            toastr.error("Invalid join date or number of days");
+        }
+    });
 
 
 

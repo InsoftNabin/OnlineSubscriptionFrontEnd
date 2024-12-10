@@ -249,10 +249,10 @@
                 </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
-                <a href="#!">Customer</a>
+                <a href="#!">Company </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
-                <a href="#!">Customer List</a>
+                <a href="#!">Company List</a>
             </li>
         </ul>
     </div>
@@ -265,7 +265,7 @@
                             <div class="card-header" id="headingOne">
                                 <h5 class="mb-0 d-flex justify-content-between">
                                     <button class="btn btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius:12px; text-decoration: none;">
-                                        <h5 class="addEdit" style="color:white;"> Add Customer &nbsp; <i class="feather icon-plus"></i></h5>
+                                        <h5 class="addEdit" style="color:white;"> Add Company &nbsp; <i class="feather icon-plus"></i></h5>
                                     </button>
                                     <button id="toggleArrow" class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
                                         <i class="feather icon-chevron-up"></i>
@@ -323,8 +323,8 @@
                                         <th class="center hideme">Delete</th>
                                         <th class="center hideme">Statement</th>
                                         <th class="center">Added By</th>
-                                        <th class="center">Customer Code</th>
-                                        <th class="center">Customer Name</th>
+                                        <th class="center">Company Code</th>
+                                        <th class="center">Company Name</th>
                                         <th class="center">initial</th>
                                         <th class="center">Login Id</th>
                                         <th class="center">Password</th>
@@ -360,14 +360,14 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="feather icon-file-text"></i> Customer Statement</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="feather icon-file-text"></i> Company Statement</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <!-- Top Section: Customer and Statement Summary -->
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header bg-secondary text-white">
-                        <h6 class="mb-0"><i class="feather icon-user"></i> Customer Details</h6>
+                        <h6 class="mb-0"><i class="feather icon-user"></i> Company Details</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -471,11 +471,11 @@
             </div>
             <div class="modal-body p-4">
                 <form>
-                    <h4>Customer Details</h4>
+                    <h4>Company Details</h4>
                     <input type="text" id="id" hidden />
                     <div class="row">
                         <div class="col-third" hidden>
-                            <label for="CustCode">Customer Code</label>
+                            <label for="CustCode">Company Code</label>
                             <div class="input-group input-group-icon">
                                 <input type="number" id="CustCode" placeholder="Customer Code" name="customercode">
                                 <div class="input-icon">
@@ -484,7 +484,7 @@
                             </div>
                         </div>
                         <div class="col-third">
-                            <label for="CustName">Customer Name</label>
+                            <label for="CustName">Company Name</label>
                             <div class="input-group input-group-icon">
                                 <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
                                 <div class="input-icon">
@@ -681,10 +681,10 @@
         $("#BtnInsert").on("click", async function (event) {
           event.preventDefault();
              if($("#CustName").val() == ""){
-                toastr.warning("Please fill in  the Customer Name!!!");
+                toastr.warning("Please fill in  the Company Name!!!");
             }
             else if($("#CustAddress").val() == ""){
-                toastr.warning("Please fill in  the Customer Address!!!");
+                toastr.warning("Please fill in  the Company Address!!!");
             }
             else if($("#panvat").val() == ""){
                 toastr.warning("Please fill in  the PAN / VAT Number!!!");
@@ -848,7 +848,7 @@
                                 <tr >
                                         <td colspan="17" class="center">
                                         <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
-                                            <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                                            <p style="color:red; font-size:22px;"><b>No Company have been registered under this Product.</b></p>
                                     </td>
                                 </tr>
                             `);
@@ -956,10 +956,10 @@
 
             if (jsondataresponse == "") {
                 getTableData(); // Refresh the table data
-                Swal.fire('Deleted!', 'The Customer Data  has been deleted.', 'success');
+                Swal.fire('Deleted!', 'The Company Data  has been deleted.', 'success');
 
             } else {
-                Swal.fire('Error!', 'Failed to delete the customer data.', 'error');
+                Swal.fire('Error!', 'Failed to delete the Company data.', 'error');
             }
         }
     }
