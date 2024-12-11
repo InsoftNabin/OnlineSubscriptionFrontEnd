@@ -516,12 +516,13 @@
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);
         var MODalTable = "";
+        debugger
         if (dataJson.length > 0) {
             for (var i = 0; i < dataJson.length; i++) {
             
                 $(".AgentsinModalTable").val(dataJson[0]["AgentName"])
                 $("#exampleModal").find(".initial").val(dataJson[0]["Initial"])
-                $("#exampleModal").find(".siteURL").val(dataJson[0]["siteURL"])
+                  $("#exampleModal").find(".siteURL").val(dataJson[0]["siteURL"])
                 $("#exampleModal").find(".serialNumber").val(dataJson[0]["SerialNo"])
                 $("#exampleModal").find(".subscriptionGUID").text(dataJson[0]["SubscriptionGUID"])
                     $("#exampleModal").find(".ProductGUID").text(dataJson[0]["ProductGUID"])
