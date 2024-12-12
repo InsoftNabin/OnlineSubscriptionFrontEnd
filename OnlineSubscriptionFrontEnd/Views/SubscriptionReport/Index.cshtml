@@ -176,7 +176,6 @@
         var parm = {
             RemainingDays: parseInt($(".Products :selected").val())
         };
-        debugger
         var a = await AjaxCall("/SubscriptionReport/getSubscriptionReportAdmin", parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);

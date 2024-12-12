@@ -42,7 +42,7 @@
                                         <button  class="btn btn-xs btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius: 12px; display:none;">
                                             <h5 class="addEdit"><span style="color:white;font-size:18px; vertical-align:middle;"><i class="feather icon-plus"></i> Add Module</span></h5>
                                         </button>
-                                        <button class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="border-radius: 12px;">
+                                        <button class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="border-radius: 12px; display:none;">
                                             <i class="feather icon-chevron-up" id="toggleArrow"></i>
                                         </button>
                                     </h5>
@@ -101,6 +101,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#productAccordion").hide();
         getTableData();
     });
 
@@ -214,6 +215,8 @@
     }
 
     $(document).on("click", ".btnAddModule", async function () {
+        $("#productAccordion").show();
+        $(".toggleCollapse").show();
         resetForm();
         $("#collapseOne").collapse('show');
         $("#mainproductId").val($(this).attr("data-productid"));

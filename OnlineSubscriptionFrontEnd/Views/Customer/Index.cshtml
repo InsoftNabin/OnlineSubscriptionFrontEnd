@@ -583,7 +583,8 @@
                         <div class="col-third">
                             <label for="email">Email Address</label>
                             <div class="input-group input-group-icon">
-                                <input type="email" id="email" placeholder="Email Address" name="email" required>
+            
+                                <input  type="email"  id="email" placeholder="Email Address" name="email" required  pattern="[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address.">
                                 <div class="input-icon">
                                     <i class="feather icon-mail"></i>
                                 </div>
@@ -657,6 +658,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+       
+        
         getTableData();
         LoadCountries();
           function LoadCountries() {
@@ -679,6 +683,10 @@
         });
 
         $("#BtnInsert").on("click", async function (event) {
+     
+        const emailInput = $('#email').val();
+        const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+      
           event.preventDefault();
              if($("#CustName").val() == ""){
                 toastr.warning("Please fill in  the Company Name!!!");
@@ -719,7 +727,10 @@
             else if($("#CountrySelect").val()==""){
                  toastr.warning("Please choose a country where you live in !!!");
             }
-
+            else if (!emailRegex.test(emailInput)) {
+                    toastr.error("Invalid email address!");
+                }
+       
             else {
               var parm = {
                     Id: $("#id").val() ? parseInt($("#id").val()) : 0,
@@ -740,7 +751,7 @@
                     BySMSApiToken: $("#BySMSApiToken").val(),
                     country:$("#CountrySelect").val()
                 };
-         
+         debugger
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
 
