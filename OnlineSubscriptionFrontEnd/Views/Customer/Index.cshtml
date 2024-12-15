@@ -283,35 +283,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="btn-group pull-right" style="float:right; padding:10px!important;">
+
+
+                    <div class="ss" style="max-width:120em;">
+                        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;">
+                            <!-- Buttons -->
+                            <div class="button-group">
+                                <button onclick="exportToCSV()" class="rounded btn-xs btn-primary">
+                                    <i class="feather icon-file-text"></i> CSV
+                                </button>
+                                <button onclick="copyTable()" class="rounded btn-xs btn-warning">
+                                    <i class="feather icon-copy"></i> Copy
+                                </button>
+                                <button onclick="exportToExcel()" class=" rounded btn-xs btn-success">
+                                    <i class="fa fa-regular fa-file-excel"></i> Excel
+                                </button>
+                                <button onclick="exportToPDF()" class="rounded btn-xs btn-danger">
+                                    <i class="feather icon-file-pdf"></i> PDF
+                                </button>
+                                <button onclick="printTable()" class="rounded btn-xs btn-info">
+                                    <i class="feather icon-print"></i> Print
+                                </button>
+                            </div>
+
+                            <!-- Search Bar -->
+                            <div class="search-container">
                                 <div class="input-group">
                                     <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
-                                    
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="containerr" style="max-width:120em;">
-                        <div class="button-container" style="margin-bottom: 10px;">
-                            <button onclick="exportToCSV()" class="rounded btn-sm btn-primary">
-                                <i class="feather icon-file-text"></i> CSV
-                            </button>
-                            <button onclick="copyTable()" class="rounded btn-sm btn-warning">
-                                <i class="feather icon-copy"></i> Copy
-                            </button>
-                            <button onclick="exportToExcel()" class="btn rounded btn-sm btn-success">
-                                <i class="fa fa-regular fa-file-excel"></i> Excel
-                            </button>
-                            <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
-                                <i class="feather icon-file-pdf"></i> PDF
-                            </button>
-                            <button onclick="printTable()" class="rounded btn-sm btn-info">
-                                <i class="feather icon-print"></i> Print
-                            </button>
-                        </div>
 
 
                         <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:60dvh;position:relative">
@@ -658,7 +661,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+     
        
         
         getTableData();
@@ -682,96 +685,146 @@
             resetForm();
         });
 
-        $("#BtnInsert").on("click", async function (event) {
-     
+    $("#BtnInsert").on("click", async function (event) {
+        event.preventDefault();
+
+        // Disable the button to prevent multiple clicks
+        const button = $("#BtnInsert");
+        button.prop('disabled', true);
+
         const emailInput = $('#email').val();
         const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
-      
-          event.preventDefault();
-             if($("#CustName").val() == ""){
-                toastr.warning("Please fill in  the Company Name!!!");
-            }
-            else if($("#CustAddress").val() == ""){
-                toastr.warning("Please fill in  the Company Address!!!");
-            }
-            else if($("#panvat").val() == ""){
-                toastr.warning("Please fill in  the PAN / VAT Number!!!");
-            }
-            else if($("#Custcontact").val() == ""){
-                toastr.warning("Please fill in  the Contact Number!!!");
-            }
-            else if($("#CP1").val() == ""){
-                toastr.warning("Please fill in  the Contact Person 1 Name !!!");
-            }
-            else if($("#CP1Mobno").val() == ""){
-                toastr.warning("Please fill in  the Contact Person 1 Contact Number  !!!");
-            }
-            else if($("#CP2").val() == ""){
-                toastr.warning("Please fill in  the Contact Person 2 Name  !!!");
-            }
-            else if($("#CP2Mobno").val() == ""){
-                toastr.warning("Please fill in  the Contact Person 2 Contact Number  !!!");
-            }
-            else if($("#email").val() == ""){
-                toastr.warning("Please fill in  the email Address  !!!");
-            }
-             else if($("#website").val() == ""){
-                toastr.warning("Please fill in  the website!!!");
-            }
-             else if($("#CompanyCode").val() == ""){
-                toastr.warning("Please fill in  the Company Code !!!");
-            }
-             else if($("#BySMSApiToken").val() == ""){
-                toastr.warning("Please fill in  the SMS Api Token !!!");
-            }
-            else if($("#CountrySelect").val()==""){
-                 toastr.warning("Please choose a country where you live in !!!");
-            }
-            else if (!emailRegex.test(emailInput)) {
-                    toastr.error("Invalid email address!");
-                }
-       
-            else {
-              var parm = {
-                    Id: $("#id").val() ? parseInt($("#id").val()) : 0,
-                    CustomerCode:'', //$("#CustCode").val(),
-                    CustomerName: $("#CustName").val(),
-                    Address: $("#CustAddress").val(),
-                    panvatno: $("#panvat").val(),
-                    Contact: $("#Custcontact").val(),
-                    DataBaseLink:'',// $("#Custdblink").val(),
-                    ContactPerson1: $("#CP1").val(),
-                    ContactPerson2: $("#CP2").val(),
-                    ContactPerson1_MobileNo: $("#CP1Mobno").val(),
-                    ContactPerson2_MobileNo: $("#CP2Mobno").val(),
-                    EmailAddress: $("#email").val(),
-                    Website: $("#website").val(),
-                    GUID: '',//$("#guid").val(),
-                    CompanyCode: $("#CompanyCode").val(),
-                    BySMSApiToken: $("#BySMSApiToken").val(),
-                    country:$("#CountrySelect").val()
-                };
-         debugger
-                var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
-                var jsondataresponse = JSON.parse(data);
 
-                if (jsondataresponse >0) {
-                    resetForm();
-                    getTableData();
-                    $("#toggleArrow").trigger('click');
-                    toastr.success("Customer Action successfull!");
-                    $("#editOrgModal").modal('hide');
-                    getTableData();
-                } else {
-                    toastr.error("Failed to insert/update Customer.");
-                }
-            }
-        });
+        if ($("#CustName").val() === "") {
+            toastr.warning("Please fill in the Company Name!!!");
+            button.prop('disabled', false); // Enable the button back after the warning
+            return;
+        }
+        if ($("#CustAddress").val() === "") {
+            toastr.warning("Please fill in the Company Address!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#panvat").val() === "") {
+            toastr.warning("Please fill in the PAN / VAT Number!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#Custcontact").val() === "") {
+            toastr.warning("Please fill in the Contact Number!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP1").val() === "") {
+            toastr.warning("Please fill in the Contact Person 1 Name !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP1Mobno").val() === "") {
+            toastr.warning("Please fill in the Contact Person 1 Contact Number !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP2").val() === "") {
+            toastr.warning("Please fill in the Contact Person 2 Name !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP2Mobno").val() === "") {
+            toastr.warning("Please fill in the Contact Person 2 Contact Number !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#email").val() === "") {
+            toastr.warning("Please fill in the email Address !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if (!emailRegex.test(emailInput)) {
+            toastr.error("Invalid email address!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#website").val() === "") {
+            toastr.warning("Please fill in the website!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CompanyCode").val() === "") {
+            toastr.warning("Please fill in the Company Code !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#BySMSApiToken").val() === "") {
+            toastr.warning("Please fill in the SMS Api Token !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CountrySelect").val() === "") {
+            toastr.warning("Please choose a country where you live in !!!");
+            button.prop('disabled', false);
+            return;
+        }
 
+        const emailIsValid = await checkEmailexistence(emailInput);
+        if (!emailIsValid) {
+            button.prop('disabled', false); // Enable button if email check fails
+            return; // Stop execution if email exists
+        }
+
+        const parm = {
+            Id: $("#id").val() ? parseInt($("#id").val()) : 0,
+            CustomerCode: '', //$("#CustCode").val(),
+            CustomerName: $("#CustName").val(),
+            Address: $("#CustAddress").val(),
+            panvatno: $("#panvat").val(),
+            Contact: $("#Custcontact").val(),
+            DataBaseLink: '', // $("#Custdblink").val(),
+            ContactPerson1: $("#CP1").val(),
+            ContactPerson2: $("#CP2").val(),
+            ContactPerson1_MobileNo: $("#CP1Mobno").val(),
+            ContactPerson2_MobileNo: $("#CP2Mobno").val(),
+            EmailAddress: $("#email").val(),
+            Website: $("#website").val(),
+            GUID: '', //$("#guid").val(),
+            CompanyCode: $("#CompanyCode").val(),
+            BySMSApiToken: $("#BySMSApiToken").val(),
+            country: $("#CountrySelect").val()
+        };
+
+        try {
+            const data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
+            const jsondataresponse = JSON.parse(data);
+
+            if (jsondataresponse > 0) {
+                resetForm();
+                getTableData();
+                $("#toggleArrow").trigger('click');
+                toastr.success("Customer Action successful!");
+                $("#editOrgModal").modal('hide');
+                getTableData();
+            } else {
+                toastr.error("Failed to insert/update Customer.");
+            }
+        } catch (error) {
+            console.error("Error during customer insertion:", error);
+            toastr.error("An error occurred while inserting/updating customer.");
+        }
+
+        // Re-enable the button after the process completes
+        button.prop('disabled', false);
+    });
+
+    });
+
+
+      $('#editOrgModal').on('hide.bs.modal', function (e) {
+      resetForm();
     });
 
     $("#addProduct").on("click", function () {
        // $("#collapseOne").css("display", 'block');
+       resetForm();
         $("#editOrgModal").modal('show');
 
     });
@@ -784,6 +837,7 @@
     });
 
     function resetForm() {
+        $("#id").val(0);
         $("#CustCode").val("");
         $("#CustName").val("");
         $("#CustAddress").val("");
@@ -799,7 +853,7 @@
         $("#guid").val("");
         $("#CompanyCode").val("");
         $("#BySMSApiToken").val("");
-        
+        $("#CountrySelect").val(524);
     }
 
     function getTableData() {
@@ -816,7 +870,7 @@
                                     <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
 
                                     <td class="center addedBy">` + jsondata[i]["AddedBy"] + `</td>
-                                    <td class="center custCode">` + jsondata[i]["CustomerCode"] + `</td>
+                                    <td class="center custCode">` + jsondata[i]["CompanyCode"] + `</td>
                                     <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
                                     <td class="center custName">` + jsondata[i]["initial"] + `</td>
                                     <td class="center custName">` + jsondata[i]["UserEmail"] + `</td>
@@ -984,4 +1038,28 @@
             }).hide();
         });
     });
+          async function checkEmailexistence(validemail) {
+        try {
+            const data = {
+                ReceiverEmail: validemail,
+                Subject: "No Reply",
+                EmailBody: "haha",
+                Gcode: "1123"
+            };
+
+            const returnData = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data);
+            const aaa=JSON.parse(returnData);
+            const result = JSON.parse(aaa); 
+            if (result.Status === "AlreadyExists") {
+                toastr.error("This email already exists!!! Choose another.");
+                return false;
+            }
+            return true; 
+        } catch (error) {
+            console.error("Error verifying email:", error);
+            toastr.error("An error occurred while verifying the email.");
+            return false;
+        }
+    }
+
 </script>

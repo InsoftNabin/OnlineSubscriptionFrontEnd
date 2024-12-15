@@ -82,7 +82,7 @@
 
                     <!-- Pending Verifications Section -->
                     <div class="row">
-                        <div class="col-xl-6 col-md-12">
+                        <div class="col-xl-12 col-md-12">
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h5>Pending Verifications</h5>
@@ -130,7 +130,7 @@
                         </div>
 
                         <!--To be expired section-->
-                        <div class="col-xl-6 col-md-12" style="overflow-y:scroll;  height:60vh;">
+                        <div class="col-xl-12 col-md-12" style="overflow-y:scroll;  height:60vh;">
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h5>To Be Expired</h5>
@@ -158,6 +158,8 @@
                                                     <th >S.N.</th>
                                                     <th>Organization</th>
                                                     <th>Product</th>
+                                                    <th>Contact</th>
+                                                    <th>Email</th>
                                                     <th>Days To Expire</th>
                                                 </tr>
                                             </thead>
@@ -200,10 +202,11 @@
         getUsers();
         getUnverifierdOrganizations();
         getPlans();
+         $(".Products").val(3);
         getRemainingSubscriptions();
-        $(".Products").val(3);
+       
     });
-
+  
     $(".Products").on("change", function () {
       getRemainingSubscriptions();
     });
@@ -232,7 +235,7 @@
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
         var tableDOM = "";
-
+        debugger
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id="${jsondata[i]['ukid']}" >
@@ -240,6 +243,10 @@
                                     <td class="center custCode">${jsondata[i]['CustomerName']}</td>
                                    
                                     <td class="center custName">${jsondata[i]['ProductName']}</td>
+                                     <td class="center">${jsondata[i]['Contact']}</td>
+                                    <td class="center">${jsondata[i]['EmailAddress']}</td>
+                                   
+
                                     <td class="center prodName">${jsondata[i]['RemainingDays']}</td>
                                    <td class="center">
                                         <button class="btn btn-success btn-sm sendSMS" data-Phone="${jsondata[i]['Contact']}" data-remDays="${jsondata[i]['RemainingDays']}" data-product="${jsondata[i]['ProductName']}">SMS</button>

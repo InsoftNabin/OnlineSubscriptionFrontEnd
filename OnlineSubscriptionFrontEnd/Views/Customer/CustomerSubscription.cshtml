@@ -520,7 +520,7 @@
     }
     $(document).on('click', '.btnExtendPlan', async function (event) {
         event.preventDefault();  // Prevent default form submission behavior
-
+        debugger
         // Check if Remarks are provided
         if ($(".rem").val() == "") {
             toastr.error("Please fill in a Remarks!!!");
@@ -537,13 +537,14 @@
                 ExpiryDate: newExpDate,
                 PaidAmount: Amount,
                 Remarks: $("#statusModal").find(".rem").val(),
-                CustomerId: parseInt($("#custid").val()),
-                ProductId: parseInt($("#prodid").val()),
-                TransactionId: 0,
-                PaymentMethod: 'admin',
-                ReferenceId: 0,
-                PaymentPartner: 'none',
-                GeneratedSerialNo: 'sn001',
+                CustomerId:parseInt($("#custid").val()),
+                ProductId:parseInt($("#prodid").val()),
+                TransactionId:0,
+                PaymentMethod:'admin',
+                IsVerifiedPayment:1,
+                ReferenceId:0,
+                PaymentPartner:'none',
+                GeneratedSerialNo:'sn001',
                 VoucherImage: ''
             };
 

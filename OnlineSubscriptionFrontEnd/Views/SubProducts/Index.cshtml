@@ -35,7 +35,7 @@
                     
 
                     <div class="clearfix well">
-                        <div class="accordion" id="productAccordion">
+                        <div class="accordion" id="productAccordion" style="display:none;">
                             <div class="card">
                                 <div class="card-header" id="headingOne" >
                                     <h5 class="mb-0 d-flex justify-content-between">
@@ -86,11 +86,80 @@
                             </div>
                         </div>
 
-                        <div class="products row">
+                        <div class="products row d-flex justify-content-start">
                             <!-- Product cards will be injected here -->
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #5cb85c; color: white;">
+                <h3 class="modal-title" id="exampleModalLabel">Edit Product</h3>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="margin-left: auto;">
+                    <i class="feather icon-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+               @*  <input type="hidden" class="id" />
+                <div class="form-group">
+                    <label for="editProductName">Module Name:</label>
+                    <input type="text" class="form-control name" id="editProductName" placeholder="Product Name" required />
+                </div>
+                <div class="form-group">
+                    <label for="editProductDescription">Module Description:</label>
+                    <input type="text" class="form-control description" id="editProductDescription" placeholder="Description" required />
+                </div>
+
+              
+
+                <div class="form-group">
+                    <label for="editProductVersion">Module Price:</label>
+                    <input type="text" class="form-control version" id="editModulePrice" placeholder="Version" required />
+                </div> *@
+
+
+                <form>
+                    <div class="form-group" hidden>
+                        <label for="productId">Sub-Product ID (Optional):</label>
+                        <input type="number" class="form-control" id="productId" />
+                    </div>
+                    <div class="form-group" hidden >
+                        <label for="mainproductId">Product Id:</label>
+                        <input type="number" class="form-control" id="mainproductId"  />
+                    </div>
+                    <div class="form-group">
+                        <label for="productName">Product Name:</label>
+                        <input type="text" class="form-control border border-dark rounded" id="productName" disabled />
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control border border-dark rounded" id="name" placeholder="Enter Name" required />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="desc">Description:</label>
+                            <input type="text" class="form-control border border-dark rounded" id="desc" placeholder="Enter the Description" required />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="price">Price:</label>
+                            <input type="number" class="form-control border border-dark rounded" id="price" placeholder="Enter the Price for the module" required />
+                        </div>
+                    </div>
+                   @*  <button type="button" class="btn btn-success" id="BtnInsert">
+                        <i class="feather icon-save"></i> Save
+                    </button> *@
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin: 10px;">Close</button>
+                <button type="button" class="btn btn-success BtnInsertM" id="BtnInsertM">Update &nbsp;<i class="feather icon-save"></i></button>
             </div>
         </div>
     </div>
@@ -115,10 +184,6 @@
        
         getTableData();
     }
-
-    // $("#addProduct").on("click", function () {
-    //     $("#collapseOne").collapse('show');
-    // });
 
        $(".toggleCollapse").on("click", function () {
         if ($("#collapseOne").hasClass('show')) {
@@ -170,8 +235,8 @@
                     productsInAccordion += '<p>No subproducts found.</p>';
                 }
 
-                cardDOM += `
-                        <div class="card card1 product-card col-sm-6" data-productid="${productId}">
+                cardDOM += ` <div class="col-12 col-md-6 col-lg-4 d-flex">
+                        <div class="card shadow-sm w-100 card1 product-card " style="border-radius: 10px; overflow: hidden;" data-productid="${productId}">
                             <div class="card-header card-insoft" style="background-color: #0b3b56; color: white;  ">
                                 <div class="row align-items-center">
                                     <h4 class="col" style="text-transform: uppercase;font-size:16px;"><b>${jsondata[i]["Name"]}</b></h2>
@@ -186,7 +251,7 @@
                                 </div>
                             </div>
                            
-                        </div>`;
+                        </div></div>`;
             }
             $(".products").empty().append(cardDOM);
         } else {
@@ -195,20 +260,34 @@
     }
 
     async function editProduct(id, productId) {
-        
-        $("#collapseOne").collapse('show');
+        debugger
+        $("#productAccordion").hide();
+        // $("#collapseOne").collapse('show');
         $("#mainproductId").val(productId);
         var parm = { Id: id };
         var productData = await AjaxCall("/SubProducts/getProduct", parm);
         var product = JSON.parse(JSON.parse(productData));
         
         if (product.length > 0) {
-            $("#productId").val(product[0]["Id"]);
-            $("#mainproductId").val(product[0]["Productid"]);
-            $("#name").val(product[0]["Name"]);
-            $("#productName").val(product[0]["productName"]);
-            $("#desc").val(product[0]["Description"]);
-            $("#price").val(product[0]["Price"]);
+
+             $("#editProductModal #productId").val(product[0]["Id"]);
+            $("#editProductModal #mainproductId").val(product[0]["Productid"]);
+            $("#editProductModal #name").val(product[0]["Name"]);
+            $("#editProductModal #productName").val(product[0]["productName"]);
+            $("#editProductModal #desc").val(product[0]["Description"]);
+            $("#editProductModal #price").val(product[0]["Price"]);
+            $("#editProductModal").modal('show');
+
+
+
+
+
+            // $("#productId").val(product[0]["Id"]);
+            // $("#mainproductId").val(product[0]["Productid"]);
+            // $("#name").val(product[0]["Name"]);
+            // $("#productName").val(product[0]["productName"]);
+            // $("#desc").val(product[0]["Description"]);
+            // $("#price").val(product[0]["Price"]);
         } else {
             toastr.error("No product found for the selected item.");
         }
@@ -245,13 +324,35 @@
                 getTableData();
                 $("#collapseOne").collapse('hide');
                 toastr.success("Module action successfully completed!");
-              
-             
             } else {
                 toastr.error("Error while adding a Module!");
             }
         }
     });
+
+     $(document).on("click", "#BtnInsertM", async function () {
+            var parm = {
+                Id: $("#editProductModal #productId").val() ? parseInt($("#editProductModal #productId").val()) : 0,
+                ProductId: parseInt($("#editProductModal #mainproductId").val()),
+                Name: $("#editProductModal #name").val(),
+                Description: $("#editProductModal #desc").val(),
+                Price: parseFloat($("#editProductModal #price").val()),
+            };
+            var modul = await AjaxCall("/SubProducts/InsertUpdate", parm);
+            var modulesResponse = JSON.parse(modul);
+            if (modulesResponse == 1) {
+                resetForm();
+                getTableData();
+                $("#collapseOne").collapse('hide');
+                toastr.success("Module action successfully completed!");
+                $("#editProductModal").modal('hide');
+
+            } else {
+                toastr.error("Error while adding a Module!");
+            }
+      
+    });
+
 
     async function deleteProduct(id) {
         const result = await Swal.fire({

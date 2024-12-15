@@ -2,6 +2,9 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
+
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -221,7 +224,7 @@
     result.forEach((value) => {
       tbody += `
     <tr >
-                    <td class="center">
+                    <td class="center" style="height:10px;">
                       <div class="d-flex primary" >
 
 
@@ -301,7 +304,7 @@
       <div class="d-flex align-items-center me-2">
         <!--begin::Radio-->
         <div class="form-check form-check-custom form-check-dotted form-check-success  flex-shrink-0 me-6">
-          <input class="form-check-input form-control orgData" type="radio" name="org"  value="${Index}" data-email="${email}" data-userName="${userName}" />
+          <input class="form-check-input orgData" type="radio" name="org"  value="${Index}" data-email="${email}" data-userName="${userName}" />
 
         </div>
                                   <span class="status${Index} " style="color:white; margin:3px;border-radius:4px;"></span>
@@ -508,7 +511,7 @@
             SiteURL: SiteURL,
             Remarks: Remarks,
         };
-        debugger
+       
         var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin", sendData);
    
         if (JSON.parse(result) >'1') {
@@ -516,7 +519,7 @@
             toastr.success("Organization Verified");
 
                 var OrgCode='';
-                       debugger
+                     
                      var request=await AjaxCall("/Dashboard/getCusProdIdByToken", sendData);
                      var response=JSON.parse(request);
                      var JSONResponse=JSON.parse(response);
