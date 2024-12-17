@@ -200,9 +200,6 @@
                       var accordionStyle = product.Activated == 'Activated' ? 'background-color:green;color:white' : 'background-color:#a59e8c; color:white;';
                     // var moduleName = product.Activated === 'Activated' ? `${product.Name}` : '';
 
-
-
-
                 accordionDOM += `
                           <div class="parent accordion-item${product.Id}" style="margin:20px; border-radius:12px;">
                                 <h2 class="accordion-header" data-productid=${product.Id} id="heading${product.Id}" style="background-color:red; color:white; border-radius:12px;">
@@ -212,7 +209,7 @@
                         <div id="collapse${product.Id}" class="accordion-collapse collapse" aria-labelledby="heading${product.Id}" data-bs-parent="#modalProductAccordion">
                             <div class="accordion-body">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6 col-12">
                                         <div class="card card-sm">
                                             <div class="card-body">
                                                 <h5 class="card-title">Initial &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
@@ -220,7 +217,7 @@
                                                 </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6 col-12">
                                         <div class="card card-sm">
                                             <div class="card-body">
                                                 <h5 class="card-title">Site URL &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
@@ -228,7 +225,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" hidden>
                                         <div class="card card-sm">
                                             <div class="card-body">
                                                 <h5 class="card-title">Serial Number &nbsp; <i class="fas fa fa-star" style="color:red;"></i></h5>
@@ -250,12 +247,19 @@
                                              <option class="default">--Select a Plan--</option>
                                          </select>
                                      </div>
+
+                                         <div style="flex: 1;" class="MachineDiv">
+                                           Machine Key:
+                                          <input type="text" class="form-control MachineKey" value="Online"/>
+                                       </div>
+
                                  </div>
 
                                 <br>
                                 Customer Subscription GUID:<span class="subscriptionGUID" style="border:1px solid black; margin:15px;"></span>
                                       <br>
                                        Product GUID:<span class="ProductGUID" style="border:1px solid black; margin:15px;"></span><br>
+                                       Latest License Key :<span class="LatestLicenseKey" style="border:1px solid black; margin:15px;"></span><br>
                                        <span class="clientGUID" style="border:1px solid black; margin:15px;" hidden></span>
                                <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
@@ -332,6 +336,10 @@
               toastr.warning("Please select a Plan!!!");
             return;
         }
+             if($(this).parents(".parent").find(".MachineKey").val()==""){
+                toastr.warning("Please fill the Machine Key in case of Desktop Product!!!");
+              return;
+          }
 
         var customerId = $(this).attr("data-custid");
         var productId = $(this).attr("data-productid");
@@ -355,6 +363,8 @@
         var serialNumber = selectedAccordion.find(".serialNumber").val();
         var agentId = selectedAccordion.find(".AgentsinModalTable :selected").attr("data-agentid");
 
+        var MachineKey = selectedAccordion.find(".MachineKey").val()||"Online";
+           
         var subProducts = [];
         selectedAccordion.find("#tablemo tbody tr").each(async function () {
             var row = $(this);
@@ -365,16 +375,14 @@
                     $(row).find('.JoinDate').attr("required", true);
                     toastr.warning("Join Date can't be empty!");
                 }
-                 else if ( $(row).find('.ExpiryDate').val() === "" ) {
+                else if ( $(row).find('.ExpiryDate').val() === "" ) {
                       $(row).find('.ExpiryDate').attr("required", true);
                       toastr.warning("Expiry Date can't be empty!");
                   }
-                       else if ( $(row).find('.LastRenewDate').val() === "" ) {
+                else if ( $(row).find('.LastRenewDate').val() === "" ) {
                           $(row).find('.LastRenewDate').attr("required", true);
                         toastr.warning("LastRenewDate Renew Date can't be empty!");
-                    }
-              
-              
+                }
                 var SubProduct = {
                     Id: parseInt(row.data("main")),
                     ProductId: parseInt(productId),
@@ -385,8 +393,8 @@
                     MonthlyCharge: parseFloat(row.find('.modulePrice').val()),
                     Remarks: row.find('.Remarks').val(),
                     Plan:selectedPlan,
-                     ProductGUID: row.parents(".parent").find(".ProductGUID").text()   ,
-                        clientGUID:   row.parents(".parent").find(".clientGUID").text()
+                    ProductGUID: row.parents(".parent").find(".ProductGUID").text(),
+                    clientGUID:row.parents(".parent").find(".clientGUID").text()
                   };
                 subProducts.push(SubProduct);
                 var CustomerwiseModules = {
@@ -396,7 +404,8 @@
                     Initial: initial,
                     SiteURL: siteURL,
                     SerialNumber: serialNumber,
-                    SubProducts: subProducts
+                    SubProducts: subProducts,
+                      MachineKey:MachineKey
                 };
                     try {
                        
@@ -469,7 +478,6 @@
 
 
     async function LoadSubProductsbyCustomerandProduct(ProductId) {
-    
         var parmdata = {
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
@@ -505,28 +513,40 @@
         // Ensure the correct option is selected programmatically
         if (selectedValue) {
             $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`.PlansInTable`).val(selectedValue);
+              $(`#exampleModal`).find(`.accordion-item${ProductId}`).find(`.PlansInTable`).attr("disabled",true);
         }
     }
 
     //---------------------placing other details in the card--------------------
 
     getAgents();
-
         var dataAjax = await AjaxCall("/CustomerwiseModulesSelection/getCustomerwiseModulesById", parmdata);
         var dataAfter = JSON.parse(dataAjax);
         var dataJson = JSON.parse(dataAfter);
         var MODalTable = "";
-        debugger
         if (dataJson.length > 0) {
             for (var i = 0; i < dataJson.length; i++) {
-            
+             
+                  if(dataJson[0]["Type"]=="Desktop"){
+                       $("#exampleModal").find(".MachineDiv").css("display","block");
+                         $("#exampleModal").find(".MachineKey").val("");
+                  }else if(dataJson[0]["Type"]=="Online"){
+                       $("#exampleModal").find(".MachineDiv").css("display","none");
+                  }
+                  
+                    if(dataJson[0]["MachineKey"]!=""){
+                           $("#exampleModal").find(".MachineKey").val(dataJson[0]["MachineKey"]);
+                             $("#exampleModal").find(".MachineKey").attr("disabled",true);
+                  }
+               
                 $(".AgentsinModalTable").val(dataJson[0]["AgentName"])
                 $("#exampleModal").find(".initial").val(dataJson[0]["Initial"])
-                  $("#exampleModal").find(".siteURL").val(dataJson[0]["siteURL"])
+                $("#exampleModal").find(".siteURL").val(dataJson[0]["siteURL"])
                 $("#exampleModal").find(".serialNumber").val(dataJson[0]["SerialNo"])
                 $("#exampleModal").find(".subscriptionGUID").text(dataJson[0]["SubscriptionGUID"])
-                    $("#exampleModal").find(".ProductGUID").text(dataJson[0]["ProductGUID"])
-                      $("#exampleModal").find(".clientGUID").text(dataJson[0]["clientGUID"])
+                $("#exampleModal").find(".ProductGUID").text(dataJson[0]["ProductGUID"])
+                $("#exampleModal").find(".LatestLicenseKey").text(dataJson[0]["LatestLicensekey"])
+                $("#exampleModal").find(".clientGUID").text(dataJson[0]["clientGUID"])
                 var rowColor = dataJson[i]["IsActivated"] === "Activated" ? '#DDFFF7' : '';
 
                 MODalTable += `<tr data-activate="` + dataJson[i]["IsActivated"] + `" data-main="` + dataJson[i]["Id"] + `" data-subproductid="` + dataJson[i]["SubProductId"] + `" style="background-color: ${rowColor};">
@@ -568,11 +588,11 @@
                 
                 $(this).parents(".parent").find(".ExpiryDate").val(expiryDate);
             } else {
-                console.error("Invalid join date format");
                 toastr.error("Invalid join date format. Please enter a valid date.");
             }
         } else {
-            toastr.error("Invalid join date or number of days. Please check your input.");
+            toastr.error("Select the join date before choosing a plan.");
+              $(".PlansInTable").val(-1);
         }
     });
 

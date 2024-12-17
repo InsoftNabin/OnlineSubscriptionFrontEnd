@@ -60,6 +60,14 @@
                                             <label for="productVersion">Version:</label>
                                             <input type="text" class="form-control border border-dark rounded" id="productVersion" placeholder="Enter Version" required />
                                         </div>
+                                        <div class="form-group">
+                                            <label for="StatusOfProduct">Type:</label>
+                                            <select class="TypeOfProduct form-control">
+                                                <option class="Online form-control" value="1">Online</option>
+                                                <option class="Desktop form-control" value="2">Desktop</option>
+
+                                            </select>
+                                        </div>
                                         <br />
                                         <button type="button" class="btn btn-success BtnInsert" id="BtnInsert">Insert &nbsp; <i class="feather icon-plus"></i></button>
                                     </form>
@@ -108,6 +116,16 @@
                         <label for="editProductVersion">Product Version:</label>
                         <input type="text" class="form-control version" id="editProductVersion" placeholder="Version" required />
                     </div>
+
+                    <div class="form-group">
+                        <label for="StatusOfProduct">Type:</label>
+                        <select class="TypeOfProduct form-control">
+                            <option class="Online form-control" value="1">Online</option>
+                            <option class="Desktop form-control" value="2">Desktop</option>
+
+                        </select>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin: 10px;">Close</button>
@@ -171,6 +189,8 @@
                         <!-- Card Header -->
                         <div class="card-header text-white text-center" style="background-color: #0b3b56;">
                             <h5 class="text-uppercase mb-0" style="font-size: 18px; color:white;">${jsondata[i]["Name"]}</h5>
+                            </br>
+                            Type:<h5 class="text-uppercase mb-0" style="font-size: 18px; color:white;">${jsondata[i]["Type"]}</h5>
                         </div>
 
                         <!-- Card Body -->
@@ -203,12 +223,19 @@
         if ($("#productName").val() === "" || $("#productDescription").val() === "" || $("#productVersion").val() === ""|| $("#siteURL").val()==="" ) {
             toastr.error("Please fill in all the fields!!!.");
         } else {
+           var Type="";
+            if($(".TypeOfProduct").val()==1){
+                 Type="Online";
+            }else if($(".TypeOfProduct").val()==2){
+                  Type="Desktop";
+            }
             var parm = {
                 Id: $(".id").val() ? parseInt($(".id").val()) : 0,
                 Name: $("#productName").val(),
                 Description: $("#productDescription").val(),
                 Version: $("#productVersion").val(),
-                siteURL:$("#siteURL").val()
+                siteURL:$("#siteURL").val(),
+                Type:Type
             };
          
             var data = await AjaxCall("/Products/InsertUpdate", parm);
@@ -227,13 +254,20 @@
         var parm = { Id: id };
         var productData = await AjaxCall("/Products/getProduct", parm);
         var product = JSON.parse(JSON.parse(productData));
-
+      
         if (product.length > 0) {
             $("#editProductModal .id").val(product[0]["Id"]);
             $("#editProductModal #editProductName").val(product[0]["Name"]);
             $("#editProductModal .description").val(product[0]["Description"]);
             $("#editProductModal .siteUrl").val(product[0]["siteURL"]);
             $("#editProductModal .version").val(product[0]["Version"]);
+            var Type=product[0]["Type"];
+            if(Type=="Desktop"){
+                $("#editProductModal .TypeOfProduct").val(2);
+            }else if(Type=="Online"){
+                $("#editProductModal .TypeOfProduct").val(1);
+            }
+
             $("#editProductModal").modal('show');
         } else {
             alert("No product found for the selected item.");
@@ -241,12 +275,20 @@
     }
 
     $("#editProductModal .BtnInsertM").on("click", async function () {
+         var Type="";
+            if($("#editProductModal .TypeOfProduct").val()==1){
+                 Type="Online";
+            }else if($("#editProductModal .TypeOfProduct").val()==2){
+                  Type="Desktop";
+            }
+
         var parm = {
             Id: parseInt($("#editProductModal .id").val()),
             Name: $("#editProductModal #editProductName").val(),
             Description: $("#editProductModal .description").val(),
             Version: $("#editProductModal .version").val(),
-              siteURL: $("#editProductModal .siteUrl").val()   //   $("#siteURL").val()
+              siteURL: $("#editProductModal .siteUrl").val() ,
+              Type:Type//   $("#siteURL").val()
         };
 
         var productData = await AjaxCall("/Products/InsertUpdate", parm);

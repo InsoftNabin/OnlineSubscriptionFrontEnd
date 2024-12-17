@@ -9,5 +9,6 @@
         public string Description { get; set; }
         public string Version { get; set; }
         public string siteURL { get; set; }
+        public string Type { get; set; }
     }
 }

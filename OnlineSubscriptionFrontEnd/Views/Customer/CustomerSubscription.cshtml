@@ -110,12 +110,14 @@
                                     <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                         <thead>customer's log  
                                             <tr style="background-color: #0b3b56; color: white;">
+                                                <th class="center">S.N.</th>
                                                 <th class="center">Product Name</th>
                                                 <th class="center">Subscription Type</th>
                                                     <th class="center">Amount</th>
                                                 <th class="center">Issued date</th>
                                                 <th class="center">Last Renewal date</th>
                                                 <th class="center">Expiry date</th>
+                                                <th class="center">Machine Key</th>
                                                 <th class="center">Remarks</th>
                                                 <th class="center">Payment Method</th>
                                                 <th class="center">Payment Partner </th>
@@ -133,7 +135,7 @@
                                             <div class="row">
                                                 <label>Current Plan: <span class="currentPlan">None</span></label>
                                                 <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
-                                                <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red">1</span> Days out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label>
+                                                <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red">1</span> out of <span class="TotalDaysInCurrentPlan red">30</span> </label>
                                             </div>
                                            
                                             <div class="row">
@@ -151,6 +153,11 @@
                                                 <label>Amount:</label>
                                                 <input type="text" class="Amount form-control" required disabled />
                                             </div>
+                                            <div class="row">
+                                                <label>Machine Key:</label>
+                                                <input type="text" class="MachineKey form-control" required  />
+                                            </div>
+
                                             <div class="row">
                                                 <label>Remarks:</label>
                                                 <input type="text" class="rem form-control" required />
@@ -449,8 +456,8 @@
         var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
         var response = JSON.parse(ddd);
         var responsefr = JSON.parse(response);
-
         if (responsefr.length > 0) {
+            $("#statusModal").find(".MachineKey").val(responsefr[0]["MachineKey"]);
             $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
             $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
             $(".remainingDaysinCPlan ").text(responsefr[0]["RemainingDays"]);
@@ -492,6 +499,7 @@
             CustomerId: parseInt(CustomerId),
             ProductId: parseInt(ProductId)
         };
+   
         var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId",parm);
         var sub = JSON.parse(jsub);
         var jsonData = JSON.parse(sub);
@@ -500,12 +508,14 @@
         if (jsonData.length>0) {
             for (var i = 0; i < jsonData.length;i++) {
                 subDOM += `<tr>
+                <td class="center">`+(i+1)+`</td>
                                 <td class="center">`+ jsonData[i]["productName"] + `</td>
                                 <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
                                 <td class="center" style="color:green;"><b>Rs. `+ jsonData[i]["PaidAmount"] + `</b></td>
                                 <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
                                 <td class="center"> `+ jsonData[i]["LastRenewDate"] + `  </td>
                                 <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
+                                <td class="center">`+ jsonData[i]["MachineKey"] + `</td>
                                 <td class="center">`+ jsonData[i]["Remarks"] + `</td>
                                 <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
                                 <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
@@ -520,7 +530,6 @@
     }
     $(document).on('click', '.btnExtendPlan', async function (event) {
         event.preventDefault();  // Prevent default form submission behavior
-        debugger
         // Check if Remarks are provided
         if ($(".rem").val() == "") {
             toastr.error("Please fill in a Remarks!!!");
@@ -545,7 +554,8 @@
                 ReferenceId:0,
                 PaymentPartner:'none',
                 GeneratedSerialNo:'sn001',
-                VoucherImage: ''
+                VoucherImage: '',
+                MachineKey:$("#statusModal").find(".MachineKey").val()
             };
 
             try {

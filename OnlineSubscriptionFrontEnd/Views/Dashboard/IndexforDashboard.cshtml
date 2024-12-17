@@ -235,7 +235,7 @@
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
         var tableDOM = "";
-        debugger
+        
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id="${jsondata[i]['ukid']}" >
@@ -261,7 +261,7 @@
                     <tr class="center">
                         <td colspan="8">
                             <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
-                                <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Plan.</b></p>
+                                <p style="color:red; font-size:22px;"><b>No data found.</b></p>
                         </td>
                     </tr>
                 `);

@@ -697,6 +697,8 @@
                             <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                 <thead>
                                     <tr style="background-color: #0b3b56; color: white;">
+                                        <th>S.N.</th>
+                                        <th>FonePay Trace Id</th>
                                         <th class="center">Product Name</th>
                                         <th class="center">Subscription Type</th>
                                         <th class="center">Issued date</th>
@@ -1716,6 +1718,8 @@
             if (jsonData.length > 0) {
                 for (var i = 0; i < jsonData.length; i++) {
                     subDOM += `<tr>
+                    <td class="center"><b>`+(i+1)+`</b></td>
+                    <td class="center">`+ jsonData[i]["fonepayTraceId"] + `</td>
                                             <td class="center">`+ jsonData[i]["productName"] + `</td>
                                             <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
                                             <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
@@ -2219,9 +2223,9 @@
                                         GeneratedSerialNo: 'sn001',
                                         VoucherImage: '',
                                         fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"]),
-                                        IsVerifiedPayment: true
+                                         IsVerifiedPayment: 1
                                     };
-
+                                    debugger
                             var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
 
                             if (cpp != 'Success') {
