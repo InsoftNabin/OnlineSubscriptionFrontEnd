@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OnlineSubscriptionFrontEnd.Classes;
 using OnlineSubscriptionFrontEnd.Models.Insoft;
 
@@ -11,6 +12,16 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         {
             return View();
         }
+
+
+        public async Task<IActionResult> AfterVerification(string recode)
+        {               
+            ViewBag.ukid = recode;
+            return View("Index");
+          
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> InsertUpdate([FromBody] CustomerwiseModules customerModules)

@@ -1,5 +1,8 @@
 using System.Text;
+using DataProvider;
+using DataServiceLayer;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OnlineSubscriptionFrontEnd.Classes;
 using OnlineSubscriptionFrontEnd.Models;
 
@@ -22,7 +25,38 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
             return View();
         }
+        public IActionResult PayNowPage()
+        {
 
+            return View();
+        }
+        
+        
+        [HttpPost]
+        public IActionResult CreateInvoice([FromBody] InvoiceData invoiceData)
+        {
+            if (invoiceData == null)
+            {
+                return Json(new { success = false, message = "Invalid data received." });
+            }
+
+            TempData["InvoiceData"] = JsonConvert.SerializeObject(invoiceData);
+            return Json(new { success = true, message = "Invoice Data Received" });
+        }
+
+
+
+        public IActionResult InvoicePage()
+        {
+            var invoiceDataJson = TempData["InvoiceData"] as string;
+            if (invoiceDataJson != null)
+            {
+                var invoiceData = JsonConvert.DeserializeObject<InvoiceData>(invoiceDataJson);
+                return View(invoiceData);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
 
         public IActionResult Index()
         {
@@ -39,6 +73,51 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> getInvoiceForPrint([FromBody] InvoiceData org)
+        {
+            var token = HttpContext.Session.GetString("TokenNo");
+            if (token != null)
+            {
+
+                var result = await ApiCall.ApiCallWithObject("Customer/getInvoiceForPrint", org, "Post");
+                return Ok(result);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
+
+        public async Task<IActionResult> External(string CustomerSubcriptionGuid)
+        {
+
+            LoginValidator lv = new LoginValidator();
+            lv.CustomerSubscriptionGuid = CustomerSubcriptionGuid;
+
+
+            var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUserExternallink", lv, "Post");
+            var result = JsonConvert.DeserializeObject<loginValidator>(value);
+
+            if (result.status == 200)
+            {
+                HttpContext.Session.SetString("TokenNo", result.tokenNo);
+                HttpContext.Session.SetString("UserName", result.UserName);
+                ViewBag.Customer = result.Customer;
+                ViewBag.Product = result.Product;
+                return View("Index");
+            }
+            else
+            {
+                return Ok("400");
+            }
+
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> UploadOrganizationData([FromBody] orgData org)

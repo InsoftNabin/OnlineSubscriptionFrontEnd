@@ -12,6 +12,7 @@
         public string panvatno { get; set; }
         public string Contact { get; set; }
         public string DataBaseLink { get; set; }
+        public string country { get; set; }
         public string ContactPerson1 { get; set; }
         public string ContactPerson2 { get; set; }
         public string ContactPerson1_MobileNo { get; set; }

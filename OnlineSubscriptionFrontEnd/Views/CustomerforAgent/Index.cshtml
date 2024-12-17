@@ -211,7 +211,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
-                <a href="#!">Customer @ViewBag.UserName</a>
+                <a href="#!">Customer </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
                 <a href="#!">Customer List </a>
@@ -286,7 +286,7 @@
                                                 </div>
                                                 <div class="col-third">
                                                     <div class="input-group input-group-icon">
-                                                        <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" required>
+                                                        <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" required hidden>
                                                         <div class="input-icon">
                                                             <i class="feather icon-link"></i>
                                                         </div>
@@ -427,10 +427,10 @@
                                         <th class="center hideme">Delete</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
+                                        <th class="center">Initial</th>
                                         <th class="center">Address</th>
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
-                                        <th class="center">Database Link</th>
                                         <th class="center">Contact Person 1</th>
                                         <th class="center">Contact Person 1_Mobile number</th>
                                         <th class="center">Contact Person 2</th>
@@ -461,6 +461,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+    //$("#userName").text(@ViewBag.AgentName);
         getTableData();
 
         // Reset button functionality
@@ -469,11 +470,11 @@
         });
 
         $("#BtnInsert").on("click", async function () {
-            debugger
+      
             if ($("#CustCode").val() == "" || $("#CustName").val() == "") {
                 toastr.error("Please fill in all the fields!!!");
             } else {
-                debugger
+          
                 var parm = {
                     Id: $("#id").val() ? parseInt($("#id").val()) : 0,
                     CustomerCode: $("#CustCode").val(),
@@ -481,7 +482,7 @@
                     Address: $("#CustAddress").val(),
                     panvatno: $("#panvat").val(),
                     Contact: $("#Custcontact").val(),
-                    DataBaseLink: $("#Custdblink").val(),
+                    DataBaseLink:'',// $("#Custdblink").val(),
                     ContactPerson1: $("#CP1").val(),
                     ContactPerson2: $("#CP2").val(),
                     ContactPerson1_MobileNo: $("#CP1Mobno").val(),
@@ -492,7 +493,7 @@
                     CompanyCode: $("#CompanyCode").val(),
                     BySMSApiToken: $("#BySMSApiToken").val()
                 };
-                debugger
+                
                 var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
                 var jsondataresponse = JSON.parse(data);
 
@@ -540,14 +541,16 @@
     }
 
     async function getTableData() {
+      
         var parm={
-            Id:3
+            Id:parseInt($("#AgentId").text())
         }
+        debugger
         var a =await AjaxCall("/Customer/getCustomerByAgentId",parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
         var tableDOM = "";
-        debugger
+       
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
@@ -557,10 +560,11 @@
 
                                     <td class="center custCode">` + jsondata[i]["Customercode"] + `</td>
                                 <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
+                                <td class="center custName">` + jsondata[i]["initial"] + `</td>
                                 <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
                                 <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
                                 <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
-                                <td class="center custdblink">` + jsondata[i]["DataBaseLink"] + `</td>
+                                
                                 <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
                                 <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
                                 <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
@@ -579,7 +583,7 @@
     }
 
     $(document).on("click", ".btn-edit", async function () {
-        debugger
+     
         const row = $(this).parents("tr");
         var parm={
             Id: row.data("id")
@@ -596,7 +600,7 @@
         $("#CustAddress").val(ParsedData[0]["Address"]);
         $("#panvat").val(ParsedData[0]["pan/vatno"]);
         $("#Custcontact").val(ParsedData[0]["Contact"]);
-        $("#Custdblink").val(ParsedData[0]["DataBaseLink"]);
+       
         $("#CP1").val(ParsedData[0]["ContactPerson1"]);
         $("#CP1Mobno").val(ParsedData[0]["ContactPerson1_MobileNo"]);
         $("#CP2").val(ParsedData[0]["ContactPerson2"]);

@@ -2,6 +2,9 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
+
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -26,7 +29,16 @@
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
-
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="btn-group pull-right" style="float:right; padding:10px!important;">
+                                <div class="input-group">
+                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
   @* <div class="container-xxl d-flex flex-stack">
     <div
@@ -47,133 +59,59 @@
         class="app-navbar-item ms-1 ms-lg-3 ml-4"
         id="kt_header_user_menu_toggle"
       >
-        <!--begin::Menu wrapper-->
-        <div
-          class="cursor-pointer symbol symbol-35px symbol-md-40px"
-          data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-          data-kt-menu-attach="parent"
-          data-kt-menu-placement="bottom-start"
-        >
-          <i class="fa-solid fa-gear fs-1 mt-3 mx-8"></i>
-        </div>
-        <!--begin::User account menu-->
-        <div
-          class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold fs-6 w-100px"
-          data-kt-menu="true"
-          style=""
-        >
-       @*    <!--begin::Menu item-->
-          <div class="menu-item">
-            <!--begin::Menu item-->
-            <div class="menu-item">
-              <a class="menu-link px-5 signoutBtn">Sign Out</a>
+       
+      </div>
+    </div>
+  </div>
+</div>
+            <div  class="CC">
+                <!--begin::Card-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Table-->
+                    <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:70vh;position:relative; border-radius:12px;">
+                        <div class="table">
+                            <table id="kt_customers_table" class="agentTable table-hover table-fixed table table-striped table-bordered tblclear">
+                                <!--begin::Table head-->
+                                <thead>
+                                    <tr class="px-4 text-start text-gray-700 fw-bold fs-7 text-uppercase gs-0" style="background-color:#0b3b56; color:white;">
+                                        <th class="center min-w-125px sorting">
+                                            Organizations
+                                        </th>
+                                        <th class="center text-end min-w-70px sorting_disabled">
+                                            Action
+                                        </th>
+                                        <th class="center min-w-125px sorting">
+                                            User Name
+                                        </th>
+                                        <th class="center min-w-125px sorting">
+                                            Email
+                                        </th>
+                                        <th class="center max-w-125px sorting">
+                                            Address
+                                        </th>
+                                        <th class="center min-w-125px sorting">
+                                            Phone
+                                        </th>
+                                       
+                                    </tr>
+                                </thead>
+                                <!--end::Table head-->
+                                <!--begin::Table body-->
+                                <tbody class="fw-semibold text-gray-700"></tbody>
+                                <!--end::Table body-->
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
             </div>
-            <!--end::Menu item-->
-          </div> *@
-        </div>
-        <!--end::User account menu-->
-        <!--end::Menu wrapper-->
-      </div>
-    </div>
-  </div>
-</div>
-<div id="kt_app_content_container" class="app-container container-xxl mt-4">
-  <!--begin::Card-->
-  <div class="card" >
-    <!--begin::Card body-->
-    <div class="card-body pt-0">
-      <!--begin::Table-->
-      <div
-        id="kt_customers_table_wrapper"
-        class="dataTables_wrapper dt-bootstrap4 no-footer"
-      >
-        <div class="table-responsive">
-          <table
-            class="table table-hover align-middle fs-6  no-footer"
-            id="kt_customers_table"
-          >
-            <!--begin::Table head-->
-            <thead>
-              <!--begin::Table row-->
-              <tr
-                class="px-4 text-start text-gray-700 fw-bold fs-7 text-uppercase gs-0"
-              >
-                <th class="min-w-125px sorting" style="width: 128.312px">
-                  User Name
-                </th>
-                <th
-                  class="min-w-125px sorting"
-                  tabindex="0"
-                  aria-controls="kt_customers_table"
-                  rowspan="1"
-                  colspan="1"
-                  aria-label="Email: activate to sort column ascending"
-                  style="width: 159.312px"
-                >
-                  Email
-                </th>
-                <th
-                  class="min-w-125px sorting"
-                  tabindex="0"
-                  aria-controls="kt_customers_table"
-                  rowspan="1"
-                  colspan="1"
-                  style="width: 159.312px"
-                >
-                  Address
-                </th>
-                <th
-                  class="min-w-125px sorting"
-                  tabindex="0"
-                  aria-controls="kt_customers_table"
-                  rowspan="1"
-                  colspan="1"
-                  aria-label="Email: activate to sort column ascending"
-                  style="width: 159.312px"
-                >
-                  Phone
-                </th>
-                <th
-                  class="min-w-125px sorting"
-                  tabindex="0"
-                  aria-controls="kt_customers_table"
-                  rowspan="1"
-                  colspan="1"
-                  aria-label="Email: activate to sort column ascending"
-                  style="width: 159.312px"
-                >
-                  Organization status
-                </th>
-
-                <th
-                  class="text-end min-w-70px sorting_disabled"
-                  rowspan="1"
-                  colspan="1"
-                  aria-label="Actions"
-                  style="width: 100.047px"
-                >
-                  Action
-                </th>
-              </tr>
-              <!--end::Table row-->
-            </thead>
-            <!--end::Table head-->
-            <!--begin::Table body-->
-            <tbody class="fw-semibold text-gray-700"></tbody>
-            <!--end::Table body-->
-          </table>
-        </div>
-      </div>
-      <!--end::Table-->
-    </div>
-    <!--end::Card body-->
-  </div>
-  <!--end::Card-->
+            <!--end::Card-->
 </div>
 </div>
 </div>
 
-</div>
 
 <!--begin::Modal - Upgrade plan-->
 <div
@@ -277,7 +215,7 @@
 <script type="text/javascript">
   $(document).ready(async () => {
     await getUsers();
-  });
+        
 
   async function getUsers() {
     const data = await AjaxCallWithoutData("/Dashboard/GetUsers");
@@ -286,18 +224,38 @@
     result.forEach((value) => {
       tbody += `
     <tr >
-                
+                    <td class="center" style="height:10px;">
+                      <div class="d-flex primary" >
+
+
+                      <span class="badge badge-light-danger fs-base  mx-2">
+                        <div class="d-flex flex-column pt-2">
+                              <p class=" fs-3 py-0 my-0" style="color:red;">${value.UnVerifiedOrg}</p><p class="fs-8" style="color:red;">Unverified</p></span>
+                        </div>
+                      </span>
+                      <span class="badge badge-light-success fs-base ">
+                        <div class="d-flex flex-column mx-4 align-center">
+                                      <p class="fs-3 py-0 my-0" style="color:green;">${value.VerifiedOrg}</p><p class="fs-8 my-0" style="color:green;">Verified</p></span>
+                        </div>
+                        </span>
+                      </div>
+                    </td>
+                    <!--end::Date=-->
+                    <!--begin::Action=-->
+                    <td class="center text-end  gap-2 align-items-center">
+                      <a href="#" class="btn btn-primary btn-sm btnView"  data-id="${value.UserId}" data-email="${value.UserEmail}" data-userName="${value.UserName}">View</a>
+                    <!--end::Action=-->
                 <!--begin::Name=-->
                 <td>
                   <p
-                    class="text-gray-800 text-hover-primary mb-1"
+                    class=" center text-gray-800 text-hover-primary mb-1"
                     >${value.UserName}</p
                   >
                 </td>
                 <!--end::Name=-->
                 <!--begin::Email=-->
-                <td>
-                  <p  class="text-gray-600 text-hover-primary mb-1"
+                <td class="center">
+                  <p  class="center text-gray-600 text-hover-primary mb-1"
                     >${value.UserEmail}</p
                   >
                 </td>
@@ -305,40 +263,21 @@
                
               
                 <!--begin::Date=-->
-                <td >
+                <td class="center" >
                   ${value.UserAddress}
                 </td>
-               <td>${value.UserContact}</td>
-                <td >
-                  <div class="d-flex primary" >
-
-                  
-                  <span class="badge badge-light-danger fs-base  mx-2">
-                    <div class="d-flex flex-column pt-2">
-                          <p class="fs-3 py-0 my-0" style="color:red;">${value.UnVerifiedOrg}</p><p class="fs-8" style="color:red;">Unverified</p></span>
-                    </div>
-                  </span>
-                  <span class="badge badge-light-success fs-base ">
-                    <div class="d-flex flex-column mx-4 align-center">
-                                  <p class="fs-3 py-0 my-0" style="color:green;">${value.VerifiedOrg}</p><p class="fs-8 my-0" style="color:green;">Verified</p></span>
-                    </div>
-                    </span>
-                  </div>
-                </td>
-                <!--end::Date=-->
-                <!--begin::Action=-->
-                <td class="text-end  gap-2 align-items-center">
-                  <a href="#" class="btn btn-primary btn-sm btnView"  data-id="${value.UserId}" data-email="${value.UserEmail}" data-userName="${value.UserName}">View</a> 
-                <!--end::Action=-->
+               <td class="center">${value.UserContact}</td>
+                
               </tr>
     `;
     });
+    
     $("#kt_customers_table tbody").html(tbody);
   }
   var orgData;
 
   $(document).on("click", ".btnView", async (event) => {
-      debugger
+      
     var userName = $(event.target).attr("data-userName");
     $("#userName").text(userName);
     $("#kt_upgrade_plan_startup").empty();
@@ -348,20 +287,28 @@
     const data = {
       CustomerId: parseInt(id),
     };
-    debugger
+    
     var result = await AjaxCall("/Dashboard/GetAllRegisteredOrg", data);
     var value = JSON.parse(JSON.parse(JSON.parse(result)));
     orgData = value;
     var showOrg = ``;
     value.forEach((element, Index) => {
+        let imageData = element.ImageData;
+
+        if (imageData === "https://incloud.academeplus.com/fileuploads/Subscription/") {
+                imageData = '/files/assets/images/employee.png';
+        }
       showOrg += `
-    <label class=" nav-link btn btn-outline btn-outline-dashed btn-color-dark  d-flex flex-stack text-start p-6 active mb-6" >
+    <label class=" nav-link btn btn-outline btn-outline-dashed btn-color-dark  d-flex flex-stack text-start p-6 active mb-6" style="border:1px solid black;margin:5px;">
       <!--end::Description-->
       <div class="d-flex align-items-center me-2">
         <!--begin::Radio-->
         <div class="form-check form-check-custom form-check-dotted form-check-success  flex-shrink-0 me-6">
           <input class="form-check-input orgData" type="radio" name="org"  value="${Index}" data-email="${email}" data-userName="${userName}" />
+
         </div>
+                                  <span class="status${Index} " style="color:white; margin:3px;border-radius:4px;"></span>
+
         <!--end::Radio-->
         <!--begin::Info-->
       <div class="d-flex flex-stack pb-3">
@@ -369,7 +316,8 @@
         <div class="d-flex">
           <!--begin::Avatar-->
           <div>
-            <img src="${element.ImageData}" width="100px" height="60px" />
+              <img src="${element.ImageData}" width="100px" height="60px" />
+
           </div>
           <!--end::Avatar-->
           <!--begin::Details-->
@@ -420,24 +368,38 @@
     </label>
     `;
     });
-    $(".showOrganizations").html(showOrg);
+    
+        $(".showOrganizations").html(showOrg);
+              for (var i = 0; i < value.length; i++) {
+        if (value[i]["IsVerified"] == 1) {
+            $("#kt_modal_upgrade_plan").find(".status" + i).addClass("badge-success");
+            $("#kt_modal_upgrade_plan").find(".status" + i).text("Verified");
+        } else if (value[i]["IsVerified"] == -1) {
+            $("#kt_modal_upgrade_plan").find(".status" + i).addClass("badge-danger");
+            $("#kt_modal_upgrade_plan").find(".status" + i).text("Rejected");
+        } else if (value[i]["IsVerified"] == 0) {
+            $("#kt_modal_upgrade_plan").find(".status" + i).addClass("badge-warning");
+            $("#kt_modal_upgrade_plan").find(".status" + i).text("Pending");
+        }
+    }
+
+    
   });
 
     $(document).on("change", ".orgData", async (event) => {
+        
         var id = $(event.target).val();
         var data = orgData[id];
 
         var email = $(event.target).attr("data-email");
         var details = ``;
-        var hideButtons = ``; //hide edit and modify buttons
+        var hideButtons = ``; 
         var initialVal = data.Initial + "." + data.ModuleName;
         var initailUserName = data.Initial + "." + "admin";
-        if (orgData[id].IsVerified == 1) {
+            if (orgData[id].IsVerified == 1||orgData[id].IsVerified==-1) {
             hideButtons = `style="display:none"`;
         }
-
-
-
+       
         details += `
       <div>
         <h2 class="fw-bold text-dark">${data.CompanyName}</h2>
@@ -534,69 +496,88 @@
   `;
     $("#kt_upgrade_plan_startup").empty().append(details);
   });
-  $(document).on("click", ".btnVerify", async (event) => {
-    event.preventDefault();
-    var token = $(event.target).attr("data-token");
-    var email = $(event.target).attr("data-email");
-    var SiteUserName = $("input[name='userName']").val();
-    var SitePassword = $("input[name='password']").val();
-    var SiteURL = $("input[name='siteUrl']").val();
-    var Remarks = $("textarea[name='remarks']").val();
-    var sendData = {
-      Token: token,
-      SiteUserName: SiteUserName,
-      SitePassword: SitePassword,
-      SiteURL: SiteURL,
-      Remarks: Remarks,
-    };
-    var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin", sendData);
-    if (JSON.parse(result) == '1') {
-      toastr.success("Organization Verified");
+      $(document).on("click", ".btnVerify", async (event) => {
+        event.preventDefault();
+        var token = $(event.target).attr("data-token");
+        var email = $(event.target).attr("data-email");
+        var SiteUserName = $("input[name='userName']").val();
+        var SitePassword = $("input[name='password']").val();
+        var SiteURL = $("input[name='siteUrl']").val();
+        var Remarks = $("textarea[name='remarks']").val();
+        var sendData = {
+            Token: token,
+            SiteUserName: SiteUserName,
+            SitePassword: SitePassword,
+            SiteURL: SiteURL,
+            Remarks: Remarks,
+        };
+       
+        var result = await AjaxCall("/Dashboard/UpdateOrgdetailsByAdmin", sendData);
+   
+        if (JSON.parse(result) >'1') {
+                 $("#kt_modal_upgrade_plan").modal("hide");
+            toastr.success("Organization Verified");
 
-      var codeBody = `
-    
-  <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
-    <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 36px 20px;">
-        <div style="padding: 0;">
-            <div style='display: flex; justify-content: center;'>
-                <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="max-width: 100%; height: auto;">
-            </div>
-            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Organization verification</h2>
-            <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;">You have successfully verified your organization.</p>
-            <div style="font-size: 14px; font-weight: 500; margin: 0 30px;">
-                <form style="text-align:left;">
-                    <div style="margin-bottom: 20px;">
-                                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Site URL: <a href="${SiteURL}" target="_blank">  ${SiteURL}</a></label>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">UserName:${SiteUserName}</label>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Password: ${SitePassword}</label>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Remarks: ${Remarks}</label>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>`;
+                var OrgCode='';
+                     
+                     var request=await AjaxCall("/Dashboard/getCusProdIdByToken", sendData);
+                     var response=JSON.parse(request);
+                     var JSONResponse=JSON.parse(response);
 
-      const toUser = {
-        ReceiverEmail: email,
-        Subject: "Organization Verification",
-        EmailBody: codeBody,
-      };
-      var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
-      $("#kt_modal_upgrade_plan").modal("hide");
-      await getUsers();
-    } else {
-      toastr.error("Something went wrong");
-    }
-  });
+                         var haha=JSON.parse(JSONResponse);
+
+                         var cid=parseInt(haha[0]["CustomerId"]);
+                         var pid=parseInt(haha[0]["ProductId"]);
+                                 var ukid=parseInt(haha[0]["RedirectCode"]);
+
+                         window.location.href = `/CustomerwiseModulesSelection/AfterVerification?recode=${ukid}`;
+                     // window.location.href = `/CustomerwiseModulesSelection?customercode=${cid}&productcode=${pid}`;
+
+                var codeBody = `
+                            <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 36px 20px;">
+                                    <div style="padding: 0;">
+                                        <div style='display: flex; justify-content: center;'>
+                                            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="" style="max-width: 100%; height: auto;">
+                                        </div>
+                                        <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Organization verification</h2>
+                                        <p style="font-size: 18px; font-weight: 600; color: #666; margin-bottom: 30px;">You have successfully verified your organization.</p>
+                                        <div style="font-size: 14px; font-weight: 500; margin: 0 30px;">
+                                            <form style="text-align:left;">
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Site URL: <a href="${SiteURL}" target="_blank">  ${SiteURL}</a></label>
+                                                </div>
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">UserName: ${SiteUserName}</label>
+                                                </div>
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Password: ${SitePassword}</label>
+                                                </div>
+                                                <div style="margin-bottom: 20px;">
+                                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #000;">Remarks: ${Remarks}</label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+
+            const toUser = {
+                ReceiverEmail: email,
+                Subject: "Organization Verification",
+                EmailBody: codeBody,
+            };
+            var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+           
+        } else {
+            toastr.error("Something went wrong while sending email to the organisation but verified successfully!!!");
+           
+        }
+    });
+
   $(document).on("click", ".btnDecline", async (event) => {
     event.preventDefault();
+        $("#kt_modal_upgrade_plan").modal('hide');
     var email = $(event.target).attr("data-email");
 
     Swal.fire({
@@ -612,7 +593,8 @@
         var token = $(event.target).attr("data-token");
         var sendData = {
           Token: token,
-        };
+          Remarks : $("textarea[name='remarks']").val()
+            };
         var result = await AjaxCall(
           "/Dashboard/TrashOrgdetailsByAdmin",
           sendData
@@ -622,40 +604,40 @@
           toastr.success("Organization Declined");
 
           var codeBody = `
-      <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  </head>
-
-      <div class="card-body d-flex flex-center flex-column py-9 px-5 w-500px ">
-  <div class="card-body p-0">
-    <div class="card-px text-center my-10">
-      <div class="py-10" style='display:flex;justify-content:center;'>
-        <img
-          src="~/assets/media/logos/LogoInsoft.png"
-          class="theme-light-show w-150px"
-          alt=""
-        />
-      </div>
-      <h2 class="fs-2x fw-bold mb-5">Organization Declined</h2>
-      <p class="text-gray-400 fs-4 fw-semibold mb-10">
-        Your organization has been declined by the admin.
-      </p>
-      <div style="font-size: 14px; font-weight: 500; margin:0 60px 30px 60px; font-family:Arial,Helvetica,sans-serif">
-        <p style="color:#181C32; font-size: 28px; font-weight:700; line-height:1.4; margin-bottom:24px" id="Code">
-          Your organization has been declined by the admin.
-        </p>
-      </div>
-            
-
-    </div>
-  
-</div>
-
-</html>`;
+                         <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                          <meta charset="UTF-8">
+                          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                          </head>
+                        
+                              <div class="card-body d-flex flex-center flex-column py-9 px-5 w-500px ">
+                          <div class="card-body p-0">
+                            <div class="card-px text-center my-10">
+                              <div class="py-10" style='display:flex;justify-content:center;'>
+                                <img
+                                  src="~/assets/media/logos/LogoInsoft.png"
+                                  class="theme-light-show w-150px"
+                                  alt=""
+                                />
+                              </div>
+                              <h2 class="fs-2x fw-bold mb-5">Organization Declined</h2>
+                              <p class="text-gray-400 fs-4 fw-semibold mb-10">
+                                Your organization has been declined by the admin.
+                              </p>
+                              <div style="font-size: 14px; font-weight: 500; margin:0 60px 30px 60px; font-family:Arial,Helvetica,sans-serif">
+                                <p style="color:#181C32; font-size: 28px; font-weight:700; line-height:1.4; margin-bottom:24px" id="Code">
+                                  Your organization has been declined by the admin.
+                                </p>
+                              </div>
+                                    
+                        
+                            </div>
+                          
+                        </div>
+                        
+                        </html>`;
 
           const toUser = {
             ReceiverEmail: email,
@@ -681,4 +663,24 @@
       window.location.href = "/Login/Index";
     }
   });
+
+
+
+    $(".search").off("keyup").on("keyup", function () {
+        var $rows = $('.table tbody tr');
+        $('.search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    });
+      const urlParams = new URLSearchParams(window.location.search);
+          const id = urlParams.get('id');
+
+          if (id) {
+                  $(`.btnView[data-id='${id}']`).trigger('click');
+          }
+    });
 </script>

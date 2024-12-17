@@ -4,6 +4,7 @@ using DataProvider;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +24,11 @@ namespace OnlineSubscriptionFrontEnd
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole();
+                builder.AddDebug();
+            });
             services.AddControllersWithViews();
             services.AddControllersWithViews(x => x.SuppressAsyncSuffixInActionNames = false)
             .AddRazorRuntimeCompilation();
@@ -40,11 +46,19 @@ namespace OnlineSubscriptionFrontEnd
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);
             });
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //   .AddCookie(options =>
+            //   {
+            //       options.Cookie.Expiration = TimeSpan.FromHours(1);
+            //   });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-               .AddCookie(options =>
-               {
-                   options.Cookie.Expiration = TimeSpan.FromHours(1);
-               });
+             .AddCookie(options =>
+             {
+                 options.ExpireTimeSpan = TimeSpan.FromHours(1); 
+             });
+            //Add the 2FAAuth class to the services
+            services.AddScoped<TwoFactorAuthenticatorService>();
 
         }
 
@@ -65,7 +79,7 @@ namespace OnlineSubscriptionFrontEnd
                 await next();
                 if (context.Response.StatusCode == 404)
                 {
-                    context.Request.Path = "/Error_404";
+                    context.Request.Path = "/Customer/ErrorPage";
                     await next();
                 }
             });

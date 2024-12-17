@@ -27,7 +27,7 @@
     <div class="card-body p-0">
         <div class="card-px text-center my-10">
             <div class="py-10 text-center">
-                <img src="~/assets/media/logos/LogoInsoft.png" class="theme-light-show w-150px" alt="" />
+                @* <img src="~/assets/media/logos/LogoInsoft.png" class="theme-light-show w-150px" alt="" /> *@
             </div>
             <h2 class="fs-2x fw-bold mb-10">Enter your Credentials</h2>
 
@@ -72,6 +72,7 @@
     }
 
     $("#LoginBtn").on("click", async (e) => {
+        
         if ($("input[name='Email']").val() == '') {
             toastr.error("Please enter your username!");
             return;
@@ -85,7 +86,7 @@
             UserName: $("input[name='Email']").val(),
             Password: $("input[name='Password']").val(),
         };
-        
+        debugger
         const result = await AjaxCall("/Login/VerifyUser", data);
         var JSonResult=JSON.parse(result);
 

@@ -8,7 +8,26 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("ErrorPage", "Customer");
+
+            }
         }
 
         [HttpPost]

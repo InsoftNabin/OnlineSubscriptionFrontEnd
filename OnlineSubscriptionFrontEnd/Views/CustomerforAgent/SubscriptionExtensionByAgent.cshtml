@@ -60,24 +60,41 @@
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
+                    <div class="row m-t-10 m-l-0 " style="border:1px solid black; background-color:white; border-radius:12px; padding:10px;">
 
-
-                       <div class="row form-control">
-                        <div class="col-xs-4" style="width: 30%;">
+                        <!-- Products Dropdown -->
+                        <div class=" col-sm-6 col-md-4" style="padding-right: 5px;">
                             <label>Products</label>
                             <select class="Products form-control">
                                 <option class="default" value="0">----All----</option>
                             </select>
                         </div>
 
-                        <div class="col-xs-4" style="width: 10%;">
+                        <!-- Show Button -->
+                        <div class=" col-sm-6 col-md-2" style="padding-left: 5px;">
                             <label>&nbsp;</label>
-                            <button class="btn btn-insoft form-control" type="button" id="showButton">
+                            <button class="btn btn-insoft btn-sm" type="button" id="showButton">
                                 <i class="feather icon-search"></i> Show
                             </button>
                         </div>
+
                     </div>
 
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="btn-group  btn-sm pull-right" style="float:right; padding:10px!important;">
+                                <div class="input-group">
+                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                                    <div class="input-group-append">
+                                        <span class="btn m-2 p-2 input-group-text" id="search-addon">
+                                            <i class="feather icon-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Modal for customer status -->
                     <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl" style="width:90%;">
@@ -89,25 +106,28 @@
                                     <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                    <div class="TableDiv responsive">
+                                    <table id="cLogTable" class="table-responsive table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                         <thead>
                                             customer's log
                                             <tr style="background-color: #0b3b56; color: white;">
                                                 <th class="center">Product Name</th>
                                                 <th class="center">Subscription Type</th>
+                                                <th class="center">Amount</th>
                                                 <th class="center">Issued date</th>
+                                                <th class="center">last Renewal Date</th>
                                                 <th class="center">Expiry date</th>
                                                 <th class="center">Remarks</th>
                                                 <th class="center">Payment Method</th>
                                                 <th class="center">Payment Partner </th>
-                                                <th class="center">Amount</th>
+                                               
                                                 <th class="center">Serial Number</th>
-                                                @*                                                 <th class="center">ExtendedBy</th>
-                                                *@
+                                                                                           
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
                                     </table>
+                                    </div>
 
                                     <div class="cardProceed">
                                         <form>
@@ -129,7 +149,7 @@
 
                                             <div class="row">
                                                 <label>Amount:</label>
-                                                <input type="text" class="Amount" required />
+                                                <input type="text" class="Amount" required disabled />
                                             </div>
                                             <div class="row">
                                                 <label>Remarks:</label>
@@ -184,25 +204,25 @@
 
 
 
-                   
-                    <div class="containerr" style="max-width:120em;">
-                        <div class="button-container" style="margin-bottom: 10px;">
-                            <button onclick="exportToCSV()" class="rounded btn-sm btn-primary">
-                                <i class="feather icon-file-text"></i> CSV
-                            </button>
-                            <button onclick="copyTable()" class="rounded btn-sm btn-warning">
-                                <i class="feather icon-copy"></i> Copy
-                            </button>
-                            <button onclick="exportToExcel()" class="rounded btn-sm btn-success">
-                                <i class="feather icon-excel"></i> Excel
-                            </button>
-                            <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
-                                <i class="feather icon-file-pdf"></i> PDF
-                            </button>
-                            <button onclick="printTable()" class="rounded btn-sm btn-info">
-                                <i class="feather icon-print"></i> Print
-                            </button>
-                        </div>
+
+                <div class="containerr" style="max-width: 120em;">
+                    <div class="button-container" style="margin-bottom: 10px;">
+                        <button onclick="exportToCSV()" class="btn rounded btn-sm btn-primary">
+                            <i class="feather icon-file-text"></i> CSV
+                        </button>
+                        <button onclick="copyTable()" class="btn rounded btn-sm btn-warning">
+                            <i class="feather icon-copy"></i> Copy
+                        </button>
+                        <button onclick="exportToExcel()" class="btn rounded btn-sm btn-success">
+                            <i class="fa fa-regular fa-file-excel"></i> Excel
+                        </button>
+                        <button onclick="exportToPDF()" class="btn rounded btn-sm btn-danger">
+                            <i class="feather icon-file"></i> PDF
+                        </button>
+                        <button onclick="printTable()" class="btn rounded btn-sm btn-info">
+                            <i class="feather icon-printer"></i> Print
+                        </button>
+                    </div>
 
 
                         <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
@@ -210,15 +230,14 @@
                                 <thead>
                                     <tr style="background-color:#0b3b56; color:white;">
                                         <th class="center">S.N</th>
-                                       
+                                    <th class="center hideme">Subscription</th>
                                         <th class="center">Customer Code</th>
                                         <th class="center">Customer Name</th>
+                                    <th class="center">Initial</th>
                                         <th class="center">Address</th>
                                         <th class="center">PAN/VAT Number</th>
                                         <th class="center">Contact Number</th>
                                         <th class="center">Product</th>
-                                    <th class="center hideme">Subscription</th>
-                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -226,16 +245,10 @@
                             </table>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
 
 
 <script type="text/javascript">
@@ -271,9 +284,10 @@
 
     async function getTableData() {
         var parm={
-            Id:2,
+            Id:parseInt($(".navbar").find("#AgentId").text()),
             ProductId: parseInt($(".Products :selected").val())
         }
+        debugger
         var a = await AjaxCall("/Customer/getCustomerByAgentandProductId", parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
@@ -281,38 +295,34 @@
  
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
-                tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
+                tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `> 
                                 <td class="center">` + (i + 1) + `</td>
+                                <td class="center hideme">
+                                  <button data-bs-toggle="modal" data-bs-target="#statusModal" class="viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
+                                </td>
                                 <td class="center custCode">` + jsondata[i]["Customercode"] + `</td>
                                 <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
+                                <td class="center custName">` + jsondata[i]["initial"] + `</td>
                                 <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
                                 <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
                                 <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
-                                        <td class="center prodName">${jsondata[i]['ProductName']}</td>
-                                           <td class="center hideme">
-                                            <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class="btn btn-sm btn-primary SelectModules rounded" data-bs-toggle="modal" data-target="#exampleModal">
-                                                Select &nbsp;<i class="feather icon-check-square"></i>
-                                            </button>
-                                                <button data-bs-toggle="modal" data-bs-target="#statusModal" class="viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
-                                        </td>
+                                <td class="center prodName">${jsondata[i]['ProductName']}</td>
+                                
                             </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
         } else {
-            $("#agentTable tbody").empty().append('<tr><td colspan="5">No agents found.</td></tr>');
+               $("#agentTable tbody").empty().append(`
+                    <tr class="center">
+                        <td colspan="8">
+                            <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                        </td>
+                    </tr>
+                `);
         }
     }
-    $(document).on('click', '.SelectModules', function () {
-        $('#exampleModal').modal('show');
-        var id = $(this).attr("data-custid");
-        var ProductId = $(this).attr("data-productid");
-        var ProductName = $(this).attr("data-productName");
-        $(".Customerr").text($(this).parents("tr").find(".custName").text());
-        loadSubscriptionTypes(id, ProductId);
-        $(".selectedProduct").text(ProductName);
-
-    });
-
+    
     async function loadSubscriptionTypes(CustomerId, ProductId) {
         $("#custid").val(CustomerId);
         $("#prodid").val(ProductId);
@@ -374,17 +384,48 @@
         }).hide();
     });
 
-    $(document).on('click', '.viewSub', function () {
+        $(document).on('click', '.viewSub', function () {
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
         var ProductName = $(this).attr("data-productName");
+
         $(".Customerr").text($(this).parents("tr").find(".custName").text());
         $(".selectedProduct").text(ProductName);
-        loadplansforcustomerandproduct(id, ProductId);
+
+        var userEmail = $(this).parents("tr").attr("data-email");
+        $("#statusModal").find(".userEmail").text(userEmail);
+        $("#statusModal").find(".userPhone").text($(this).parents("tr").attr("data-phone"));
+
         $("#custid").val(id);
         $("#prodid").val(ProductId);
-        loadsubscriptionLog(id, ProductId);
 
+        // Function to update amount and expiry date
+        function updateAmountAndExpiry() {
+            var selectedOption = $("#statusModal").find(".selectedPackages option:selected");
+            var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
+            var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
+
+            var today = new Date();
+            var expireDate = new Date(today);
+            expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
+
+            var isoExpireDate = expireDate.toISOString().split('T')[0];
+            $("#statusModal").find(".expiryDate").val(isoExpireDate);
+
+            if (noOfDays === 3 || noOfDays === 7) {
+                $("#statusModal").find(".Amount").val('0').prop('disabled', true);
+            } else {
+                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', true);
+            }
+        }
+
+        loadplansforcustomerandproduct(id, ProductId).then(() => {
+            updateAmountAndExpiry();
+        });
+        loadsubscriptionLog(id, ProductId);
+        $("#statusModal").find(".selectedPackages").off("change").on("change", function () {
+            updateAmountAndExpiry();
+        });
     });
 
 
@@ -398,114 +439,187 @@
             CustomerId: parseInt(CustomerId),
             ProductId: parseInt(ProductId)
         };
-
         var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
-        // var ddd = await AjaxCall("/CustomerPlanDetails/getCustomerSelectedPlansOnly", parm);
         var response = JSON.parse(ddd);
         var responsefr = JSON.parse(response);
 
-        if (responsefr.length > 0) {           //------------------Current Plan----------------
-
+        if (responsefr.length > 0) { // Existing current plan
             $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
             $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
             $(".remainingDaysinCPlan ").text(responsefr[0]["RemainingDays"]);
             $(".TotalDaysInCurrentPlan ").text(responsefr[0]["TotalDaysofPlan"]);
-
-        } else {
-
         }
 
-
-        //---------------------new/existing plan---------------------
-        var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
-        //var para = await AjaxCall("/CustomerPlanDetails/getCustomerPlanDetails", parm);
+        var para = await AjaxCall("/Customer/getSubsbyCusandProductIdWithUnpaidTypeforAgent", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
         if (Jsondata.length > 0) {
             var selectDOM = ``;
             for (var i = 0; i < Jsondata.length; i++) {
-
                 if (Jsondata[i]["IsFound"] == "found") {
                     var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
-
                     var today = new Date();
                     var expireDate = new Date(today);
                     expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
                     var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
 
-                    $("#statusModal").find(".expiryDate").val(isoExpireDate);
-                    $("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
-
-                    selectDOM += `<option data-noday=${noOfDays} data-expiredate=${isoExpireDate} value=${Jsondata[i]['SubscriptionId']}>${Jsondata[i]['Name']}</option>`;
+                    selectDOM += `<option data-noday=${noOfDays} data-expiredate=${isoExpireDate} data-amount=${Jsondata[i]["Amount"]} value=${Jsondata[i]['SubscriptionId']}>  ${Jsondata[i]['Name']} </option>`;
                 }
             }
             $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
         } else {
             toastr.error("No Subscription Setup is done!!!");
         }
-
-
     }
 
-    $(document).on('click', '.btnExtendPlan', async function () {
-        if ($(".rem").val() == "") {
-            toastr.error("Please fill in a Remarks!!!");
-        }
-        else {
-            var parm = {
-                SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
-                ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
-                PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
-                Remarks: $("#statusModal").find(".rem").val(),
-                CustomerId: parseInt($("#custid").val()),
-                ProductId: parseInt($("#prodid").val()),
-                TransactionId: 0,
-                PaymentMethod: 'cash',
-                ReferenceId: 0,
-                PaymentPartner: 'none',
-                GeneratedSerialNo: 'sn001'
-            }
-            var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-            var dataa = JSON.parse(cpp);
-            var jsondata = JSON.parse(dataaa);
-        }
-    });
-    $(document).on("change", ".CheckPlan", function () {
-        if ($(this).is(":checked")) {
-            $(".CheckPlan").not(this).prop("checked", false);
-        }
-    });
-    async function loadsubscriptionLog(CustomerId, ProductId) {
+    async function loadsubscriptionLog(CustomerId, ProductId){
         var parm = {
             CustomerId: parseInt(CustomerId),
             ProductId: parseInt(ProductId)
         };
-        var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId", parm);
+        var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId",parm);
         var sub = JSON.parse(jsub);
         var jsonData = JSON.parse(sub);
 
-
         var subDOM = "";
-        if (jsonData.length > 0) {
-            for (var i = 0; i < jsonData.length; i++) {
+        if (jsonData.length>0) {
+            for (var i = 0; i < jsonData.length;i++) {
                 subDOM += `<tr>
-                                    <td class="center">`+ jsonData[i]["productName"] + `</td>
-                                    <td class="center">`+ jsonData[i]["SubscriptionType"] + `</td>
-                                    <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
-                                    <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
-                                    <td class="center">`+ jsonData[i]["Remarks"] + `</td>
-                                    <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
-                                    <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
-                                    <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
-                                    <td class="center">`+ jsonData[i]["GeneratedSerialNo"] + `</td>
-                                `;
+                                <td class="center">`+ jsonData[i]["productName"] + `</td>
+                                <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
+                                <td class="center" style="color:green;"><b>Rs. `+ jsonData[i]["PaidAmount"] + `</b></td>
+                                <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
+                                <td class="center"> `+ jsonData[i]["LastRenewDate"] + `  </td>
+                                <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
+                                <td class="center">`+ jsonData[i]["Remarks"] + `</td>
+                                <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
+                                <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
+                                <td class="center">`+ jsonData[i]["GeneratedSerialNo"] + `</td>
+                            `;
             }
             $("#statusModal").find("#cLogTable tbody").empty().append(subDOM);
-        } else {
+        }else{
             toastr.error("No Log Found!!!");
             $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
         }
     }
+        $(document).on('click', '.btnExtendPlan', async function (event) {
+        event.preventDefault();  
 
+        // Check if Remarks are provided
+        if ($(".rem").val() == "") {
+            toastr.error("Please fill in a Remarks!!!");
+        } else {
+                $("#statusModal").modal('hide');
+            // Prepare necessary data for InsertUpdate
+            var Product = $("#statusModal").find(".selectedProduct").text();
+            var Amount = parseFloat($("#statusModal").find(".Amount").val());
+            var newExpDate = $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate");
+            var PlanName = $("#statusModal").find(".selectedPackages :selected").text();
+
+            var parm = {
+                SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+                ExpiryDate: newExpDate,
+                PaidAmount: Amount,
+                Remarks: $("#statusModal").find(".rem").val(),
+                CustomerId: parseInt($("#custid").val()),
+                ProductId: parseInt($("#prodid").val()),
+                TransactionId: 0,
+                PaymentMethod: 'agent',
+                ReferenceId: 0,
+                PaymentPartner: 'none',
+                GeneratedSerialNo: 'sn001',
+                VoucherImage: ''
+            };
+
+            try {
+                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                if (cpp == 'Success') {
+                    //--------------------- Send SMS on successful extension of the subscription plan --------------------
+                    var smsParm = {
+                        SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan amounting to Rs.${Amount}. The plan will expire on ${newExpDate}`,
+                        MobileNo: $("#statusModal").find(".userPhone").text()
+                    };
+                    // Send SMS
+                    var successmsg = await AjaxCall("/Dashboard/SendSMS", smsParm);
+                    var jsondata = JSON.parse(successmsg);
+
+                    //------------------------- Send Email on successful extension --------------------
+                    var emailBody = `
+                        <div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                            <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                <div style="text-align: center;">
+                                    <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                </div>
+                                <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
+                                <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
+
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
+                                    Below are the details of your extended subscription:
+                                </p>
+
+                                <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                    <tr style="background-color: #f4f4f4; text-align: left;">
+                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                        <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                        <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                    </tr>
+                                </table>
+
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    The new expiry date for your subscription is <strong>${newExpDate}</strong>.
+                                    If you have any questions or require further assistance, feel free to contact us at 061-543815.
+                                </p>
+
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
+                                </p>
+
+                                <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                    Best regards, <br>
+                                    Insoft Research & Development
+                                </p>
+                            </div>
+                        </div>`;
+
+                    // Prepare the email data
+                    const toUser = {
+                        ReceiverEmail: $("#statusModal").find(".userEmail").text(),
+                        Subject: "Subscription Extended",
+                        EmailBody: emailBody,
+                    };
+
+                    var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+
+                    $("#statusModal").find(".selectedProduct").text('');
+                    $("#statusModal").find(".Amount").val('');
+                    $("#statusModal").find(".rem").val('');
+                    $("#statusModal").find(".selectedPackages :selected").text('');
+                    $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate", '');
+
+                    toastr.success("Subscription Extension Successful!!!");
+                    $("#statusModal").modal('hide');
+                    getTableData();
+                } else {
+                    toastr.error("Something went wrong with the subscription extension.");
+                }
+            } catch (error) {
+                console.error("Error during AjaxCall:", error);
+                toastr.error("An error occurred during the process.");
+            }
+        }
+    });
+
+        $(document).on("change", ".CheckPlan", function () {
+        if ($(this).is(":checked")) {
+            $(".CheckPlan").not(this).prop("checked", false);
+        }
+    });
 
 </script>

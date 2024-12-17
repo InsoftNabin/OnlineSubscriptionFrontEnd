@@ -1,0 +1,272 @@
+﻿@model InvoiceData
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .invoice-container {
+            width: 70%;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+            /* Full-page stamp - Image */
+            .invoice-container::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png'); /* Path to your image */
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                opacity: 0.1; /* Light opacity for watermark */
+                transform: rotate(45deg);
+                z-index: -1; /* Position it behind the content */
+            }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            .invoice-header img {
+                max-width: 150px;
+            }
+
+            .invoice-header .paid-badge {
+                background-color: #28a745;
+                color: white;
+                padding: 15px 30px; /* Increase padding */
+                font-size: 24px; /* Increase font size */
+                font-weight: bold;
+                border-radius: 5px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+        .invoice-details {
+            margin-bottom: 30px;
+        }
+
+            .invoice-details p {
+                margin: 5px 0;
+                font-size: 14px;
+            }
+
+            .invoice-details strong {
+                font-size: 15px;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+            table th, table td {
+                text-align: left;
+                padding: 10px;
+                border: 1px solid #ddd;
+                font-size: 14px;
+            }
+
+            table th {
+                background-color: #f7f7f7;
+                font-weight: bold;
+            }
+
+        .total-section {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+            .total-section strong {
+                font-size: 16px;
+            }
+
+        .footer-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .footer-note a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .footer-note a:hover {
+                    text-decoration: underline;
+                }
+
+        .print-btn {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            .print-btn:hover {
+                background-color: #555;
+            }
+
+        /* Print-specific Styles */
+        @@media print {
+            .print-btn, .go-back-btn
+
+        {
+            display: none; /* Hide print button when printing */
+        }
+
+        .invoice-container::after {
+            opacity: 0.1; /* Ensure watermark is visible during printing */
+        }
+
+        }
+
+        /* Responsive Design */
+        @@media only screen and (max-width: 768px) {
+            .invoice-container
+
+        {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .invoice-header h1 {
+            font-size: 28px;
+        }
+
+        .invoice-items div,
+        .transaction-info div {
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .invoice-footer p {
+            font-size: 0.9em;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="invoice-header">
+            <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Company Logo">
+            <div class="paid-badge">@Model.PaymentStatus</div>
+        </div>
+
+        <!-- Company and Customer Information -->
+        <div class="invoice-details">
+            <p><strong>Insoft Research and Development</strong></p>
+
+            <p>Pokhara-8, Ratnachowk, Mid Western, 44204, Nepal</p>
+
+            <p><strong>Invoice #:</strong> @Model.TransactionId</p>
+            <p><strong>Invoice Date:</strong> @Model.InvoiceDate</p>
+            <p><strong>Due Date:</strong> @Model.DueDate</p>
+
+            <p><strong>Invoiced To:</strong></p>
+            <p>@Model.CustomerName<br>@Model.CustomerAddress<br></p>
+        </div>
+
+        <!-- Description Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Product<br>@Model.PlanName<br>(From @Model.InvoiceDate upto @Model.DueDate)</td>
+                    <td>Rs. @Model.Subtotal NPR</td>
+                </tr>
+                <tr>
+                    <td colspan="1"><strong>13.00% Value Added Tax (VAT)</strong></td>
+                    <td>Rs. @Model.Vat NPR</td>
+                </tr>
+                <tr>
+                    <td colspan="1"><strong>Total</strong></td>
+                    <td><strong>Rs. @Model.TotalAmount NPR</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Transactions Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction Date</th>
+                    <th>Gateway</th>
+                    <th>Fonepay Trace ID</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.InvoiceDate</td>
+                    <td>@Model.PaymentGateway</td>
+                    <td>@Model.TransactionId</td>
+                    <td>Rs. @Model.TotalAmount NPR</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Balance</strong></td>
+                    <td><strong>Rs. 0.00 NPR</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Footer -->
+        <div class="footer-note">
+            <p>IMPORTANT: This document DOES NOT SERVE AS A TAX INVOICE. To fulfill tax requirements, kindly collect the TAX invoice from our accounts department. For inquiries, contact us at <a>061 540815</a>.</p>
+        </div>
+
+        <!-- Print Button -->
+        <button class="print-btn btn btn-danger" onclick="window.print()">
+            <i class="fas fa-print" style="margin-right: 10px;"></i> Print Receipt
+        </button>
+
+        <!-- Go Back Button -->
+        <a href="/Home/Index" class="btn btn-success go-back-btn">
+            <i class="fas fa-arrow-left" style="margin-right: 10px;"></i> Go Back
+        </a>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,22 +1,101 @@
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 <link rel="stylesheet" href="~/files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
+<!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="~/files/assets/icon/themify-icons/themify-icons.css">
 
+<!-- Include Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Include Icon Libraries -->
+<link rel="stylesheet" type="text/css" href="~/files/assets/icon/themify-icons/themify-icons.css">
 <link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
+
+<!-- QR Code Library -->
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<!-- Custom JS -->
 <script src="~/insoft/assets/assets/js/custom.js"></script>
+
 <!-- jsPDF Core Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Latest html2canvas (Version 0.4.2) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.2/html2canvas.min.js"></script>
+
+<!-- Latest html2pdf (Version 0.9.3) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
 
 <!-- jsPDF AutoTable Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.0/jspdf.plugin.autotable.min.js"></script>
 
-
 <style>
+    /* Mobile screens (≤ 480px) */
+    @@media (max-width: 480px) {
+        .fs-1
+
+    {
+        font-size: 14px;
+    }
+
+    .fs-2 {
+        font-size: 16px;
+    }
+
+    .fs-4 {
+        font-size: 12px;
+    }
+
+    /* Adjust the image size further */
+    .image-input-wrapper {
+        width: 80px;
+        height: 40px;
+    }
+
+    /* Reduce the card padding and font size */
+    .card-body {
+        padding: 15px;
+    }
+
+    .left-section, .right-section {
+        padding: 5px;
+    }
+
+    .card-header {
+        font-size: 16px;
+    }
+
+    /* Display the "Your Info" section vertically on smaller screens */
+    .col-xs-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Center the buttons on mobile */
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    }
+
+    .payment-option {
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #uploadArea:hover {
+        background-color: #eef6ff;
+        border-color: #0056b3;
+    }
+
+    #uploadArea p span {
+        cursor: pointer;
+    }
+
+
+
     .nav-tabs {
         margin-bottom: 15px;
         height: 20px;
@@ -56,19 +135,43 @@
         box-shadow: none;
     }
 
-    .cardProceed {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
+    /*  .cardProceed {
+                                background-color: #f9f9f9;
+                                border: 1px solid #ddd;
+                                border-radius: 8px;
+                                padding: 20px;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                                max-width: 400px;
+                                margin: auto;
+                            } */
+
+    .cardWrapper {
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Space between left, right, and center */
+    }
+
+    .leftSide, .rightSide {
+        width: 40%;
+        padding: 15px;
+        background-color: #f1f1f1;
         border-radius: 8px;
+        text-align: center;
+    }
+
+    .cardProceed {
+        /* Main form area in the center */
         padding: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
-        margin: auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .row {
         margin-bottom: 15px;
     }
+
 
     label {
         font-weight: bold;
@@ -133,6 +236,71 @@
 
 </style>
 
+<div class="py-3 py-lg-6">
+    <div class="container-xxl d-flex flex-wrap justify-content-between align-items-center">
+        <!-- Page title section -->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-md-3 mb-3 mb-md-0">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <img src="~/assets/media/logos/LogoInsoft.png"
+                     class="theme-light-show w-100px"
+                     alt="Logo" />
+            </h1>
+        </div>
+
+        <!-- Right section (Buttons and User Menu) -->
+        <div class="d-flex align-items-center">
+            <!-- New Organization Button -->
+            <h6 class="fs-xl fw-bold mb-4 lead">
+                <button type="button"
+                        class="btn btn-primary addOrganization d-flex align-items-center">
+                    <span class="svg-icon svg-icon-2 me-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5"
+                                  x="11.364"
+                                  y="20.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  transform="rotate(-90 11.364 20.364)"
+                                  fill="currentColor"></rect>
+                            <rect x="4.36396"
+                                  y="11.364"
+                                  width="16"
+                                  height="2"
+                                  rx="1"
+                                  fill="currentColor"></rect>
+                        </svg>
+                    </span>
+                    New Organization
+                </button>
+            </h6>
+
+            <!-- User Account Menu -->
+            <div class="app-navbar-item ms-1 ms-md-3 ml-md-4" id="kt_header_user_menu_toggle">
+                <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
+                        &nbsp;
+                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
+                    </i>
+                </div>
+
+                <!-- User Account Menu Dropdown -->
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold fs-6 w-100px" data-kt-menu="true">
+                    <div class="menu-item">
+                        <a class="menu-link signoutBtn">
+                            <i class="feather icon-log-out"></i>&nbsp; Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade"
      id="updateOrganization"
@@ -180,8 +348,8 @@
                                     </div>
                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                                         <i class="bi bi-pencil-fill fs-7"></i>
-                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
-                                        <input type="hidden" name="avatar_remove">
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo1" />
+                                        <input type="hidden" name="avatar_remove" />
                                     </label>
 
                                     <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
@@ -355,8 +523,8 @@
                                     </div>
                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
                                         <i class="bi bi-pencil-fill fs-7"></i>
-                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo">
-                                        <input type="hidden" name="avatar_remove">
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo" />
+                                        <input type="hidden" name="avatar_remove" />
                                     </label>
 
                                     <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
@@ -399,7 +567,7 @@
                                 </div>
                                 <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
 
-                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="moduleSelect  ">
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="moduleSelect">
                                     </select>
                                 </div>
                             </div>
@@ -488,10 +656,12 @@
 </div>
 
 
+<div id="payinvoice"></div>
+
 
 <!-- Modal for customer status -->
 <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="width:90%;">
+    <div class="modal-dialog modal-xl" style="width:100%; max-width:1500px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
@@ -499,13 +669,17 @@
                 </h1>
                 @* <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="float:right;">
                 </div> *@
-                <span class="userEmail" hidden ></span>
-                <span class="productN" hidden ></span>
-                <span class="userPhone" hidden></span>
+               
 
-                <button type="button" class="btn-close  btn btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close  btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
+                <div class="row">
+                    <span class="userEmail" hidden></span>
+                    <span class="productN" hidden></span>
+                    <span class="userPhone" hidden></span>
+                </div>
                 <div class="tabbable">
 
                     <ul class="nav nav-tabs md-tabs padding-12" id="myTab4" role="tablist">
@@ -523,15 +697,20 @@
                             <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
                                 <thead>
                                     <tr style="background-color: #0b3b56; color: white;">
+                                        <th>S.N.</th>
+                                        <th>FonePay Trace Id</th>
                                         <th class="center">Product Name</th>
                                         <th class="center">Subscription Type</th>
                                         <th class="center">Issued date</th>
-                                        <th class="center">Expiry date</th>
+                                        <th class="center">Next Due Date</th>
                                         <th class="center">Remarks</th>
+                                        <th class="center">Payment Remarks</th>
                                         <th class="center">Payment Method</th>
                                         <th class="center">Payment Partner</th>
                                         <th class="center">Amount</th>
-                                        <th class="center">Serial Number</th>
+                                        <th class="center">Reference Id</th>
+                                        <th class="center">Print</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -541,63 +720,128 @@
                         </div>
 
                         <!-- Extend the Plan Tab -->
-                        <div id="Extend" class="tab-pane active">
-                            <div class="cardProceed">
-                                <form>
-                                    <div class="row">
-                                        <label>Current Plan: <span class="currentPlan">None</span></label>
-                                        <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
-                                        <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red"></span> Days out of <span class="TotalDaysInCurrentPlan red">30</span> Days</label>
-                                    </div>
+                        <div id="Extend" class="tab-pane active" style="padding: 20px; background-color: #f4f7fc; border-radius: 8px;">
+                            <div class="cardWrapper" style="display: flex; justify-content: space-between; gap: 20px; padding: 20px;">
 
-                                    <div class="row">
-                                        <label>Select a Package:</label>
-                                        <select class="selectedPackages">
-                                        </select>
-                                    </div>
-                                    <div class="row">
-                                        <label>Expiry Date:</label>
-                                        <input type="date" class="expiryDate" disabled />
-                                    </div>
+                                <!-- Left Side Panel -->
+                                <div class="d-none d-sm-block leftSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                    <p style="font-size: 14px; color: #333; line-height: 1.6;">
+                                        <strong>Note:</strong><br>
+                                        The payment from Bank Deposit takes up to three days from our side to verify your subscription. Please have patience and enjoy your journey with us!
+                                    </p>
+                                </div>
 
-                                    <div class="row">
-                                        <label>Amount:</label>
-                                        <input type="text" class="Amount" disabled required />
-                                    </div>
-                                    <div class="row">
-                                        <label>Remarks:</label>
-                                        <input type="text" class="rem" required />
-                                        <input type="text" id="custid" hidden />
-                                        <input type="text" id="prodid" hidden />
-                                    </div>
-                                    <div class="row">
-                                        <label>Payment Method:</label>
-                                        <div class="payment-methods">
-                                            <div class="payment-option" data-value="0">
-                                                <input type="radio" name="payment" id="upload" />
-                                                <label for="upload"><img src="~/files/assets/images/upload.svg" alt="Upload" /></label>
+                                <!-- Main Card Section -->
+                                <div class="cardProceed col-12 col-sm-6" style="padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                    <form>
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Current Plan: <span class="currentPlan" style="color: #888;">None</span></label>
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Next Due Date: <span class="currentPlanEdate" style="color: red;">__/__/____</span></label>
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;" hidden>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red" style="color: red;"></span> Days out of <span class="TotalDaysInCurrentPlan red" style="color: red;">30</span> Days</label>
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Select a Package:</label>
+                                            <select class="selectedPackages" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                                            </select>
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Next Due Date:</label>
+                                            <input type="date" class="form-control expiryDate" disabled style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Amount:</label>
+                                            <input type="text" class="form-control Amount" disabled required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                        </div>
+
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Remarks:</label>
+                                            <input type="text" class="form-control rem" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                            <input type="text" id="custid" hidden />
+                                            <input type="text" id="prodid" hidden />
+                                        </div>
+
+                                       @*  <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
+                                            <div class="payment-methods" style="display: flex; gap: 20px;">
+                                                <div class="payment-option" data-value="0" style="border:1px solid black;">
+                                                    <input type="radio" name="payment" id="upload" />
+                                                    <label for="upload" style="font-size: 14px; color: #333; display: flex; align-items: center;">
+                                                        Bank Deposit <img src="~/files/assets/images/upload.svg" alt="Upload" style="width: 20px; margin-left: 5px;" />
+                                                    </label>
+                                                </div>
+                                                <div class="payment-option" data-value="3" style="vertical-align: middle; border:1px solid black;">
+                                                    <input type="radio" name="payment" id="fonepay" />
+                                                    <label for="fonepay" style="font-size: 14px; color: #333; display: flex; align-items: center;">
+                                                        <img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="width: 30px; margin-top: 20px;" />
+                                                        FonePay
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div class="payment-option" data-value="3" style="vertical-align:middle;">
-                                                <input type="radio" name="payment" id="fonepay" />
-                                                <label for="fonepay"><img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="margin-top:20px;" /></label>
+                                        </div> *@
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-12" style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
+                                            <div class="payment-methods d-flex flex-wrap justify-content-center gap-3 col-12">
+                                                <!-- Bank Deposit with Drag-and-Drop Upload -->
+                                                <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="0" style="border: 1px solid black; text-align: center;">
+                                                    <input type="radio" class="form-control d-none" name="payment" id="upload" />
+                                                    <label for="upload" class="w-100" style="font-size: 14px; color: #333; display: block; margin-bottom: 10px;">
+                                                        Bank Deposit
+                                                    </label>
+                                                    <div id="uploadArea" class="gethere" style="border: 2px dashed #999; padding: 20px; position: relative; background-color: #f9f9f9; cursor: pointer;">
+                                                        <p style="font-size: 14px; color: #666;">Drag & Drop or <span style="color: #007bff; text-decoration: underline;">browse files</span></p>
+                                                        <span class="uploadedinfo" style="color: green; font-weight: bold;"></span>
+                                                        <input type="file" class="form-control" id="fileInput" accept="image/*" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;" />
+                                                    </div>
+                                                </div>
+
+                                                <!-- FonePay Option -->
+                                                <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="3" style="border: 1px solid black; text-align: center;">
+                                                    <input type="radio" class="form-control d-none" name="payment" id="fonepay" />
+                                                    <label for="fonepay" class="w-100" style="font-size: 14px; color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                                        <img src="~/files/assets/images/fonepay_payments_fatafat.png" alt="Fonepay" style="width: 180px; height: 100px; vertical-align:middle;" />
+                                                        <span>FonePay</span>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row" id="file-upload" style="display:none;">
-                                        <input type="file" class="file" id="fileInput" data-filename="" />
-                                        <p id="fileError" style="color:red; display:none;"></p>
-                                    </div>
 
 
-                                    <div class="row center" id="qr-code" style="display:none;">
-                                        <div id="generated-qr" style="text-align:center;"></div>
-                                    </div>
 
-                                    <div class="row">
-                                        <button class="btn btn-sm btn-success btnExtendPlan">Proceed &nbsp;<i class="feather icon-save"></i></button>
-                                    </div>
-                                </form>
+
+
+
+
+
+
+                                        <div class="row" id="file-upload" style="display:none; margin-bottom: 15px;">
+                                            <input type="file" class="file" id="fileInput" data-filename="" style="padding: 10px;" />
+                                            <p id="fileError" style="color:red; display:none;"></p>
+                                        </div>
+
+                                        <div class="row center" id="qr-code" style="display:none; margin-bottom: 15px;">
+                                            <div id="generated-qr" style="text-align:center;"></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <button class="btn btn-sm btn-success btnExtendPlan" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 4px; border: none; background-color: #28a745; color: white; cursor: pointer;">
+                                                Proceed &nbsp;<i class="feather icon-save"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Right Side Panel -->
+                                <div class="d-none d-sm-block rightSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);" >
+                                    <p style="font-size: 14px; color: #333; line-height: 1.6;">
+                                        <strong>Note:</strong><br>
+                                        Your subscription to the respective Product will be updated as soon as we receive your payment made through FonePay QR.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -605,639 +849,948 @@
 
 
             </div>
-
-
-
-
         </div>
     </div>
-</div>
 
 
-<!-- PDF Preview Modal -->
-<div id="pdfPreviewModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Subscription Extension Receipt Preview</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- PDF Preview embedded here -->
-                <iframe id="pdfPreview" width="100%" height="500px"></iframe>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="downloadReceiptButton" class="btn btn-primary">Download Receipt</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <!-- PDF Preview Modal -->
+    <div id="pdfPreviewModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Subscription Extension Receipt Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- PDF Preview embedded here -->
+                    <iframe id="pdfPreview" width="100%" height="500px"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="downloadReceiptButton" class="btn btn-primary">Download Receipt</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal for QR -->
-<div class="modal fade" id="QRModal" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="width:90%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    Scan the QR below to proceed to payment
-                </h1>
-                <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Using Bootstrap grid classes to make the image responsive -->
-                <div class="row justify-content-center mb-4">
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="btn btn-sm w-100">
-                            <img src="~/files/assets/images/fonepay-payment-service-limited43.png" class="img-fluid" alt="Fonepay Image" />
+    <!-- Modal for QR -->
+    <div class="modal fade" id="QRModal" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" style="width:90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Scan the QR below to proceed to payment
+                    </h1>
+                    <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Using Bootstrap grid classes to make the image responsive -->
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="btn btn-sm w-100">
+                                <img src="~/files/assets/images/fonepay-payment-service-limited43.png" class="img-fluid" alt="Fonepay Image" />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- QR code section -->
-                <div id="generated-qr-container" class="d-flex justify-content-center">
-                    <!-- QR Code will be dynamically inserted here -->
-                    <div id="generated-qr"></div>
-                </div>
-
-                <h1 class="text-center modal-title fs-5" id="hehe">
-                    <br /> INSOFT RESEARCH AND DEVELOPMENT<br /> an amount of <span id="AmountQr"></span>
-                </h1>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal for Remaining Days less than 5 -->
-<div class="modal fade" id="QRModal5" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="width:90%;">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    Your Subscription is critical!! Please pay for further use of our software!!
-                </h1>
-                <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h4 class="text-center">  <span>This QR amounts to<b> Rs <span class="AmCurPlan">99,999</span> </b>for the extension of your current plan.</span></h4>
-
-
-                <div id="generated-qr-container" class="d-flex justify-content-center">
-                    <!-- QR Code will be dynamically inserted here -->
-
-                    <div id="generated-qr"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                Please call us for further assistance!!
-            </div>
-
-
-
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="py-3 py-lg-6">
-    <div class="container-xxl d-flex flex-stack">
-        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                <img src="~/assets/media/logos/LogoInsoft.png"
-                     class="theme-light-show w-100px"
-                     alt="" />
-            </h1>
-        </div>
-        <div class="d-flex">
-            <h3 class="fs-xl fw-bold mb-4 lead">
-                <button type="button"
-                        class="btn btn-primary addOrganization">
-                    <span class="svg-icon svg-icon-2">
-                        <svg width="24"
-                             height="24"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <rect opacity="0.5"
-                                  x="11.364"
-                                  y="20.364"
-                                  width="16"
-                                  height="2"
-                                  rx="1"
-                                  transform="rotate(-90 11.364 20.364)"
-                                  fill="currentColor"></rect>
-                            <rect x="4.36396"
-                                  y="11.364"
-                                  width="16"
-                                  height="2"
-                                  rx="1"
-                                  fill="currentColor"></rect>
-                        </svg>
-                    </span>
-                    Add New Organization
-                </button>
-            </h3>
-            <div class="app-navbar-item ms-1 ms-lg-3 ml-4" id="kt_header_user_menu_toggle">
-                <!--begin::Menu wrapper-->
-                <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
-                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
-                        &nbsp;
-                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
-                    </i>
-                </div>
-                <!--begin::User account menu-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold  fs-6 w-100px" data-kt-menu="true" style="">
-                    <!--begin::Menu item-->
-                    <div class="menu-item ">
-
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item">
-                            <a class="menu-link signoutBtn"> <i class="feather icon-log-out"></i>&nbsp; Sign Out</a>
-                        </div>
-                        <!--end::Menu item-->
-
+                    <!-- QR code section -->
+                    <div id="generated-qr-container" class="d-flex justify-content-center">
+                        <!-- QR Code will be dynamically inserted here -->
+                        <div id="generated-qr"></div>
                     </div>
 
-
-
+                    <h1 class="text-center modal-title fs-5" id="hehe">
+                        <br /> INSOFT RESEARCH AND DEVELOPMENT<br /> an amount of <span id="AmountQr"></span>
+                    </h1>
                 </div>
-                <!--end::User account menu-->
-                <!--end::Menu wrapper-->
             </div>
         </div>
-
     </div>
+
+
+    <!-- Modal for Remaining Days less than 5 -->
+    <div class="modal fade" id="QRModal5" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" style="width:90%;">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Your Subscription is critical!! Please pay for further use of our software!!
+                    </h1>
+                    <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">  <span>This QR amounts to<b> Rs <span class="AmCurPlan">99,999</span> </b>for the extension of your current plan.</span></h4>
+
+
+                    <div id="generated-qr-container" class="d-flex justify-content-center">
+                        <!-- QR Code will be dynamically inserted here -->
+
+                        <div id="generated-qr"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    Please call us for further assistance!!
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 
 <script type="text/javascript">
-    $(document).ready(async function () {
-        var amountFetchedFromServer=0;
+        $(document).ready(async function () {
+            $(".defaultModuleValue").val('inschoolerp.com');
 
-        function LoadCountries() {
-            var a = AjaxCallWithoutDataNoAsync("/Customer/getCountries");
-            var aa = JSON.parse(a);
-            var countries = JSON.parse(aa);
-
-            var countrySelect = $('#CountrySelect');
-            countrySelect.empty();
-            countrySelect.append('<option value="">----Select Country---</option>');
-
-            countries.forEach(function (country) {
-                countrySelect.append('<option value="' + country.NumericIsoCode + '">' + country.Name + '</option>');
+            // Update value on change event
+            $(document).on("change", ".moduleSelect", function () {
+                var val = $(this).find("option:selected").attr("data-site");
+                $(".defaultModuleValue").val(val);
             });
-        }
 
-        var body = ``;
-        async function GetOrganizations() {
-            const result = await AjaxCall("/Home/GetOrganizations");
-            let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
+            var amountFetchedFromServer=0;
 
-            body += `
-                <div class="app-content flex-column-fluid">
-                    <div class="app-container container-xxl">
+            function LoadCountries() {
+                var a = AjaxCallWithoutDataNoAsync("/Customer/getCountries");
+                var aa = JSON.parse(a);
+                var countries = JSON.parse(aa);
+
+                var countrySelect = $('#CountrySelect');
+                countrySelect.empty();
+                countrySelect.append('<option value="">----Select Country---</option>');
+
+                countries.forEach(function (country) {
+                    countrySelect.append('<option value="' + country.NumericIsoCode + '">' + country.Name + '</option>');
+                });
+            }
+
+            var body = ``;
+            async function GetOrganizations() {
+                const result = await AjaxCall("/Home/GetOrganizations");
+                let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
+                body += `
+                    <div class="app-content flex-column-fluid">
+                        <div class="app-container container-xxl">
+                            <div class="row">
+                               
+                              <!-- Your Info Section (col-xs-3) -->
+                  <div class="col-3 col-xs-3" >
+                      <div class="card card-flush bg-body mb-9">
+                                      <h2 class="card-header fs-2 fw-bold text-dark p-8">Your Info <i class="fs-1 fa fa-user"></i></h2><hr>
+                          <div class="card-body pt-2 px-4">
+                              <div class="mb-5">
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">User Name</span>
+                                      <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
+                                  </div>
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
+                                      <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
+                                  </div>
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">Phone</span>
+                                      <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
+                                  </div>
+                                  <div class="d-flex row mb-5">
+                                      <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
+                                      <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                                <!-- Dynamic Organizations Section (col-xs-9) -->
+                                <div id="kt_app_content" class="col-12 col-sm-9 col-md-9">
+                `;
+
+                // Check if there are any organizations
+                if (IncludeData.length > 0) {
+                    body += `
+                        <div class="col-12">
+                    `;
+
+
+    for (var i = 0; i < IncludeData.length; i++) {
+        
+        if(IncludeData[i]["Error"]!=-202){
+
+        let chartId = "ChartCircular" + (i + 1);
+        let imageUrl = IncludeData[i].ImageData || '/files/assets/images/employee.png';
+        body += `
+            <div class="col-12">
+                <div class="card card-success my-4 col-12 shadow">
+                    <div class="d-flex flex-column">
                         <div class="row">
-                            <!-- Your Info Section (col-xs-3) -->
-                            <div class="col-12 col-xs-3">
-                                <div class="card card-flush bg-body mb-9">
-                                                <h2 class="card-header fs-2 fw-bold text-dark p-8">Your Info <i class="fs-1 fa fa-user"></i></h2><hr>
-                                    <div class="card-body pt-2 px-4">
-                                        <div class="mb-5">
-                                            <div class="d-flex row mb-5">
-                                                <span class="text-gray-700 fs-4 fw-bold col-4">Name</span>
-                                                <span class="text-gray-700 fs-4 fw-bold self-start text-start col-6" id="yourName">Your name</span>
-                                            </div>
-                                            <div class="d-flex row mb-5">
-                                                <span class="text-gray-700 fs-4 fw-bold col-4">Email</span>
-                                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourEmail">Your Email</span>
-                                            </div>
-                                            <div class="d-flex row mb-5">
-                                                <span class="text-gray-700 fs-4 fw-bold col-4">Contact</span>
-                                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourContact">Your Contact</span>
-                                            </div>
-                                            <div class="d-flex row mb-5">
-                                                <span class="text-gray-700 fs-4 fw-bold col-4">Address</span>
-                                                <span class="text-gray-700 fs-4 fw-bold col-8" id="yourAddress">Your Address</span>
-                                            </div>
-                                        </div>
+                            <!-- Image Section -->
+                            <div class="col-6 col-md-4">
+                                <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
+                                    <img src="${imageUrl}" alt="image" style="object-fit:contain; padding-top:0px;">
+                                </div>
+                            </div>
+
+                            <!-- Company Name & Address Section -->
+                            <div class="col-6 col-md-4">
+                                <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}<br> ${IncludeData[i].Address}</a>
+                                <div>
+                                    <div class="fw-bold">
+                                        <a href="${IncludeData[i].ReturnURL}">${IncludeData[i].ReturnURL}</a>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Dynamic Organizations Section (col-xs-9) -->
-                            <div id="kt_app_content" class="col-12 col-xs-9">
-            `;
+                            <!-- Verified / Unverified Section -->
+                            ${IncludeData[i].IsVerified == 1 ? `
+                                    <div class="col-12 col-md-4">
+                                      <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
+                                          <!-- Radial Chart -->
+                                          <div class="d-flex justify-content-center mx-auto">
+                                              <div id="${chartId}" data-label="0d" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto">
+                                                  <span style="position: absolute; font-size: 12px; color: #000;"></span>
+                                              </div>
+                                          </div>
 
-            // Check if there are any organizations
-            if (IncludeData.length > 0) {
-                body += `
-                    <div class="col-12">
-                `;
+                                          <!-- Verified / Unverified Section -->
+                                          <div class="ms-3 mt-2 mt-md-0">
+                                              <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
+                                                  <i class="feather icon-check-circle"></i>&nbsp;Verified
+                                              </span>
+                                              <div class="">
+                                                  <button data-bs-toggle="modal" data-bs-target="#statusModal"
+                                                      class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
+                                                      data-phone="${IncludeData[i].UserContact}" style="height:35px;"
+                                                      data-prod="${IncludeData[i].ModuleName}"
+                                                      data-userEmail="${IncludeData[i].userEmail}"
+                                                      data-productid="${IncludeData[i].ProductId}"
+                                                      data-custid="${IncludeData[i].custId}">
+                                                      Extend/Log &nbsp;
+                                                  </button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
 
-                // Loop through the organizations and create cards
-                for (var i = 0; i < IncludeData.length; i++) {
-                    let chartId = "ChartCircular" + (i + 1); // Create a unique ID for each chart
-                    let detailsCollapseId = "kt_customer_view_details_" + i; // Unique ID for each collapse section
-                    body += `
-            <div class="col-12">
-                <div class="card my-4 col-12 shadow">
-                    <div class="flex-column">
-                           <div class="row">
-        <!-- Image Section -->
-        <div class="col-6 col-md-4">
-            <div class="d-flex justify-content-start image-input-wrapper w-125px h-65px rounded pt-4">
-                <img src="${IncludeData[i].ImageData}" alt="image" width="125" height="65" style="object-fit:contain;">
-            </div>
-        </div>
-
-        <!-- Company Name & Address Section -->
-        <div class="col-6 col-md-4">
-            <a href="#" class="fs-1 text-gray-800 text-hover-primary fw-bold mb-1">${IncludeData[i].CompanyName}</a>
-            <div class="d-flex flex-stack fs-4 my-4">
-                <div class="fw-bold">${IncludeData[i].Address}</div>
-            </div>
-        </div>
-
-        <!-- Verified / Unverified Section -->
-        ${IncludeData[i].IsVerified == 1 ? `
-            <div class="col-12 col-md-4">
-                <div class="d-flex flex-column align-items-center">
-                    <!-- Badge and Button Container -->
-                    <div class="d-flex flex-column align-items-center mb-3">
-                        <span class="badge badge-success fw-bold px-4 py-3 fs-3 mb-2">
-                            <i class="feather icon-check-circle"></i>&nbsp;Verified
-                        </span>
-                        <button
-                            data-bs-toggle="modal"
-                            data-bs-target="#statusModal"
-                            class="viewSub btn btn-sm btn-danger w-100 w-md-auto"
-                            data-phone="${IncludeData[i].UserContact}"
-                            style="height:35px;"
-                            data-prod="${IncludeData[i].ModuleName}"
-                            data-userEmail="${IncludeData[i].userEmail}"
-                            data-productid="${IncludeData[i].ProductId}"
-                            data-custid="${IncludeData[i].custId}">
-                            Extend/Log &nbsp;
-                        </button>
-                    </div>
-
-                    <!-- Card and Radial Bar -->
-                    <div class="card w-100">
-                        <div id="${chartId}"
-                            data-label="0/0"
-                            class="radial-bar radial-bar-90 radial-bar-lg radial-bar-danger mx-auto"
-                            style="background: conic-gradient(rgb(250, 0, 0) 360deg, rgb(250, 0, 0) 360deg);
-                                   font-size: 12px;
-                                   display: flex;
-                                   align-items: center;
-                                   justify-content: center;">
-                            <span style="position: absolute; font-size: 12px; color: #000;">365/363</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         
-    </div>
-
-    <hr>
-
-
-                                    ` : `
-                                <div class="card-toolbar d-flex justify-content-between align-items-center col-4">
-                                    <span class="badge badge-danger fw-bold px-4 py-3 fs-3"><i class="feather icon-cross-square"></i>&nbsp;UnVerified</span>
-                                    <span class="btn btn-warning">Pending</span>
+                            ` : IncludeData[i].IsVerified == -1 ? `
+                                <div class="col-12 col-md-4">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <span class="badge badge-danger fw-bold px-4 py-3 fs-3 mb-2">
+                                            <i class="fa fa-eye-slash" style="color:white;"></i>&nbsp;Declined
+                                        </span>
+                                        <div class="d-flex flex-column align-items-center mb-3">
+                                            <div style="margin-top: 10px; font-size: 14px;">Reason: ${IncludeData[i].Remarks}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : `
+                                <div class="col-12 col-md-4">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <span class="badge badge-warning fw-bold px-4 py-3 fs-3 mb-2">
+                                            <i class="feather icon-clock"></i>&nbsp;Pending
+                                        </span>
+                                    </div>
                                 </div>
                             `}
                         </div>
+                        <!-- Details Section - Add all details directly in the card -->
+                        <div class="card-body" style="border-top:1px solid black; background-color: #f9f9f9; border-radius: 8px; padding: 20px;">
+                            <div class="d-flex flex-column flex-md-row">
 
-                        <!-- If verified, show more details -->
-                        ${IncludeData[i].IsVerified == 1 ? `
-                            <div class="px-8">
-                                <div class="row"><b><span class="fw-bold fs-5 d-block ml-0  mt-2 col-12">Product:<span class="ProductName">${IncludeData[i].ModuleName}</span></b></label><br></div>
-                                <span class="fw-bold fs-5">Your Sitelink:
-                                    <a target="_blank" href="https://${IncludeData[i].SiteURL}" class="link-primary fw-bold">${IncludeData[i].SiteURL}</a>
-                                </span>
-                                <div class="d-flex mt-4">
-                                    <label class="fw-bold fs-5 d-block form-label mt-2 col-2">UserName:</label>
-                                    <input readonly id="foo_${i}" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SiteUserName}">
-                                    <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0 " data-clipboard-target="#foo_${i}">Copy</button>
-                                </div>
-                                <div class="d-flex mt-2">
-                                    <label class="fw-bold fs-5 d-block form-label mt-2 col-2">Password:</label>
-                                    <input readonly id="foo2_${i}" class="form-control form-control-solid me-3 flex-grow-1 mx-0" value="${IncludeData[i].SitePassword}">
-                                    <button class="btnCopy btn btn-light fw-bold flex-shrink-0 mx-0" data-clipboard-target="#foo2_${i}">Copy</button>
-                                </div>
-                                <div style="display: flex;">
-                                    <label class="fw-bold fs-4" style="margin-right: 15px;">Remarks:</label>
-                                    <span style="margin-top:4px;">${IncludeData[i].Remarks}</span>
-                                </div>
-                            </div>
-                        ` : ''}
 
-                        <!-- Details Toggle Button -->
-                        <div class="d-flex flex-stack fs-4 py-3 card-body">
-                            <div class="fw-bold rotate collapsible collapsed" data-bs-toggle="collapse" href="#${detailsCollapseId}" role="button" aria-expanded="false" aria-controls="${detailsCollapseId}" id="viewDetails_${i}">Details
-                                <span class="ms-2 rotate-180">
-                                    <span class="svg-icon svg-icon-3">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
-                                        </svg>
-                                    </span>
-                                </span>
-                            </div>
-                            <span>
-                                ${IncludeData[i].IsVerified == 0 ? `
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].custId}" data-name="${IncludeData[i].CompanyName}" data-address="${IncludeData[i].Address}" data-product="${IncludeData[i].ModuleName}" data-email="${IncludeData[i].Email}" data-contact="${IncludeData[i].ContactNumber}">
-                                        Add Details
-                                    </button>
-                                ` : ''}
-                                <button type="button" class="btn btn-danger btn-sm delete-btn" data-custid="${IncludeData[i].custId}" data-productid="${IncludeData[i].ProductId}">
-                                    Delete Organization
-                                </button>
-                            </span>
-                        </div>
+                              <!-- Left Section with "Current Plan", "Next Due Date", and "Pricing" -->
+                                <div class="left-section col-12 col-md-4" style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                                    <div class="text-center mb-4">
+                                        <h5 style="color: #4e73df; font-weight: 600; font-size:20px;">Plan Details</h5>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex flex-column">
+                                     <!-- Pricing Section -->
+                                        <div class="d-flex justify-content-between" >
+                                            <div class="fw-bold" style="color: #4e73df;" >Product:</div>
+                                            <div class="" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;">${IncludeData[i].ModuleName}</div>
+                                        </div>
+                                        <!-- Current Plan Section -->
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <div class="fw-bold" style="color: #4e73df;">Current Plan</div>
+                                            <div class="text-gray-700" id="CurrentPlan" style="font-weight: 600; font-size: 18px; color: #28a745;">NONE</div>
+                                        </div>
 
-                        <!-- Collapsing Section (Details) -->
-                        <div id="${detailsCollapseId}" class="collapse p-8">
-                            <hr class="bg-dark border-2 border-top border-dark" />
-                            <div class="py-5 fs-6">
-                               
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Display Name</div>
-                                    <div class="text-gray-700 col-6">${IncludeData[i].DisplayName}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Country</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].OrganizationMotto}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Email</div>
-                                    <div class="text-gray-700 col-8">
-                                        <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                        <!-- Next Due Date Section -->
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <div class="fw-bold" style="color: #4e73df;">Next Due Date</div>
+                                            <div class="text-gray-700" id="NextDueDate" style="font-weight: 600; font-size: 18px; color: #dc3545;">__/__/____</div>
+                                        </div>
+
+
                                     </div>
                                 </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">PAN/VAT</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+
+                                <!-- right Section with Details -->
+                                <div class="left-section col-12 col-md-8 mb-4 mb-md-0" style="padding-left: 20px;">
+                                    <div class="py-5 fs-6">
+                                        <div class="d-flex flex-row">
+                                            <div class="fw-bold col-4">Display Name</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].DisplayName}</div>
+                                        </div>
+                                        
+                                        <div class="d-flex flex-row gap-4 mt-5" >
+                                            <div class="fw-bold col-4" >Country</div>
+                                            <div class="text-gray-700 col-8" >${IncludeData[i].OrganizationMotto}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Email</div>
+                                            <div class="text-gray-700 col-8">
+                                                <a href="#" class="text-gray-700 text-hover-primary">${IncludeData[i].OrganizationMail}</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">PAN/VAT</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].PanVatNo}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Phone No.</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Contact No.</div>
+                                            <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
+                                        </div>
+                                        <div class="d-flex flex-row gap-4 mt-5">
+                                            <div class="fw-bold col-4">Website</div>
+                                            <div class="text-gray-700 col-8">
+                                                <a href="${IncludeData[i].Website}" class="text-gray-700 text-hover-primary">${IncludeData[i].Website}</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Phone No.</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].PhoneNo}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Contact No.</div>
-                                    <div class="text-gray-700 col-8">${IncludeData[i].ContactMobile}</div>
-                                </div>
-                                <div class="d-flex flex-row gap-4 mt-5">
-                                    <div class="fw-bold col-4">Website</div>
-                                    <div class="text-gray-700 col-8"><a href="${IncludeData[i].Website}">${IncludeData[i].Website}</a></div>
-                                </div>
+
+             
+
+
                             </div>
+                        </div>
+
+                        <!-- Actions Buttons (Edit/Delete or Declined) -->
+                        <div class="d-flex flex-stack fs-4 py-3 card-body">
+                            <span>
+                                ${IncludeData[i].IsVerified == 0 ? `
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
+                                ` : ''}
+
+                                <!-- Hide Delete Button if Declined -->
+                                ${IncludeData[i].IsVerified !== 1 && IncludeData[i].IsVerified !== -1 ? `
+                                    <button type="button" class="btn btn-sm btn-danger" data-token="${IncludeData[i].Token}" id="deleteBtn"><i class="fas fa-trash"></i></button>
+                                ` : ''}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         `;
 
-                    // Load the plans for this specific organization (unique chartId)
-                    loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
+        // Load the plans for this specific organization (unique chartId)
+        loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
+    }
+    }
+
+                    body += `</div>
+                    `;  // Close row
+                } else {
+                    body += `<div>No organizations found.</div>`;
                 }
 
-                body += `</div>`;  // Close row
-            } else {
-                body += `<div>No organizations found.</div>`;
+                body += `</div>
+               
+
+
+               </div>
+            </div>`;
+                $('#Organizations').html(body);
             }
 
-            body += `</div></div></div>`;
-            $('#Organizations').html(body);
+
+            await GetOrganizations();
+            await $("#Main").append(body);
+            await GetUserDetails();
+            LoadCountries();
+            var clipboard = await new ClipboardJS('.btnCopy'); //for copy to clipboard
+            var $fileUpload = $('#file-upload');
+            var $qrCode = $('#qr-code');
+            var $fileInput = $('#fileInput');
+            var $fileError = $('#fileError');
+
+
+
+            // // File input validation
+            // $fileInput.change(function () {
+            //     const file = this.files[0];
+            //     if (file) {
+            //         if (file.size > 25 * 1024 * 1024) { // 25 MB limit
+            //             $fileError.text("File size must be less than 25 MB.").show();
+            //             $(this).val('');
+            //         } else if (!file.type.startsWith("image/")) {
+            //             $fileError.text("Only image files are allowed.").show();
+            //             $(this).val('');
+            //         } else {
+            //             $fileError.hide();
+            //         }
+            //     }
+            // });
+            $('.viewSub').each(async function () {
+                var id = $(this).attr("data-custid");
+                var ProductId = $(this).attr("data-productid");
+                $("#custid").val(id);
+                $("#prodid").val(ProductId);
+
+                var userEmail = $(this).attr("data-useremail");
+                $("#statusModal").find(".userEmail").text(userEmail);
+
+                $("#statusModal").find(".userPhone").text($(this).attr("data-phone"));
+
+                $("#statusModal").find(".productN").text($(this).attr("data-prod"));
+
+                await loadsubscriptionLog(id, ProductId);
+                await loadplansforcustomerandproduct(id, ProductId);
+            });
+
+                    var customerId = '@ViewBag.Customer';
+                    var productId = '@ViewBag.Product';
+                    $(".viewSub[data-custid='" + customerId + "'][data-productid='" + productId + "']").click();
+        });
+
+        function updateCircularProgress(chartId, percentage, remainingDays) {
+            const element = $("#" + chartId);
+            var degree = (percentage / 100) * 360;
+
+            var color = '#06E763';
+            if (remainingDays < 3) {
+                color = '#fB4A4A'; // Red for critical
+            } else if (remainingDays < 5) {
+                color = '#fFB92B'; // Yellow for warning
+            }
+
+            element.css("background", `conic-gradient(${color} ${degree}deg, #fafafa ${degree}deg)`);
         }
-        await GetOrganizations();
-        await $("#Main").append(body);
-        await GetUserDetails();
-        LoadCountries();
-        var clipboard = await new ClipboardJS('.btnCopy'); //for copy to clipboard
-        var $fileUpload = $('#file-upload');
-        var $qrCode = $('#qr-code');
-        var $fileInput = $('#fileInput');
-        var $fileError = $('#fileError');
 
-       
+        function resetCircularProgress(chartId) {
+            $("#" + chartId).css("background", "conic-gradient(#ff0000 0%, #ff0000 100%)");
+            $("#" + chartId).attr("data-label", "Error");
+        }
 
-        // File input validation
-        $fileInput.change(function () {
-            const file = this.files[0];
-            if (file) {
-                if (file.size > 25 * 1024 * 1024) { // 25 MB limit
-                    $fileError.text("File size must be less than 25 MB.").show();
-                    $(this).val('');
-                } else if (!file.type.startsWith("image/")) {
-                    $fileError.text("Only image files are allowed.").show();
-                    $(this).val('');
+
+        //fill the form to extend the plan
+        async function loadplansforcustomerandproduct(CustomerId, ProductId, chartId) {
+
+            $(".currentPlan").text('----None---');
+            $(".currentPlanEdate").text('__//__//____');
+            $(".remainingDaysinCPlan").text('0');
+            $(".TotalDaysInCurrentPlan").text('0');
+
+            var parm = {
+                CustomerId: parseInt(CustomerId),
+                ProductId: parseInt(ProductId)
+            };
+           
+            // Fetch current plan details
+            var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
+            var response = JSON.parse(ddd);
+            var responsefr = JSON.parse(response);
+
+            if (responsefr[0]["ErrorMessage"] == -202) {
+                toastr.error("You are not subscribed to the subscription Plan yet!!!");
+
+            } else {
+                if (responsefr.length > 0) {
+                    // If a current plan exists
+                    $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
+                    $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                    var remainingDays =  parseInt(responsefr[0]["RemainingDays"]);
+                    var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
+                    $(".remainingDaysinCPlan").text(remainingDays);
+                    $(".TotalDaysInCurrentPlan").text(totalDays);
+
+                     $("#" + chartId).parents(".card").find("#NextDueDate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                     $("#" + chartId).parents(".card").find("#CurrentPlan").text(responsefr[0]["CurrentlySubscription"]);
+
+
+
+
+
+                    if (remainingDays < 5) {
+                        toastr.error("Remaining days in the current plan are less than 5!");
+                        var qrText = `Your plan has ${remainingDays} days remaining!`;
+                        // var qrModal5 = $("#QRModal5").find("#generated-qr");
+
+                        // qrModal5.empty();  // Clear any previous QR code
+                        // new QRCode(qrModal5[0], {
+                        //     text: qrText,
+                        //     width: 250,
+                        //     height: 250,
+                        //     colorDark: "#000000",
+                        //     colorLight: "#ffffff",
+                        //     correctLevel: QRCode.CorrectLevel.H
+                        // });
+                        // $("#QRModal5").modal('show');
+                        //     $("#statusModal").modal('close');
+
+                    }
+
+                    // Update the circular progress for the specific organization
+                    $("#" + chartId).attr("data-label", `${remainingDays}D`);
+                    var percentage = (remainingDays / totalDays) * 100;
+                    var roundedPercentage = percentage.toFixed(1);
+                    updateCircularProgress(chartId, roundedPercentage, remainingDays);
+
                 } else {
-                    $fileError.hide();
+                    $("#" + chartId).attr("data-label", `0/0`);
+                    resetCircularProgress(chartId);
                 }
+            }
+            // New/existing plan logic
+           // var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);        ---------------this fetches all the plans ------------dont delete this code---------
+           
+           var para=await AjaxCall("/Customer/getSubsbyCusandProductIdAdmin", parm);
+           var data = JSON.parse(para);
+            var Jsondata = JSON.parse(data);
+            if (Jsondata.length > 0) {
+                var selectDOM = ``;
+                for (var i = 0; i < Jsondata.length; i++) {
+                    //if (Jsondata[i]["IsFound"] == "found") {
+                        var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
+                        var today = new Date();
+                        var expireDate = new Date(today);
+                        expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text())); // Modify expireDate directly
+                        var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+
+                        $("#statusModal").find(".expiryDate").val(isoExpireDate);
+                        //$("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
+                       
+
+                        selectDOM += `<option value="${Jsondata[i]["id"]}" data-noday=${noOfDays} data-expiredate=${isoExpireDate} amount=${Jsondata[i]['Amount']}>${Jsondata[i]['Name']}</option>`;
+                   // }
+                }
+                $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
+
+                var firstOption = $("#statusModal").find(".selectedPackages option:first");
+    if (firstOption.length > 0) {
+        var defaultAmount = firstOption.attr("amount"); 
+        var defaultExpiryDate = firstOption.attr("data-expiredate"); 
+
+        $("#statusModal").find(".Amount").val(defaultAmount); 
+        amountFetchedFromServer=parseFloat(defaultAmount);
+        $("#statusModal").find(".expiryDate").val(defaultExpiryDate); 
+    }
+            } else {
+                toastr.error("No Subscription Setup is done!!!");
+            }
+        }
+
+
+
+        //get the user details
+        async function GetUserDetails() {
+            const result = await AjaxCallWithoutData("/Home/GetUserDetails");
+            var data = JSON.parse(JSON.parse(JSON.parse(result)));
+            $(".UserName").text(data[0].UserName);
+            $("#yourName").text(data[0].UserName);
+            $("#yourEmail").text(data[0].UserEmail);
+            $("#yourContact").text(data[0].UserContact);
+            $("#yourAddress").text(data[0].UserAddress);
+        }
+
+
+        // get the image and change it to data url for preview
+        // $(document).on("change", "#inputLogo", async function (event) {
+        //         event.preventDefault();
+        //     if (this.files && this.files[0]) {
+
+
+        //         var readerForDataURL = new FileReader();
+        //         var compressedDataURL;
+
+        //         readerForDataURL.onloadend = function () {
+
+
+        //             var img = new Image();
+        //             img.onload = function () {
+
+        //                 var targetFileSize = 500 * 1024; // 500 KB max size for the image
+        //                 var currentFileSize = Number.MAX_SAFE_INTEGER;
+
+        //                 // Initialize compression quality
+        //                 var canvas = document.createElement('canvas');
+        //                 var ctx = canvas.getContext('2d');
+        //                 canvas.width = img.width;
+        //                 canvas.height = img.height;
+        //                 ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        //                 // Convert canvas to data URL with the current compression quality
+        //                 compressedDataURL = canvas.toDataURL('image/jpeg');
+        //                 // Get the file size of the compressed image
+        //                 currentFileSize = compressedDataURL.length;
+
+
+
+
+        //                 $(".logoValue").attr("src", compressedDataURL);
+        //             };
+
+        //             img.src = readerForDataURL.result;
+        //         };
+
+        //         readerForDataURL.readAsDataURL(this.files[0]);
+        //     }
+
+        //     var input = $(this);
+        //     var files = input[0].files;
+        //     var formData = new FormData();
+        //     var imgName = '';
+        //     for (var i = 0; i != files.length; i++) {
+        //         formData.append("files", files[i]);
+        //     }
+        //     var DocName = files[0].name;
+        //     var Exitension = DocName.split(".");
+        //     var imgextension = Exitension[1];
+        //     if (1) {
+
+        //         await $.ajax({
+        //             url: "/Register/UploadPhoto1",
+        //             data: formData,
+        //             processData: false,
+        //             contentType: false,
+        //             type: "POST",
+        //             beforeSend: function () {
+        //                 Swal.fire({
+        //                     html: '<div class="loader" id="loader-6">' +
+        //                         '<span></span>' +
+        //                         '<span></span>' +
+        //                         '<span></span>' +
+        //                         '<span></span>' +
+        //                         '</div>' +
+        //                         '<div>' +
+        //                         '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+        //                         '</div>',
+        //                     background: 'unset',
+        //                     allowOutsideClick: false,
+        //                     showConfirmButton: false,
+        //                 });
+        //             },
+        //             success: function (data) {
+
+        //                 imgName = data;
+        //                 $(".logoValue").attr("data-name", imgName);
+        //                 Swal.close();
+
+        //             },
+        //             error: function () {
+
+        //                 const file =
+        //                     document.querySelector('#file');
+        //                 file.value = '';
+        //                 Swal.close();
+        //             }
+
+        //         });
+        //     }
+        //     else {
+        //         toastr.info("Only image are allowed");
+        //     }
+
+        //     var uploadFile = $(this);
+        //     var files = !!this.files ? this.files : [];
+
+        //     if (/^image/.test(files[0].type)) { // only image file
+        //         var reader = new FileReader(); // instance of the FileReader
+        //         reader.readAsDataURL(files[0]); // read the local file
+
+
+        //         reader.onloadend = function () { // set image data as background of div
+        //             //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+        //         }
+        //     }
+        //     else {
+        //         var reader = new FileReader(); // instance of the FileReader
+        //         reader.readAsDataURL(files[0]); // read the local file
+
+        //         reader.onloadend = function () { // set image data as background of div
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
+        //             uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
+        //             uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
+        //         }
+        //     }
+        // });
+
+        // get the image and change it to data url for preview
+    $(document).ready(function () {
+        const $uploadArea = $("#uploadArea");
+        const $fileInput = $("#fileInput");
+
+        // Drag-and-drop handlers
+        $uploadArea.on("dragover", function (e) {
+            e.preventDefault();
+            $(this).css({
+                backgroundColor: "#e6f7ff",
+                borderColor: "#007bff",
+            });
+        });
+
+        $uploadArea.on("dragleave", function () {
+            $(this).css({
+                backgroundColor: "#f9f9f9",
+                borderColor: "#999",
+            });
+        });
+
+        $uploadArea.on("drop", async function (e) {
+            e.preventDefault();
+            $(this).css({
+                backgroundColor: "#f9f9f9",
+                borderColor: "#999",
+            });
+
+            const files = e.originalEvent.dataTransfer.files;
+
+            if (files.length > 0) {
+                handleFileUpload(files);
             }
         });
-        $('.viewSub').each(async function () {
+
+        // File input change handler
+        $(document).on("change", "#fileInput", function () {
+            const files = this.files;
+            if (files.length > 0) {
+                handleFileUpload(files);
+            }
+        });
+
+        // File upload logic (reuses existing functionality)
+        async function handleFileUpload(files) {
+            const formData = new FormData();
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append("files", files[i]); // Append files with key 'files'
+            }
+            await $.ajax({
+                url: "/Register/UploadPhoto1", // Your controller endpoint
+                data: formData,
+                processData: false, // Prevent jQuery from processing data
+                contentType: false, // Let the browser set the content type
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        html: `<div class="loader" id="loader-6">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div>
+                                <p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>
+                            </div>`,
+                        background: "unset",
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (data) {
+                    console.log(data);
+                    const imgName = data;
+                    $uploadArea.attr("data-filename", imgName);
+                    $uploadArea.find(".uploadedinfo").text("Uploaded !!!");
+                    Swal.close();
+                },
+                error: function (error) {
+                    Swal.close();
+                    console.error(error);
+                    $uploadArea.find(".uploadedinfo").text("Upload Failed !!!");
+                },
+            });
+        }
+    });
+
+
+        //get the module values
+        async function getModuleValues() {
+            const result = await AjaxCallWithoutData("/Home/GetModuleValues");
+
+            var data = JSON.parse(JSON.parse(JSON.parse(result)));
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html += `<option data-site="${data[i].SiteName}" value="${data[i].UkId}">${data[i].Name}</option>`;
+            }
+            $(".moduleSelect").html(html);
+        }
+        //change the value when the user changes the module
+
+
+        //show the modal where the user updates the data
+        $(document).on("click", "#editBtn", async function () {
+
+            await getModuleValues();
+            var token = $(this).attr("data-token");
+
+            // Retrieve organization data from API
+            var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
+            var data = JSON.parse(JSON.parse(JSON.parse(result)));
+            var imageData = data[0].ImageData;
+            var filename = imageData.substring(imageData.lastIndexOf('/') + 1);
+
+            $(".logoValue").attr("src", data[0].ImageData);
+
+            $("#newcompanyName").val(data[0].CompanyName);
+            $("#newdisplayName").val(data[0].DisplayName);
+            $("#newinitial").val(data[0].Initial);
+            $("#newvat").val(data[0].PanVatNo);
+            $("#newaddress").val(data[0].Address);
+            $("#newphone").val(data[0].PhoneNo);
+            $("#newContactNumber").val(data[0].ContactMobile);
+            $("#newEmail").val(data[0].OrganizationMail);
+            $("#newWebsite").val(data[0].Website);
+            $("#newmotto").val(data[0].OrganizationMotto);
+            $(".logoValue").attr("data-name", data[0].ImageName);
+            $("#newdefaultValue").val(data[0].SiteURL);
+            $("#updateDetails").attr("data-token", token);
+
+            $("#NewCountrySelect").empty();
+
+            // Append the organization motto as the first option in the dropdown
+            var organizationMotto = data[0].OrganizationMotto;
+            $("#NewCountrySelect").append($('<option>', {
+                value: organizationMotto,
+                text: organizationMotto
+            }));
+
+            // Fetch countries from the API
+            var apiUrl = 'https://api.countrystatecity.in/v1/countries';
+            var apiKey = 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==';
+            var response = await fetch(apiUrl, {
+                headers: { "X-CSCAPI-KEY": apiKey }
+            });
+            var countries = await response.json();
+
+            // Append other countries from the API to the dropdown
+            countries.forEach(function (country) {
+                if (country.iso2 !== organizationMotto) {
+                    $("#NewCountrySelect").append($('<option>', {
+                        value: country.iso2,
+                        text: country.name
+                    }));
+                }
+            });
+
+        });
+
+
+        //get the organisation subscription log
+        $(document).on('click', '.viewSub', async function () {
+
             var id = $(this).attr("data-custid");
             var ProductId = $(this).attr("data-productid");
             $("#custid").val(id);
             $("#prodid").val(ProductId);
-
-            var userEmail = $(this).attr("data-useremail");
-            $("#statusModal").find(".userEmail").text(userEmail);
-            
-            $("#statusModal").find(".userPhone").text($(this).attr("data-phone"));
-
-            $("#statusModal").find(".productN").text($(this).attr("data-prod"));
-           
             await loadsubscriptionLog(id, ProductId);
-            await loadplansforcustomerandproduct(id, ProductId);
+            await loadplansforcustomerandproduct(id, ProductId)
         });
 
-    });
-  
-    function updateCircularProgress(chartId, percentage, remainingDays) {
-        const element = $("#" + chartId);
-        var degree = (percentage / 100) * 360;
 
-        var color = '#06E763';
-        if (remainingDays < 3) {
-            color = '#fB4A4A'; // Red for critical
-        } else if (remainingDays < 5) {
-            color = '#fFB92B'; // Yellow for warning
-        }
+        //get the organisation subscription log
+        async function loadsubscriptionLog(CustomerId, ProductId) {
 
-        element.css("background", `conic-gradient(${color} ${degree}deg, #fafafa ${degree}deg)`);
-    }
-
-    function resetCircularProgress(chartId) {
-        $("#" + chartId).css("background", "conic-gradient(#ff0000 0%, #ff0000 100%)");
-        $("#" + chartId).attr("data-label", "Error");
-    }
-
-
-    //fill the form to extend the plan
-    async function loadplansforcustomerandproduct(CustomerId, ProductId, chartId) {
-        $(".currentPlan").text('----None---');
-        $(".currentPlanEdate").text('__//__//____');
-        $(".remainingDaysinCPlan").text('0');
-        $(".TotalDaysInCurrentPlan").text('0');
-
-        var parm = {
-            CustomerId: parseInt(CustomerId),
-            ProductId: parseInt(ProductId)
-        };
-
-        // Fetch current plan details
-        var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
-        var response = JSON.parse(ddd);
-        var responsefr = JSON.parse(response);
-
-        if (responsefr[0]["ErrorMessage"] == -202) {
-            toastr.error("You are not subscribed to the subscription Plan yet!!!");
-        } else {
-            if (responsefr.length > 0) {
-                // If a current plan exists
-                $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
-                $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
-                var remainingDays =  parseInt(responsefr[0]["RemainingDays"]);
-                var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
-                $(".remainingDaysinCPlan").text(remainingDays);
-                $(".TotalDaysInCurrentPlan").text(totalDays);
-
-                if (remainingDays < 5) {
-                    toastr.error("Remaining days in the current plan are less than 5!");
-                    var qrText = `Your plan has ${remainingDays} days remaining!`;
-                    var qrModal5 = $("#QRModal5").find("#generated-qr");
-
-                    qrModal5.empty();  // Clear any previous QR code
-                    new QRCode(qrModal5[0], {
-                        text: qrText,
-                        width: 250,
-                        height: 250,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
-                    $("#QRModal5").modal('show');
-                }
-
-                // Update the circular progress for the specific organization
-                $("#" + chartId).attr("data-label", `${remainingDays}/${totalDays}`);
-                var percentage = (remainingDays / totalDays) * 100;
-                var roundedPercentage = percentage.toFixed(1);
-                updateCircularProgress(chartId, roundedPercentage, remainingDays);
-
-            } else {
-                $("#" + chartId).attr("data-label", `0/0`);
-                resetCircularProgress(chartId);
-            }
-        }
-        // New/existing plan logic
-        var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
-        var data = JSON.parse(para);
-        var Jsondata = JSON.parse(data);
-        if (Jsondata.length > 0) {
-            var selectDOM = ``;
-            for (var i = 0; i < Jsondata.length; i++) {
-                if (Jsondata[i]["IsFound"] == "found") {
-                    var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
-                    var today = new Date();
-                    var expireDate = new Date(today);
-                    expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text())); // Modify expireDate directly
-                    var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
-
-                    $("#statusModal").find(".expiryDate").val(isoExpireDate);
-                    $("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
-                    amountFetchedFromServer=Jsondata[i]["Amount"];
-
-                    selectDOM += `<option data-noday=${noOfDays} data-expiredate=${isoExpireDate} value=${Jsondata[i]['SubscriptionId']}>${Jsondata[i]['Name']}</option>`;
-                }
-            }
-            $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
-        } else {
-            toastr.error("No Subscription Setup is done!!!");
-        }
-    }
-
-
-
-    //get the user details
-    async function GetUserDetails() {
-        const result = await AjaxCallWithoutData("/Home/GetUserDetails");
-        var data = JSON.parse(JSON.parse(JSON.parse(result)));
-        $(".UserName").text(data[0].UserName);
-        $("#yourName").text(data[0].UserName);
-        $("#yourEmail").text(data[0].UserEmail);
-        $("#yourContact").text(data[0].UserContact);
-        $("#yourAddress").text(data[0].UserAddress);
-    }
-
-
-    // get the image and change it to data url for preview
-    $(document).on("change", "#inputLogo", async function () {
-        if (this.files && this.files[0]) {
-
-
-            var readerForDataURL = new FileReader();
-            var compressedDataURL;
-
-            readerForDataURL.onloadend = function () {
-
-
-                var img = new Image();
-                img.onload = function () {
-
-                    var targetFileSize = 500 * 1024; // 500 KB max size for the image
-                    var currentFileSize = Number.MAX_SAFE_INTEGER;
-
-                    // Initialize compression quality
-                    var canvas = document.createElement('canvas');
-                    var ctx = canvas.getContext('2d');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0, img.width, img.height);
-
-                    // Convert canvas to data URL with the current compression quality
-                    compressedDataURL = canvas.toDataURL('image/jpeg');
-                    // Get the file size of the compressed image
-                    currentFileSize = compressedDataURL.length;
-
-
-
-
-                    $(".logoValue").attr("src", compressedDataURL);
-                };
-
-                img.src = readerForDataURL.result;
+            var parm = {
+                CustomerId: parseInt(CustomerId),
+                ProductId: parseInt(ProductId)
             };
+            var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId", parm);
+            var sub = JSON.parse(jsub);
+            var jsonData = JSON.parse(sub);
 
-            readerForDataURL.readAsDataURL(this.files[0]);
+
+            var subDOM = "";
+            if (jsonData.length > 0) {
+                for (var i = 0; i < jsonData.length; i++) {
+                    subDOM += `<tr>
+                    <td class="center"><b>`+(i+1)+`</b></td>
+                    <td class="center">`+ jsonData[i]["fonepayTraceId"] + `</td>
+                                            <td class="center">`+ jsonData[i]["productName"] + `</td>
+                                            <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
+                                            <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
+                                            <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
+                                            <td class="center">`+ jsonData[i]["Remarks"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentRemarks"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
+                                                <td class="center">`+ jsonData[i]["ReferenceId"] + `</td>
+                                                    <td class="center"><button class="btn btn-danger PrintLog" data-ukid="`+jsonData[i]["ukid"]+`">  <i class="fas fa-print"></i></button></td>
+                                        `;
+                }
+                $("#statusModal").find("#cLogTable tbody").empty().append(subDOM);
+            } else {
+                toastr.error("No Log Found!!!");
+                $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
+            }
         }
 
-        var input = $(this);
-        var files = input[0].files;
-        var formData = new FormData();
-        var imgName = '';
-        for (var i = 0; i != files.length; i++) {
-            formData.append("files", files[i]);
-        }
-        var DocName = files[0].name;
-        var Exitension = DocName.split(".");
-        var imgextension = Exitension[1];
-        if (1) {
+
+        //delete the organization
+        $(document).on("click", "#deleteBtn", async function () {
+            var token = $(this).attr("data-token");
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true,
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    var result = await AjaxCall("/Home/DeleteSingleOrganization", { Token: token });
+                    var parsedResult = JSON.parse(result);
+                    //or parsedResult = result.json();
+                    if (parsedResult == 1) {
+                        toastr.success("Organization Deleted Successfully");
+                        location.reload();
+                    } else {
+                        toastr.error("Something went wrong");
+                    }
+                }
+            })
+
+        });
+
+        $(document).on("change", "#fileInput", async function () {
+            var filedom = $(this);
+            var input = $(this);
+            var files = input[0].files;
+
+            // Check if any file is selected
+            if (files.length === 0) {
+                alert("Please select a file to upload.");
+                return;
+            }
+
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append("files", files[i]); // Append the file with key 'files'
+            }
+
+
 
             await $.ajax({
-                url: "/Register/UploadPhoto1",
+                url: "/Register/UploadPhoto1", // Your controller endpoint
                 data: formData,
-                processData: false,
-                contentType: false,
+                processData: false,    // Don't process the data
+                contentType: false,    // Let the browser set the content type
                 type: "POST",
                 beforeSend: function () {
                     Swal.fire({
@@ -1256,662 +1809,607 @@
                     });
                 },
                 success: function (data) {
-
-                    imgName = data;
-                    $(".logoValue").attr("data-name", imgName);
+                    console.log(data);
+                    var imgName = data;
+                    $(filedom).attr("data-filename", imgName);
+                    $(filedom).parents(".gethere").find(".uploadedinfo").text("Uploaded !!!");
                     Swal.close();
-
                 },
-                error: function () {
-
-                    const file =
-                        document.querySelector('#file');
-                    file.value = '';
+                error: function (error) {
                     Swal.close();
-                }
-
+                    console.log(error);
+                    $(filedom).parents(".gethere").find(".uploadedinfo").text("Upload Failed !!!");
+           }
             });
-        }
-        else {
-            toastr.info("Only image are allowed");
-        }
-
-        var uploadFile = $(this);
-        var files = !!this.files ? this.files : [];
-
-        if (/^image/.test(files[0].type)) { // only image file
-            var reader = new FileReader(); // instance of the FileReader
-            reader.readAsDataURL(files[0]); // read the local file
-
-
-            reader.onloadend = function () { // set image data as background of div
-                //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
-                uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
-                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
-            }
-        }
-        else {
-            var reader = new FileReader(); // instance of the FileReader
-            reader.readAsDataURL(files[0]); // read the local file
-
-            reader.onloadend = function () { // set image data as background of div
-                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgname", imgName);
-                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-imgid", '0');
-                uploadFile.closest(".imgUp").find('.imagePreview').attr("data-preview", this.result);
-                uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(https://brandslogo.net/wp-content/uploads/2016/07/file-types-vector-icons.png)");
-            }
-        }
-    });
-
-
-
-    //get the module values
-    async function getModuleValues() {
-        const result = await AjaxCallWithoutData("/Home/GetModuleValues");
-
-        var data = JSON.parse(JSON.parse(JSON.parse(result)));
-        var html = "";
-        for (var i = 0; i < data.length; i++) {
-            html += `<option data-site="${data[i].SiteName}" value="${data[i].UkId}">${data[i].Name}</option>`;
-        }
-        $(".moduleSelect").html(html);
-    }
-    //change the value when the user changes the module
-    $(document).on("change", ".moduleSelect", function () {
-        var val = $(this).find("option:selected").attr("data-site");
-        $(".defaultModuleValue").val(val);
-    });
-    //show the modal where the user updates the data
-    $(document).on("click", "#editBtn", async function () {
-
-        await getModuleValues();
-        var token = $(this).attr("data-token");
-
-        // Retrieve organization data from API
-        var result = await AjaxCall("/Home/GetSingleOrganization", { Token: token });
-        var data = JSON.parse(JSON.parse(JSON.parse(result)));
-        var imageData = data[0].ImageData;
-        var filename = imageData.substring(imageData.lastIndexOf('/') + 1);
-
-        $(".logoValue").attr("src", data[0].ImageData);
-
-        $("#newcompanyName").val(data[0].CompanyName);
-        $("#newdisplayName").val(data[0].DisplayName);
-        $("#newinitial").val(data[0].Initial);
-        $("#newvat").val(data[0].PanVatNo);
-        $("#newaddress").val(data[0].Address);
-        $("#newphone").val(data[0].PhoneNo);
-        $("#newContactNumber").val(data[0].ContactMobile);
-        $("#newEmail").val(data[0].OrganizationMail);
-        $("#newWebsite").val(data[0].Website);
-        $("#newmotto").val(data[0].OrganizationMotto);
-        $(".logoValue").attr("data-name", data[0].ImageName);
-        $("#newdefaultValue").val(data[0].SiteURL);
-        $("#updateDetails").attr("data-token", token);
-
-        $("#NewCountrySelect").empty();
-
-        // Append the organization motto as the first option in the dropdown
-        var organizationMotto = data[0].OrganizationMotto;
-        $("#NewCountrySelect").append($('<option>', {
-            value: organizationMotto,
-            text: organizationMotto
-        }));
-
-        // Fetch countries from the API
-        var apiUrl = 'https://api.countrystatecity.in/v1/countries';
-        var apiKey = 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==';
-        var response = await fetch(apiUrl, {
-            headers: { "X-CSCAPI-KEY": apiKey }
-        });
-        var countries = await response.json();
-
-        // Append other countries from the API to the dropdown
-        countries.forEach(function (country) {
-            if (country.iso2 !== organizationMotto) {
-                $("#NewCountrySelect").append($('<option>', {
-                    value: country.iso2,
-                    text: country.name
-                }));
-            }
         });
 
-    });
 
 
-    //get the organisation subscription log
-    $(document).on('click', '.viewSub', async function () {
+        $(document).on('click', '.btnExtendPlan', async function () {
 
-        var id = $(this).attr("data-custid");
-        var ProductId = $(this).attr("data-productid");
-        $("#custid").val(id);
-        $("#prodid").val(ProductId);
-        await loadsubscriptionLog(id, ProductId);
-        await loadplansforcustomerandproduct(id, ProductId)
-    });
+            var paymentSelected = $('input[name="payment"]:checked').length > 0;
+            if (!paymentSelected) {
 
-
-    //get the organisation subscription log
-    async function loadsubscriptionLog(CustomerId, ProductId) {
-
-        var parm = {
-            CustomerId: parseInt(CustomerId),
-            ProductId: parseInt(ProductId)
-        };
-        var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId", parm);
-        var sub = JSON.parse(jsub);
-        var jsonData = JSON.parse(sub);
-
-
-        var subDOM = "";
-        if (jsonData.length > 0) {
-            for (var i = 0; i < jsonData.length; i++) {
-                subDOM += `<tr>
-                                        <td class="center">`+ jsonData[i]["productName"] + `</td>
-                                        <td class="center">`+ jsonData[i]["SubscriptionType"] + `</td>
-                                        <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
-                                        <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
-                                        <td class="center">`+ jsonData[i]["Remarks"] + `</td>
-                                        <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
-                                        <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
-                                        <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
-                                        <td class="center">`+ jsonData[i]["GeneratedSerialNo"] + `</td>
-                                    `;
+                toastr.warning('Please select a payment method before proceeding.', 'Warning');
             }
-            $("#statusModal").find("#cLogTable tbody").empty().append(subDOM);
-        } else {
-            toastr.error("No Log Found!!!");
-            $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
-        }
+            if ($(".rem").val() == "") {
+                toastr.warning("Please fill in a Remarks!!!");
+            }
+            else if ($("#fileInput").attr("data-filename") == "") {
+                toastr.warning("Please attach a voucher or pay through QR!!!");
+            }
+
+            else {
+
+                var parm = {
+                    SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+                    ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
+                    PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
+                    Remarks: $("#statusModal").find(".rem").val(),
+                    CustomerId: parseInt($("#custid").val()),
+                    ProductId: parseInt($("#prodid").val()),
+                    TransactionId: 0,
+                    PaymentMethod: 'cash',
+                    ReferenceId: 0,
+                    PaymentPartner: 'none',
+                    GeneratedSerialNo: 'sn001',
+                    VoucherImage:  $("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
+                    IsVerifiedPayment: 0
+                }
+                
+                //insert the extension manually
+                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                var dataa = JSON.parse(cpp);
+                var jsondata = JSON.parse(dataaa);
+
+                if (jsondata > 0) {
+                    toastr.success("Plan extension successful");
+                }
+                else {
+                    toastr.error("Plan extension  not successful");
+
+                }
+            }
+
+
+        });
+
+
+
+
+
+        //update the organization
+        $(document).on("click", "#updateDetails", async (event) => {
+            event.preventDefault();
+
+            if ($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == '' || $(".moduleSelect").val() == '') {
+                toastr.error("Please fill all the fields");
+                return false;
+            }
+            var token = $("#updateDetails").attr("data-token");
+            var companyName = $("#newcompanyName").val();
+            var displayName = $("#newdisplayName").val();
+            var Country = $("#NewCountrySelect option:selected").text();
+            var initial = $("#newinitial").val();
+            var vat = $("#newvat").val();
+            var address = $("#newaddress").val();
+            var phone = $("#newphone").val();
+            var contact = $("#newContactNumber").val();
+            var Email = $("#newEmail").val();
+            var Website = $("#newWebsite").val();
+            var motto = $("#newmotto").val();
+            var module = $(".moduleSelect").val();
+            var logo = $(".logoValue").attr("data-name");
+
+            var specialCharPattern = /[^a-zA-Z0-9]/;
+            if (specialCharPattern.test(initial)) {
+                toastr.error("Special characters or spaces are not allowed in Initial.");
+                return false;
+            }
+
+
+
+            var data = {
+                CompanyName: companyName,
+                DisplayName: displayName,
+                ContactMobile: contact,
+                Initial: initial,
+                PanVatNo: vat,
+                Address: address,
+                PhoneNo: phone,
+                Module: parseInt(module),
+                OrganizationMail: Email,
+                Website: Website,
+                ImageName: logo,
+                ImageType: '',
+                ImageData: logo,
+                OrganizationMotto: Country,
+                Token: token
+            };
+            var result = await AjaxCall("/Home/UploadOrganizationData", data);
+            if (parseInt(result) == 1) {
+                $("#staticBackdrop").modal("hide");
+                toastr.success("Organization updated Successfully");
+                location.reload();
+                return false;
+            } else {
+                toastr.error("Something went wrong");
+            }
+        });
+
+        $(document).on("click", ".addOrganization", async () => {
+            await getModuleValues();
+            $("#staticBackdrop").modal("show");
+        });
+        $(document).on("click", ".signoutBtn", async () => {
+            var result = await AjaxCallWithoutData("/Login/LogOut");
+            if (result == "Success") {
+                window.location.href = "/Login/Index";
+            }
+        });
+
+        $(document).on("click", "#submitDetails", async (event) => {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+
+               if ($("#companyName").val() == '') {
+        toastr.warning("Please fill in the Company Name");
+        return false;
+    }
+
+    if ($("#displayName").val() == '') {
+        toastr.warning("Please fill in the Display Name");
+        return false;
+    }
+
+    if ($("#initial").val() == '') {
+        toastr.warning("Please fill in the Initial");
+        return false;
+    }
+
+    if ($("#vat").val() == '') {
+        toastr.warning("Please fill in the VAT");
+        return false;
+    }
+
+    if ($("#address").val() == '') {
+        toastr.warning("Please fill in the Address");
+        return false;
+    }
+
+    if ($("#phone").val() == '') {
+        toastr.warning("Please fill in the Phone");
+        return false;
+    }
+
+    if ($("#ContactNumber").val() == '') {
+        toastr.warning("Please fill in the Contact Number");
+        return false;
+    }
+
+    if ($("#Email").val() == '') {
+        toastr.warning("Please fill in the Email");
+        return false;
+    }
+
+    if ($(".moduleSelect").val() == '') {
+        toastr.warning("Please select a Module");
+        return false;
     }
 
 
-    //delete the organization
-    $(document).on("click", "#deleteBtn", async function () {
-        var token = $(this).attr("data-token");
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: true,
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                var result = await AjaxCall("/Home/DeleteSingleOrganization", { Token: token });
-                var parsedResult = JSON.parse(result);
-                //or parsedResult = result.json();
-                if (parsedResult == 1) {
-                    toastr.success("Organization Deleted Successfully");
+            var companyName = $("#companyName").val();
+            var displayName = $("#displayName").val();
+            var Country = $("#CountrySelect option:selected").text();
+            var initial = $("#initial").val();
+            var vat = $("#vat").val();
+            var address = $("#address").val();
+            var phone = $("#phone").val();
+            var contact = $("#ContactNumber").val();
+            var Email = $("#Email").val();
+            var Website = $("#Website").val();
+            var logo = $(".logoValue").attr("data-name");
+            var module = parseInt($("#staticBackdrop").find("#moduleSelect").val());
+           // var module = parseInt($("#staticBackdrop").find("#moduleSelect").val());
+
+
+            // Check for special characters in the initial
+            var specialCharPattern = /[^a-zA-Z0-9]/;
+            if (specialCharPattern.test(initial)) {
+                toastr.error("Special characters or spaces are not allowed in Initial.");
+                return false;
+            }
+
+            // if (!logo) {
+            //     await uploadLogoAndSubmitForm();
+            //     return; // Exit the function after uploading logo asynchronously
+            // }
+
+            var checkdata = {
+                Initial: initial
+            };
+            var result1 = await AjaxCall("/Home/CheckInitialName", checkdata);
+
+            var data = {
+                CompanyName: companyName,
+                DisplayName: displayName,
+                ContactMobile: contact,
+                Initial: initial,
+                PanVatNo: vat,
+                Address: address,
+                PhoneNo: phone,
+                Module: parseInt(module),
+                OrganizationMail: Email,
+                Website: Website,
+                ImageName: '',
+                ImageType: '',
+                ImageData:'',     // logo,
+                OrganizationMotto: Country,
+                Token: ""
+            };
+
+            if (result1.StatusCode == 201) {
+                // Initial exists
+                toastr.error("Initial already created. Please change it.");
+            }
+            else {
+                var result = await AjaxCall("/Home/UploadOrganizationData", data);
+                if (parseInt(result) === 1) {
+                    $("#staticBackdrop").modal("hide");
+                    toastr.success("Organization Added Successfully");
                     location.reload();
+
                 } else {
                     toastr.error("Something went wrong");
                 }
             }
-        })
-
-    });
-
-    $(document).on("change", "#fileInput", async function () {
-        var filedom = $(this);
-        var input = $(this);
-        var files = input[0].files;
-
-        // Check if any file is selected
-        if (files.length === 0) {
-            alert("Please select a file to upload.");
-            return;
-        }
-
-        var formData = new FormData();
-        for (var i = 0; i < files.length; i++) {
-            formData.append("files", files[i]); // Append the file with key 'files'
-        }
-
-        await $.ajax({
-            url: "/Register/UploadPhoto1", // Your controller endpoint
-            data: formData,
-            processData: false,    // Don't process the data
-            contentType: false,    // Let the browser set the content type
-            type: "POST",
-            beforeSend: function () {
-                Swal.fire({
-                    html: '<div class="loader" id="loader-6">' +
-                        '<span></span>' +
-                        '<span></span>' +
-                        '<span></span>' +
-                        '<span></span>' +
-                        '</div>' +
-                        '<div>' +
-                        '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
-                        '</div>',
-                    background: 'unset',
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                });
-            },
-            success: function (data) {
-                console.log(data);
-                var imgName = data;
-                $(filedom).attr("data-filename", imgName);
-                $(filedom).parents(".gethere").find(".uploadedinfo").text("Uploaded !!!");
-                Swal.close();
-            },
-            error: function (error) {
-                Swal.close();
-                console.log(error);
-                $(filedom).parents(".gethere").find(".uploadedinfo").text("Upload Failed !!!");
-            }
         });
-    });
+
+        async function uploadLogoAndSubmitForm() {
+            var imgSrc = $(".logoValue").attr("src");
+
+            var response = await fetch(imgSrc);
+            var blob = await response.blob();
+            var formData = new FormData();
+            formData.append("files", blob, "logo.png");
 
 
-
-    $(document).on('click', '.btnExtendPlan', async function () {
-        var paymentSelected = $('input[name="payment"]:checked').length > 0;
-        if (!paymentSelected) {
-
-            toastr.warning('Please select a payment method before proceeding.', 'Warning');
-        }
-        if ($(".rem").val() == "") {
-            toastr.warning("Please fill in a Remarks!!!");
-        } else if ($("#fileInput").attr("data-filename") == "") {
-            toastr.warning("Please attach a voucher or pay through QR!!!");
-        }
-
-        else {
-            var parm = {
-                SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
-                ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
-                PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
-                Remarks: $("#statusModal").find(".rem").val(),
-                CustomerId: parseInt($("#custid").val()),
-                ProductId: parseInt($("#prodid").val()),
-
-                TransactionId: 0,
-                PaymentMethod: 'cash',
-                ReferenceId: 0,
-                PaymentPartner: 'none',
-                GeneratedSerialNo: 'sn001',
-                VoucherImage: $("#fileInput").attr("data-filename"),
-                IsVerifiedPayment: false
-            }
+            var data = await $.ajax({
+                url: "/Register/UploadPhoto",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST"
+            });
 
 
-            //insert the extension manually
-            var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-            var dataa = JSON.parse(cpp);
-            var jsondata = JSON.parse(dataaa);
+            imgName = data;
+            $(".logoValue").attr("data-name", imgName);
 
-            if (jsondata > 0) {
-                toastr.success("Plan extension successful");
-            }
-            else {
-                toastr.error("Plan extension  not successful");
-
-            }
         }
 
 
-    });
+        $(document).on("click", ".PrintLog", async function () {
+
+            var parm={
+                        unqId:parseInt($(this).attr("data-ukid"))
+            };
+
+                 var reqestInvoicePrint=await AjaxCall("/Home/getInvoiceForPrint",parm);
+                 var responseInvoiceData=JSON.parse(reqestInvoicePrint);
+                 var JSONData=JSON.parse(responseInvoiceData);
+                 
+                 if(JSONData.length>0){
+
+                    var invoiceData = {
+                            PaymentStatus:  JSONData[0]["PaymentStatus"],
+                             CustomerName: JSONData[0]["CustomerName"] ? JSONData[0]["CustomerName"].toString() : "",
+                             CustomerAddress: JSONData[0]["CustomerAddress"] ? JSONData[0]["CustomerAddress"].toString() : "",
+                             Product: JSONData[0]["Product"] ? JSONData[0]["Product"].toString() : "",
+                             PlanName: JSONData[0]["PlanName"] ? JSONData[0]["PlanName"].toString() : "",
+                             Amount: JSONData[0]["Subtotal"] ? JSONData[0]["Subtotal"].toString() : "",
+                             TransactionId: JSONData[0]["TransactionId"] ? JSONData[0]["TransactionId"].trim().toString() : "",
+                             PaymentGateway: JSONData[0]["PaymentGateway"] ? JSONData[0]["PaymentGateway"].toString() : "",
+                             TotalAmount: JSONData[0]["TotalAmount"] ? parseFloat(JSONData[0]["TotalAmount"]).toString() : "0",
+                             Vat: JSONData[0]["Vat"] ? parseFloat(JSONData[0]["Vat"]).toString() : "0",
+                             Subtotal: JSONData[0]["Subtotal"] ? parseFloat(JSONData[0]["Subtotal"]).toString() : "0",
+                             InvoiceDate: JSONData[0]["InvoiceDate"] ? JSONData[0]["InvoiceDate"].toString() : "",
+                             DueDate: JSONData[0]["DueDate"] ? JSONData[0]["DueDate"].toString() : "",
+                     };
+
+
+                       var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
+                       window.open("/Home/InvoicePage", "_blank");
+
+                 }else{
+                     toastr.error("No Entry found for the Log");
+                 }
+        });
 
 
 
-
-
-    //update the organization
-    $(document).on("click", "#updateDetails", async (event) => {
-        event.preventDefault();
-
-        if ($("#newcompanyName").val() == '' || $("#newdisplayName").val() == '' || $("#newinitial").val() == '' || $("#newvat").val() == '' || $("#newaddress").val() == '' || $("#newphone").val() == '' || $("#newContactNumber").val() == '' || $("#newEmail").val() == '' || $(".moduleSelect").val() == '') {
-            toastr.error("Please fill all the fields");
-            return false;
-        }
-        var token = $("#updateDetails").attr("data-token");
-        var companyName = $("#newcompanyName").val();
-        var displayName = $("#newdisplayName").val();
-        var Country = $("#NewCountrySelect option:selected").text();
-        var initial = $("#newinitial").val();
-        var vat = $("#newvat").val();
-        var address = $("#newaddress").val();
-        var phone = $("#newphone").val();
-        var contact = $("#newContactNumber").val();
-        var Email = $("#newEmail").val();
-        var Website = $("#newWebsite").val();
-        var motto = $("#newmotto").val();
-        var module = $(".moduleSelect").val();
-        var logo = $(".logoValue").attr("data-name");
-
-        var specialCharPattern = /[^a-zA-Z0-9]/;
-        if (specialCharPattern.test(initial)) {
-            toastr.error("Special characters or spaces are not allowed in Initial.");
-            return false;
-        }
-
-
-
-        var data = {
-            CompanyName: companyName,
-            DisplayName: displayName,
-            ContactMobile: contact,
-            Initial: initial,
-            PanVatNo: vat,
-            Address: address,
-            PhoneNo: phone,
-            Module: parseInt(module),
-            OrganizationMail: Email,
-            Website: Website,
-            ImageName: logo,
-            ImageType: '',
-            ImageData: logo,
-            OrganizationMotto: Country,
-            Token: token
-        };
-        var result = await AjaxCall("/Home/UploadOrganizationData", data);
-        if (parseInt(result) == 1) {
-            $("#staticBackdrop").modal("hide");
-            toastr.success("Organization updated Successfully");
-            location.reload();
-            return false;
-        } else {
-            toastr.error("Something went wrong");
-        }
-    });
-
-    $(document).on("click", ".addOrganization", async () => {
-        await getModuleValues();
-        $("#staticBackdrop").modal("show");
-    });
-    $(document).on("click", ".signoutBtn", async () => {
-        var result = await AjaxCallWithoutData("/Login/LogOut");
-        if (result == "Success") {
-            window.location.href = "/Login/Index";
-        }
-    });
-
-    $(document).on("click", "#submitDetails", async (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
-
-        ;
-        if ($("#companyName").val() == '' || $("#displayName").val() == '' || $("#initial").val() == '' || $("#vat").val() == '' || $("#address").val() == '' || $("#phone").val() == '' || $("#ContactNumber").val() == '' || $("#Email").val() == '' || $(".moduleSelect").val() == '') {
-            toastr.error("Please fill all the fields");
-            return false;
-        }
-
-        var companyName = $("#companyName").val();
-        var displayName = $("#displayName").val();
-        var Country = $("#CountrySelect option:selected").text();
-        var initial = $("#initial").val();
-        var vat = $("#vat").val();
-        var address = $("#address").val();
-        var phone = $("#phone").val();
-        var contact = $("#ContactNumber").val();
-        var Email = $("#Email").val();
-        var Website = $("#Website").val();
-        var logo = $(".logoValue").attr("data-name");
-        var module = $(".moduleSelect").val();
-        // Check for special characters in the initial
-        var specialCharPattern = /[^a-zA-Z0-9]/;
-        if (specialCharPattern.test(initial)) {
-            toastr.error("Special characters or spaces are not allowed in Initial.");
-            return false;
-        }
-
-        if (!logo) {
-            await uploadLogoAndSubmitForm();
-            return; // Exit the function after uploading logo asynchronously
-        }
-
-        var checkdata = {
-            Initial: initial
-        };
-        var result1 = await AjaxCall("/Home/CheckInitialName", checkdata);
-
-        var data = {
-            CompanyName: companyName,
-            DisplayName: displayName,
-            ContactMobile: contact,
-            Initial: initial,
-            PanVatNo: vat,
-            Address: address,
-            PhoneNo: phone,
-            Module: parseInt(module),
-            OrganizationMail: Email,
-            Website: Website,
-            ImageName: '',
-            ImageType: '',
-            ImageData: logo,
-            OrganizationMotto: Country,
-            Token: ""
-        };
-
-        if (result1.StatusCode == 201) {
-            // Initial exists
-            toastr.error("Initial already created. Please change it.");
-        }
-        else {
-            var result = await AjaxCall("/Home/UploadOrganizationData", data);
-            if (parseInt(result) === 1) {
-                $("#staticBackdrop").modal("hide");
-                toastr.success("Organization Added Successfully");
-                location.reload();
-
+        // Payment method change event
+        $('input[name="payment"]').change(async function (event) {
+                 var $fileUpload = $('#file-upload');
+                var $qrCode = $('#qr-code');
+                var $fileInput = $('#fileInput');
+                var $fileError = $('#fileError');
+                event.preventDefault();
+                     if ($(this).attr('id') === 'upload') {
+                        $fileUpload.show();
+                        $qrCode.hide();
+                    } else if ($(this).attr('id') === 'fonepay') {
+            if ($(".rem").val() == "") {
+                $(this).attr("required", true);
+                toastr.error("Please enter a remarks before proceeding to payment!!!");
             } else {
-                toastr.error("Something went wrong");
-            }
-        }
-    });
-
-    async function uploadLogoAndSubmitForm() {
-        var imgSrc = $(".logoValue").attr("src");
-
-        var response = await fetch(imgSrc);
-        var blob = await response.blob();
-        var formData = new FormData();
-        formData.append("files", blob, "logo.png");
+                if ($('#fonepay').is(':checked')) {
+                    var amount = parseFloat($("#statusModal").find(".Amount").val());
 
 
-        var data = await $.ajax({
-            url: "/Register/UploadPhoto",
-            data: formData,
-            processData: false,
-            contentType: false,
-            type: "POST"
-        });
+                    // Check if the fetched amount from the frontend matches the server amount
+                    if (parseFloat(amountFetchedFromServer) !== amount) {
+                        toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
+                        return;  // Exit the function if amounts do not match
+                    }
 
+                    // Proceed only if the amounts are the same
+                    var Product = $("#statusModal").find(".productN").text();
+                    var Amount = parseFloat($("#statusModal").find(".Amount").val());
+                    var newExpDate = $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate");
+                    var PlanName = $("#statusModal").find(".selectedPackages :selected").text();
 
-        imgName = data;
-        $(".logoValue").attr("data-name", imgName);
+                        if (amount) {
+                        var bankDetails = {
+                            amount: parseFloat(amountFetchedFromServer),
+                            Purpose: "Live",
+                            Remarks1: $("#statusModal").find(".rem").val(),
+                            Remarks2: "Insoft Subscription"
+                        };
 
-    }
-    // Payment method change event
-$('input[name="payment"]').change(async function () {
-    if ($(this).attr('id') === 'fonepay') {
-        if ($(".rem").val() == "") {
-            $(this).attr("required", true);
-            toastr.error("Please enter a remarks before proceeding to payment!!!");
-        } else {
-            debugger;
-            if ($('#fonepay').is(':checked')) {
-                var amount = parseFloat($("#statusModal").find(".Amount").val());
+                        // Call the backend to generate QR code and get the PRN
+                        var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
+                        var response = JSON.parse(aahaha);
+                         // $("#statusModal").modal('hide');
+                        $("#QRModal").modal('show');
 
-                // Check if the fetched amount from the frontend matches the server amount
-                if (amountFetchedFromServer !== amount) {
-                    toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
-                    return;  // Exit the function if amounts do not match
-                }
+                        // Ensure response contains hashKey and prn
+                        if (response && response.prn && response.hashKey) {
+                            var prn = response.prn;
+                            $("#QRModal").find("#AmountQr").text(amount);
 
-                // Proceed only if the amounts are the same
-                var Product = $("#statusModal").find(".productN").text();
-                var Amount = parseFloat($("#statusModal").find(".Amount").val());
-                var newExpDate = $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate");
-                var PlanName = $("#statusModal").find(".selectedPackages :selected").text();
+                            var hashKey = response.hashKey;
+                            var qrMessage = response.qrMessage;
 
-                if (amount) {
-                    var bankDetails = {
-                        amount: amount,
-                        Purpose: "Live",
-                        Remarks1: "Remarks 1",
-                        Remarks2: "Remarks 2"
-                    };
+                            // Clear any existing QR code before generating a new one
+                            $("#generated-qr").empty();
 
-                    // Call the backend to generate QR code and get the PRN
-                    var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
-                    var response = JSON.parse(aahaha);
-                    $("#statusModal").modal('hide');
-                    $("#QRModal").modal('show');
+                            // Generate the QR code
+                            new QRCode($("#QRModal").find("#generated-qr")[0], {
+                                text: qrMessage,
+                                width: 250,
+                                height: 250,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                           
+                                var $qrCode = $("#QRModal").find("#generated-qr-container");
+                                 $qrCode.show();
 
-                    // Ensure response contains hashKey and prn
-                    if (response && response.prn && response.hashKey) {
-                        var prn = response.prn;
-                        $("#QRModal").find("#AmountQr").text(amount);
+                            // Flag to check if payment has been successfully processed
+                            var paymentSuccessHandled = false;
 
-                        var hashKey = response.hashKey;
-                        var qrMessage = response.qrMessage;
+                            // Start checking payment status every 2 seconds for this specific transaction (by prn)
+                            var paymentStatusInterval = setInterval(async function () {
+                                var getQRresponse = await AjaxCallNoAsync("/QRCodeForPayment/GetPaymentStatus", { qrHashKey: hashKey, prn: prn });
+                                var paymentResponse = JSON.parse(getQRresponse);
 
-                        // Clear any existing QR code before generating a new one
-                        $("#generated-qr").empty();
+                                if (paymentResponse[0]["paymentStatus"] === 'success' && !paymentSuccessHandled) {
+                                    paymentSuccessHandled = true;
 
-                        // Generate the QR code
-                        new QRCode($("#QRModal").find("#generated-qr")[0], {
-                            text: qrMessage,
-                            width: 250,
-                            height: 250,
-                            colorDark: "#000000",
-                            colorLight: "#ffffff",
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
+                                    // Handle successful payment, update database, send SMS/email, etc.
+                                    var parm = {
+                                        SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+                                        ExpiryDate: newExpDate,
+                                        PaidAmount: parseFloat(paymentResponse[0]["totalTransactionAmount"]),
+                                        Remarks: $("#statusModal").find(".rem").val(),
+                                        CustomerId: parseInt($("#custid").val()),
+                                        ProductId: parseInt($("#prodid").val()),
+                                        TransactionId: 0,
+                                        PaymentMethod: 'QR',
+                                        ReferenceId: 0,
+                                        PaymentPartner: 'FonePay',
+                                        GeneratedSerialNo: 'sn001',
+                                        VoucherImage: '',
+                                        fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"]),
+                                         IsVerifiedPayment: 1
+                                    };
+                                    debugger
+                            var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
 
-                        $qrCode.show();
+                            if (cpp != 'Success') {
+                                toastr.error("Server side problem in extending the Plan");
+                            } else {
 
-                        // Flag to check if payment has been successfully processed
-                        var paymentSuccessHandled = false;
+                                try {
+                                                     var invoiceData = {
+                                                                  InvoiceDate: new Date().toLocaleDateString(),
+                                                                  DueDate: new Date(newExpDate).toLocaleDateString(),
+                                                                  CustomerName: $("#statusModal").find(".userPhone").text() || "",
+                                                                  CustomerAddress: "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal",
+                                                                  Product: Product.toString(),
+                                                                  PlanName: PlanName.toString(),
+                                                                  Amount: paymentResponse[0]["totalTransactionAmount"].toString(),    /// changed from Amount to paymentResponse[0]["totalTransactionAmount"].toString() after hosting , needs to be tested
+                                                                  TransactionId: paymentResponse[0]["fonepayTraceId"].toString(),
+                                                                  PaymentGateway: "FonePay",
+                                                                  TotalAmount: paymentResponse[0]["totalTransactionAmount"].toString(),
+                                                                  Vat: (paymentResponse[0]["totalTransactionAmount"] * 0.13).toFixed(2),
+                                                                  Subtotal: (paymentResponse[0]["totalTransactionAmount"] - (paymentResponse[0]["totalTransactionAmount"] * 0.13)).toFixed(2)
+                                                              };
+                                            var reqInvoice1 = await AjaxCall("/Home/CreateInvoice", invoiceData);
+                                            var haha=JSON.parse(reqInvoice1);
 
-                        // Start checking payment status every 2 seconds for this specific transaction (by prn)
-                        var paymentStatusInterval = setInterval(async function () {
-                            var getQRresponse = await AjaxCallNoAsync("/QRCodeForPayment/GetPaymentStatus", { qrHashKey: hashKey, prn: prn });
-                            var paymentResponse = JSON.parse(getQRresponse);
-                            
-                            if (paymentResponse[0]["paymentStatus"] === 'success' && !paymentSuccessHandled) {
-                                paymentSuccessHandled = true;
+                                          if (haha.success) {
+                                           window.location.href = "/Home/InvoicePage";
+                                           //    window.open("/Home/InvoicePage", "_blank");   window.open("/Home/InvoicePage", "_blank");
+                                          }
 
-                                // Handle successful payment, update database, send SMS/email, etc.
-                                var parm = {
-                                    SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
-                                    ExpiryDate: newExpDate,
-                                    PaidAmount: parseFloat(paymentResponse[0]["totalTransactionAmount"]),
-                                    Remarks: $("#statusModal").find(".rem").val(),
-                                    CustomerId: parseInt($("#custid").val()),
-                                    ProductId: parseInt($("#prodid").val()),
-                                    TransactionId: 0,
-                                    PaymentMethod: 'QR',
-                                    ReferenceId: 0,
-                                    PaymentPartner: 'FonePay',
-                                    GeneratedSerialNo: 'sn001',
-                                    VoucherImage: '',
-                                    fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"])
-                                };
-
-                                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-                                if (cpp != 'Success') {
-                                    toastr.error("Server side problem in extending the Plan");
-                                } else {
-                                    await GetOrganizations();
+                                    toastr.success("Subscription Extension Successful!!!");
+                                    $("#statusModal").find(".rem").val('');
+                                    $("#QRModal").modal('hide');
+                                } catch (error) {
+                                    toastr.error("An error occurred while generating the invoice.");
                                 }
 
-                                // Send success SMS to the user
-                                var parm = {
-                                    SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan amounting to Rs.${Amount}. The plan will expire on ${newExpDate}. Thank you for choosing Insoft R & D.`,
-                                    MobileNo: $("#statusModal").find(".userPhone").text()
-                                };
 
-                                var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
 
-                                // Send confirmation email to the user
-                                const codeBody = `...`;  // Same email body as before
-                                const toUser = {
-                                    ReceiverEmail: $("#statusModal").find(".userEmail").text(),
-                                    Subject: "Subscription Extended",
-                                    EmailBody: codeBody,
-                                };
+                                    // Send success SMS to the user
+                                    var parm = {
+                                        SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan of Rs.${Amount}.The next due date is on ${newExpDate}. Thank you for choosing Insoft R & D.`,
+                                        MobileNo: $("#statusModal").find(".userPhone").text()
+                                    };
 
-                                var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+                                    var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
 
-                                // Send email to Insoft team
-                                const insoftEmailBody = `...`;  // Same email body as before
-                                const toInsoft = {
-                                    ReceiverEmail: "insoftrnd@gmail.com",
-                                    Subject: "Payment Successful - Subscription Extension",
-                                    EmailBody: insoftEmailBody,
-                                };
+                                    // Send confirmation email to the user
+                                        const codeBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                                <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                    <div style="text-align: center;">
+                                                        <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                    </div>
+                                                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
+                                                    <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
+                                                        Below are the details of your extended subscription:
+                                                    </p>
+                                                    <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                        <tr style="background-color: #f4f4f4; text-align: left;">
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Next Due Date</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The next due date of your subscription is <strong>${newExpDate}</strong>.
+                                                        If you have any questions or require further assistance, feel free to contact us at 061-543815.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Best regards, <br>
+                                                        Insoft Research & Development
+                                                    </p>
+                                                </div>
+                                            </div>`;
+                                    const toUser = {
+                                        ReceiverEmail: $("#statusModal").find(".userEmail").text(),
+                                        Subject: "Subscription Extended",
+                                        EmailBody: codeBody,
+                                    };
 
-                                var insoftEmail = await AjaxCall("/Dashboard/SendEmail", toInsoft);
+                                    var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
 
-                                clearInterval(paymentStatusInterval); // Stop checking payment status
-                                toastr.success("Subscription Extension Successful!!!");
-                                $("#statusModal").find(".rem").val('');
-                                $("#QRModal").modal('hide');
+                                    // Send email to Insoft team
+                                        const insoftEmailBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                                <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                    <div style="text-align: center;">
+                                                        <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                    </div>
+                                                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Payment Successful - Subscription Extension</h2>
+                                                    <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Team,</p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The subscription of the <strong>${Product}</strong> product has been successfully extended by the Customer themselves through the FonePay QR provided in our Software..
+                                                        Below are the details of the transaction:
+                                                    </p>
+                                                    <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                        <tr style="background-color: #f4f4f4; text-align: left;">
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The customer is now subscribed to the new plan until <strong>${newExpDate}</strong>.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Best regards, <br>
+                                                        Insoft Research & Development
+                                                    </p>
+                                                </div>
+                                            </div>`;
+                                    const toInsoft = {
+                                        ReceiverEmail: "insoftrnd@gmail.com",
+                                        Subject: "Payment Successful - Subscription Extension",
+                                        EmailBody: insoftEmailBody,
+                                    };
 
-                                const { jsPDF } = window.jspdf;
+                                    var insoftEmail = await AjaxCall("/Dashboard/SendEmail", toInsoft);
+                                    await GetOrganizations();
+                                        }
 
-                                const doc = new jsPDF();
 
-                                doc.setFontSize(16);
-                                doc.text("Invoice for Subscription Extension", 20, 20);
-                                doc.setFontSize(12);
 
-                                // Populate the invoice details
-                                doc.text(`Customer Name: ${$("#statusModal").find(".userPhone").text()}`, 20, 30);
-                                doc.text(`Product: ${Product}`, 20, 40);
-                                doc.text(`Plan: ${PlanName}`, 20, 50);
-                                doc.text(`Amount Paid: Rs. ${Amount}`, 20, 60);
-                                doc.text(`Expiry Date: ${newExpDate}`, 20, 70);
 
-                                doc.autoTable({
-                                    startY: 130,
-                                    head: [['Subscription Plan', 'Amount Paid', 'Expiry Date']],
-                                    body: [
-                                        [PlanName, `Rs. ${Amount}`, newExpDate]
-                                    ],
-                                    theme: 'grid',
-                                    headStyles: {
-                                        fillColor: [0, 123, 255],
-                                        textColor: [255, 255, 255],
-                                    },
-                                    bodyStyles: {
-                                        fontSize: 10,
-                                        textColor: [0, 0, 0],
                                     }
-                                });
+                            }, 500); // Poll every 2 seconds
 
-                                const pdfData = doc.output('blob');
-                                const pdfUrl = URL.createObjectURL(pdfData);
-                                window.open(pdfUrl, '_blank');
+                            // Stop payment status polling when modal is closed or loses focus
+                            $('#QRModal').on('hidden.bs.modal', function () {
 
-                            }
-                        }, 2000); // Poll every 2 seconds
+                                clearInterval(paymentStatusInterval);
+                                $("#statusModal").find(".rem").val('');
+                                $("#statusModal").find("#upload").attr("checked", false);
+                                $("#generated-qr-container").find("#generated-qr").empty();
+                            });
 
-                        // Stop payment status polling when modal is closed or loses focus
-                        $('#QRModal').on('hidden.bs.modal', function () {
-                            clearInterval(paymentStatusInterval);
-                            $("#statusModal").find(".rem").val('');
-                            $("#statusModal").find("#upload").attr("checked", false);
-                            $("#generated-qr-container").find("#generated-qr").empty();
-                        });
+                        } else {
+                            $qrCode.hide();
+                        }
                     } else {
                         $qrCode.hide();
                     }
                 } else {
-                    $qrCode.hide();
+                    // Handle other cases if needed
                 }
-            } else {
-                // Handle other cases if needed
             }
         }
-    }
-});
+    });
+
+        $(document).on('change', '.selectedPackages', function () {
+        var CurrentExpirydate = $("#statusModal").find(".currentPlanEdate").text();
+        var noOfDays = parseInt($(".selectedPackages option:selected").attr("data-noday"), 10);
+        amountFetchedFromServer = $(".selectedPackages option:selected").attr("amount");
+
+        if (CurrentExpirydate && !isNaN(noOfDays)) {
+            // Convert to a valid date format
+            var parsedJoinDate = new Date(CurrentExpirydate.replace(/\s+/g, ' ').replace('PM', ' PM').replace('AM', ' AM'));
+            if (!isNaN(parsedJoinDate.getTime())) {
+                parsedJoinDate.setDate(parsedJoinDate.getDate() + noOfDays);
+                var expiryDate = parsedJoinDate.toISOString().split('T')[0];
+
+                $(this).parents("#statusModal").find(".expiryDate").val(expiryDate);
+                $(this).parents("#statusModal").find(".Amount").val($(".selectedPackages option:selected").attr("amount"));
+            } else {
+                console.error("Invalid join date format");
+            }
+        } else {
+            toastr.error("Invalid join date or number of days");
+        }
+    });
+
+
 
 </script>

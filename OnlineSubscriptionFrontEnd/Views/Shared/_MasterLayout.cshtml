@@ -6,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="#">
-    <meta name="keywords"
-          content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
 
     <link rel="stylesheet" href="../files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
 
     <!-- Favicon icon -->
-    <link rel="icon" href="~/files/assets/images/favicon.ico" type="image/x-icon">
+   
+    <link rel="icon" href="~/files/assets/images/insoft-logo.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="~/files/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- feather Awesome -->
+    
+
+ <!-- feather Awesome -->
     <link rel="stylesheet" type="text/css" href="~/files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
     <!-- Style.css -->
@@ -49,7 +51,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-    <link rel="icon" href="~/files/assets/images/favicon.ico" type="image/x-icon">
+   
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
@@ -118,6 +120,10 @@
             
         }
 
+        td,th{
+            vertical-align:middle;
+        }
+
         .modal-header{
             background: #80ed99;
         }
@@ -129,6 +135,7 @@
 </head>
 
 <body>
+
     <!-- Pre-loader start -->
     <div class="theme-loader">
         <div class="ball-scale">
@@ -178,7 +185,7 @@
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
                             <i class="feather icon-menu icon-toggle-right" style="color:black;"></i>
                         </a>
-                        <a href="#">
+                        <a href="/Dashboard/IndexforDashboard">
                              <img class="img-fluid" src="~/insoft/images/logoinsoft.png" alt="Theme-Logo" />
                          </a>
                         <a class="mobile-options">
@@ -208,12 +215,12 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                            <li class="header-notification">
+                            @*<li class="header-notification">
                                 <div class="dropdown-primary dropdown">
-                                    <div class="dropdown-toggle" data-bs-toggle="dropdown">
+                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <i class="feather icon-bell"></i>
                                         <span class="badge bg-c-pink">5</span>
-                                    </div>
+                                    </div> 
                                     <ul class="show-notification notification-view dropdown-menu"
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                         <li>
@@ -248,7 +255,7 @@
                                         <span class="badge bg-c-green">3</span>
                                     </div>
                                 </div>
-                            </li>
+                            </li> *@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
@@ -259,7 +266,7 @@
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu"
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                        <li>
+                                      @*   <li>
                                             <a href="#!">
                                                 <i class="feather icon-settings"></i> Settings
                                             </a>
@@ -278,7 +285,7 @@
                                             <a href="#!">
                                                 <i class="feather icon-lock"></i> Lock Screen
                                             </a>
-                                        </li>
+                                        </li> *@
                                         <li>
                                             <a href="#!" class="signoutBtn">
                                                 <i class="feather icon-log-out"></i> Logout
@@ -423,7 +430,7 @@
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
                         <div class="pcoded-inner-navbar main-menu">
-                            <div class="pcoded-navigatio-lavel">Navigation</div>
+                           
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenun active pcoded-trigger">
                                     <a href="/Dashboard/IndexforDashboard">
@@ -443,7 +450,7 @@
                                     <a href="/Products">
                                         <span class="pcoded-micon"><i class="feather icon-box"></i></span>
                                         <span class="pcoded-mtext">Products</span>
-                                        <span class="pcoded-badge label label-danger">New</span>
+                                        
                                     </a>
                                 </li>
 
@@ -453,28 +460,34 @@
                                         <span class="pcoded-mtext">Sub-Products</span>
                                     </a>
                                 </li>
+                                <li class="pcoded-hasmenun" style="position: relative;">
+                                    <a href="/Dashboard/Index" style="position: relative;">
+                                        <span class="pcoded-micon"><i class="feather icon-briefcase"></i></span>
+                                        <span class="pcoded-mtext">Verify Organizations</span>
+                                    </a>
+                                </li>
                                 <li class="pcoded-hasmenun">
                                     <a href="/Agent">
                                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
-                                        <span class="pcoded-mtext">Agent</span>
+                                        <span class="pcoded-mtext">Agents</span>
                                         <span class="pcoded-badge label label-danger">Commission</span>
                                     </a>
                                 </li>
                                 <li class="pcoded-hasmenu">
                                     <a href="#!">
                                         <span class="pcoded-micon"><i class="feather icon-users"></i></span>
-                                        <span class="pcoded-mtext">Customers</span>
+                                        <span class="pcoded-mtext">Organizations</span>
                                         
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li>
                                             <a href="/Customer">
-                                                <span class="pcoded-mtext">Customer List</span>
+                                                <span class="pcoded-mtext"> Organization List</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="/CustomerwiseModulesSelection">
-                                                <span class="pcoded-mtext">Customer Wise Modules Selection</span>
+                                                <span class="pcoded-mtext">Modules Selection</span>
                                             </a>
                                         </li>
                                        @*  <li>
@@ -507,19 +520,23 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="pcoded-hasmenun" style="position: relative;">
-                                    <a href="/Dashboard/Index" style="position: relative;">
-                                        <span class="pcoded-micon"><i class="feather icon-briefcase"></i></span>
-                                        <span class="pcoded-mtext">Verify Organizations</span>
-                                    </a>
-                                </li>
+                               
 
                                 <li class="pcoded-hasmenun" style="position: relative;">
                                     <a href="/VerifySubscriptionVoucher" style="position: relative;">
                                         <span class="pcoded-micon"><i class="feather icon-wifi"></i></span>
-                                        <span class="pcoded-mtext">Verify Subscription</span>
+                                        <span class="pcoded-mtext">Verify Subscription Voucher</span>
                                     </a>
                                 </li>
+
+
+                                <li class="pcoded-hasmenun" style="position: relative;">
+                                    <a href="/SubscriptionReport" style="position: relative;">
+                                        <span class="pcoded-micon"><i class="feather icon-book"></i></span>
+                                        <span class="pcoded-mtext">Report</span>
+                                    </a>
+                                </li>
+
 
                                 <li class="pcoded-hasmenun" style="position: relative;">
                                     <a href="#!" class="signoutBtn" style="position: relative;">
@@ -567,11 +584,17 @@
             $('.navbar-logo').attr("logo-theme", "white");
         });
                 $(document).on("click", ".signoutBtn", async () => {
+                    debugger
             var result = await AjaxCallWithoutData("/Login/LogOut");
                 if (result == "Success") {
                     window.location.href = "/Login/Index";
                 }
             });
+                    // Select all input elements on the page
+        // document.querySelectorAll('input').forEach(input => {
+        //     input.classList.add('form-control');
+        // });
+
 
     </script>
 </body>

@@ -78,8 +78,13 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 {
                     return Ok("-21");
                 }
+                string refererUrl = HttpContext.Request.Headers["Referer"];
 
-            
+                if (!string.IsNullOrEmpty(refererUrl))
+                {
+                    HttpContext.Session.SetString("RefererUrl", refererUrl);
+                }
+
                 string data = await ApiCall.ApiCallWithObject("/QRCodeForPayment/GetFonePayDetails1", TokenNo, "Post");
                 string unescapedData = JsonConvert.DeserializeObject<string>(data);
 
@@ -99,8 +104,6 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                     username=fplu.FonePayUserName,
                     password=fplu.FonePayPassword,
                    qrHashKey=aa.qrHashKey
-
-
                 };
 
                 string reqData = await ApiCall.FonePayApiCallWithObject("/DynamicQR/GetPaymentStatus", fpr, "Post");

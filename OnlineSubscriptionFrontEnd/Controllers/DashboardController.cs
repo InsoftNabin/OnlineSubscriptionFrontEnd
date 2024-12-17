@@ -57,6 +57,37 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> GetUnverifiedOrganizations()
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    string i = await ApiCall.ApiCallWithString("User/GetUnverifiedOrganizations", TokenNo, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpdateOrgdetailsByAdmin([FromBody] approveOrg ao)
         {
@@ -72,6 +103,25 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> getCusProdIdByToken([FromBody] approveOrg ao)
+        {
+            var tokenval = HttpContext.Session.GetString("TokenNo");
+            if (tokenval != null)
+            {
+                ao.TokenNo = tokenval;
+                var sendJson = await ApiCall.ApiCallWithObject("User/getCusProdIdByToken", ao, "Post");
+                return Json(sendJson);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> TrashOrgdetailsByAdmin([FromBody] approveOrg ao)
         {
