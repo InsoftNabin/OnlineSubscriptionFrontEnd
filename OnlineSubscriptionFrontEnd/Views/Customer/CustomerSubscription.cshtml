@@ -82,16 +82,7 @@
                     </div>
 
 
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="btn-group  btn-sm pull-right" style="float:right; padding:10px!important;">
-                                <div class="input-group">
-                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
-                                   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  
 
                     <!-- Modal for customer status -->
                     <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -206,24 +197,36 @@
                         </div>
                     </div>
 
-                    <div class="containerr" style="max-width: 120em;">
-                        <div class="button-container" style="margin-bottom: 10px;">
-                            <button onclick="exportToCSV()" class="btn rounded btn-sm btn-primary">
+                <div class="ss" style="max-width:120em;">
+                    <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;">
+                        <!-- Buttons -->
+                        <div class="button-group">
+                            <button onclick="exportToCSV()" class="rounded btn-xs btn-primary">
                                 <i class="feather icon-file-text"></i> CSV
                             </button>
-                            <button onclick="copyTable()" class="btn rounded btn-sm btn-warning">
+                            <button onclick="copyTable()" class="rounded btn-xs btn-warning">
                                 <i class="feather icon-copy"></i> Copy
                             </button>
-                        <button onclick="exportToExcel()" class="btn rounded btn-sm btn-success">
-                            <i class="fa fa-regular fa-file-excel"></i> Excel
-                        </button>
-                        <button onclick="exportToPDF()" class="btn rounded btn-sm btn-danger">
-                                <i class="feather icon-file"></i> PDF
+                            <button onclick="exportToExcel()" class=" rounded btn-xs btn-success">
+                                <i class="fa fa-regular fa-file-excel"></i> Excel
                             </button>
-                            <button onclick="printTable()" class="btn rounded btn-sm btn-info">
-                                <i class="feather icon-printer"></i> Print
+                            <button onclick="exportToPDF()" class="rounded btn-xs btn-danger">
+                                <i class="feather icon-file-pdf"></i> PDF
+                            </button>
+                            <button onclick="printTable()" class="rounded btn-xs btn-info">
+                                <i class="feather icon-print"></i> Print
                             </button>
                         </div>
+
+                        <!-- Search Bar -->
+                        <div class="search-container">
+                            <div class="input-group">
+                                <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                     <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative;">
                             <table id="agentTable" class=" agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
@@ -427,19 +430,19 @@
 
         // Function to update amount and expiry date
         function updateAmountAndExpiry() {
-            var selectedOption = $("#statusModal").find(".selectedPackages option:selected");
+           var selectedOption = $("#statusModal").find(".selectedPackages option:selected");
             var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
             var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
-        
+
             var today = new Date();
             var expireDate = new Date(today);
             expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
 
-            var isoExpireDate = expireDate.toISOString().split('T')[0]; 
+            var isoExpireDate = expireDate.toISOString().split('T')[0];
             $("#statusModal").find(".expiryDate").val(isoExpireDate);
-               
+
             if (noOfDays === 3 || noOfDays === 7) {
-                $("#statusModal").find(".Amount").val('0').prop('disabled', true); 
+                $("#statusModal").find(".Amount").val('0').prop('disabled', true);
             } else {
                 $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', true);
             }
@@ -502,7 +505,7 @@
             }
             $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
         } else {
-            toastr.error("No Subscription Setup is done!!!");
+            toastr.error("No any Plan is given !!!");
         }
     }
 
@@ -567,7 +570,7 @@
                 ReferenceId:0,
                 PaymentPartner:'none',
                 GeneratedSerialNo:'sn001',
-                VoucherImage: '',
+                VoucherImage: null,
                 MachineKey:$("#statusModal").find(".MachineKey").val()
             };
 

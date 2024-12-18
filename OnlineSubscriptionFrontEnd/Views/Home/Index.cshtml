@@ -698,6 +698,7 @@
                                 <thead>
                                     <tr style="background-color: #0b3b56; color: white;">
                                         <th>S.N.</th>
+                                        <th class="center">Print</th>
                                         <th>FonePay Trace Id</th>
                                         <th class="center">Product Name</th>
                                         <th class="center">Subscription Type</th>
@@ -709,7 +710,8 @@
                                         <th class="center">Payment Partner</th>
                                         <th class="center">Amount</th>
                                         <th class="center">Reference Id</th>
-                                        <th class="center">Print</th>
+                                        <th class="center">License Key</th>
+                                       
 
                                     </tr>
                                 </thead>
@@ -736,7 +738,7 @@
                                     <form>
                                         <div class="row" style="margin-bottom: 15px;">
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Current Plan: <span class="currentPlan" style="color: #888;">None</span></label>
-                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Next Due Date: <span class="currentPlanEdate" style="color: red;">__/__/____</span></label>
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Due Date: <span class="currentPlanEdate" style="color: red;">__/__/____</span></label>
                                             <label style="font-size: 16px; font-weight: bold; color: #333;" hidden>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red" style="color: red;"></span> Days out of <span class="TotalDaysInCurrentPlan red" style="color: red;">30</span> Days</label>
                                         </div>
 
@@ -1307,6 +1309,9 @@
                 if (responsefr.length > 0) {
                     // If a current plan exists
                     $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
+                    
+                    // var dateParts=responsefr[0]["CurrentSubExpiryDate"].split(" ");
+                    // const formattedDate = `${dateParts[0]} ${dateParts[1]} ${dateParts[2]}`;
                     $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
                     var remainingDays =  parseInt(responsefr[0]["RemainingDays"]);
                     var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
@@ -1713,12 +1718,15 @@
             var sub = JSON.parse(jsub);
             var jsonData = JSON.parse(sub);
 
-
             var subDOM = "";
             if (jsonData.length > 0) {
                 for (var i = 0; i < jsonData.length; i++) {
+                    // var rawDate=jsonData[i]["ExpireDate"];
+                    // var dateParts = rawDate.split(" ");
+                    // var formattedDate = `${dateParts[0]} ${dateParts[1]} ${dateParts[2]}`;
                     subDOM += `<tr>
                     <td class="center"><b>`+(i+1)+`</b></td>
+                    <td class="center"><button class="btn btn-danger PrintLog" data-ukid="`+jsonData[i]["ukid"]+`"><i class="fas fa-print"></i></button></td>
                     <td class="center">`+ jsonData[i]["fonepayTraceId"] + `</td>
                                             <td class="center">`+ jsonData[i]["productName"] + `</td>
                                             <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
@@ -1729,8 +1737,9 @@
                                             <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
                                             <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
                                             <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
-                                                <td class="center">`+ jsonData[i]["ReferenceId"] + `</td>
-                                                    <td class="center"><button class="btn btn-danger PrintLog" data-ukid="`+jsonData[i]["ukid"]+`">  <i class="fas fa-print"></i></button></td>
+                                            <td class="center">`+ jsonData[i]["ReferenceId"] + `</td>
+                                            <td class="center">`+ jsonData[i]["Licensekey"] + `</td>
+                                            
                                         `;
                 }
                 $("#statusModal").find("#cLogTable tbody").empty().append(subDOM);
@@ -1784,8 +1793,6 @@
                 formData.append("files", files[i]); // Append the file with key 'files'
             }
 
-
-
             await $.ajax({
                 url: "/Register/UploadPhoto1", // Your controller endpoint
                 data: formData,
@@ -1823,8 +1830,6 @@
             });
         });
 
-
-
         $(document).on('click', '.btnExtendPlan', async function () {
 
             var paymentSelected = $('input[name="payment"]:checked').length > 0;
@@ -1838,9 +1843,7 @@
             else if ($("#fileInput").attr("data-filename") == "") {
                 toastr.warning("Please attach a voucher or pay through QR!!!");
             }
-
             else {
-
                 var parm = {
                     SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
                     ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
@@ -1867,11 +1870,8 @@
                 }
                 else {
                     toastr.error("Plan extension  not successful");
-
                 }
             }
-
-
         });
 
 
