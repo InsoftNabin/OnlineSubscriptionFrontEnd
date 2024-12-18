@@ -111,6 +111,11 @@
                         <input type="checkbox" id="IsPaidBased" />
                     </div>
 
+                   <div class="form-group">
+                       <label for="noom">Is Trial?:</label>
+                       <input type="checkbox" id="IsTrial" />
+                   </div>
+
                     <div class="form-group" style="display: flex;">
                                         <button type="button" class="btn btn-danger" id="BtnReset" style="border-radius:12px; margin-right: 5px;">Reset &nbsp; <i class="feather icon-rotate-cw"></i></button>
                                         <button type="button" class="btn btn-success" id="BtnInsert" style="border-radius:12px;">Save &nbsp; <i class="feather icon-save"></i></button>
@@ -125,7 +130,8 @@
                             <th class="center">S.N</th>
                             <th class="center">Name</th>
                             <th class="center">Number of Days</th>
-                            <th class="center">Status</th>
+                            <th class="center">Paid Status</th>
+                            <th class="center">Trial Status</th>
 
                             <th class="center">Edit</th>
                             <th class="center">Delete</th>
@@ -167,6 +173,7 @@
                     Name: $("#name").val(),
                     NoOfMonths: parseInt($("#noom").val()),
                     IsPaidBased: $("#IsPaidBased").prop("checked"),
+                    IsTrial: $("#IsTrial").prop("checked")
                 };
 
                 var data = await AjaxCall("/Subscription/InsertUpdateSubscription", parm);
@@ -204,6 +211,8 @@
                                       <td class="center subName">` + jsondata[i]["Name"] + `</td>
                                       <td class="center subMonth">` + jsondata[i]["NoOfMonth"] + `</td>
                                       <td class="center status">` + jsondata[i]["PaidStatus"] + `</td>
+                                      <td class="center trialStatus">` + jsondata[i]["TrialStatus"] + `</td>
+
                                       <td class="center"><button class="btn btn-success btn-edit"><i class="feather icon-edit" ></i> </button></td>
                                       <td class="center"><button class="btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
                                   </tr>`;
@@ -227,6 +236,12 @@
             $("#IsPaidBased").prop("checked", true);
         } else {
             $("#IsPaidBased").prop("checked", false);
+        }
+        const trialstatus = row.find(".trialStatus").text().trim();
+        if (trialstatus === 'Trial') {
+            $("#IsTrial").prop("checked", true);
+        } else {
+            $("#IsTrial").prop("checked", false);
         }
     });
 

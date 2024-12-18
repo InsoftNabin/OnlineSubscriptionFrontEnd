@@ -8,6 +8,7 @@
         public bool Active { get; set; }
         public int NoOfMonths { get; set; }
         public bool IsPaidBased { get; set; }
+        public bool IsTrial { get; set; }
 
     }
 }

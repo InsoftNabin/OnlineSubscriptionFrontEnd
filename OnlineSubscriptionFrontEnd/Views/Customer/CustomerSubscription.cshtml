@@ -122,7 +122,7 @@
                                                 <th class="center">Payment Method</th>
                                                 <th class="center">Payment Partner </th>
                                                 
-                                                <th class="center">Serial Number</th>
+                                                <th class="center">License Key</th>
 @*                                                 <th class="center">ExtendedBy</th>
  *@                                            </tr>
                                         </thead>
@@ -135,7 +135,7 @@
                                             <div class="row">
                                                 <label>Current Plan: <span class="currentPlan">None</span></label>
                                                 <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
-                                                <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red">1</span> out of <span class="TotalDaysInCurrentPlan red">30</span> </label>
+                                                <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red">1</span> Days <span class="TotalDaysInCurrentPlan red" hidden>30</span> </label>
                                             </div>
                                            
                                             <div class="row">
@@ -153,7 +153,7 @@
                                                 <label>Amount:</label>
                                                 <input type="text" class="Amount form-control" required disabled />
                                             </div>
-                                            <div class="row">
+                                            <div class="row DivMachine">
                                                 <label>Machine Key:</label>
                                                 <input type="text" class="MachineKey form-control" required  />
                                             </div>
@@ -296,10 +296,10 @@
                 tableDOM += `<tr data-id="${jsondata[i]['Id']}" data-email=` + jsondata[i]["UserEmail"] + ` data-phone=` + jsondata[i]["UserContact"] + `>
                                     <td class="center"><b>${i + 1}.</b></td>
                                         <td class="center hideme">
-                                            <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class="btn btn-sm btn-primary SelectModules rounded hideme" data-bs-toggle="modal" data-target="#exampleModal">
-                                                Plan &nbsp;<i class="feather icon-check-square"></i>
-                                            </button>
-                                                <button data-bs-toggle="modal" data-bs-target="#statusModal" class="hideme viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
+                                         <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class="btn btn-sm btn-primary SelectModules rounded hideme" data-bs-toggle="modal" data-target="#exampleModal">
+                                         Plan &nbsp;<i class="feather icon-check-square"></i>
+                                         </button>
+                                         <button data-type="${jsondata[i]['Type']}" data-bs-toggle="modal" data-bs-target="#statusModal" class="hideme viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
                                         </td>
                                     <td class="center custCode">${jsondata[i]['Customercode']}</td>
                                     <td class="center custName">${jsondata[i]['CustomerName']}</td>
@@ -402,6 +402,17 @@
         $(document).on('click', '.viewSub', function () {
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
+
+        var Type = $(this).attr("data-type");
+       
+        if(Type=='Desktop'){
+            $("#statusModal").find(".DivMachine").css("display", "block");
+        }
+        else{
+             $("#statusModal").find(".MachineKey").val("Online");
+            $("#statusModal").find(".DivMachine").css("display", "none");
+        }
+
         var ProductName = $(this).attr("data-productName");
 
         $(".Customerr").text($(this).parents("tr").find(".custName").text());
@@ -453,6 +464,8 @@
             CustomerId: parseInt(CustomerId),
             ProductId: parseInt(ProductId)
         };
+
+
         var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
         var response = JSON.parse(ddd);
         var responsefr = JSON.parse(response);

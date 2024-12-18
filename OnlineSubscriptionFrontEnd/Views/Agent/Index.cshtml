@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" style="display:none;">
                                     <div class="form-group col-md-6">
                                         <label for="smsToken">SMS Token:</label>
                                         <input type="text" class="form-control border border-dark rounded" id="smsToken" placeholder="Enter SMSToken" required />
@@ -169,8 +169,6 @@
                                     <th class="center">PAN number</th>
                                     <th class="center">User Id</th>
                                     <th class="center">Password</th>
-                                    <th class="center">SMS Token</th>
-                                    <th class="center">SMS SenderId</th>
                              </tr>
                         </thead>
                         <tbody>
@@ -271,9 +269,6 @@
                     + '<td class="center">' + jsondata[i]["PanNo"] + '</td>'
                     + '<td class="center">' + jsondata[i]["UserId"] + '</td>'
                     + '<td class="center">' + jsondata[i]["Password"] + '</td>'
-                    + '<td class="center">' + jsondata[i]["SMSToken"] + '</td>'
-                    + '<td class="center">' + jsondata[i]["SMSSenderId"] + '</td>'
-                    
                    
                     // + '<td class="center"><i class="ace-icon fa fa-trash bigger-130 red"></i></td>'
                     + '</tr>';
@@ -293,7 +288,7 @@
     }
     $("#BtnInsert").on("click", async function () {
 
-        if ($("#productName").val() === "" || $("#contactPerson").val() === "" || $("#address").val() === "" || $("#email").val() === "" || $("#website").val() === "" || $("#contactNumber").val() === "" || $("#bank").val() === "" || $("#accountNumber").val() === "" || $("#panNumber").val() === "" || $("#userId").val() === "" || $("#password").val() === "" || $("#smsSenderId").val() === "") {
+        if ($("#productName").val() === "" || $("#contactPerson").val() === "" || $("#address").val() === "" || $("#email").val() === "" || $("#website").val() === "" || $("#contactNumber").val() === "" || $("#bank").val() === "" || $("#accountNumber").val() === "" || $("#panNumber").val() === "" || $("#userId").val() === "") {
             toastr.error("Please fill in all the fields!!!.");
         }
         else {

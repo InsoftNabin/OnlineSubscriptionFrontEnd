@@ -26,8 +26,6 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         [HttpPost]
         public async Task<IActionResult> InsertUpdate([FromBody] CustomerwiseModules customerModules)
         {
-          
-
             try
             {
                 string TokenNo = HttpContext.Session.GetString("TokenNo");

@@ -341,8 +341,7 @@
                                         <th class="center">Contact Person 2_Mobile number</th>
                                         <th class="center">Email Address</th>
                                         <th class="center">Website</th>
-                                        <th class="center">Company Code</th>
-                                        <th class="center">BySMSApiToken</th>
+                                        @*<th class="center">BySMSApiToken</th>*@
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -622,10 +621,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-third">
+                        <div class="col-third" style="display:none;">
                             <label for="BySMSApiToken">By SMS API Token</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
+                                <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" value="00" name="BySMSApiToken" required>
                                 <div class="input-icon">
                                     <i class="feather icon-pin"></i>
                                 </div>
@@ -687,7 +686,6 @@
 
     $("#BtnInsert").on("click", async function (event) {
         event.preventDefault();
-
         // Disable the button to prevent multiple clicks
         const button = $("#BtnInsert");
         button.prop('disabled', true);
@@ -755,11 +753,7 @@
             button.prop('disabled', false);
             return;
         }
-        if ($("#BySMSApiToken").val() === "") {
-            toastr.warning("Please fill in the SMS Api Token !!!");
-            button.prop('disabled', false);
-            return;
-        }
+      
         if ($("#CountrySelect").val() === "") {
             toastr.warning("Please choose a country where you live in !!!");
             button.prop('disabled', false);
@@ -767,10 +761,15 @@
         }
 
         const emailIsValid = await checkEmailexistence(emailInput);
-        if (!emailIsValid) {
-            button.prop('disabled', false); // Enable button if email check fails
-            return; // Stop execution if email exists
-        }
+            if (emailIsValid == false && $("#id").val()=="0"){
+                button.prop('disabled', false);
+                return;
+            }
+
+        //if (!emailIsValid) {
+        //    button.prop('disabled', false); // Enable button if email check fails
+        //    return; // Stop execution if email exists
+        //}
 
         const parm = {
             Id: $("#id").val() ? parseInt($("#id").val()) : 0,
@@ -890,8 +889,7 @@
                                     <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
                                     <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
                                     <td class="center website">` + jsondata[i]["Website"] + `</td>
-                                    <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
-                                    <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
+                                    <!-- <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td> -->
                                 </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
@@ -956,7 +954,6 @@
         var parm={
             Id:parseInt(custId)
         };
-        debugger
         var reqdatA=await AjaxCall("/SubscriptionReport/getCustomerStatement",parm);
         var responsedData=JSON.parse(reqdatA);
         var JSONData=JSON.parse(responsedData);

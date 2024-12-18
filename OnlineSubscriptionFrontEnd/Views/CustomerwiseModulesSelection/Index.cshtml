@@ -256,10 +256,10 @@
                                  </div>
 
                                 <br>
-                                Customer Subscription GUID:<span class="subscriptionGUID" style="border:1px solid black; margin:15px;"></span>
+                                Customer Subscription GUID:&nbsp;<span class="subscriptionGUID" ></span>
                                       <br>
-                                       Product GUID:<span class="ProductGUID" style="border:1px solid black; margin:15px;"></span><br>
-                                       Latest License Key :<span class="LatestLicenseKey" style="border:1px solid black; margin:15px;"></span><br>
+                                           Product GUID:&nbsp;<span class="ProductGUID" ></span><br>
+                                           Latest License Key :&nbsp;<span class="LatestLicenseKey" ></span><br>
                                        <span class="clientGUID" style="border:1px solid black; margin:15px;" hidden></span>
                                <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
@@ -554,8 +554,8 @@
                                     <td class="center" style="text-transform:uppercase;"><b>` + dataJson[i]["ModuleName"] + `</b></td>
                                       <td class="center"><input type="number" class="modulePrice form-control" value="` + dataJson[i]["MonthlyCharge"] + `" min=0 ></td>
                                       <td class="center"><input type="date"  class="JoinDate form-control" value="` + dataJson[i]["JoinDate"] + `"></td>
-                                      <td class="center"><input type="date" class="ExpiryDate form-control" value="`+dataJson[i]["ExpiryDate"]+`"></td>
-                                      <td class="center"><input type="date"  class="LastRenewDate form-control" value="` + dataJson[i]["LastRenewDate"] + `" ></td>
+                                      <td class="center"><input type="date" class="ExpiryDate  form-control" disabled value="`+dataJson[i]["ExpiryDate"]+`"></td>
+                                      <td class="center"><input type="date"  class="LastRenewDate form-control"  value="` + dataJson[i]["LastRenewDate"] + `" ></td>
                                       <td class="center"><input type="text"  class="Remarks form-control" value="` + dataJson[i]["Remarks"] + `" ></td>
                                </tr>`;
             }
