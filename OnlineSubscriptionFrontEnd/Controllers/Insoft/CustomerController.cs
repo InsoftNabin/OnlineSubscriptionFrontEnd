@@ -9,10 +9,13 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult Index()
         {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
             return View();
         }
         public IActionResult CustomerSubscription()
         {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
             return View();
         }
         public IActionResult ErrorPage()
@@ -164,6 +167,32 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 {
                     p.TokenNo = TokenNo;
                     string i = await ApiCall.ApiCallWithObject("Customer/getCustomerById", p, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> getSubsbyCusandProductIdAdminInsoft([FromBody] CustomerwiseModules p)
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    p.TokenNo = TokenNo;
+                    string i = await ApiCall.ApiCallWithObject("Customer/getSubsbyCusandProductIdAdminInsoft", p, "Post");
                     return Ok(i);
                 }
 

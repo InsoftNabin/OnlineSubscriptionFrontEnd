@@ -665,29 +665,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    Status of Subscription  <br />
+                    Status of<b> <span class="userEmail"></span></b>&nbsp;'s subscription for <b><span class="productN"></span></b>  <br />
                 </h1>
-                @* <div id="ChartCircular" data-label="0/0" class="radial-bar radial-bar-90 radial-bar-lg radial-bar-primary" style="float:right;">
-                </div> *@
-               
-
+            
                 <button type="button" class="btn-close  btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
-                <div class="row">
-                    <span class="userEmail" hidden></span>
-                    <span class="productN" hidden></span>
-                    <span class="userPhone" hidden></span>
-                </div>
                 <div class="tabbable">
 
                     <ul class="nav nav-tabs md-tabs padding-12" id="myTab4" role="tablist">
                         <li class="nav-item ">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#Extend" role="tab" aria-expanded="false">Extend </a>
+                            <a class="nav-link active ExtendTab " data-bs-toggle="tab" href="#Extend" role="tab" aria-expanded="false">Extend </a>
                         </li>
-                        <li class=" nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#Log" role="tab" aria-expanded="true">Subscription Log</a>
+                        <li class=" nav-item ">
+                            <a class="nav-link LogTab" data-bs-toggle="tab" href="#Log" role="tab" aria-expanded="true">Subscription Log</a>
                         </li>
                     </ul>
 
@@ -710,6 +702,7 @@
                                         <th class="center">Payment Partner</th>
                                         <th class="center">Amount</th>
                                         <th class="center">Reference Id</th>
+                                        <th class="center hideme">Machine Key</th>
                                         <th class="center">License Key</th>
                                        
 
@@ -740,6 +733,10 @@
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Current Plan: <span class="currentPlan" style="color: #888;">None</span></label>
                                             <label style="font-size: 16px; font-weight: bold; color: #333;">Due Date: <span class="currentPlanEdate" style="color: red;">__/__/____</span></label>
                                             <label style="font-size: 16px; font-weight: bold; color: #333;" hidden>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red" style="color: red;"></span> Days out of <span class="TotalDaysInCurrentPlan red" style="color: red;">30</span> Days</label>
+                                        </div>
+                                         <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Machine Key:</label>
+                                            <input type="text" class="form-control MachineKey" disabled required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
                                         </div>
 
                                         <div class="row" style="margin-bottom: 15px;">
@@ -853,7 +850,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 
     <!-- PDF Preview Modal -->
     <div id="pdfPreviewModal" class="modal" tabindex="-1" role="dialog">
@@ -942,7 +939,7 @@
         </div>
     </div>
 
-</div>
+
 
 
 
@@ -1113,7 +1110,12 @@
                                      <!-- Pricing Section -->
                                         <div class="d-flex justify-content-between" >
                                             <div class="fw-bold" style="color: #4e73df;" >Product:</div>
-                                            <div class="" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;">${IncludeData[i].ModuleName}</div>
+                                            <div class="" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;"><span class="ProductName">${IncludeData[i].ModuleName}</span></div>
+                                        </div>
+                                      <!-- Pricing Section -->
+                                        <div class="d-flex justify-content-between" >
+                                            <div class="fw-bold" style="color: #4e73df;" >Type:</div>
+                                            <div class="" id="Pricing" style="font-weight: 600; font-size: 18px; color: #007bff;"><span class="ProductType">${IncludeData[i].Type}</span></div>
                                         </div>
                                         <!-- Current Plan Section -->
                                         <div class="d-flex justify-content-between mb-4">
@@ -1252,16 +1254,24 @@
                 $("#statusModal").find(".userEmail").text(userEmail);
 
                 $("#statusModal").find(".userPhone").text($(this).attr("data-phone"));
-
+              
                 $("#statusModal").find(".productN").text($(this).attr("data-prod"));
 
                 await loadsubscriptionLog(id, ProductId);
                 await loadplansforcustomerandproduct(id, ProductId);
+                 // if($(this).parents(".card").find(".ProductType").text()=="Desktop"){
+                 //     $(this).text('Log');
+                 //     $(this).removeClass('w-md-auto');
+                 // }
+                
             });
-
+       
                     var customerId = '@ViewBag.Customer';
                     var productId = '@ViewBag.Product';
                     $(".viewSub[data-custid='" + customerId + "'][data-productid='" + productId + "']").click();
+                    $("#statusModal").find(".MachineKey").val('@ViewBag.MachineKey');
+
+                    
         });
 
         function updateCircularProgress(chartId, percentage, remainingDays) {
@@ -1309,7 +1319,12 @@
                 if (responsefr.length > 0) {
                     // If a current plan exists
                     $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
-                    
+                   
+                    //  if($("#statusModal").find(".MachineKey").val()=="")
+                    //  {
+                    // $("#statusModal").find(".MachineKey").val(responsefr[0]["MachineKey"]||"Online");
+
+                    //  }
                     // var dateParts=responsefr[0]["CurrentSubExpiryDate"].split(" ");
                     // const formattedDate = `${dateParts[0]} ${dateParts[1]} ${dateParts[2]}`;
                     $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
@@ -1697,13 +1712,39 @@
 
         //get the organisation subscription log
         $(document).on('click', '.viewSub', async function () {
-
+           
             var id = $(this).attr("data-custid");
             var ProductId = $(this).attr("data-productid");
             $("#custid").val(id);
             $("#prodid").val(ProductId);
+               var userEmail = $(this).attr("data-useremail");
+                $("#statusModal").find(".userEmail").text(userEmail);
+
+                $("#statusModal").find(".userPhone").text($(this).attr("data-phone"));
+
+                $("#statusModal").find(".productN").text($(this).attr("data-prod"));
             await loadsubscriptionLog(id, ProductId);
             await loadplansforcustomerandproduct(id, ProductId)
+
+            if('@ViewBag.MachineKey'==""||'@ViewBag.MachineKey'==null){
+                $("#statusModal").find(".MachineKey").val("Online");
+                 if($(this).parents(".card").find(".ProductType").text()=="Desktop"){
+                       $(".hideme").show();
+                     $("#statusModal .ExtendTab").hide();
+                     $("#statusModal .LogTab").show().addClass("active");
+                     $("#Log").addClass("active").show();
+                     $("#Extend").removeClass("active").hide();
+
+                 }else if($(this).parents(".card").find(".ProductType").text()=="Online"){
+                     $(".hideme").hide();
+                     $("#statusModal .ExtendTab").show();
+                     $("#Extend").addClass("active").show();
+                     $("#statusModal .LogTab").removeClass("active").show();
+                     $("#statusModal .LogTab").show();
+
+                 }
+            }
+            
         });
 
 
@@ -1738,6 +1779,7 @@
                                             <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
                                             <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
                                             <td class="center">`+ jsonData[i]["ReferenceId"] + `</td>
+                                            <td class="center hideme">`+ jsonData[i]["MachineKey"] + `</td>
                                             <td class="center">`+ jsonData[i]["Licensekey"] + `</td>
                                             
                                         `;
@@ -1781,6 +1823,7 @@
             var filedom = $(this);
             var input = $(this);
             var files = input[0].files;
+
 
             // Check if any file is selected
             if (files.length === 0) {
@@ -1843,6 +1886,9 @@
             else if ($("#fileInput").attr("data-filename") == "") {
                 toastr.warning("Please attach a voucher or pay through QR!!!");
             }
+            else if($("#statusModal").find(".MachineKey").val()==""){
+                toastr.warning("Please Enter a Machine Key");
+            }
             else {
                 var parm = {
                     SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
@@ -1857,9 +1903,10 @@
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
                     VoucherImage:  $("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
-                    IsVerifiedPayment: 0
+                    IsVerifiedPayment: 0,
+                    Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
                 }
-                
+            
                 //insert the extension manually
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                 var dataa = JSON.parse(cpp);
@@ -2221,11 +2268,12 @@
                                         ReferenceId: 0,
                                         PaymentPartner: 'FonePay',
                                         GeneratedSerialNo: 'sn001',
-                                        VoucherImage: '',
+                                        VoucherImage: null,
                                         fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"]),
-                                         IsVerifiedPayment: 1
+                                        IsVerifiedPayment: 1,
+                                        Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
                                     };
-                                    debugger
+                                  
                             var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
 
                             if (cpp != 'Success') {

@@ -92,12 +92,12 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         }
 
 
-        public async Task<IActionResult> External(string CustomerSubcriptionGuid)
+        public async Task<IActionResult> External(string CustomerSubcriptionGuid,string MachineKey)
         {
 
             LoginValidator lv = new LoginValidator();
             lv.CustomerSubscriptionGuid = CustomerSubcriptionGuid;
-
+            lv.MachineKey = MachineKey;
 
             var value = await ApiCall.ApiCallWithObject("ValidateUser/ValidateUserExternallink", lv, "Post");
             var result = JsonConvert.DeserializeObject<loginValidator>(value);
@@ -108,6 +108,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 HttpContext.Session.SetString("UserName", result.UserName);
                 ViewBag.Customer = result.Customer;
                 ViewBag.Product = result.Product;
+                ViewBag.MachineKey = MachineKey;
                 return View("Index");
             }
             else

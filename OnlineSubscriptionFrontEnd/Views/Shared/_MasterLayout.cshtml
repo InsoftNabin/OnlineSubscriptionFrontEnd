@@ -120,6 +120,12 @@
             
         }
 
+        .nav-tabs .nav-link.active {
+            background-color: #0b3b56; /* Dark blue background */
+            color: white; /* White text */
+            border: 1px solid black; /* Black border */
+            border-bottom: none; /* Optional: Avoid double borders */
+        }
         td,th{
             vertical-align:middle;
         }
@@ -259,9 +265,16 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="~/files/assets/images/avatar-4.jpg" class="img-radius"
-                                             alt="User-Profile-Image">
-                                        <span>admin/insoft</span>
+                                        <img src="~/files/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                       @*  <span>admin/insoft</span> *@
+
+
+                                        <span id="userName">
+
+                                            @ViewBag.AgentName  <!-- Display the agent's name -->
+                                            <span id="AgentId" style="font-weight: normal; color: #888;" hidden>@ViewBag.AgentId</span> <!-- Display the agent's ID -->
+                                        </span>
+
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu"
@@ -439,14 +452,14 @@
                                     </a>
                                 </li>
 
-                                <li class="pcoded-hasmenun">
+                                <li class="pcoded-hasmenun hideforagent">
                                     <a href="/SMSApiSetup">
                                         <span class="pcoded-micon"><i class="feather icon-inbox"></i></span>
                                         <span class="pcoded-mtext">SMS API Setup</span>
                                     </a>
                                 </li>
 
-                                <li class="pcoded-hasmenun">
+                                <li class="pcoded-hasmenun hideforagent">
                                     <a href="/Products">
                                         <span class="pcoded-micon"><i class="feather icon-box"></i></span>
                                         <span class="pcoded-mtext">Products</span>
@@ -454,19 +467,19 @@
                                     </a>
                                 </li>
 
-                                <li class="pcoded-hasmenun">
+                                <li class="pcoded-hasmenun hideforagent">
                                     <a href="/SubProducts">
                                         <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
                                         <span class="pcoded-mtext">Sub-Products</span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenun" style="position: relative;">
+                                <li class="pcoded-hasmenun hideforagent" style="position: relative;">
                                     <a href="/Dashboard/Index" style="position: relative;">
                                         <span class="pcoded-micon"><i class="feather icon-briefcase"></i></span>
                                         <span class="pcoded-mtext">Verify Organizations</span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenun">
+                                <li class="pcoded-hasmenun hideforagent">
                                     <a href="/Agent">
                                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
                                         <span class="pcoded-mtext">Agents</span>
@@ -502,8 +515,8 @@
                                         <span class="pcoded-micon"><i class="feather icon-credit-card"></i></span>
                                         <span class="pcoded-mtext">Subscription</span>
                                     </a>
-                                    <ul class="pcoded-submenu">
-                                        <li>
+                                    <ul class="pcoded-submenu  ">
+                                        <li class="hideforagent">
                                             <a href="/Subscription">
                                                 <span class="pcoded-mtext">Subscription Setup</span>
                                             </a>
@@ -522,7 +535,7 @@
                                 </li>
                                
 
-                                <li class="pcoded-hasmenun" style="position: relative;">
+                                <li class="pcoded-hasmenun hideforagent" style="position: relative;">
                                     <a href="/VerifySubscriptionVoucher" style="position: relative;">
                                         <span class="pcoded-micon"><i class="feather icon-wifi"></i></span>
                                         <span class="pcoded-mtext">Verify Subscription Voucher</span>
@@ -533,7 +546,14 @@
                                 <li class="pcoded-hasmenun" style="position: relative;">
                                     <a href="/SubscriptionReport" style="position: relative;">
                                         <span class="pcoded-micon"><i class="feather icon-book"></i></span>
-                                        <span class="pcoded-mtext">Report</span>
+                                        <span class="pcoded-mtext">Expiry Report</span>
+                                    </a>
+                                </li> 
+                                
+                                <li class="pcoded-hasmenun" style="position: relative;">
+                                    <a href="/SubscriptionReport/LicenseKeyReportwithMachineKey" style="position: relative;">
+                                        <span class="pcoded-micon"><i class="feather icon-book"></i></span>
+                                        <span class="pcoded-mtext">Key Check</span>
                                     </a>
                                 </li>
 
@@ -554,7 +574,7 @@
             </div>
         </div>
     </div>
- 
+    
     <script src="~/insoft/assets/assets/js/custom.js"></script>
     <!-- Required Jquery -->
     <script type="text/javascript" src="~/files/bower_components/jquery/dist/jquery.min.js"></script>
@@ -581,6 +601,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> 
     <script type="text/javascript" >
         $(document).ready(function () {
+                if ('@ViewBag.Role.ToString()' === "Agent") {
+            $(".hideforagent").hide();
+        }else{
+             $(".hideforagent").show();
+        }
+          
+
+
             $('.navbar-logo').attr("logo-theme", "white");
         });
                 $(document).on("click", ".signoutBtn", async () => {

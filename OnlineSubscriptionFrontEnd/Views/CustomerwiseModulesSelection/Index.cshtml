@@ -134,7 +134,6 @@
     }
 
     function getTableData() {
-        
         var a = AjaxCallWithoutDataNoAsync("/Customer/getCustomers");
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
@@ -198,8 +197,6 @@
             products.forEach(function (product) {
 
                       var accordionStyle = product.Activated == 'Activated' ? 'background-color:green;color:white' : 'background-color:#a59e8c; color:white;';
-                    // var moduleName = product.Activated === 'Activated' ? `${product.Name}` : '';
-
                 accordionDOM += `
                           <div class="parent accordion-item${product.Id}" style="margin:20px; border-radius:12px;">
                                 <h2 class="accordion-header" data-productid=${product.Id} id="heading${product.Id}" style="background-color:red; color:white; border-radius:12px;">
@@ -285,7 +282,6 @@
                     </div>`;
             });
 
-            // $("#modalProductAccordion").append(`<div class="row"><span class="Note" style="color:red;">Note: The Activated modules inside each product are checked!!!</span></div>`);
             $("#modalProductAccordion").empty().append(`
                 <div class="accordion" id="accordionExample">
                     ${accordionDOM}
@@ -299,13 +295,7 @@
     });
 
     $(document).on('change', '.eachCb', function () {
-        // $("#tablemo tbody tr").addClass('disabled-row');
-        // var row = $(this).closest('tr');
-        // if ($(this).is(':checked')) {
-        //     row.removeClass('disabled-row');
-        // } else {
-        //     row.addClass('disabled-row');
-        // }
+       
         const totalCheckboxes = $(this).closest('table').find('.eachCb').length;
         const checkedCheckboxes = $(this).closest('table').find('.eachCb:checked').length;
         $(this).closest('table').find('.ChkAll').prop('checked', totalCheckboxes === checkedCheckboxes);
@@ -431,40 +421,6 @@
         });
         });
 
-           
-
-    // async function LoadSubProductbyProduct(ProductId){
-    //     var par = {
-    //         Id: ProductId
-    //     };
-    //     var haha = await AjaxCall("SubProducts/getProductByProductId", par);
-    //     var jdata = JSON.parse(haha);
-    //     var jsondata = JSON.parse(jdata);
-        
-    //     var MODalTable = "";
-    //     if (jsondata.length>0) {
-    //         for (var i = 0; i < jsondata.length;i++) {
-    //             MODalTable += `<tr data-subproductid=` + jsondata[i]["Id"] + `>
-    //                                 <td class="center"><input type="checkbox" class="eachCb"/></td>
-    //                                 <td class="center" style="text-transform:uppercase;"><b>`+jsondata[i]["Name"]+`</b></td>
-    //                                 <td class="center"><input type="text" class="modulePrice" value="`+ jsondata[i]["Price"] + `"></td>
-    //                                 <td class="center"><input type="date" class="JoinDate" value=""></td>
-    //                                 <td class="center"><input type="date" class="ExpiryDate" value=""></td>
-    //                                 <td class="center"><input type="date" class="LastRenewDate" value=""></td>
-    //                                 <td class="center"><input type="text" class="Remarks" value=""></td>
-                                 
-    //                            </tr>`;
-    //         }
-    //         $("#exampleModal").find(".table tbody").empty().append(MODalTable);
-
-    //     }else{
-    //         $("#modalProductAccordion ").append(`
-    //            <span style="color:red;"><b>No Modules are registered under this Product!!!</b></span>
-    //         `);
-    //     }
-    // }
-
-
     $(".search").off("keyup").on("keyup", function () {
         var $rows = $('.table tbody tr');
         $('.search').keyup(function () {
@@ -482,6 +438,7 @@
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
         }
+        debugger
           //----------------------placing the plans Selection ------------
       var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parmdata);
     var data = JSON.parse(para);

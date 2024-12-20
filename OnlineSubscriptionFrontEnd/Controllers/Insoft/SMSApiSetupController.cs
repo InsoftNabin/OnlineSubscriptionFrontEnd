@@ -10,6 +10,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult Index()
         {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
             return View();
         }
 

@@ -4,6 +4,8 @@
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- QR Code Library -->
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 <style>
     .cardProceed {
@@ -12,7 +14,7 @@
         border-radius: 8px;
         padding: 20px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
+     
         margin: auto;
     }
 
@@ -81,6 +83,232 @@
                        
                     </div>
 
+                    <!-- Modal for QR -->
+                    <div class="modal fade" id="QRModal" style="vertical-align:middle;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" style="width:90%;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        Scan the QR below to proceed to payment
+                                    </h1>
+                                    <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Using Bootstrap grid classes to make the image responsive -->
+                                    <div class="row justify-content-center mb-4">
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                            <div class="btn btn-sm w-100">
+                                                <img src="~/files/assets/images/fonepay-payment-service-limited43.png" class="img-fluid" alt="Fonepay Image" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- QR code section -->
+                                    <div id="generated-qr-container" class="d-flex justify-content-center">
+                                        <!-- QR Code will be dynamically inserted here -->
+                                        <div id="generated-qr"></div>
+                                    </div>
+
+                                    <h1 class="text-center modal-title fs-5" id="hehe">
+                                        <br /> INSOFT RESEARCH AND DEVELOPMENT<br /> an amount of <span id="AmountQr"></span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for customer status -->
+                    <div class="modal fade" id="ExtendModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" style="width:100%; max-width:1500px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        Status of<b> <span class="userEmail"></span></b>&nbsp;'s subscription for <b><span class="productN"></span></b>  <br />
+                                    </h1>
+
+                                    <button type="button" class="btn-close  btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="tabbable">
+
+                                        <ul class="nav nav-tabs md-tabs padding-12" id="myTab4" role="tablist">
+                                            <li class="nav-item ">
+                                                <a class="nav-link active ExtendTab " data-bs-toggle="tab" href="#Extend" role="tab" aria-expanded="false" style=" border-radius:12px 12px 0px 0px; border:1px solid black;">Extend </a>
+                                            </li>
+                                            <li class=" nav-item ">
+                                                <a class="nav-link LogTab" data-bs-toggle="tab" href="#Log" role="tab" aria-expanded="true" style=" border-radius:12px 12px 0px 0px; border:1px solid black;">Subscription Log</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content" style="margin-top:20px;">
+                                            <!-- Subscription Details Tab -->
+                                            <div id="Log" class="tab-pane table-responsive">
+                                                <table id="cLogTableExtend" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                                    <thead>
+                                                        <tr style="background-color: #0b3b56; color: white;">
+                                                            <th>S.N.</th>
+                                                            <th class="center">Print</th>
+                                                            <th>FonePay Trace Id</th>
+                                                            <th class="center">Product Name</th>
+                                                            <th class="center">Subscription Type</th>
+                                                            <th class="center">Issued date</th>
+                                                            <th class="center">Next Due Date</th>
+                                                            <th class="center">Remarks</th>
+                                                            <th class="center">Payment Remarks</th>
+                                                            <th class="center">Payment Method</th>
+                                                            <th class="center">Payment Partner</th>
+                                                            <th class="center">Amount</th>
+                                                            <th class="center">Reference Id</th>
+                                                            <th class="center hideme">Machine Key</th>
+                                                            <th class="center">License Key</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Add your data rows here -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <!-- Extend the Plan Tab -->
+                                            <div id="Extend" class="tab-pane active" style="padding: 20px; background-color: #f4f7fc; border-radius: 8px;">
+                                                <div class="cardWrapper" style="display: flex; justify-content: space-between; gap: 20px; padding: 20px;">
+
+                                                    <!-- Left Side Panel -->
+                                                    <div class="d-none d-sm-block leftSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                                        <p style="font-size: 14px; color: #333; line-height: 1.6;">
+                                                            <strong>Note:</strong><br>
+                                                            The payment from Bank Deposit takes up to three days from our side to verify your subscription. Please have patience and enjoy your journey with us!
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Main Card Section -->
+                                                    <div class="cardProceed col-12 col-sm-6" style="padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                                        <form>
+                                                            <div class="row" style="margin-bottom: 15px;">
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;">Current Plan: <span class="currentPlan" style="color: #888;">None</span></label>
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;">Due Date: <span class="currentPlanEdate" style="color: red;">__/__/____</span></label>
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;" hidden>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red" style="color: red;"></span> Days out of <span class="TotalDaysInCurrentPlan red" style="color: red;">30</span> Days</label>
+                                                            </div>
+                                                            <div class="row DivMachine" style="margin-bottom: 15px;">
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;">Machine Key:</label>
+                                                                <input type="text" class="form-control MachineKey" disabled required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                                            </div>
+
+                                                            <div class="row" style="margin-bottom: 15px;">
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;">Select a Package:</label>
+                                                                <select class="selectedPackages" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="row" style="margin-bottom: 15px;">
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;">Next Due Date:</label>
+                                                                <input type="date" class="form-control expiryDate" disabled style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                                            </div>
+
+                                                            <div class="row" style="margin-bottom: 15px;">
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;">Amount:</label>
+                                                                <input type="text" class="form-control Amount" disabled required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                                            </div>
+
+                                                            <div class="row" style="margin-bottom: 15px;">
+                                                                <label style="font-size: 16px; font-weight: bold; color: #333;">Remarks:</label>
+                                                                <input type="text" class="form-control rem" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                                                                <input type="text" id="custid" hidden />
+                                                                <input type="text" id="prodid" hidden />
+                                                            </div>
+
+                                                            @*  <div class="row" style="margin-bottom: 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
+                                            <div class="payment-methods" style="display: flex; gap: 20px;">
+                                                <div class="payment-option" data-value="0" style="border:1px solid black;">
+                                                    <input type="radio" name="payment" id="upload" />
+                                                    <label for="upload" style="font-size: 14px; color: #333; display: flex; align-items: center;">
+                                                        Bank Deposit <img src="~/files/assets/images/upload.svg" alt="Upload" style="width: 20px; margin-left: 5px;" />
+                                                    </label>
+                                                </div>
+                                                <div class="payment-option" data-value="3" style="vertical-align: middle; border:1px solid black;">
+                                                    <input type="radio" name="payment" id="fonepay" />
+                                                    <label for="fonepay" style="font-size: 14px; color: #333; display: flex; align-items: center;">
+                                                        <img src="~/files/assets/images/fonepay-payment-service-limited43.png" alt="Fonepay" style="width: 30px; margin-top: 20px;" />
+                                                        FonePay
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div> *@
+
+
+                                                            <div class="row mb-3">
+                                                                <label class="col-12" style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
+                                                                <div class="payment-methods d-flex flex-wrap justify-content-center gap-3 col-12">
+                                                                    <!-- Bank Deposit with Drag-and-Drop Upload -->
+                                                                    <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="0" style="border: 1px solid black; text-align: center;">
+                                                                        <input type="radio" class="form-control d-none" name="payment" id="upload" />
+                                                                        <label for="upload" class="w-100" style="font-size: 14px; color: #333; display: block; margin-bottom: 10px;">
+                                                                            Bank Deposit
+                                                                        </label>
+                                                                        <div id="uploadArea" class="gethere" style="border: 2px dashed #999; padding: 20px; position: relative; background-color: #f9f9f9; cursor: pointer;">
+                                                                            <p style="font-size: 14px; color: #666;">Drag & Drop or <span style="color: #007bff; text-decoration: underline;">browse files</span></p>
+                                                                            <span class="uploadedinfo" style="color: green; font-weight: bold;"></span>
+                                                                            <input type="file" class="form-control" id="fileInput" accept="image/*" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;" />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- FonePay Option -->
+                                                                    <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="3" style="border: 1px solid black; text-align: center;">
+                                                                        <input type="radio" class="form-control d-none" name="payment" id="fonepay" />
+                                                                        <label for="fonepay" class="w-100" style="font-size: 14px; color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                                                            <img src="~/files/assets/images/fonepay_payments_fatafat.png" alt="Fonepay" style="width: 180px; height: 100px; vertical-align:middle;" />
+                                                                            <span>FonePay</span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+
+
+
+
+
+
+                                                            <div class="row" id="file-upload" style="display:none; margin-bottom: 15px;">
+                                                                <input type="file" class="file" id="fileInput" data-filename="" style="padding: 10px;" />
+                                                                <p id="fileError" style="color:red; display:none;"></p>
+                                                            </div>
+
+                                                            <div class="row center" id="qr-code" style="display:none; margin-bottom: 15px;">
+                                                                <div id="generated-qr" style="text-align:center;"></div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <button class="btn btn-sm btn-success btnExtendPlan" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 4px; border: none; background-color: #28a745; color: white; cursor: pointer;">
+                                                                    Proceed &nbsp;<i class="feather icon-save"></i>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                    <!-- Right Side Panel -->
+                                                    <div class="d-none d-sm-block rightSide" style="width: 25%; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                                                        <p style="font-size: 14px; color: #333; line-height: 1.6;">
+                                                            <strong>Note:</strong><br>
+                                                            Your subscription to the respective Product will be updated as soon as we receive your payment made through FonePay QR.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                   
 
@@ -106,7 +334,7 @@
                                                 <th class="center">Subscription Type</th>
                                                     <th class="center">Amount</th>
                                                 <th class="center">Issued date</th>
-                                                <th class="center">Last Renewal date</th>
+                                             @*    <th class="center">Last Renewal date</th> *@
                                                 <th class="center">Expiry date</th>
                                                 <th class="center">Machine Key</th>
                                                 <th class="center">Remarks</th>
@@ -121,7 +349,7 @@
                                     </table>
                                     </div>
 
-                                    <div class="cardProceed">
+                                    <div class="cardProceed" style="max-width:400px;">
                                         <form>
                                             <div class="row">
                                                 <label>Current Plan: <span class="currentPlan">None</span></label>
@@ -258,6 +486,7 @@
     $(document).ready(function () {
         getProducts();
         updateAmountAndExpiry();
+        
     });
 
     $(".Products").on("change", function () {
@@ -298,17 +527,16 @@
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id="${jsondata[i]['Id']}" data-email=` + jsondata[i]["UserEmail"] + ` data-phone=` + jsondata[i]["UserContact"] + `>
                                     <td class="center"><b>${i + 1}.</b></td>
-                                        <td class="center hideme">
-                                         <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class="btn btn-sm btn-primary SelectModules rounded hideme" data-bs-toggle="modal" data-target="#exampleModal">
+                                        <td class="center">
+                                         <button style="background-color:#1ABC9C;" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}" class=" SelectModules hideme btn btn-sm btn-warning" data-bs-toggle="modal"  data-target="#exampleModal">
                                          Plan &nbsp;<i class="feather icon-check-square"></i>
                                          </button>
-                                         <button data-type="${jsondata[i]['Type']}" data-bs-toggle="modal" data-bs-target="#statusModal" class="hideme viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
+                                         <button data-type="${jsondata[i]['Type']}" data-bs-toggle="modal" data-bs-target="#statusModal" class="hideforagent viewSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Status&nbsp; <i class="feather icon-eye"></i></button>
+                                         <button data-type="${jsondata[i]['Type']}" data-bs-toggle="modal" data-bs-target="#ExtendModal" class="hideforinsoft ExtendSub btn btn-sm btn-danger" data-productName="${jsondata[i]['ProductName']}" data-productid="${jsondata[i]['ProductId']}" data-custid="${jsondata[i]['Id']}">Extend&nbsp; <i class="feather icon-credit-card"></i></button>
                                         </td>
                                     <td class="center custCode">${jsondata[i]['Customercode']}</td>
                                     <td class="center custName">${jsondata[i]['CustomerName']}</td>
-                                    <td class="center custName">${jsondata[i]['initial']}</td>
-
-
+                                    <td class="center initial">${jsondata[i]['initial']}</td>
                                     <td class="center prodName">${jsondata[i]['ProductName']}</td>
                                     <td class="center custAdd">${jsondata[i]['Address']}</td>
                                     <td class="center custPANVAT">${jsondata[i]['pan/vatno']}</td>
@@ -317,6 +545,12 @@
                                 </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
+          
+             if ('@ViewBag.Role.ToString()' === "Agent") {
+                $("#agentTable").find(".hideforagent").hide();
+             }else if('@ViewBag.Role.ToString()' === "Insoft"){
+                $("#agentTable").find(".hideforinsoft").hide();
+             }
         } else {
 
 
@@ -339,6 +573,7 @@
         $(".Customerr").text($(this).parents("tr").find(".custName").text());
         loadSubscriptionTypes(id, ProductId);
         $(".selectedProduct").text(ProductName);
+        
     });
 
     async function loadSubscriptionTypes(CustomerId, ProductId) {
@@ -348,7 +583,7 @@
             CustomerId: parseInt(CustomerId),
             ProductId: parseInt(ProductId)
         };
-        var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);
+        var para = await AjaxCall("/Customer/getSubsbyCusandProductIdAdminInsoft", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
         if (Jsondata.length > 0) {
@@ -365,6 +600,159 @@
             toastr.error("No Subscription Setup is done!!!");
         }
     }
+
+      //get the organisation subscription log
+        $(document).on('click', '.ExtendSub', async function () {
+            $("#ExtendModal").find(".userEmail").text($(this).parents("tr").find(".custName").text());
+            $("#ExtendModal").find(".productN").text($(this).parents("tr").find(".prodName").text());
+
+             var Type = $(this).attr("data-type");
+        if(Type=='Desktop'){
+            $("#ExtendModal").find(".DivMachine").css("display", "block");
+        }
+        else{
+             $("#ExtendModal").find(".MachineKey").val("Online");
+            $("#ExtendModal").find(".DivMachine").css("display", "none");
+        }
+            var CustomerId = $(this).attr("data-custid");
+            var ProductId = $(this).attr("data-productid");
+            $("#custid").val(CustomerId);
+            $("#prodid").val(ProductId);
+            await loadsubscriptionLogExtend(CustomerId, ProductId);
+            await loadplansforcustomerandproductExtend(CustomerId, ProductId)
+
+        });
+
+        //get the organisation subscription log
+        async function loadsubscriptionLogExtend(CustomerId, ProductId) {
+            
+            var parm = {
+                CustomerId: parseInt(CustomerId),
+                ProductId: parseInt(ProductId)
+            };
+            var jsub = await AjaxCall("/CustomerPlanDetails/getSubscriptionLogByCustandprodId", parm);
+            var sub = JSON.parse(jsub);
+            var jsonData = JSON.parse(sub);
+
+            var subDOM = "";
+            if (jsonData.length > 0) {
+                for (var i = 0; i < jsonData.length; i++) {
+                    
+                    subDOM += `<tr>
+                    <td class="center"><b>`+(i+1)+`</b></td>
+                    <td class="center"><button class="btn btn-danger PrintLog" data-ukid="`+jsonData[i]["ukid"]+`"><i class="fas fa-print"></i></button></td>
+                    <td class="center">`+ jsonData[i]["fonepayTraceId"] + `</td>
+                                            <td class="center">`+ jsonData[i]["productName"] + `</td>
+                                            <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
+                                            <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
+                                            <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
+                                            <td class="center">`+ jsonData[i]["Remarks"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentRemarks"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentMethod"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaymentPartner"] + `</td>
+                                            <td class="center">`+ jsonData[i]["PaidAmount"] + `</td>
+                                            <td class="center">`+ jsonData[i]["ReferenceId"] + `</td>
+                                            <td class="center hideme">`+ jsonData[i]["MachineKey"] + `</td>
+                                            <td class="center">`+ jsonData[i]["Licensekey"] + `</td>
+
+                                        `;
+                }
+                $("#ExtendModal").find("#cLogTableExtend tbody").empty().append(subDOM);
+            } else {
+                toastr.error("No Log Found!!!");
+                $("#ExtendModal").find("#cLogTableExtend tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
+            }
+        }
+        //fill the form to extend the plan
+        async function loadplansforcustomerandproductExtend(CustomerId, ProductId) {
+            
+            $(".currentPlan").text('----None---');
+            $(".currentPlanEdate").text('__//__//____');
+            $(".remainingDaysinCPlan").text('0');
+            $(".TotalDaysInCurrentPlan").text('0');
+
+            var parm = {
+                CustomerId: parseInt(CustomerId),
+                ProductId: parseInt(ProductId)
+            };
+            debugger
+            // Fetch current plan details
+            var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
+            var response = JSON.parse(ddd);
+            var responsefr = JSON.parse(response);
+
+            if (responsefr[0]["ErrorMessage"] == -202) {
+                toastr.error("You are not subscribed to the subscription Plan yet!!!");
+
+            } else {
+                if (responsefr.length > 0) {
+                    // If a current plan exists
+                    $("#ExtendModal").find(".MachineKey").val(responsefr[0]["MachineKey"]);
+                    $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
+
+                    $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                    var remainingDays =  parseInt(responsefr[0]["RemainingDays"]);
+                    var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
+                    $(".remainingDaysinCPlan").text(remainingDays);
+                    $(".TotalDaysInCurrentPlan").text(totalDays);
+
+                     $("#ExtendModal").find("#NextDueDate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                     $("#ExtendModal").find("#CurrentPlan").text(responsefr[0]["CurrentlySubscription"]);
+
+                } else {
+                   
+                }
+            }
+            // New/existing plan logic
+           // var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);        ---------------this fetches all the plans ------------dont delete this code---------
+
+           var para=await AjaxCall("/Customer/getSubsbyCusandProductIdAdmin", parm);
+           var data = JSON.parse(para);
+            var Jsondata = JSON.parse(data);
+            if (Jsondata.length > 0) {
+                var selectDOM = ``;
+                for (var i = 0; i < Jsondata.length; i++) {
+                    //if (Jsondata[i]["IsFound"] == "found") {
+                        var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
+                        var today = new Date();
+                        var expireDate = new Date(today);
+                        expireDate.setDate(today.getDate() + noOfDays + parseInt($("#ExtendModal .remainingDaysinCPlan").text())); // Modify expireDate directly
+                        var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+
+                        $("#ExtendModal").find(".expiryDate").val(isoExpireDate);
+                        //$("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
+
+
+                        selectDOM += `<option value="${Jsondata[i]["id"]}" data-noday=${noOfDays} data-expiredate=${isoExpireDate} amount=${Jsondata[i]['Amount']}>${Jsondata[i]['Name']}</option>`;
+                   // }
+                }
+                debugger
+                $("#ExtendModal").find(".selectedPackages").empty().append(selectDOM);
+
+                var firstOption = $("#ExtendModal").find(".selectedPackages option:first");
+                     if (firstOption.length > 0) {
+                         var defaultAmount = firstOption.attr("amount");
+                         var defaultExpiryDate = firstOption.attr("data-expiredate");
+
+                         $("#ExtendModal").find(".Amount").val(defaultAmount);
+                         amountFetchedFromServer=parseFloat(defaultAmount);
+                         $("#ExtendModal").find(".expiryDate").val(defaultExpiryDate);
+                     }
+                     } else {
+                         toastr.error("No Subscription Setup is done!!!");
+                     }
+        }
+
+
+
+
+
+
+
+
+
+
+
     $(document).on('click', '.btn-saveSubs', async function () {
         let savePromises = []; 
 
@@ -458,6 +846,7 @@
     });
 
     async function loadplansforcustomerandproduct(CustomerId, ProductId) {
+        
         $(".currentPlan").text('----None---');
         $(".currentPlanEdate").text('__//__//____');
         $(".remainingDaysinCPlan ").text('0');
@@ -483,15 +872,16 @@
         var para = await AjaxCall("/Customer/getSubsbyCusandProductIdWithUnpaidType", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
-
+        debugger
         if (Jsondata.length > 0) {
             var selectDOM = ``;
             for (var i = 0; i < Jsondata.length; i++) {
                 if (Jsondata[i]["IsFound"] == "found") {
                     var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
+                    debugger
                     var today = new Date();
                     var expireDate = new Date(today);
-                    expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
+                    expireDate.setDate(today.getDate() + noOfDays + parseInt($("#statusModal .remainingDaysinCPlan").text()));
                     var isoExpireDate = expireDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
 
                     selectDOM += `<option
@@ -529,7 +919,7 @@
                                 <td class="center">`+ jsonData[i]["SubscriptionPlan"] + `</td>
                                 <td class="center" style="color:green;"><b>Rs. `+ jsonData[i]["PaidAmount"] + `</b></td>
                                 <td class="center">`+ jsonData[i]["IssuedDate"] + `</td>
-                                <td class="center"> `+ jsonData[i]["LastRenewDate"] + `  </td>
+                                <!--<td class="center"> `+ jsonData[i]["LastRenewDate"] + `  </td>-->
                                 <td class="center">`+ jsonData[i]["ExpireDate"] + `</td>
                                 <td class="center">`+ jsonData[i]["MachineKey"] + `</td>
                                 <td class="center">`+ jsonData[i]["Remarks"] + `</td>
@@ -544,7 +934,60 @@
             $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
         }
     }
-    $(document).on('click', '.btnExtendPlan', async function (event) {
+
+    $(document).on('click', '#ExtendModal .btnExtendPlan', async function () {
+       debugger
+            var paymentSelected = $('#ExtendModal input[name="payment"]:checked').length > 0;
+            if (!paymentSelected) {
+                toastr.warning('Please select a payment method before proceeding.', 'Warning');
+                return;
+            }
+            if ($(".rem").val() == "") {
+                toastr.warning("Please fill in a Remarks!!!");
+                return;
+            }
+            else if ($("#fileInput").attr("data-filename") == "") {
+                toastr.warning("Please attach a voucher or pay through QR!!!");
+                return;
+            }
+            else if($("#ExtendModal").find(".MachineKey").val()==""){
+                toastr.warning("Please Enter a Machine Key");
+                return;
+            }
+            else {
+                var parm = {
+                    SubscriptionType: parseInt($("#ExtendModal").find(".selectedPackages :selected").val()),
+                    ExpiryDate: $("#ExtendModal").find(".selectedPackages :selected").attr("data-expiredate"),
+                    PaidAmount: parseFloat($("#ExtendModal").find(".Amount").val()),
+                    Remarks: $("#ExtendModal").find(".rem").val(),
+                    CustomerId: parseInt($("#custid").val()),
+                    ProductId: parseInt($("#prodid").val()),
+                    TransactionId: 0,
+                    PaymentMethod: 'cash',
+                    ReferenceId: 0,
+                    PaymentPartner: 'none',
+                    GeneratedSerialNo: 'sn001',
+                    VoucherImage:  $("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
+                    IsVerifiedPayment: 0,
+                    Machinekey:$("#ExtendModal").find(".MachineKey").val()||"Online"
+                }
+                debugger
+                //insert the extension manually
+                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                var dataa = JSON.parse(cpp);
+                var jsondata = JSON.parse(dataaa);
+
+                if (jsondata > 0) {
+                    toastr.success("Plan extension successful");
+                }
+                else {
+                    toastr.error("Plan extension  not successful");
+                }
+            }
+        });
+
+    $(document).on('click', '#statusModal .btnExtendPlan', async function (event) {
+        debugger
         event.preventDefault();  // Prevent default form submission behavior
         // Check if Remarks are provided
         if ($(".rem").val() == "") {
@@ -664,7 +1107,263 @@
             }
         }
     });
+     // Payment method change event
+        $('#ExtendModal input[name="payment"]').change(async function (event) {
+            debugger
+                 var $fileUpload = $('#file-upload');
+                var $qrCode = $('#qr-code');
+                var $fileInput = $('#fileInput');
+                var $fileError = $('#fileError');
+                event.preventDefault();
+                     if ($(this).attr('id') === 'upload') {
+                        $fileUpload.show();
+                        $qrCode.hide();
+                    } else if ($(this).attr('id') === 'fonepay') {
+            if ($(".rem").val() == "") {
+                $(this).attr("required", true);
+                toastr.error("Please enter a remarks before proceeding to payment!!!");
+            } else {
+                if ($('#fonepay').is(':checked')) {
+                    var amount = parseFloat($("#ExtendModal").find(".Amount").val());
 
+
+                    // Check if the fetched amount from the frontend matches the server amount
+                    if (parseFloat(amountFetchedFromServer) !== amount) {
+                        toastr.error("The amount fetched from the server and the amount from the frontend are not equal!!!");
+                        return;  // Exit the function if amounts do not match
+                    }
+
+                    // Proceed only if the amounts are the same
+                    var Product = $("#ExtendModal").find(".productN").text();
+                    var Amount = parseFloat($("#ExtendModal").find(".Amount").val());
+                    var newExpDate = $("#ExtendModal").find(".selectedPackages :selected").attr("data-expiredate");
+                    var PlanName = $("#ExtendModal").find(".selectedPackages :selected").text();
+
+                        if (amount) {
+                        var bankDetails = {
+                            amount: parseFloat(amountFetchedFromServer),
+                            Purpose: "Live",
+                            Remarks1: $("#ExtendModal").find(".rem").val(),
+                            Remarks2: "Insoft Subscription"
+                        };
+
+                        // Call the backend to generate QR code and get the PRN
+                        var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
+                        var response = JSON.parse(aahaha);
+                          $("#ExtendModal").modal('hide');
+
+                        $("#QRModal").modal('show');
+
+                        // Ensure response contains hashKey and prn
+                        if (response && response.prn && response.hashKey) {
+                            var prn = response.prn;
+                            $("#QRModal").find("#AmountQr").text(amount);
+
+                            var hashKey = response.hashKey;
+                            var qrMessage = response.qrMessage;
+
+                            // Clear any existing QR code before generating a new one
+                            $("#generated-qr").empty();
+
+                            // Generate the QR code
+                            new QRCode($("#QRModal").find("#generated-qr")[0], {
+                                text: qrMessage,
+                                width: 250,
+                                height: 250,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+
+                                var $qrCode = $("#QRModal").find("#generated-qr-container");
+                                 $qrCode.show();
+
+                            // Flag to check if payment has been successfully processed
+                            var paymentSuccessHandled = false;
+
+                            // Start checking payment status every 2 seconds for this specific transaction (by prn)
+                            var paymentStatusInterval = setInterval(async function () {
+                                var getQRresponse = await AjaxCallNoAsync("/QRCodeForPayment/GetPaymentStatus", { qrHashKey: hashKey, prn: prn });
+                                var paymentResponse = JSON.parse(getQRresponse);
+
+                                if (paymentResponse[0]["paymentStatus"] === 'success' && !paymentSuccessHandled) {
+                                    paymentSuccessHandled = true;
+
+                                    // Handle successful payment, update database, send SMS/email, etc.
+                                    var parm = {
+                                        SubscriptionType: parseInt($("#ExtendModal").find(".selectedPackages :selected").val()),
+                                        ExpiryDate: newExpDate,
+                                        PaidAmount: parseFloat(paymentResponse[0]["totalTransactionAmount"]),
+                                        Remarks: $("#ExtendModal").find(".rem").val(),
+                                        CustomerId: parseInt($("#custid").val()),
+                                        ProductId: parseInt($("#prodid").val()),
+                                        TransactionId: 0,
+                                        PaymentMethod: 'QR',
+                                        ReferenceId: 0,
+                                        PaymentPartner: 'FonePay',
+                                        GeneratedSerialNo: 'sn001',
+                                        VoucherImage: null,
+                                        fonepayTraceId: parseInt(paymentResponse[0]["fonepayTraceId"]),
+                                        IsVerifiedPayment: 1,
+                                        Machinekey:$("#ExtendModal").find(".MachineKey").val()||"Online"
+                                    };
+
+                            var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+
+                            if (cpp != 'Success') {
+                                toastr.error("Server side problem in extending the Plan");
+                            } else {
+
+                                try {
+                                                     var invoiceData = {
+                                                                  InvoiceDate: new Date().toLocaleDateString(),
+                                                                  DueDate: new Date(newExpDate).toLocaleDateString(),
+                                                                  CustomerName: $("#ExtendModal").find(".userPhone").text() || "",
+                                                                  CustomerAddress: "Pokhara, Simalachaur, Pokhara, Mid Western, 44204, Nepal",
+                                                                  Product: Product.toString(),
+                                                                  PlanName: PlanName.toString(),
+                                                                  Amount: paymentResponse[0]["totalTransactionAmount"].toString(),    /// changed from Amount to paymentResponse[0]["totalTransactionAmount"].toString() after hosting , needs to be tested
+                                                                  TransactionId: paymentResponse[0]["fonepayTraceId"].toString(),
+                                                                  PaymentGateway: "FonePay",
+                                                                  TotalAmount: paymentResponse[0]["totalTransactionAmount"].toString(),
+                                                                  Vat: (paymentResponse[0]["totalTransactionAmount"] * 0.13).toFixed(2),
+                                                                  Subtotal: (paymentResponse[0]["totalTransactionAmount"] - (paymentResponse[0]["totalTransactionAmount"] * 0.13)).toFixed(2)
+                                                              };
+                                            var reqInvoice1 = await AjaxCall("/Home/CreateInvoice", invoiceData);
+                                            var haha=JSON.parse(reqInvoice1);
+
+                                          if (haha.success) {
+                                           window.location.href = "/Home/InvoicePage";
+                                           //    window.open("/Home/InvoicePage", "_blank");   window.open("/Home/InvoicePage", "_blank");
+                                          }
+
+                                    toastr.success("Subscription Extension Successful!!!");
+                                    $("#ExtendModal").find(".rem").val('');
+                                    $("#QRModal").modal('hide');
+                                } catch (error) {
+                                    toastr.error("An error occurred while generating the invoice.");
+                                }
+
+                                    // Send success SMS to the user
+                                    var parm = {
+                                        SMS_Message: `Your subscription of ${Product} has been extended with a ${PlanName} Plan of Rs.${Amount}.The next due date is on ${newExpDate}. Thank you for choosing Insoft R & D.`,
+                                        MobileNo: $("#ExtendModal").find(".userPhone").text()
+                                    };
+
+                                    var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
+
+                                    // Send confirmation email to the user
+                                        const codeBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                                <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                    <div style="text-align: center;">
+                                                        <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                    </div>
+                                                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Subscription Extension Confirmation</h2>
+                                                    <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Valued Customer,</p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        We are pleased to inform you that your subscription to the <strong>${Product}</strong> product has been successfully extended.
+                                                        Below are the details of your extended subscription:
+                                                    </p>
+                                                    <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                        <tr style="background-color: #f4f4f4; text-align: left;">
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Next Due Date</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The next due date of your subscription is <strong>${newExpDate}</strong>.
+                                                        If you have any questions or require further assistance, feel free to contact us at 061-543815.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Thank you for choosing us. We appreciate your continued trust and look forward to serving you.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Best regards, <br>
+                                                        Insoft Research & Development
+                                                    </p>
+                                                </div>
+                                            </div>`;
+                                    const toUser = {
+                                        ReceiverEmail: $("#ExtendModal").find(".userEmail").text(),
+                                        Subject: "Subscription Extended",
+                                        EmailBody: codeBody,
+                                    };
+
+                                    var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+
+                                    // Send email to Insoft team
+                                        const insoftEmailBody = `<div style="margin: 0; padding: 0; background-color: #f8f9fa;">
+                                                <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 36px 20px; font-family: Arial, sans-serif; color: #333;">
+                                                    <div style="text-align: center;">
+                                                        <img src="https://incloud.academeplus.com/fileuploads/Subscription/703445501703445501-1543-LogoInsoft.png" alt="Insoft" style="max-width: 100%; height: auto;">
+                                                    </div>
+                                                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000;">Payment Successful - Subscription Extension</h2>
+                                                    <p style="font-size: 16px; font-weight: 400; margin-bottom: 20px;">Dear Team,</p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The subscription of the <strong>${Product}</strong> product has been successfully extended by the Customer themselves through the FonePay QR provided in our Software..
+                                                        Below are the details of the transaction:
+                                                    </p>
+                                                    <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px;">
+                                                        <tr style="background-color: #f4f4f4; text-align: left;">
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Subscription Plan</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Amount Paid</th>
+                                                            <th style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">Expiry Date</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${PlanName}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${Amount}</td>
+                                                            <td style="padding: 10px; font-size: 14px; border-bottom: 1px solid #ddd;">${newExpDate}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        The customer is now subscribed to the new plan until <strong>${newExpDate}</strong>.
+                                                    </p>
+                                                    <p style="font-size: 14px; font-weight: 400; margin-bottom: 20px;">
+                                                        Best regards, <br>
+                                                        Insoft Research & Development
+                                                    </p>
+                                                </div>
+                                            </div>`;
+                                    const toInsoft = {
+                                        ReceiverEmail: "insoftrnd@gmail.com",
+                                        Subject: "Payment Successful - Subscription Extension",
+                                        EmailBody: insoftEmailBody,
+                                    };
+
+                                    var insoftEmail = await AjaxCall("/Dashboard/SendEmail", toInsoft);
+                                    await GetOrganizations();
+                                        }
+
+                                    }
+                            }, 500); // Poll every 2 seconds
+
+                            // Stop payment status polling when modal is closed or loses focus
+                            $('#QRModal').on('hidden.bs.modal', function () {
+
+                                clearInterval(paymentStatusInterval);
+                                $("#ExtendModal").find(".rem").val('');
+                                $("#ExtendModal").find("#upload").attr("checked", false);
+                                $("#generated-qr-container").find("#generated-qr").empty();
+                            });
+
+                        } else {
+                            $qrCode.hide();
+                        }
+                    } else {
+                        $qrCode.hide();
+                    }
+                } else {
+                    // Handle other cases if needed
+                }
+            }
+        }
+    });
     $(document).on("change", ".CheckPlan", function () {
         if ($(this).is(":checked")) {
             $(".CheckPlan").not(this).prop("checked", false);

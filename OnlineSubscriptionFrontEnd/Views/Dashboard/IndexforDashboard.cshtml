@@ -196,6 +196,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+           if ('@ViewBag.Role.ToString()' === "Agent") {
+        $(".hideforagent").hide();
+    }
+
+
         getOrganizations();
         getAgents();
         getProducts();

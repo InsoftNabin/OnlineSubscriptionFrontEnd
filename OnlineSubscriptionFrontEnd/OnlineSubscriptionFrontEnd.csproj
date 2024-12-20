@@ -25,6 +25,7 @@
     <ProjectReference Include="..\DataServiceLayer\DataServiceLayer.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\bootstrap\bootstrap 4\" />
     <Folder Include="wwwroot\insoft\NewFolder\" />
     <Folder Include="wwwroot\Theme\" />

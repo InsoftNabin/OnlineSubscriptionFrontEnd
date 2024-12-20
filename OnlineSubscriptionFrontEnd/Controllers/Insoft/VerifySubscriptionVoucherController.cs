@@ -17,6 +17,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 }
                 else
                 {
+                    ViewBag.Role = HttpContext.Session.GetString("Role");
+
                     return View();
                 }
 

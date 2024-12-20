@@ -86,7 +86,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 {
                     HttpContext.Session.SetString("TokenNo", result.tokenNo);
                     HttpContext.Session.SetString("UserName", result.UserName);
-
+                    HttpContext.Session.SetString("Role", result.Role);
+            
                     //var claims = new List<Claim> 
                     //        {
                     //            new Claim(ClaimTypes.Name, result.UserName),

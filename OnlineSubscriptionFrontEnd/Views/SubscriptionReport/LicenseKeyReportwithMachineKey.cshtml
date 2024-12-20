@@ -1,0 +1,344 @@
+﻿@{
+    ViewData["Title"] = "CustomerSubscription";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<style>
+    .cardProceed {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!"><i class="feather icon-home"></i></a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">License Key Check</a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">By Machine Key</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+                    <div class="row m-t-10 m-l-0 " style="border:1px solid black; background-color:white; border-radius:12px; padding:10px;">
+
+                        <!-- Products Dropdown -->
+                        <div class=" col-sm-6 col-md-4" style="padding-right: 5px;">
+                            <label>Products</label>
+                            <select class="Products form-control">
+                                <option class="default" value="0">----All----</option>
+                            </select>
+                        </div>
+
+                        <!-- Show Button -->
+                        <div class=" col-sm-6 col-md-2" style="padding-left: 5px;">
+                            <label>&nbsp;</label>
+                            <button class="btn btn-insoft btn-sm" type="button" id="showButton">
+                                <i class="feather icon-search"></i> Show
+                            </button>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <!-- Modal for customer status -->
+@*                     <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" style="width:90%;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        Status of <b><span class="Customerr"></span></b>'s' Subscription of <b><span class="selectedProduct"></span></b>
+                                        <span class="userEmail" hidden></span>
+                                        <span class="userPhone" hidden></span>
+                                    </h1>
+                                    <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; position: relative;">
+                                    <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                        <thead>customer's log  
+                                            <tr style="background-color: #0b3b56; color: white;">
+                                                <th class="center">S.N.</th>
+                                                <th class="center">Product Name</th>
+                                                <th class="center">Subscription Type</th>
+                                                    <th class="center">Amount</th>
+                                                <th class="center">Issued date</th>
+                                                        <th class="center">Last Renewal date</th> 
+                                                <th class="center">Expiry date</th>
+                                                <th class="center">Machine Key</th>
+                                                <th class="center">Remarks</th>
+                                                <th class="center">Payment Method</th>
+                                                <th class="center">Payment Partner </th>
+
+                                                <th class="center">License Key</th>
+                                                                                                <th class="center">ExtendedBy</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    </div>
+
+                                    <div class="cardProceed">
+                                        <form>
+                                            <div class="row">
+                                                <label>Current Plan: <span class="currentPlan">None</span></label>
+                                                <label>Expiry Date : <span class="currentPlanEdate">__/__/____</span></label>
+                                                <label>Remaining Plan (No. of Days):&nbsp;&nbsp;&nbsp;<span class="remainingDaysinCPlan red">1</span> Days <span class="TotalDaysInCurrentPlan red" hidden>30</span> </label>
+                                            </div>
+
+                                            <div class="row">
+                                                <label>Select a Package:</label>
+                                                <select class="selectedPackages">
+
+                                                </select>
+                                            </div>
+                                            <div class="row">
+                                                <label>Expiry Date:</label>
+                                                <input type="date" class="expiryDate form-control" disabled/>
+                                            </div>
+
+                                            <div class="row">
+                                                <label>Amount:</label>
+                                                <input type="text" class="Amount form-control" required disabled />
+                                            </div>
+                                            <div class="row DivMachine">
+                                                <label>Machine Key:</label>
+                                                <input type="text" class="MachineKey form-control" required  />
+                                            </div>
+
+                                            <div class="row">
+                                                <label>Remarks:</label>
+                                                <input type="text" class="rem form-control" required />
+                                                <input type="text" id="custid"  hidden/>
+                                                <input type="text"  id="prodid" hidden/>
+                                            </div>
+                                            <div class="row">
+                                                <button class="btn btn-sm btn-success btnExtendPlan">Proceed &nbsp;<i class="feather icon-save"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                               </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Subscription -->
+                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        <br /><input type="number" id="custid"  hidden/>
+                                        <br /><input type="number" id="prodid" hidden />
+                                        Choose A Subscription Package for <b>"<span class="Customerr"></span>"</b> for the modules in <b><span class="selectedProduct"></span></b>
+                                    </h1>
+                                    <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table id="modalTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear">
+                                        <thead>
+                                            <tr style="background-color: #0b3b56; color: white;">
+                                                <th class="center"></th>
+                                                <th class="center">Subscription Package</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-success btn-saveSubs" data-uniqid="0">Save&nbsp;<i class="feather icon-save"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ *@
+                <div class="ss" style="max-width:120em;">
+                    <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;">
+                        <!-- Buttons -->
+                        <div class="button-group">
+                            <button onclick="exportToCSV()" class="rounded btn-xs btn-primary">
+                                <i class="feather icon-file-text"></i> CSV
+                            </button>
+                            <button onclick="copyTable()" class="rounded btn-xs btn-warning">
+                                <i class="feather icon-copy"></i> Copy
+                            </button>
+                            <button onclick="exportToExcel()" class=" rounded btn-xs btn-success">
+                                <i class="fa fa-regular fa-file-excel"></i> Excel
+                            </button>
+                            <button onclick="exportToPDF()" class="rounded btn-xs btn-danger">
+                                <i class="feather icon-file-pdf"></i> PDF
+                            </button>
+                            <button onclick="printTable()" class="rounded btn-xs btn-info">
+                                <i class="feather icon-print"></i> Print
+                            </button>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="search-container">
+                            <div class="input-group">
+                                <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; height: 70dvh; position: relative;">
+                            <table id="agentTable" class=" agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                <thead>
+                                    <tr style="background-color: #0b3b56; color: white;">
+                                        <th class="center">S.N</th>
+                                    
+                                        <th class="center">Customer Name</th>
+                                        <th class="center"> Contact</th>
+                                        <th class="center">Initial</th>
+                                        <th class="center">License Key</th>
+                                        <th class="center">Machine Key</th>
+                                        <th class="center">Expiry Date</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getProducts();
+     
+    });
+
+    $(".Products").on("change", function () {
+        $("#showButton").trigger('click');
+    });
+
+    $("#showButton").on("click", function () {
+        getTableData();
+    });
+
+    function getProducts() {
+        var paa = AjaxCallWithoutDataNoAsync("/Products/getProducts");
+        var aaha = JSON.parse(paa);
+        var jsonD = JSON.parse(aaha);
+
+        var ProductsD = "";
+        if (jsonD.length > 0) {
+            for (var a = 0; a < jsonD.length; a++) {
+                ProductsD += `<option value="${jsonD[a]['Id']}">${jsonD[a]['Name']} (V .${jsonD[a]['Version']})</option>`;
+            }
+            $(".Products").not(".default").append(ProductsD);
+        } else {
+            toastr.error("No Products have been added!!!");
+        }
+    }
+
+    async function getTableData() {
+        var parm = {
+            ProductId: parseInt($(".Products :selected").val())
+        };
+
+        var a = await AjaxCall("/SubscriptionReport/getCustomersandKeysbyProductTypes", parm);
+        var ab = JSON.parse(a);
+        var jsondata = JSON.parse(ab);
+        var tableDOM = "";
+        debugger
+        if (jsondata.length > 0) {
+            for (var i = 0; i < jsondata.length; i++) {
+                tableDOM += `<tr >
+                                    <td>`+(i+1)+`</td>
+                               <td class="center">${jsondata[i]['CustomerName']}</td>
+                               <td class="center">${jsondata[i]['Contact']}</td>
+                               <td class="center">${jsondata[i]['Initial']}</td>
+                               <td class="center">${jsondata[i]['Licensekey']}</td>
+                               <td class="center">${jsondata[i]['MachineKey']}</td>
+                               <td class="center">${jsondata[i]['ExpiryDate']}</td>
+                                   
+                            </tr>`;
+            }
+            $("#agentTable tbody").empty().append(tableDOM);
+        } else {
+
+
+            $("#agentTable tbody").empty().append(`
+                    <tr class="center">
+                        <td colspan="8">
+                            <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                <p style="color:red; font-size:22px;"><b>No Customers have been registered under this Product.</b></p>
+                        </td>
+                    </tr>
+                `);
+        }
+    }
+
+   
+
+   
+    
+    $(".search").off("keyup").on("keyup", function () {
+        var $rows = $('.table tbody tr');
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        $rows.show().filter(function () {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+       
+
+   
+
+    
+
+
+
+</script>

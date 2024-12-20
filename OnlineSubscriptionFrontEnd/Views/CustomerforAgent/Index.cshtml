@@ -1,8 +1,13 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Agent.cshtml";
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <style>
 
@@ -10,196 +15,229 @@
     *,
     *:before,
     *:after {
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
+
     h4 {
-            color: #b30514;
+        color: #b30514;
     }
+
     input,
     input[type="radio"] + label,
     input[type="checkbox"] + label:before,
     select option,
     select {
-      width: 100%;
-      padding: 1em;
-      line-height: 1;
-      background-color: #f9f9f9;
-      border: 1px solid #e5e5e5;
-      border-radius: 3px;
-    /*   -webkit-transition: 0.35s ease-in-out;
-     */  -moz-transition: 0.35s ease-in-out;
-      -o-transition: 0.35s ease-in-out;
-      transition: 0.35s ease-in-out;
-      transition: all 0.35s ease-in-out;
-    }
-    input:focus {
-      outline: 0;
-      border-color: #bd8200;
-    }
-    input:focus + .input-icon i {
-      color: #f0a500;
-    }
-    input:focus + .input-icon:after {
-      border-right-color: #f0a500;
-    }
-    input[type="radio"] {
-      display: none;
-    }
-    input[type="radio"] + label,
-    select {
-      display: inline-block;
-      width: 50%;
-      text-align: center;
-      float: left;
-      border-radius: 0;
-    }
-    input[type="radio"] + label:first-of-type {
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
-    }
-    input[type="radio"] + label:last-of-type {
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px;
-    }
-    input[type="radio"] + label i {
-      padding-right: 0.4em;
-    }
-    input[type="radio"]:checked + label,
-    input:checked + label:before,
-    select:focus,
-    select:active {
-      background-color: #f0a500;
-      color: #fff;
-      border-color: #bd8200;
-    }
-    input[type="checkbox"] {
-     width:20px;
-     height:20px;
-     accent-color: #b30514;
-    }
-
-    select {
-      height: 3.4em;
-      line-height: 2;
-    }
-    select:first-of-type {
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
-    }
-    select:last-of-type {
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px;
-    }
-    select:focus,
-    select:active {
-      outline: 0;
-    }
-    select option {
-      background-color: #f0a500;
-      color: #fff;
-    }
-    .input-group {
-      margin-bottom: 1em;
-      zoom: 1;
-    }
-    .input-group:before,
-    .input-group:after {
-      content: "";
-      display: table;
-    }
-    .input-group:after {
-      clear: both;
-    }
-    .input-group-icon {
-      position: relative;
-    }
-    .input-group-icon input {
-      padding-left: 4.4em;
-    }
-
-    .input-group-icon .input-icon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 3.5em;
-      height: 3em;
-      line-height: 2em;
-      text-align: center;
-      vertical-align:middle;
-      pointer-events: none;
-    }
-    .input-group-icon .input-icon:after {
-      position: absolute;
-      top: 0em;
-      bottom: -0.5em;
-      left: 3.4em;
-      display: block;
-      border-right: 1px solid #e5e5e5;
-      content: "";
-    /*   -webkit-transition: 0.35s ease-in-out;
-     */  -moz-transition: 0.35s ease-in-out;
-      -o-transition: 0.35s ease-in-out;
-      transition: 0.35s ease-in-out;
-      transition: all 0.35s ease-in-out;
-    }
-    .input-group-icon .input-icon i {
-    /*   -webkit-transition: 0.35s ease-in-out;
-     */  -moz-transition: 0.35s ease-in-out;
-      -o-transition: 0.35s ease-in-out;
-      transition: 0.35s ease-in-out;
-      transition: all 0.35s ease-in-out;
-    }
-    .container {
-      max-width: 100em;
-      padding: 1em 3em 2em 3em;
-      margin: 0em auto;
-            background-color: #EFE9F4;
-      border-radius: 4.2px;
-      box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
-    }
-    .row {
-      zoom: 1;
-    }
-    .row:before,
-    .row:after {
-      content: "";
-      display: table;
-    }
-    .row:after {
-      clear: both;
-    }
-    .col-half {
-      padding-right: 10px;
-      float: left;
-      width: 50%;
-    }
-    .col-half:last-of-type {
-      padding-right: 0;
-    }
-    .col-third {
-      padding-right: 10px;
-      float: left;
-      width: 33.33333333%;
-    }
-    .col-third:last-of-type {
-      padding-right: 0;
-    }
-    @@media only screen and (max-width: 540px) {
-      .col-half {
         width: 100%;
-        padding-right: 0;
-      }
-      .table td{
-          vertical-align:middle;
-      }
+        padding: 1em;
+        line-height: 1;
+        background-color: #f9f9f9;
+        border: 1px solid #e5e5e5;
+        border-radius: 3px;
+        /*   -webkit-transition: 0.35s ease-in-out;
+             */ -moz-transition: 0.35s ease-in-out;
+        -o-transition: 0.35s ease-in-out;
+        transition: 0.35s ease-in-out;
+        transition: all 0.35s ease-in-out;
     }
-        .input-icon{
-            vertical-align:middle;
+
+        input:focus {
+            outline: 0;
+            border-color: #bd8200;
         }
 
-        .input-group feather {
+            input:focus + .input-icon i {
+                color: #f0a500;
+            }
 
-        font-size:2em;
+            input:focus + .input-icon:after {
+                border-right-color: #f0a500;
+            }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+            input[type="radio"] + label,
+            select {
+                display: inline-block;
+                width: 50%;
+                text-align: center;
+                float: left;
+                border-radius: 0;
+            }
+
+                input[type="radio"] + label:first-of-type {
+                    border-top-left-radius: 3px;
+                    border-bottom-left-radius: 3px;
+                }
+
+                input[type="radio"] + label:last-of-type {
+                    border-top-right-radius: 3px;
+                    border-bottom-right-radius: 3px;
+                }
+
+                input[type="radio"] + label i {
+                    padding-right: 0.4em;
+                }
+
+                input[type="radio"]:checked + label,
+                input:checked + label:before,
+                select:focus,
+                select:active {
+                    background-color: white;
+                    color: black;
+                    border-color: #bd8200;
+                }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #b30514;
+        }
+
+    select {
+        height: 3.4em;
+        line-height: 2;
+    }
+
+        select:first-of-type {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        select:last-of-type {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        select:focus,
+        select:active {
+            outline: 0;
+        }
+
+        select option {
+            background-color: white;
+            color: black;
+        }
+
+    .input-group {
+        margin-bottom: 1em;
+        zoom: 1;
+    }
+
+        .input-group:before,
+        .input-group:after {
+            content: "";
+            display: table;
+        }
+
+        .input-group:after {
+            clear: both;
+        }
+
+    .input-group-icon {
+        position: relative;
+    }
+
+        .input-group-icon input {
+            padding-left: 4.4em;
+        }
+
+        .input-group-icon .input-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3.5em;
+            height: 3em;
+            line-height: 2em;
+            text-align: center;
+            vertical-align: middle;
+            pointer-events: none;
+        }
+
+            .input-group-icon .input-icon:after {
+                position: absolute;
+                top: 0em;
+                bottom: -0.5em;
+                left: 3.4em;
+                display: block;
+                border-right: 1px solid #e5e5e5;
+                content: "";
+                /*   -webkit-transition: 0.35s ease-in-out;
+             */ -moz-transition: 0.35s ease-in-out;
+                -o-transition: 0.35s ease-in-out;
+                transition: 0.35s ease-in-out;
+                transition: all 0.35s ease-in-out;
+            }
+
+            .input-group-icon .input-icon i {
+                /*   -webkit-transition: 0.35s ease-in-out;
+             */ -moz-transition: 0.35s ease-in-out;
+                -o-transition: 0.35s ease-in-out;
+                transition: 0.35s ease-in-out;
+                transition: all 0.35s ease-in-out;
+            }
+
+    .container {
+        max-width: 100em;
+        padding: 1em 3em 2em 3em;
+        margin: 0em auto;
+        background-color: #EFE9F4;
+        border-radius: 4.2px;
+        box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    .row {
+        zoom: 1;
+    }
+
+        .row:before,
+        .row:after {
+            content: "";
+            display: table;
+        }
+
+        .row:after {
+            clear: both;
+        }
+
+    .col-half {
+        padding-right: 10px;
+        float: left;
+        width: 50%;
+    }
+
+        .col-half:last-of-type {
+            padding-right: 0;
+        }
+
+    .col-third {
+        padding-right: 10px;
+        float: left;
+        width: 33.33333333%;
+    }
+
+        .col-third:last-of-type {
+            padding-right: 0;
+        }
+
+    @@media only screen and (max-width: 540px) {
+        .col-half {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+    }
+
+    .input-icon {
+        vertical-align: middle;
+    }
+
+    .input-group feather {
+        font-size: 2em;
     }
 </style>
 <div class="pcoded-content">
@@ -211,10 +249,10 @@
                 </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
-                <a href="#!">Customer </a>
+                <a href="#!">Agent </a>
             </li>
             <li class="breadcrumb-item" style="float: left;">
-                <a href="#!">Customer List </a>
+                <a href="#!">Customer List</a>
             </li>
         </ul>
     </div>
@@ -227,7 +265,7 @@
                             <div class="card-header" id="headingOne">
                                 <h5 class="mb-0 d-flex justify-content-between">
                                     <button class="btn btn-primary" id="addProduct" type="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="border-radius:12px; text-decoration: none;">
-                                        <h5 class="addEdit" style="color:white;"> Add Customer &nbsp; <i class="feather icon-plus"></i></h5>
+                                        <h5 class="addEdit" style="color:white;"> Add Company &nbsp; <i class="feather icon-plus"></i></h5>
                                     </button>
                                     <button id="toggleArrow" class="btn btn-primary toggleCollapse" type="button" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none; border-radius:12px;">
                                         <i class="feather icon-chevron-up"></i>
@@ -235,161 +273,9 @@
                                 </h5>
                             </div>
 
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#productAccordion" hidden>
                                 <div class="card-body">
                                     <div class="container">
-                                        <form>
-                                            <h4>Customer Details</h4>
-                                            <input type="text" id="id" hidden />
-                                            <div class="row">
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CustCode" placeholder="Customer Code" name="customercode" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-hash"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-user"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CustAddress" placeholder="Address" name="address" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-map-pin"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-credit-card"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="Custcontact" placeholder="Contact Number" name="contact" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-phone"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" required hidden>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-link"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <h4>Contact Persons</h4>
-                                            <div class="row" style="display: flex; justify-content: space-between;">
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-user"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-phone"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-user"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-quarter" style="max-width: 350px; flex: 1;">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-phone"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <h4>Additional Information</h4>
-                                            <div class="row">
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="email" id="email" placeholder="Email Address" name="email" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-mail"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="website" placeholder="Website" name="website">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-globe"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="guid" placeholder="GUID" name="GUID" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-pin"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-briefcase"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-third">
-                                                    <div class="input-group input-group-icon">
-                                                        <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" name="BySMSApiToken" required>
-                                                        <div class="input-icon">
-                                                            <i class="feather icon-pin"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row ">
-                                                <div class="col-auto" style="float:left;">
-                                                    <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
-                                                        <i class="feather icon-rotate-cw"></i> Reset
-                                                    </button>
-                                                </div>
-                                                <div class="col-auto" style="float:right;">
-                                                    <button id="BtnInsert" style="border-radius:12px;" class="btn btn-success">
-                                                        <i class="feather icon-save"></i> Save
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                        </form>
                                     </div>
 
                                 </div>
@@ -398,59 +284,362 @@
                     </div>
 
 
-                    <div class="containerr" style="max-width:120em;">
-                        <div class="button-container" style="margin-bottom: 10px;">
-                            <button onclick="exportToCSV()" class="rounded btn-sm btn-primary">
-                                <i class="feather icon-file-text"></i> CSV
-                            </button>
-                            <button onclick="copyTable()" class="rounded btn-sm btn-warning">
-                                <i class="feather icon-copy"></i> Copy
-                            </button>
-                            <button onclick="exportToExcel()" class="rounded btn-sm btn-success">
-                                <i class="feather icon-excel"></i> Excel
-                            </button>
-                            <button onclick="exportToPDF()" class="rounded btn-sm btn-danger">
-                                <i class="feather icon-file-pdf"></i> PDF
-                            </button>
-                            <button onclick="printTable()" class="rounded btn-sm btn-info">
-                                <i class="feather icon-print"></i> Print
-                            </button>
-                        </div>
+                    <div class="ss" style="max-width:120em;">
+                        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;">
+                            <!-- Buttons -->
+                            <div class="button-group">
+                                <button onclick="exportToCSV()" class="rounded btn-xs btn-primary">
+                                    <i class="feather icon-file-text"></i> CSV
+                                </button>
+                                <button onclick="copyTable()" class="rounded btn-xs btn-warning">
+                                    <i class="feather icon-copy"></i> Copy
+                                </button>
+                                <button onclick="exportToExcel()" class=" rounded btn-xs btn-success">
+                                    <i class="fa fa-regular fa-file-excel"></i> Excel
+                                </button>
+                                <button onclick="exportToPDF()" class="rounded btn-xs btn-danger">
+                                    <i class="feather icon-file-pdf"></i> PDF
+                                </button>
+                                <button onclick="printTable()" class="rounded btn-xs btn-info">
+                                    <i class="feather icon-print"></i> Print
+                                </button>
+                            </div>
 
-
-                        <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:70dvh;position:relative">
-                            <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width:100%;border-collapse: separate;padding:0px;">
-                                <thead>
-                                    <tr style="background-color:#0b3b56; color:white;">
-                                        <th class="center">S.N</th>
-                                        <th class="center hideme">Edit</th>
-                                        <th class="center hideme">Delete</th>
-                                        <th class="center">Customer Code</th>
-                                        <th class="center">Customer Name</th>
-                                        <th class="center">Initial</th>
-                                        <th class="center">Address</th>
-                                        <th class="center">PAN/VAT Number</th>
-                                        <th class="center">Contact Number</th>
-                                        <th class="center">Contact Person 1</th>
-                                        <th class="center">Contact Person 1_Mobile number</th>
-                                        <th class="center">Contact Person 2</th>
-                                        <th class="center">Contact Person 2_Mobile number</th>
-                                        <th class="center">Email Address</th>
-                                        <th class="center">Website</th>
-                                        <th class="center">GUID</th>
-                                        <th class="center">Company Code</th>
-                                        <th class="center">BySMSApiToken</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                            <!-- Search Bar -->
+                            <div class="search-container">
+                                <div class="input-group">
+                                    <input type="text" class="hideme search form-control border-2" placeholder="Search for..." aria-label="Search">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
 
 
+                    <div class="TableDiv" style="width:100%;overflow-x:scroll;overflow-y:scroll;height:60dvh;position:relative">
+                        <table id="agentTable" class="agentTable table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width:100%;border-collapse: separate;padding:0px;">
+                            <thead>
+                                <tr style="background-color:#0b3b56; color:white;">
+                                    <th class="center">S.N</th>
+                                    <th class="center hideme">Edit</th>
+                                    <th class="center hideme">Delete</th>
+                                    <th class="center hideme">Statement</th>
+                                    <th class="center">Added By</th>
+                                    <th class="center">Company Code</th>
+                                    <th class="center">Company Name</th>
+                                    <th class="center">initial</th>
+                                    <th class="center">Login Id</th>
+                                    <th class="center">Password</th>
+
+                                    <th class="center">Address</th>
+                                    <th class="center">PAN/VAT Number</th>
+                                    <th class="center">Contact Number</th>
+                                    <th class="center">Contact Person 1</th>
+                                    <th class="center">Contact Person 1_Mobile number</th>
+                                    <th class="center">Contact Person 2</th>
+                                    <th class="center">Contact Person 2_Mobile number</th>
+                                    <th class="center">Email Address</th>
+                                    <th class="center">Website</th>
+                                    @*<th class="center">BySMSApiToken</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="StatementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="feather icon-file-text"></i> Company Statement</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- Top Section: Customer and Statement Summary -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h6 class="mb-0"><i class="feather icon-user"></i> Company Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Name:</strong> <span class="CustomerName"></span></p>
+                                <p><strong>Email:</strong> <span class="CustomerEmail"></span></p>
+                                <p><strong>Contact:</strong> <span class="CustomerPhone"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Join Date:</strong><span class="JoinDate"></span> </p>
+                                <p><strong>Last Renew Date:</strong><span class="LastRenewDate"></span></p>
+                                <p><strong>Expiry Date:</strong> <span class="ExpiryDate"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Button Container for Export Options -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-muted">Export Options</h6>
+                    <div class="button-container">
+                        <button onclick="exportToCSV()" class="btn btn-sm btn-primary me-2">
+                            <i class="feather icon-file-text"></i> CSV
+                        </button>
+                        <button onclick="copyTable()" class="btn btn-sm btn-warning me-2">
+                            <i class="feather icon-copy"></i> Copy
+                        </button>
+                        <button onclick="exportToExcel()" class="btn btn-sm btn-success me-2">
+                            <i class="fa fa-regular fa-file-excel"></i> Excel
+                        </button>
+                        <button onclick="exportToPDF()" class="btn btn-sm btn-danger me-2">
+                            <i class="feather icon-file-pdf"></i> PDF
+                        </button>
+                        <button onclick="printTable()" class="btn btn-sm btn-info">
+                            <i class="feather icon-print"></i> Print
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="TableDiv" style="width:100%;overflow-x:auto;max-height:50vh;">
+                    <table id="statementTable" class="table table-striped table-bordered table-hover text-center align-middle" style="width:100%;">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Transaction Date</th>
+                                <th>Transaction Type</th>
+                                <th>Description</th>
+                                <th>Product</th>
+                                <th>Paid Amount</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic rows inserted here -->
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Bottom Section: Summary -->
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h6 class="mb-0"><i class="feather icon-bar-chart"></i> Summary</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Total Paid Amount:</strong><span class="TotalTillToday" style="color:green;font-weight:600;"></span> </p>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editOrgModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="feather icon-file-text"></i> Edit Organization Info</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <h4>Company Details</h4>
+                    <input type="text" id="id" hidden />
+                    <div class="row">
+                        <div class="col-third" hidden>
+                            <label for="CustCode">Company Code</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="CustCode" placeholder="Customer Code" name="customercode">
+                                <div class="input-icon">
+                                    <i class="feather icon-hash"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="CustName">Company Name</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="CustAddress">Address</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CustAddress" placeholder="Address" name="address" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-map-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-third">
+                            <label for="panvat">PAN/VAT No</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-credit-card"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="Custcontact">Contact Number</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="Custcontact" placeholder="Contact Number" name="contact" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-phone"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded CountrySelect" id="CountrySelect">
+                                <option value="">----Select Country---</option>
+                            </select>
+                        </div>
+                        <div class="col-third" hidden>
+                            <label for="Custdblink">Database Link</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="Custdblink" placeholder="Database Link" name="databaselink" hidden>
+                                <div class="input-icon">
+                                    <i class="feather icon-link"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Contact Persons</h4>
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP1">Contact Person 1</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CP1" placeholder="Contact Person 1" name="contactperson1" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP1Mobno">CP1 Mobile No</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="CP1Mobno" placeholder="CP1 Mobile No" name="contactperson1mobno" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-phone"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP2">Contact Person 2</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CP2" placeholder="Contact Person 2" name="contactperson2">
+                                <div class="input-icon">
+                                    <i class="feather icon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-quarter" style="max-width: 350px; flex: 1;">
+                            <label for="CP2Mobno">CP2 Mobile No</label>
+                            <div class="input-group input-group-icon">
+                                <input type="number" id="CP2Mobno" placeholder="CP2 Mobile No" name="contactperson2mobno">
+                                <div class="input-icon">
+                                    <i class="feather icon-phone"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Additional Information</h4>
+                    <div class="row">
+                        <div class="col-third">
+                            <label for="email">Email Address</label>
+                            <div class="input-group input-group-icon">
+
+                                <input type="email" id="email" placeholder="Email Address" name="email" required pattern="[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address.">
+                                <div class="input-icon">
+                                    <i class="feather icon-mail"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <label for="website">Website</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="website" placeholder="Website" name="website">
+                                <div class="input-icon">
+                                    <i class="feather icon-globe"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third" hidden>
+                            <label for="guid">GUID</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="guid" placeholder="GUID" name="GUID">
+                                <div class="input-icon">
+                                    <i class="feather icon-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-third">
+                            <label for="CompanyCode">Company Code</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
+                                <div class="input-icon">
+                                    <i class="feather icon-briefcase"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-third" style="display:none;">
+                            <label for="BySMSApiToken">By SMS API Token</label>
+                            <div class="input-group input-group-icon">
+                                <input type="text" id="BySMSApiToken" placeholder="By SMS API Token" value="00" name="BySMSApiToken" required>
+                                <div class="input-icon">
+                                    <i class="feather icon-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-auto" style="float:left;">
+                            <button id="BtnReset" style="border-radius:12px;" class="btn btn-danger">
+                                <i class="feather icon-rotate-cw"></i> Reset
+                            </button>
+                        </div>
+                        <div class="col-auto" style="float:right;">
+                            <button id="BtnInsert" style="border-radius:12px;" class="btn btn-success">
+                                <i class="feather icon-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -458,59 +647,175 @@
 
 
 
-
 <script type="text/javascript">
     $(document).ready(function () {
-    //$("#userName").text(@ViewBag.AgentName);
+
+
+
         getTableData();
+        LoadCountries();
+          function LoadCountries() {
+                var a = AjaxCallWithoutDataNoAsync("/Customer/getCountries");
+                var aa = JSON.parse(a);
+                var countries = JSON.parse(aa);
+
+                var countrySelect = $('#CountrySelect');
+                countrySelect.empty();
+                countrySelect.append('<option value="">----Select Country---</option>');
+
+                countries.forEach(function (country) {
+                    countrySelect.append('<option value="' + country.NumericIsoCode + '">' + country.Name + '</option>');
+                });
+            }
 
         // Reset button functionality
         $("#BtnReset").on("click", function () {
             resetForm();
         });
 
-        $("#BtnInsert").on("click", async function () {
-      
-            if ($("#CustCode").val() == "" || $("#CustName").val() == "") {
-                toastr.error("Please fill in all the fields!!!");
-            } else {
-          
-                var parm = {
-                    Id: $("#id").val() ? parseInt($("#id").val()) : 0,
-                    CustomerCode: $("#CustCode").val(),
-                    CustomerName: $("#CustName").val(),
-                    Address: $("#CustAddress").val(),
-                    panvatno: $("#panvat").val(),
-                    Contact: $("#Custcontact").val(),
-                    DataBaseLink:'',// $("#Custdblink").val(),
-                    ContactPerson1: $("#CP1").val(),
-                    ContactPerson2: $("#CP2").val(),
-                    ContactPerson1_MobileNo: $("#CP1Mobno").val(),
-                    ContactPerson2_MobileNo: $("#CP2Mobno").val(),
-                    EmailAddress: $("#email").val(),
-                    Website: $("#website").val(),
-                    GUID: $("#guid").val(),
-                    CompanyCode: $("#CompanyCode").val(),
-                    BySMSApiToken: $("#BySMSApiToken").val()
-                };
-                
-                var data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
-                var jsondataresponse = JSON.parse(data);
+    $("#BtnInsert").on("click", async function (event) {
+        event.preventDefault();
+        // Disable the button to prevent multiple clicks
+        const button = $("#BtnInsert");
+        button.prop('disabled', true);
 
-                if (jsondataresponse == 1) {
-                    resetForm();
-                    getTableData();
-                    toastr.success("Agent action successfull!");
-                } else {
-                    toastr.error("Failed to insert/update agent.");
-                }
+        const emailInput = $('#email').val();
+        const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+        if ($("#CustName").val() === "") {
+            toastr.warning("Please fill in the Company Name!!!");
+            button.prop('disabled', false); // Enable the button back after the warning
+            return;
+        }
+        if ($("#CustAddress").val() === "") {
+            toastr.warning("Please fill in the Company Address!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#panvat").val() === "") {
+            toastr.warning("Please fill in the PAN / VAT Number!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#Custcontact").val() === "") {
+            toastr.warning("Please fill in the Contact Number!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP1").val() === "") {
+            toastr.warning("Please fill in the Contact Person 1 Name !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP1Mobno").val() === "") {
+            toastr.warning("Please fill in the Contact Person 1 Contact Number !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP2").val() === "") {
+            toastr.warning("Please fill in the Contact Person 2 Name !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CP2Mobno").val() === "") {
+            toastr.warning("Please fill in the Contact Person 2 Contact Number !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#email").val() === "") {
+            toastr.warning("Please fill in the email Address !!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if (!emailRegex.test(emailInput)) {
+            toastr.error("Invalid email address!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#website").val() === "") {
+            toastr.warning("Please fill in the website!!!");
+            button.prop('disabled', false);
+            return;
+        }
+        if ($("#CompanyCode").val() === "") {
+            toastr.warning("Please fill in the Company Code !!!");
+            button.prop('disabled', false);
+            return;
+        }
+
+        if ($("#CountrySelect").val() === "") {
+            toastr.warning("Please choose a country where you live in !!!");
+            button.prop('disabled', false);
+            return;
+        }
+
+        const emailIsValid = await checkEmailexistence(emailInput);
+            if (emailIsValid == false && $("#id").val()=="0"){
+                button.prop('disabled', false);
+                return;
             }
-        });
+
+        //if (!emailIsValid) {
+        //    button.prop('disabled', false); // Enable button if email check fails
+        //    return; // Stop execution if email exists
+        //}
+
+        const parm = {
+            Id: $("#id").val() ? parseInt($("#id").val()) : 0,
+            CustomerCode: '', //$("#CustCode").val(),
+            CustomerName: $("#CustName").val(),
+            Address: $("#CustAddress").val(),
+            panvatno: $("#panvat").val(),
+            Contact: $("#Custcontact").val(),
+            DataBaseLink: '', // $("#Custdblink").val(),
+            ContactPerson1: $("#CP1").val(),
+            ContactPerson2: $("#CP2").val(),
+            ContactPerson1_MobileNo: $("#CP1Mobno").val(),
+            ContactPerson2_MobileNo: $("#CP2Mobno").val(),
+            EmailAddress: $("#email").val(),
+            Website: $("#website").val(),
+            GUID: '', //$("#guid").val(),
+            CompanyCode: $("#CompanyCode").val(),
+            BySMSApiToken: $("#BySMSApiToken").val(),
+            country: $("#CountrySelect").val(),
+            AddedBy:$("#AgentId").text()
+        };
+
+        try {
+            const data = await AjaxCall("/Customer/InsertUpdateCustomer", parm);
+            const jsondataresponse = JSON.parse(data);
+
+            if (jsondataresponse > 0) {
+                resetForm();
+                getTableData();
+                $("#toggleArrow").trigger('click');
+                toastr.success("Customer Action successful!");
+                $("#editOrgModal").modal('hide');
+                getTableData();
+            } else {
+                toastr.error("Failed to insert/update Customer.");
+            }
+        } catch (error) {
+            console.error("Error during customer insertion:", error);
+            toastr.error("An error occurred while inserting/updating customer.");
+        }
+
+        // Re-enable the button after the process completes
+        button.prop('disabled', false);
+    });
 
     });
 
+
+      $('#editOrgModal').on('hide.bs.modal', function (e) {
+      resetForm();
+    });
+
     $("#addProduct").on("click", function () {
-        $("#collapseOne").css("display", 'block');
+       // $("#collapseOne").css("display", 'block');
+       resetForm();
+        $("#editOrgModal").modal('show');
+
     });
     $("#toggleArrow").on("click", function () {
         $("#collapseOne").css("display", 'none');
@@ -521,6 +826,7 @@
     });
 
     function resetForm() {
+        $("#id").val(0);
         $("#CustCode").val("");
         $("#CustName").val("");
         $("#CustAddress").val("");
@@ -536,54 +842,76 @@
         $("#guid").val("");
         $("#CompanyCode").val("");
         $("#BySMSApiToken").val("");
-
-         getTableData();
+        $("#CountrySelect").val(524);
     }
-
     async function getTableData() {
-      
         var parm={
             Id:parseInt($("#AgentId").text())
         }
-        debugger
+      
         var a =await AjaxCall("/Customer/getCustomerByAgentId",parm);
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
         var tableDOM = "";
-       
         if (jsondata.length > 0) {
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
-                                <td class="center">` + (i + 1) + `</td>
-                                <td class="center"><button class="hideme btn btn-edit btn-success"><i class="feather icon-edit"></i></button></td>
-                                <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+                                    <td class="center">` + (i + 1) + `</td>
+                                    <td class="center"><button class="hideme btn btn-edit btn-success" data-bs-toggle="modal" data-bs-target="#editOrgModal"><i class="feather icon-edit"></i></button></td>
+                                    <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+                                    <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
 
-                                    <td class="center custCode">` + jsondata[i]["Customercode"] + `</td>
-                                <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
-                                <td class="center custName">` + jsondata[i]["initial"] + `</td>
-                                <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
-                                <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
-                                <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
-                                
-                                <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
-                                <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
-                                <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
-                                <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
-                                <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
-                                <td class="center website">` + jsondata[i]["Website"] + `</td>
-                                <td class="center GUID">` + jsondata[i]["GUID"] + `</td>
-                                <td class="center comcode">` + jsondata[i]["CompanyCode"] + `</td>
-                                <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td>
-                            </tr>`;
+                                    <td class="center addedBy">` + jsondata[i]["AddedBy"] + `</td>
+                                    <td class="center custCode">` + jsondata[i]["CompanyCode"] + `</td>
+                                    <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
+                                    <td class="center custName">` + jsondata[i]["initial"] + `</td>
+                                    <td class="center custName">` + jsondata[i]["UserEmail"] + `</td>
+                                    <td class="center custName">
+                                        <span class="password" data-password="` + jsondata[i]["UserPass"] + `">***</span>
+                                        <button type="button" class="toggle-password btn btn-link">
+                                            <i class="feather icon-eye"></i>
+                                        </button>
+                                    </td>
+                                    <td class="center custAdd">` + jsondata[i]["Address"] + `</td>
+                                    <td class="center custPANVAT">` + jsondata[i]["pan/vatno"] + `</td>
+                                    <td class="center custContact">` + jsondata[i]["Contact"] + `</td>
+
+                                    <td class="center custCP1">` + jsondata[i]["ContactPerson1"] + `</td>
+                                    <td class="center custCP1m">` + jsondata[i]["ContactPerson1_MobileNo"] + `</td>
+                                    <td class="center custCP2">` + jsondata[i]["ContactPerson2"] + `</td>
+                                    <td class="center custCP2m">` + jsondata[i]["ContactPerson2_MobileNo"] + `</td>
+                                    <td class="center email">` + jsondata[i]["EmailAddress"] + `</td>
+                                    <td class="center website">` + jsondata[i]["Website"] + `</td>
+                                    <!-- <td class="center smsapiToken">` + jsondata[i]["BySMSApiToken"] + `</td> -->
+                                </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
+
+            // Add event listener for toggling password visibility
+            $(".toggle-password").on("click", function () {
+                var passwordSpan = $(this).siblings(".password");
+                var isHidden = passwordSpan.text() === "***";
+                if (isHidden) {
+                    passwordSpan.text(passwordSpan.data("password"));
+                    $(this).find("i").removeClass("icon-eye").addClass("icon-eye-off");
+                } else {
+                    passwordSpan.text("***");
+                    $(this).find("i").removeClass("icon-eye-off").addClass("icon-eye");
+                }
+            });
         } else {
-            $("#agentTable tbody").empty().append('<tr><td colspan="18">No Customers registered under your Name!!!.</td></tr>');
+            $("#agentTable tbody").empty().append(`
+                                <tr >
+                                        <td colspan="19" class="center">
+                                        <img src="/files/assets/images/nodataFound.jpg" alt="No data found" style="max-width: 100%; height: auto;">
+                                            <p style="color:red; font-size:22px;"><b>No Customers have been registered under your name.</b></p>
+                                    </td>
+                                </tr>
+                            `);
         }
     }
 
     $(document).on("click", ".btn-edit", async function () {
-     
         const row = $(this).parents("tr");
         var parm={
             Id: row.data("id")
@@ -592,7 +920,6 @@
         var dataawithoutParsing=JSON.parse(data);
         var ParsedData = JSON.parse(dataawithoutParsing);
 
-
         // Set the corresponding input fields with data from the row
         $("#id").val(row.data("id"));
         $("#CustCode").val(ParsedData[0]["Customercode"]);
@@ -600,7 +927,7 @@
         $("#CustAddress").val(ParsedData[0]["Address"]);
         $("#panvat").val(ParsedData[0]["pan/vatno"]);
         $("#Custcontact").val(ParsedData[0]["Contact"]);
-       
+        $("#Custdblink").val(ParsedData[0]["DataBaseLink"]);
         $("#CP1").val(ParsedData[0]["ContactPerson1"]);
         $("#CP1Mobno").val(ParsedData[0]["ContactPerson1_MobileNo"]);
         $("#CP2").val(ParsedData[0]["ContactPerson2"]);
@@ -610,11 +937,53 @@
         $("#guid").val(ParsedData[0]["GUID"]);
         $("#CompanyCode").val(ParsedData[0]["CompanyCode"]);
         $("#BySMSApiToken").val(ParsedData[0]["BySMSApiToken"]);
-
+        $("#CountrySelect").val(ParsedData[0]["Country"]);
         $("#collapseOne").css("display", 'block');
+    });
 
+
+    $(document).on("click", ".btn-statement", async function () {
+        var custId=$(this).attr("data-id");
+        var parm={
+            Id:parseInt(custId)
+        };
+        var reqdatA=await AjaxCall("/SubscriptionReport/getCustomerStatement",parm);
+        var responsedData=JSON.parse(reqdatA);
+        var JSONData=JSON.parse(responsedData);
+
+        var tableDOM="";
+
+        if(JSONData.length>0){
+            for(var i=0;i<JSONData.length;i++){
+
+                tableDOM+=`
+                            <tr>
+                            <td class="center"><b>`+(i+1)+`.</b></td>
+                                <td class="center">`+JSONData[i]["LastRenewDate"]+`</td>
+                                <td class="center">`+JSONData[i]["SubscriptionPlan"]+`</td>
+                                <td class="center">`+JSONData[i]["Remarks"]+`</td>
+                                <td class="center">`+JSONData[i]["ProductName"]+`</td>
+                                <td class="center">`+JSONData[i]["PaidAmount"]+`</td>
+
+                            </tr>
+
+                            `;
+
+
+
+            }
+            $("#StatementModal").find("#statementTable tbody").empty().append(tableDOM);
+            $("#StatementModal").find(".TotalTillToday").text(JSONData[0]["TotalTillToday"]);
+            $("#StatementModal").find(".CustomerName").text(JSONData[0]["CustomerName"]);
+            $("#StatementModal").find(".CustomerEmail").text(JSONData[0]["EmailAddress"]);
+            $("#StatementModal").find(".CustomerPhone").text(JSONData[0]["Contact"]);
+            $("#StatementModal").find(".JoinDate").text(JSONData[0]["JoinDate"]);
+            $("#StatementModal").find(".LastRenewDate").text(JSONData[0]["LastRenewDate"]);
+            $("#StatementModal").find(".ExpiryDate").text(JSONData[0]["ExpiryDate"]);
+        }
 
     });
+
 
 
     $(document).on("click", ".btn-delete", async function () {
@@ -642,13 +1011,45 @@
 
             if (jsondataresponse == "") {
                 getTableData(); // Refresh the table data
-                Swal.fire('Deleted!', 'The Customer Data  has been deleted.', 'success');
+                Swal.fire('Deleted!', 'The Company Data  has been deleted.', 'success');
 
             } else {
-                Swal.fire('Error!', 'Failed to delete the customer data.', 'error');
+                Swal.fire('Error!', 'Failed to delete the Company data.', 'error');
             }
+        }
+    }
+    $(".search").off("keyup").on("keyup", function () {
+        var $rows = $('.table tbody tr');
+        $('.search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    });
+          async function checkEmailexistence(validemail) {
+        try {
+            const data = {
+                ReceiverEmail: validemail,
+                Subject: "No Reply",
+                EmailBody: "haha",
+                Gcode: "1123"
+            };
+
+            const returnData = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data);
+            const aaa=JSON.parse(returnData);
+            const result = JSON.parse(aaa);
+            if (result.Status === "AlreadyExists") {
+                toastr.error("This email already exists!!! Choose another.");
+                return false;
+            }
+            return true;
+        } catch (error) {
+            console.error("Error verifying email:", error);
+            toastr.error("An error occurred while verifying the email.");
+            return false;
         }
     }
 
 </script>
-

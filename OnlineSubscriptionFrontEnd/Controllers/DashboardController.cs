@@ -19,6 +19,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             var token = HttpContext.Session.GetString("TokenNo");
             if (token != null)
             {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
                 return View();
             }
             else

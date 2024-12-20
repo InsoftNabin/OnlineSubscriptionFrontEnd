@@ -11,6 +11,7 @@ namespace DataProvider
         public BigInteger status { get; set; }
         public string tokenNo { get; set; }
         public string CustomerSubscriptionGuid { get; set; }
+        public string MachineKey { get; set; }
         public int Customer { get; set; }
         public int Product { get; set; }
 
