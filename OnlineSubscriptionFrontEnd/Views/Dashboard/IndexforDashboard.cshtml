@@ -79,10 +79,50 @@
                             </div>
                         </a>
                     </div>
+                    <!--Recent Transactions-->
+                    <div class="row" hidden>
+                        <div class="col-xl-12 col-md-12 ">
+                            <div class="card table-card">
+                                <div class="card-header">
+                                    <h5>Recent Transactions</h5>
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled card-option">
+                                            <li><i class="feather icon-maximize full-card"></i></li>
+                                            <li><i class="feather icon-minus minimize-card"></i></li>
+                                            <li><i class="feather icon-trash-2 close-card"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover RecentTransactions table-borderless">
+                                            <thead>
+                                                <tr>
+                                                   <th>Organization</th>
+                                                   <th>Initial</th>
+                                                   <th>Plan</th>
+                                                   <th>Next Due Date</th>
+                                                   <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center">
+                                            <a href="/Dashboard/Index" class="b-b-primary text-primary">
+                                                View all Transactions
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Pending Verifications Section -->
                     <div class="row">
-                        <div class="col-xl-12 col-md-12">
+                        <div class="col-xl-6 col-md-12 hideforagent">
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h5>Pending Verifications</h5>
@@ -130,7 +170,7 @@
                         </div>
 
                         <!--To be expired section-->
-                        <div class="col-xl-12 col-md-12" style="overflow-y:scroll;  height:60vh;">
+                        <div class="col-xl-6 col-md-12" style="overflow-y:scroll;  height:60vh;">
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h5>To Be Expired</h5>
@@ -198,8 +238,8 @@
     $(document).ready(function () {
            if ('@ViewBag.Role.ToString()' === "Agent") {
         $(".hideforagent").hide();
-    }
 
+    }
 
         getOrganizations();
         getAgents();
@@ -209,12 +249,34 @@
         getPlans();
          $(".Products").val(3);
         getRemainingSubscriptions();
-       
+       getRecentTransactions();
     });
   
     $(".Products").on("change", function () {
       getRemainingSubscriptions();
     });
+
+    function getRecentTransactions(){
+         var a = AjaxCallWithoutDataNoAsync("/Subscription/getSubscription");
+        var ab = JSON.parse(a);
+        var jsonD = JSON.parse(ab);
+
+        var RecentDOM="";
+        if(jsonD.length>0){
+            for(var i=0;i<jsonD.length;i++){
+                  RecentDOM+=`<tr>
+                                 <td>`+(i+1)+`</td>
+                                <td class="center">`+jsonD[i][""]+`</td>
+                                <td class="center">`+jsonD[i][""]+`</td>
+                                <td class="center">`+jsonD[i][""]+`</td>
+                                <td class="center">`+jsonD[i][""]+`</td>
+                                </tr>`;
+            }
+            $(".RecentTransactions").find("tbody").empty().append(RecentDOM);
+        }
+
+    }
+
      function getPlans() {
         var a = AjaxCallWithoutDataNoAsync("/Subscription/getSubscription");
         var ab = JSON.parse(a);

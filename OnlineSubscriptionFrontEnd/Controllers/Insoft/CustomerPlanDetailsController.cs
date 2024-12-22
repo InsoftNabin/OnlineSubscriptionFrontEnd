@@ -92,6 +92,32 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> GetVoucherEntryStatus([FromBody] CustomerPlan abc)
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    abc.TokenNo = TokenNo;
+                    string i = await ApiCall.ApiCallWithObject("CustomerPlanDetails/GetVoucherEntryStatus", abc, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> VerifyorRejectSubscription([FromBody] CustomerPlan p)

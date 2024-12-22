@@ -31,6 +31,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
             }
         }
+
+
         public IActionResult LicenseKeyReportwithMachineKey()
         {
             try
@@ -56,6 +58,35 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> getRecentTransactions()
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    string i = await ApiCall.ApiCallWithString("SubscriptionReport/getRecentTransactions", TokenNo, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> getCustomersandKeysbyProductTypes([FromBody] SubscriptionReport p)
         {

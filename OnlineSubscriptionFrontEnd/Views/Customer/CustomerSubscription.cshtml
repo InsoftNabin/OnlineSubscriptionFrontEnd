@@ -267,16 +267,8 @@
                                                                 </div>
                                                             </div>
 
-
-
-
-
-
-
-
-
                                                             <div class="row" id="file-upload" style="display:none; margin-bottom: 15px;">
-                                                                <input type="file" class="file" id="fileInput" data-filename="" style="padding: 10px;" />
+                                                              
                                                                 <p id="fileError" style="color:red; display:none;"></p>
                                                             </div>
 
@@ -488,6 +480,186 @@
         updateAmountAndExpiry();
         
     });
+        $(document).ready(function () {
+        const $uploadArea = $("#uploadArea");
+        const $fileInput = $("#fileInput");
+
+        // Drag-and-drop handlers
+        $uploadArea.on("dragover", function (e) {
+            e.preventDefault();
+            $(this).css({
+                backgroundColor: "#e6f7ff",
+                borderColor: "#007bff",
+            });
+        });
+
+        $uploadArea.on("dragleave", function () {
+            $(this).css({
+                backgroundColor: "#f9f9f9",
+                borderColor: "#999",
+            });
+        });
+
+        $uploadArea.on("drop", async function (e) {
+            e.preventDefault();
+            $(this).css({
+                backgroundColor: "#f9f9f9",
+                borderColor: "#999",
+            });
+
+            const files = e.originalEvent.dataTransfer.files;
+
+            if (files.length > 0) {
+                handleFileUpload(files);
+            }
+        });
+
+         $(document).on("change", "#ExtendModal #fileInput",async function (e) {
+          e.preventDefault();
+            var parameters = {
+            CustomerId: parseInt($("#custid").val()),
+            ProductId: parseInt($("#prodid").val()),
+        };
+        var requestVoucherEntry = await AjaxCall("/CustomerPlanDetails/GetVoucherEntryStatus", parameters);
+        var jsResponse = JSON.parse(requestVoucherEntry);
+        var jsonData = JSON.parse(jsResponse);
+
+        if (jsonData[0]["Status"] === 200) {
+
+            const files = this.files;
+            if (files.length > 0) {
+                handleFileUpload(files);
+            }else{
+                toastr.warning("No image selected!!!");
+            }
+        }else{
+              toastr.error("Please wait until your previous vouchers are checked!!!");
+              $("#fileInput").attr("data-filename","");
+                $uploadArea.find(".uploadedinfo").text("Pending Voucher !!!");
+                $("#statusModal").modal('hide');
+        }
+
+        });
+
+
+        // File input change handler
+        $(document).on("change", "#ExtendModal #fileInput", async function (e) {
+        var filedom = $(this);
+            var input = $(this);
+            var files = input[0].files;
+
+             e.preventDefault();
+            var parameters = {
+            CustomerId: parseInt($("#custid").val()),
+            ProductId: parseInt($("#prodid").val()),
+        };
+        var requestVoucherEntry = await AjaxCall("/CustomerPlanDetails/GetVoucherEntryStatus", parameters);
+        var jsResponse = JSON.parse(requestVoucherEntry);
+        var jsonData = JSON.parse(jsResponse);
+
+        if (jsonData[0]["Status"] === 200) {
+
+            // Check if any file is selected
+            if (files.length === 0) {
+                alert("Please select a file to upload.");
+                return;
+            }
+
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append("files", files[i]); // Append the file with key 'files'
+            }
+
+            await $.ajax({
+                url: "/Register/UploadPhoto1", // Your controller endpoint
+                data: formData,
+                processData: false,    // Don't process the data
+                contentType: false,    // Let the browser set the content type
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        html: '<div class="loader" id="loader-6">' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '<span></span>' +
+                            '</div>' +
+                            '<div>' +
+                            '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+                            '</div>',
+                        background: 'unset',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (data) {
+                    console.log(data);
+                    var imgName = data;
+                    $(filedom).attr("data-filename", imgName);
+                    $(filedom).parents(".gethere").find(".uploadedinfo").text("Uploaded !!!");
+                    Swal.close();
+                },
+                error: function (error) {
+                    Swal.close();
+                    console.log(error);
+                    $(filedom).parents(".gethere").find(".uploadedinfo").text("Upload Failed !!!");
+           }
+            });
+            }
+            else{
+                toastr.error("Pending Voucher!!!");
+            }
+        });
+
+            // File upload logic (reuses existing functionality)
+    async function handleFileUpload(files) {
+        $("#upload").attr("checked", true);
+
+            const formData = new FormData();
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append("files", files[i]);
+            }
+
+            await $.ajax({
+                url: "/Register/UploadPhoto1",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        html: `<div class="loader" id="loader-6">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div>
+                                <p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>
+                            </div>`,
+                        background: "unset",
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (data) {
+                    console.log(data);
+                    const imgName = data;
+                    $uploadArea.attr("data-filename", imgName);
+                    $uploadArea.find(".uploadedinfo").text("Uploaded !!!");
+                    Swal.close();
+                },
+                error: function (error) {
+                    Swal.close();
+                    console.error(error);
+                    $uploadArea.find(".uploadedinfo").text("Upload Failed !!!");
+                },
+            });
+
+    }
+    });
+
 
     $(".Products").on("change", function () {
         $("#showButton").trigger('click');
@@ -675,7 +847,6 @@
                 CustomerId: parseInt(CustomerId),
                 ProductId: parseInt(ProductId)
             };
-            debugger
             // Fetch current plan details
             var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
             var response = JSON.parse(ddd);
@@ -726,7 +897,6 @@
                         selectDOM += `<option value="${Jsondata[i]["id"]}" data-noday=${noOfDays} data-expiredate=${isoExpireDate} amount=${Jsondata[i]['Amount']}>${Jsondata[i]['Name']}</option>`;
                    // }
                 }
-                debugger
                 $("#ExtendModal").find(".selectedPackages").empty().append(selectDOM);
 
                 var firstOption = $("#ExtendModal").find(".selectedPackages option:first");
@@ -872,13 +1042,11 @@
         var para = await AjaxCall("/Customer/getSubsbyCusandProductIdWithUnpaidType", parm);
         var data = JSON.parse(para);
         var Jsondata = JSON.parse(data);
-        debugger
         if (Jsondata.length > 0) {
             var selectDOM = ``;
             for (var i = 0; i < Jsondata.length; i++) {
                 if (Jsondata[i]["IsFound"] == "found") {
                     var noOfDays = parseInt(Jsondata[i]["NoOfMonth"]);
-                    debugger
                     var today = new Date();
                     var expireDate = new Date(today);
                     expireDate.setDate(today.getDate() + noOfDays + parseInt($("#statusModal .remainingDaysinCPlan").text()));
@@ -935,23 +1103,28 @@
         }
     }
 
-    $(document).on('click', '#ExtendModal .btnExtendPlan', async function () {
-       debugger
+    $(document).on('click', '#ExtendModal .btnExtendPlan', async function (e) {
+        debugger
+              e.preventDefault();
             var paymentSelected = $('#ExtendModal input[name="payment"]:checked').length > 0;
             if (!paymentSelected) {
                 toastr.warning('Please select a payment method before proceeding.', 'Warning');
+                $(this).attr("checked",false);
                 return;
             }
             if ($(".rem").val() == "") {
                 toastr.warning("Please fill in a Remarks!!!");
+                  $(this).attr("checked",false);
                 return;
             }
-            else if ($("#fileInput").attr("data-filename") == "") {
+            else if ($("#ExtendModal #fileInput").attr("data-filename") == "") {
                 toastr.warning("Please attach a voucher or pay through QR!!!");
+                  $(this).attr("checked",false);
                 return;
             }
             else if($("#ExtendModal").find(".MachineKey").val()==""){
                 toastr.warning("Please Enter a Machine Key");
+                  $(this).attr("checked",false);
                 return;
             }
             else {
@@ -967,29 +1140,25 @@
                     ReferenceId: 0,
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
-                    VoucherImage:  $("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
+                    VoucherImage:  $("#ExtendModal").find("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
                     IsVerifiedPayment: 0,
                     Machinekey:$("#ExtendModal").find(".MachineKey").val()||"Online"
                 }
-                debugger
                 //insert the extension manually
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-                var dataa = JSON.parse(cpp);
-                var jsondata = JSON.parse(dataaa);
-
-                if (jsondata > 0) {
-                    toastr.success("Plan extension successful");
+                if (cpp!='Success') {
+                      toastr.error("Plan extension  not successful");
                 }
                 else {
-                    toastr.error("Plan extension  not successful");
+                    toastr.success("Plan extension successful");
+                      $("#ExtendModal").modal('hide');
                 }
             }
         });
 
     $(document).on('click', '#statusModal .btnExtendPlan', async function (event) {
         debugger
-        event.preventDefault();  // Prevent default form submission behavior
-        // Check if Remarks are provided
+        event.preventDefault(); 
         if ($(".rem").val() == "") {
             toastr.error("Please fill in a Remarks!!!");
         } else {
@@ -1109,13 +1278,13 @@
     });
      // Payment method change event
         $('#ExtendModal input[name="payment"]').change(async function (event) {
-            debugger
                  var $fileUpload = $('#file-upload');
                 var $qrCode = $('#qr-code');
                 var $fileInput = $('#fileInput');
                 var $fileError = $('#fileError');
                 event.preventDefault();
                      if ($(this).attr('id') === 'upload') {
+                          $("#upload").attr("checked",true);
                         $fileUpload.show();
                         $qrCode.hide();
                     } else if ($(this).attr('id') === 'fonepay') {
@@ -1341,7 +1510,7 @@
                                         }
 
                                     }
-                            }, 500); // Poll every 2 seconds
+                            }, 2000); // Poll every 2 seconds
 
                             // Stop payment status polling when modal is closed or loses focus
                             $('#QRModal').on('hidden.bs.modal', function () {
