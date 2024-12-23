@@ -80,11 +80,11 @@
                         </a>
                     </div>
                     <!--Recent Transactions-->
-                    <div class="row" hidden>
-                        <div class="col-xl-12 col-md-12 ">
+                    <div class="row" >
+                        <div class="col-xl-6 col-md-12 ">
                             <div class="card table-card">
                                 <div class="card-header">
-                                    <h5>Recent Transactions</h5>
+                                    <h5>Today's' Transactions</h5>
                                     <div class="card-header-right">
                                         <ul class="list-unstyled card-option">
                                             <li><i class="feather icon-maximize full-card"></i></li>
@@ -98,11 +98,13 @@
                                         <table class="table table-hover RecentTransactions table-borderless">
                                             <thead>
                                                 <tr>
-                                                   <th>Organization</th>
-                                                   <th>Initial</th>
-                                                   <th>Plan</th>
-                                                   <th>Next Due Date</th>
-                                                   <th></th>
+                                                   <th class="center">S.N.</th>
+                                                   <th class="center">Organization</th>
+                                                   <th class="center">Product</th>
+                                                   <th class="center">Initial</th>
+                                                   <th class="center">Plan</th>
+                                                   <th class="center">Next Due Date</th>
+                                                   <th class="center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -110,7 +112,7 @@
                                             </tbody>
                                         </table>
                                         <div class="text-center">
-                                            <a href="/Dashboard/Index" class="b-b-primary text-primary">
+                                            <a href="/Subscription/CustomerandSubscription" class="b-b-primary text-primary">
                                                 View all Transactions
                                             </a>
                                         </div>
@@ -118,10 +120,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                  
 
                     <!-- Pending Verifications Section -->
-                    <div class="row">
+              
                         <div class="col-xl-6 col-md-12 hideforagent">
                             <div class="card table-card">
                                 <div class="card-header">
@@ -139,12 +141,13 @@
                                         <table class="table table-hover unverifiedOrg table-borderless">
                                             <thead>
                                                 <tr>
-                                                    <th>Organization</th>
-                                                    <th>Initial</th>
-                                                    <th>Email</th>
-                                                    <th>Contact</th>
-                                                    <th>Product</th>
-                                                    <th></th>
+                                                    <th class="center">S.N.</th>
+                                                    <th class="center">Organization</th>
+                                                    <th class="center">Initial</th>
+                                                    <th class="center">Email</th>
+                                                    <th class="center">Contact</th>
+                                                    <th class="center">Product</th>
+                                                    <th class="center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -170,7 +173,8 @@
                         </div>
 
                         <!--To be expired section-->
-                        <div class="col-xl-6 col-md-12" style="overflow-y:scroll;  height:60vh;">
+                        <div class="row">
+                        <div class="col-xl-12 col-md-12" style="overflow-y:scroll;  height:60vh;">
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h5>To Be Expired</h5>
@@ -195,12 +199,12 @@
                                         <table id="agentTable" class="table table-hover table-borderless">
                                             <thead>
                                                 <tr>
-                                                    <th >S.N.</th>
-                                                    <th>Organization</th>
-                                                    <th>Product</th>
-                                                    <th>Contact</th>
-                                                    <th>Email</th>
-                                                    <th>Days To Expire</th>
+                                                    <th class="center" >S.N.</th>
+                                                    <th class="center">Organization</th>
+                                                    <th class="center">Product</th>
+                                                    <th class="center">Contact</th>
+                                                    <th class="center">Email</th>
+                                                    <th class="center">Days To Expire</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -257,7 +261,7 @@
     });
 
     function getRecentTransactions(){
-         var a = AjaxCallWithoutDataNoAsync("/Subscription/getSubscription");
+         var a = AjaxCallWithoutDataNoAsync("/SubscriptionReport/getRecentTransactions");
         var ab = JSON.parse(a);
         var jsonD = JSON.parse(ab);
 
@@ -265,11 +269,12 @@
         if(jsonD.length>0){
             for(var i=0;i<jsonD.length;i++){
                   RecentDOM+=`<tr>
-                                 <td>`+(i+1)+`</td>
-                                <td class="center">`+jsonD[i][""]+`</td>
-                                <td class="center">`+jsonD[i][""]+`</td>
-                                <td class="center">`+jsonD[i][""]+`</td>
-                                <td class="center">`+jsonD[i][""]+`</td>
+                                 <td class="center"><b>`+(i+1)+`.</b></td>
+                                <td class="center">`+jsonD[i]["Orgname"]+`</td>
+                                <td class="center">`+jsonD[i]["Product"]+`</td>
+                                <td class="center">`+jsonD[i]["Initial"]+`</td>
+                                <td class="center">`+jsonD[i]["PlanName"]+`</td>
+                                <td class="center">`+jsonD[i]["ExpireDate"]+`</td>
                                 </tr>`;
             }
             $(".RecentTransactions").find("tbody").empty().append(RecentDOM);
@@ -372,18 +377,19 @@
             var dom=``;
             for(var i=0;i<jsondata.length;i++){
                 dom+=`<tr>
-                        <td>`+jsondata[i]["CompanyName"]+`</td>
-                        <td>`+jsondata[i]["Initial"]+`</td>
-                        <td>`+jsondata[i]["OrganizationMail"]+`</td>
-                        <td>`+jsondata[i]["ContactMobile"]+`</td>
-                        <td>`+jsondata[i]["ProductName"]+`</td>
-                        <td><button class="btn view-btn btn-primary" data-id="`+jsondata[i]["Id"]+`" data-email="`+jsondata[i]["Email"]+`">View</button></td>
+                <td class="center"><b>`+(i+1)+`.</b></td>
+                        <td class="center">`+jsondata[i]["CompanyName"]+`</td>
+                        <td class="center">`+jsondata[i]["Initial"]+`</td>
+                        <td class="center">`+jsondata[i]["OrganizationMail"]+`</td>
+                        <td class="center">`+jsondata[i]["ContactMobile"]+`</td>
+                        <td class="center">`+jsondata[i]["ProductName"]+`</td>
+                        <td class="center"><button class="btn view-btn btn-primary" data-id="`+jsondata[i]["Id"]+`" data-email="`+jsondata[i]["Email"]+`">View</button></td>
                       </tr>`;
             }
             $(".unverifiedOrg tbody").empty().append(dom);
 
         }else{
-                        $(".unverifiedOrg tbody").empty().append(`<tr><td colspan="5">No Pending Verifications.</td></tr>`);
+        $(".unverifiedOrg tbody").empty().append(`<tr><td colspan="5" rowspan="5" class="center">No Pending Verifications.</td></tr>`);
 
         }
 

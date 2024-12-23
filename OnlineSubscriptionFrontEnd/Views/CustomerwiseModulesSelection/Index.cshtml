@@ -85,7 +85,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog modal-xl" style="max-width:90%;margin-left:100px;margin-right:100px;">
+    <div class="modal-dialog modal-xl" style="max-width:90%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel"><br /><input type="number" id="CustomerId" hidden/> <input type="number" id="mainId" hidden/></h1>
@@ -252,12 +252,21 @@
 
                                  </div>
 
-                                <br>
-                                Customer Subscription GUID:&nbsp;<span class="subscriptionGUID" ></span>
-                                      <br>
-                                           Product GUID:&nbsp;<span class="ProductGUID" ></span><br>
-                                           Latest License Key :&nbsp;<span class="LatestLicenseKey" ></span><br>
-                                       <span class="clientGUID" style="border:1px solid black; margin:15px;" hidden></span>
+                                
+                                <div class="row ">
+                                <div class="col-md-6 col-12 well d-flex" style="border:1px solid black;">
+                               <b> Customer Subscription GUID:</b><span class="subscriptionGUID" ></span>
+                                </div>
+                                      <div class="col-md-6 col-12 well d-flex" style=" border:1px solid black;">
+                               <b> Product GUID:</b>&nbsp;<span class="ProductGUID" ></span>
+                                </div>
+                                </div>
+                                <div class="row flex">
+                                <div class="col-12 col-md-12 well" style="1px solid black;">
+                               <b> Latest License Key :</b>&nbsp;<span class="LatestLicenseKey" ></span>
+                                </div>
+                                </div>
+                               <span class="clientGUID" style="border:1px solid black; margin:15px;" hidden></span>
                                <div class="TableDiv" style="overflow-x:scroll;overflow-y:scroll;height:30dvh;position:relative; border-radius:12px;">
                                 <table style="margin-top:10px;" id="tablemo" class="tablemo table-fixed table DGV table-striped table-bordered table-hover tblclear">
                                     <thead>

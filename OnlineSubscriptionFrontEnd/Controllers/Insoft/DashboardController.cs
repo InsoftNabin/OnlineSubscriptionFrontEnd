@@ -9,6 +9,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult IndexforDashboard()
         {
+            ViewBag.UserName = HttpContext.Session.GetString("UserName");
             ViewBag.Role = HttpContext.Session.GetString("Role");
             return View();
         }
