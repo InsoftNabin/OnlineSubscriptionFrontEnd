@@ -17,7 +17,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
 
         public async Task<IActionResult> AfterVerification(string recode)
-        {               
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
             ViewBag.ukid = recode;
             return View("Index");
           

@@ -15,7 +15,7 @@
 	if (isset($config["debug"]) && $config["debug"]){
 		$config["debug_array"] = config_check($config);
 		if ( !empty($config["debug_array"]) ){
-			debugger( array(DEBUG_CONFIG_MESSAGE, $config["debug_array"]) );
+			 ( array(DEBUG_CONFIG_MESSAGE, $config["debug_array"]) );
 			exit;
 		}
 	}
@@ -54,7 +54,7 @@
 			require_once dirname(__FILE__)."/csrf.php";
 
 			if ( token_check($form_data[$field], $config["rules"][$field]) ){
-				debugger( array($config["messages"][$field]["required"]) );
+				 ( array($config["messages"][$field]["required"]) );
 				exit;
 			}
 		}
@@ -79,7 +79,7 @@
 			$valid_captcha = $re_captcha->verify($form_data[$field], $_SERVER["REMOTE_ADDR"]);
 
 			if (!$valid_captcha->isSuccess()) {
-				debugger( array($config["messages"][$field]["required"]) );
+				 ( array($config["messages"][$field]["required"]) );
 				exit;
 			}
 		}
@@ -204,7 +204,7 @@
 
 	/* If validation error occurs */
 	if (!empty($config["errors"])) {
-		debugger( array(ERROR_MESSAGE, $config["errors"]) );
+		 ( array(ERROR_MESSAGE, $config["errors"]) );
 		exit;
 	}
 
@@ -268,10 +268,10 @@
 			/* Debug */
 			if (!isset($file_csv)){
 				if ($config["debug"]){
-					debugger( array(DEBUG_MESSAGE, CSV_ERROR_MESSAGE) );
+					 ( array(DEBUG_MESSAGE, CSV_ERROR_MESSAGE) );
 					exit;
 				}
-				debugger( array(DEBUG_GENERAL_MESSAGE) );
+				 ( array(DEBUG_GENERAL_MESSAGE) );
 				exit;
 			}
 
@@ -335,10 +335,10 @@
 			/* Debug */
 			if (!isset($file_pdf)){
 				if ($config["debug"]){
-					debugger( array(DEBUG_MESSAGE, PDF_ERROR_MESSAGE) );
+					 ( array(DEBUG_MESSAGE, PDF_ERROR_MESSAGE) );
 					exit;
 				}
-				debugger( array(DEBUG_GENERAL_MESSAGE) );
+				 ( array(DEBUG_GENERAL_MESSAGE) );
 				exit;
 			}
 
@@ -417,10 +417,10 @@
 			/* Debug */
 			if (is_string($db_result)){
 				if ($config["debug"]){
-					debugger( array(DEBUG_MESSAGE, $db_result) );
+					 ( array(DEBUG_MESSAGE, $db_result) );
 					exit;
 				}
-				debugger( array(DEBUG_GENERAL_MESSAGE) );
+				 ( array(DEBUG_GENERAL_MESSAGE) );
 				exit;
 			}
 		}
@@ -539,10 +539,10 @@
 			/* If error occurs while letter sending */
 			if (!$mail->send()) {
 				if ($config["debug"]){
-					debugger( array(MAILER_ERROR_MESSAGE, $mail->ErrorInfo) );
+					 ( array(MAILER_ERROR_MESSAGE, $mail->ErrorInfo) );
 					exit;
 				}
-				debugger( array(DEBUG_GENERAL_MESSAGE) );
+				 ( array(DEBUG_GENERAL_MESSAGE) );
 				exit;
 			}
 
@@ -642,10 +642,10 @@
 					/* If error occurs while letter sending */
 					if (!$response->send()) {
 						if ($config["debug"]){
-							debugger( array(AUTORESPONSE_ERROR_MESSAGE, $response->ErrorInfo) );
+							 ( array(AUTORESPONSE_ERROR_MESSAGE, $response->ErrorInfo) );
 							exit;
 						}
-						debugger( array(DEBUG_GENERAL_MESSAGE) );
+						 ( array(DEBUG_GENERAL_MESSAGE) );
 						exit;
 					}
 				}

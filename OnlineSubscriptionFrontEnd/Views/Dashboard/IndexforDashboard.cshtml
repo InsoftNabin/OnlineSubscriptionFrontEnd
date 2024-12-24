@@ -28,7 +28,7 @@
                         </a>
 
                         <!-- Total Agents -->
-                        <a href="/Agent" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4">
+                        <a href="/Agent" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4 disableLinksForAgent">
                             <div class="card bg-c-green update-card">
                                 <div class="card-block">
                                     <div class="row align-items-center">
@@ -45,7 +45,7 @@
                         </a>
 
                         <!-- Total Products -->
-                        <a href="/Products" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4">
+                        <a href="/Products" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4 disableLinksForAgent">
                             <div class="card bg-c-pink update-card">
                                 <div class="card-block">
                                     <div class="row align-items-center">
@@ -63,7 +63,7 @@
                         </a>
 
                         <!-- Total Users -->
-                        <a href="/Dashboard/Index" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4">
+                        <a href="/Dashboard/Index" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4 disableLinksForAgent">
                             <div class="card bg-c-lite-green update-card">
                                 <div class="card-block">
                                     <div class="row align-items-center">
@@ -80,8 +80,8 @@
                         </a>
                     </div>
                     <!--Recent Transactions-->
-                    <div class="row" >
-                        <div class="col-xl-6 col-md-12 ">
+                    <div class="row " >
+                        <div class="col-xl-6 col-md-12 todaytrans">
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h5>Today's' Transactions</h5>
@@ -242,7 +242,14 @@
     $(document).ready(function () {
            if ('@ViewBag.Role.ToString()' === "Agent") {
         $(".hideforagent").hide();
-
+        $(".todaytrans").removeClass("col-xl-6 col-md-12 ");
+        $(".todaytrans").addClass("col-xl-12 col-md-12 ");
+                $(".disableLinksForAgent")
+                .attr("href", "javascript:void(0);") // Remove navigation functionality
+                .css({
+                    "pointer-events": "none", // Disable click events
+                    "opacity": "0.6"         // Add a visually "disabled" look
+                });
     }
 
         getOrganizations();
@@ -398,6 +405,35 @@
         const id = $(this).data('id');
         window.location.href = `/Dashboard/Index?id=${id}`;
     });
+         $(document).on("click", ".sendSMS", async function () {
+            var phoneNumber = $(this).attr("data-Phone");
+            var remDays = $(this).attr("data-remDays");
+            var Product=$(this).attr("data-product")
 
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to send a reminder SMS to the customer that their plan will expire in ${remDays} days.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, send SMS!',
+                cancelButtonText: 'No, cancel',
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+
+                    var parm = {
+                        SMS_Message: `Your subscription of ${Product} is set to expire in ${remDays} days. Thank you for choosing Insoft R & D.`,
+                        MobileNo: phoneNumber
+                    };
+
+
+                    var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
+
+                    Swal.fire('Sent!', 'The SMS has been sent successfully.', 'success');
+
+                } else {
+                    Swal.fire('Cancelled', 'The SMS was not sent.', 'info');
+                }
+            });
+        });
 </script>
 

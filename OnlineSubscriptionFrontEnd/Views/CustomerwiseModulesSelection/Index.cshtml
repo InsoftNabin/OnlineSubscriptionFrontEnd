@@ -447,7 +447,6 @@
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
         }
-        debugger
           //----------------------placing the plans Selection ------------
       var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parmdata);
     var data = JSON.parse(para);

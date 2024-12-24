@@ -782,7 +782,7 @@
                                         </div> *@
 
 
-                                        <div class="row mb-3">
+                                        <div class="row mb-3 PaymentDiv">
                                             <label class="col-12" style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
                                             <div class="payment-methods d-flex flex-wrap justify-content-center gap-3 col-12">
                                                 <!-- Bank Deposit with Drag-and-Drop Upload -->
@@ -1182,7 +1182,7 @@
                         <div class="d-flex flex-stack fs-4 py-3 card-body">
                             <span>
                                 ${IncludeData[i].IsVerified == 0 ? `
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateOrganization" data-OrgId=${IncludeData[i].OrgId} data-token="${IncludeData[i].Token}" id="editBtn" >Edit</button>
                                 ` : ''}
 
                                 <!-- Hide Delete Button if Declined -->
@@ -1386,20 +1386,29 @@
                         //$("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
                        
 
-                        selectDOM += `<option value="${Jsondata[i]["id"]}" data-noday=${noOfDays} data-expiredate=${isoExpireDate} amount=${Jsondata[i]['Amount']}>${Jsondata[i]['Name']}</option>`;
+                        selectDOM += `<option 
+                                    value="${Jsondata[i]["id"]}"
+                                    data-noday=${noOfDays}
+                                    data-expiredate=${isoExpireDate}
+                                    amount=${Jsondata[i]['Amount']}
+                                    data-IsPaidBased=${Jsondata[i]['IsPaidBased']}>${Jsondata[i]['Name']}</option>`;
                    // }
                 }
                 $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
 
                 var firstOption = $("#statusModal").find(".selectedPackages option:first");
-    if (firstOption.length > 0) {
-        var defaultAmount = firstOption.attr("amount"); 
-        var defaultExpiryDate = firstOption.attr("data-expiredate"); 
+                 if (firstOption.length > 0) {
+                     var defaultAmount = firstOption.attr("amount"); 
+                     var defaultExpiryDate = firstOption.attr("data-expiredate"); 
 
-        $("#statusModal").find(".Amount").val(defaultAmount); 
-        amountFetchedFromServer=parseFloat(defaultAmount);
-        $("#statusModal").find(".expiryDate").val(defaultExpiryDate); 
-    }
+                     $("#statusModal").find(".Amount").val(defaultAmount); 
+                     amountFetchedFromServer=parseFloat(defaultAmount);
+                     $("#statusModal").find(".expiryDate").val(defaultExpiryDate); 
+
+
+                      $(".payment-methods").remove();
+               $(".PaymentDiv").attr("hidden",true);
+                 }
             } else {
                 toastr.error("No Subscription Setup is done!!!");
             }
@@ -2126,15 +2135,13 @@
         $(document).on("click", ".PrintLog", async function () {
 
             var parm={
-                        unqId:parseInt($(this).attr("data-ukid"))
+                unqId:parseInt($(this).attr("data-ukid"))
             };
-
                  var reqestInvoicePrint=await AjaxCall("/Home/getInvoiceForPrint",parm);
                  var responseInvoiceData=JSON.parse(reqestInvoicePrint);
                  var JSONData=JSON.parse(responseInvoiceData);
                  
                  if(JSONData.length>0){
-
                     var invoiceData = {
                             PaymentStatus:  JSONData[0]["PaymentStatus"],
                              CustomerName: JSONData[0]["CustomerName"] ? JSONData[0]["CustomerName"].toString() : "",
@@ -2150,8 +2157,6 @@
                              InvoiceDate: JSONData[0]["InvoiceDate"] ? JSONData[0]["InvoiceDate"].toString() : "",
                              DueDate: JSONData[0]["DueDate"] ? JSONData[0]["DueDate"].toString() : "",
                      };
-
-
                        var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
                        window.open("/Home/InvoicePage", "_blank");
 
@@ -2169,7 +2174,6 @@
                 var $fileInput = $('#fileInput');
                 var $fileError = $('#fileError');
                 event.preventDefault();
-                debugger
                      if ($(this).attr('id') === 'upload') {
                          $("#upload").attr("checked",true);
                          
@@ -2426,6 +2430,12 @@
     });
 
         $(document).on('change', '.selectedPackages', function () {
+
+            if($(".selectedPackages :selected").attr("data-IsPaidBased")=="false"){
+                $(".payment-methods").remove();
+               $(".PaymentDiv").attr("hidden",true);
+            }
+
         var CurrentExpirydate = $("#statusModal").find(".currentPlanEdate").text();
         var noOfDays = parseInt($(".selectedPackages option:selected").attr("data-noday"), 10);
         amountFetchedFromServer = $(".selectedPackages option:selected").attr("amount");
@@ -2448,9 +2458,43 @@
     });
 
       $(document).on('click', '#statusModal .btnExtendPlan', async function (e) {
-        
             e.preventDefault();
             var paymentSelected = $('input[name="payment"]:checked').length > 0;
+             if($("#statusModal .selectedPackages :selected").attr("data-ispaidbased")=="false"){
+                if ($("#statusModal .rem").val() == "") {
+                        toastr.warning("Please fill in a Remarks!!!");
+                          $(this).attr("checked",false);
+                        return;
+                    }
+                 var parm = {
+                    SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+                    ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
+                    PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
+                    Remarks: $("#statusModal").find(".rem").val(),
+                    CustomerId: parseInt($("#custid").val()),
+                    ProductId: parseInt($("#prodid").val()),
+                    TransactionId: 0,
+                    PaymentMethod: 'cash',
+                    ReferenceId: 0,
+                    PaymentPartner: 'none',
+                    GeneratedSerialNo: 'sn001',
+                    VoucherImage:  null,   // '930930471930930471-1543-sagar1_bg.jpg',
+                    IsVerifiedPayment: 0,
+                    Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
+                }
+                //insert the extension manually
+                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                if (cpp!='Success') {
+                      toastr.error("Plan extension not successful");
+                }
+                else {
+                    toastr.success("Plan extension successful");
+                      $("#statusModal").modal('hide');
+                     $(".rem").val('');
+                     GetOrganizations();
+                }
+                  return;
+            }
             if (!paymentSelected) {
                 toastr.warning('Please select a payment method before proceeding.');
                 $(this).attr("checked",false);

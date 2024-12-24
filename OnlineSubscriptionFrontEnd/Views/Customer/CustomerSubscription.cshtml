@@ -119,7 +119,7 @@
 
                     <!-- Modal for customer status -->
                     <div class="modal fade" id="ExtendModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" style="width:100%; max-width:1500px;">
+                        <div class="modal-dialog modal-lg" style="width:100%; max-width:1500px;">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
@@ -240,7 +240,7 @@
                                         </div> *@
 
 
-                                                            <div class="row mb-3">
+                                                            <div class="row mb-3 PaymentDiv">
                                                                 <label class="col-12" style="font-size: 16px; font-weight: bold; color: #333;">Payment Method:</label>
                                                                 <div class="payment-methods d-flex flex-wrap justify-content-center gap-3 col-12">
                                                                     <!-- Bank Deposit with Drag-and-Drop Upload -->
@@ -471,14 +471,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+       </div>
+
 
 <script type="text/javascript">
     $(document).ready(function () {
         getProducts();
-        updateAmountAndExpiry();
-        
     });
         $(document).ready(function () {
         const $uploadArea = $("#uploadArea");
@@ -773,27 +771,7 @@
         }
     }
 
-      //get the organisation subscription log
-        $(document).on('click', '.ExtendSub', async function () {
-            $("#ExtendModal").find(".userEmail").text($(this).parents("tr").find(".custName").text());
-            $("#ExtendModal").find(".productN").text($(this).parents("tr").find(".prodName").text());
-
-             var Type = $(this).attr("data-type");
-        if(Type=='Desktop'){
-            $("#ExtendModal").find(".DivMachine").css("display", "block");
-        }
-        else{
-             $("#ExtendModal").find(".MachineKey").val("Online");
-            $("#ExtendModal").find(".DivMachine").css("display", "none");
-        }
-            var CustomerId = $(this).attr("data-custid");
-            var ProductId = $(this).attr("data-productid");
-            $("#custid").val(CustomerId);
-            $("#prodid").val(ProductId);
-            await loadsubscriptionLogExtend(CustomerId, ProductId);
-            await loadplansforcustomerandproductExtend(CustomerId, ProductId)
-
-        });
+     
 
         //get the organisation subscription log
         async function loadsubscriptionLogExtend(CustomerId, ProductId) {
@@ -869,7 +847,7 @@
 
                      $("#ExtendModal").find("#NextDueDate").text(responsefr[0]["CurrentSubExpiryDate"]);
                      $("#ExtendModal").find("#CurrentPlan").text(responsefr[0]["CurrentlySubscription"]);
-
+                     
                 } else {
                    
                 }
@@ -894,14 +872,18 @@
                         //$("#statusModal").find(".Amount").val(Jsondata[i]["Amount"]);
 
 
-                        selectDOM += `<option value="${Jsondata[i]["id"]}" data-noday=${noOfDays} data-expiredate=${isoExpireDate} amount=${Jsondata[i]['Amount']}>${Jsondata[i]['Name']}</option>`;
+                        selectDOM += `<option value="${Jsondata[i]["id"]}"
+                                        data-noday=${noOfDays}
+                                        data-expiredate=${isoExpireDate}
+                                        data-amount=${Jsondata[i]['Amount']}
+                                        data-IsPaidBased=${Jsondata[i]['IsPaidBased']}>${Jsondata[i]['Name']}</option>`;
                    // }
                 }
                 $("#ExtendModal").find(".selectedPackages").empty().append(selectDOM);
-
+            
                 var firstOption = $("#ExtendModal").find(".selectedPackages option:first");
                      if (firstOption.length > 0) {
-                         var defaultAmount = firstOption.attr("amount");
+                         var defaultAmount = firstOption.attr("data-amount");
                          var defaultExpiryDate = firstOption.attr("data-expiredate");
 
                          $("#ExtendModal").find(".Amount").val(defaultAmount);
@@ -911,12 +893,69 @@
                      } else {
                          toastr.error("No Subscription Setup is done!!!");
                      }
+                     if(firstOption.attr("data-IsPaidBased")=="false"){
+                $(".payment-methods").remove();
+               $(".PaymentDiv").attr("hidden",true);
+            }
+                     updateAmountAndExpiry();
         }
 
 
+         //get the organisation subscription log
+        $(document).on('click', '.ExtendSub', async function () {
+            $("#ExtendModal").modal('show');
+            $("#ExtendModal").find(".userEmail").text($(this).parents("tr").find(".custName").text());
+            $("#ExtendModal").find(".productN").text($(this).parents("tr").find(".prodName").text());
 
+             var Type = $(this).attr("data-type");
+                if(Type=='Desktop'){
+                    $("#ExtendModal").find(".DivMachine").css("display", "block");
+                }
+                else{
+                     $("#ExtendModal").find(".MachineKey").val("Online");
+                    $("#ExtendModal").find(".DivMachine").css("display", "none");
+                }
+            var CustomerId = $(this).attr("data-custid");
+            var ProductId = $(this).attr("data-productid");
+            $("#custid").val(CustomerId);
+            $("#prodid").val(ProductId);
+            await loadsubscriptionLogExtend(CustomerId, ProductId);
+            await loadplansforcustomerandproductExtend(CustomerId, ProductId);
 
+        });
 
+        $(document).on("click", ".PrintLog", async function () {
+
+            var parm={
+                unqId:parseInt($(this).attr("data-ukid"))
+            };
+                 var reqestInvoicePrint=await AjaxCall("/Home/getInvoiceForPrint",parm);
+                 var responseInvoiceData=JSON.parse(reqestInvoicePrint);
+                 var JSONData=JSON.parse(responseInvoiceData);
+                 
+                 if(JSONData.length>0){
+                    var invoiceData = {
+                            PaymentStatus:  JSONData[0]["PaymentStatus"],
+                             CustomerName: JSONData[0]["CustomerName"] ? JSONData[0]["CustomerName"].toString() : "",
+                             CustomerAddress: JSONData[0]["CustomerAddress"] ? JSONData[0]["CustomerAddress"].toString() : "",
+                             Product: JSONData[0]["Product"] ? JSONData[0]["Product"].toString() : "",
+                             PlanName: JSONData[0]["PlanName"] ? JSONData[0]["PlanName"].toString() : "",
+                             Amount: JSONData[0]["Subtotal"] ? JSONData[0]["Subtotal"].toString() : "",
+                             TransactionId: JSONData[0]["TransactionId"] ? JSONData[0]["TransactionId"].trim().toString() : "",
+                             PaymentGateway: JSONData[0]["PaymentGateway"] ? JSONData[0]["PaymentGateway"].toString() : "",
+                             TotalAmount: JSONData[0]["TotalAmount"] ? parseFloat(JSONData[0]["TotalAmount"]).toString() : "0",
+                             Vat: JSONData[0]["Vat"] ? parseFloat(JSONData[0]["Vat"]).toString() : "0",
+                             Subtotal: JSONData[0]["Subtotal"] ? parseFloat(JSONData[0]["Subtotal"]).toString() : "0",
+                             InvoiceDate: JSONData[0]["InvoiceDate"] ? JSONData[0]["InvoiceDate"].toString() : "",
+                             DueDate: JSONData[0]["DueDate"] ? JSONData[0]["DueDate"].toString() : "",
+                     };
+                       var reqInvoice = await AjaxCall("/Home/CreateInvoice", invoiceData);
+                       window.open("/Home/InvoicePage", "_blank");
+
+                 }else{
+                     toastr.error("No Entry found for the Log");
+                 }
+        });
 
 
 
@@ -960,7 +999,10 @@
             return !~text.indexOf(val);
         }).hide();
     });
+
+
         $(document).on('click', '.viewSub', function () {
+            $("statusModal").modal('show');
         var id = $(this).attr("data-custid");
         var ProductId = $(this).attr("data-productid");
 
@@ -985,27 +1027,7 @@
 
         $("#custid").val(id);
         $("#prodid").val(ProductId);
-
-        // Function to update amount and expiry date
-        function updateAmountAndExpiry() {
-           var selectedOption = $("#statusModal").find(".selectedPackages option:selected");
-            var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
-            var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
-
-            var today = new Date();
-            var expireDate = new Date(today);
-            expireDate.setDate(today.getDate() + noOfDays + parseInt($(".remainingDaysinCPlan").text()));
-
-            var isoExpireDate = expireDate.toISOString().split('T')[0];
-            $("#statusModal").find(".expiryDate").val(isoExpireDate);
-
-            if (noOfDays === 3 || noOfDays === 7) {
-                $("#statusModal").find(".Amount").val('0').prop('disabled', true);
-            } else {
-                $("#statusModal").find(".Amount").val(amountInPlan).prop('disabled', true);
-            }
-        }
-
+   
         loadplansforcustomerandproduct(id, ProductId).then(() => {
             updateAmountAndExpiry(); 
         });
@@ -1013,8 +1035,11 @@
         $("#statusModal").find(".selectedPackages").off("change").on("change", function () {
             updateAmountAndExpiry();
         });
+                
+                     
     });
-
+   
+  
     async function loadplansforcustomerandproduct(CustomerId, ProductId) {
         
         $(".currentPlan").text('----None---');
@@ -1062,6 +1087,16 @@
                 }
             }
             $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
+             var firstOption = $("#statusModal").find(".selectedPackages option:first");
+                     if (firstOption.length > 0) {
+                         var defaultAmount = firstOption.attr("data-amount");
+                         var defaultExpiryDate = firstOption.attr("data-expiredate");
+
+                         $("#statusModal").find(".Amount").val(defaultAmount);
+                         amountFetchedFromServer=parseFloat(defaultAmount);
+                         $("#statusModal").find(".expiryDate").val(defaultExpiryDate);
+                     }
+                 
         } else {
             toastr.error("No any Plan is given !!!");
         }
@@ -1104,10 +1139,45 @@
     }
 
     $(document).on('click', '#ExtendModal .btnExtendPlan', async function (e) {
-        debugger
               e.preventDefault();
             var paymentSelected = $('#ExtendModal input[name="payment"]:checked').length > 0;
-            if (!paymentSelected) {
+            if($("#ExtendModal .selectedPackages :selected").attr("data-IsPaidBased")=="false"){
+                if ($("#ExtendModal .rem").val() == "") {
+                        toastr.warning("Please fill in a Remarks!!!");
+                          $(this).attr("checked",false);
+                        return;
+                    }
+                 var parm = {
+                    SubscriptionType: parseInt($("#ExtendModal").find(".selectedPackages :selected").val()),
+                    ExpiryDate: $("#ExtendModal").find(".selectedPackages :selected").attr("data-expiredate"),
+                    PaidAmount: parseFloat($("#ExtendModal").find(".Amount").val()),
+                    Remarks: $("#ExtendModal").find(".rem").val(),
+                    CustomerId: parseInt($("#custid").val()),
+                    ProductId: parseInt($("#prodid").val()),
+                    TransactionId: 0,
+                    PaymentMethod: 'cash',
+                    ReferenceId: 0,
+                    PaymentPartner: 'none',
+                    GeneratedSerialNo: 'sn001',
+                    VoucherImage:  null,   // '930930471930930471-1543-sagar1_bg.jpg',
+                    IsVerifiedPayment: 0,
+                    Machinekey:$("#ExtendModal").find(".MachineKey").val()||"Online"
+                }
+                //insert the extension manually
+                var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+                if (cpp!='Success') {
+                      toastr.error("Plan extension not successful");
+                }
+                else {
+                    toastr.success("Plan extension successful");
+                      $("#ExtendModal").modal('hide');
+                     $("#showButton").trigger('click');
+                     $(".rem").val('');
+                }
+                  return;
+            }
+
+            else if (!paymentSelected) {
                 toastr.warning('Please select a payment method before proceeding.', 'Warning');
                 $(this).attr("checked",false);
                 return;
@@ -1127,7 +1197,7 @@
                   $(this).attr("checked",false);
                 return;
             }
-            else {
+             else   {
                 var parm = {
                     SubscriptionType: parseInt($("#ExtendModal").find(".selectedPackages :selected").val()),
                     ExpiryDate: $("#ExtendModal").find(".selectedPackages :selected").attr("data-expiredate"),
@@ -1152,12 +1222,13 @@
                 else {
                     toastr.success("Plan extension successful");
                       $("#ExtendModal").modal('hide');
+                      getTableData();
                 }
             }
         });
 
     $(document).on('click', '#statusModal .btnExtendPlan', async function (event) {
-        debugger
+        
         event.preventDefault(); 
         if ($("#statusModal .rem").val() == "") {
             toastr.error("Please fill in a Remarks!!!");
@@ -1538,6 +1609,43 @@
             $(".CheckPlan").not(this).prop("checked", false);
         }
     });
+     function updateAmountAndExpiry() {
+  
+             var $currentModal = $(".modal").filter(function () {
+                                        return $(this).is(":visible");
+                                 });
+           var selectedOption = $currentModal.find(".selectedPackages option:selected");
+            var noOfDays = parseInt(selectedOption.attr("data-noday")) || 0;
+            var amountInPlan = parseFloat(selectedOption.attr("data-amount")) || 0;
 
-   
+            // var today = new Date();
+            // var expireDate = new Date(today);
+            // expireDate.setDate(today.getDate() + noOfDays + parseInt($currentModal.find(".remainingDaysinCPlan").text()));
+
+            // var isoExpireDate = expireDate.toISOString().split('T')[0];
+            $currentModal.find(".expiryDate").val(selectedOption.attr("data-expiredate"));
+
+            if (noOfDays === 3 || noOfDays === 7) {
+                $currentModal.find(".Amount").val('0').prop('disabled', true);
+            } else {
+              $currentModal.find(".Amount").val(amountInPlan).prop('disabled', true);
+            }
+        }
+
+        $("#ExtendModal").find(".selectedPackages").off("change").on("change", function () {
+            updateAmountAndExpiry();
+            if($("#ExtendModal .selectedPackages :selected").attr("data-IsPaidBased")=="false"){
+                $(".payment-methods").remove();
+               $(".PaymentDiv").attr("hidden",true);
+            }
+        });
+    $('#ExtendModal').on('hidden.bs.modal', function () {
+       $("#showButton").trigger('click');
+                 
+     });
+      $('#statusModal').on('hidden.bs.modal', function () {
+            $("#showButton").trigger('click');
+
+        
+     });
 </script>

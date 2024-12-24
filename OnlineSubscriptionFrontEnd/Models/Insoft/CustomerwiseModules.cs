@@ -12,7 +12,7 @@
         public string LatestLicenseKey { get; set; }
         public string MachineKey { get; set; }
         public string Initial { get; set; }
-
+        public int IsPaidBased { get; set; }
         public string SerialNumber { get; set; }
         public string SiteURL { get; set; }
         public bool Active { get; set; }
