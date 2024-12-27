@@ -325,7 +325,6 @@
                                         <th class="center hideme">Edit</th>
                                         <th class="center hideme">Delete</th>
                                         <th class="center hideme">Statement</th>
-                                        <th class="center">Added By</th>
                                         <th class="center">Company Code</th>
                                         <th class="center">Company Name</th>
                                         <th class="center">initial</th>
@@ -425,15 +424,7 @@
                         </thead>
                         <tbody>
                             <!-- Dynamic rows inserted here -->
-                            <tr>
-                                <td>1</td>
-                                <td>2024-01-10</td>
-                                <td>Payment</td>
-                                <td>Monthly Subscription</td>
-                                <td>Premium Plan</td>
-                                <td>$50.00</td>
-                                <td>$500.00</td>
-                            </tr>
+                           
                         </tbody>
                     </table>
                 </div>
@@ -446,11 +437,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Total Paid Amount:</strong><span class="TotalTillToday" style="color:green;font-weight:600;"></span> </p>
+                                <p><strong>Total Paid Amount:</strong><span class="TotalTillToday" style="color:green;font-weight:1000;"></span> </p>
                             </div>
-                            <div class="col-md-6">
-                                <p><strong>Outstanding Amount:</strong> <span class="Outstanding"></span></p>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -869,7 +858,6 @@
                                     <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
                                     <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
 
-                                    <td class="center addedBy">` + jsondata[i]["AddedBy"] + `</td>
                                     <td class="center custCode">` + jsondata[i]["CompanyCode"] + `</td>
                                     <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
                                     <td class="center custName">` + jsondata[i]["initial"] + `</td>

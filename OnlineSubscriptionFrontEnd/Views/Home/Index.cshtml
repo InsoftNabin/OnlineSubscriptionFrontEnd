@@ -1368,7 +1368,7 @@
             }
             // New/existing plan logic
            // var para = await AjaxCall("/Customer/getSubsbyCusandProductId", parm);        ---------------this fetches all the plans ------------dont delete this code---------
-           
+      
            var para=await AjaxCall("/Customer/getSubsbyCusandProductIdAdmin", parm);
            var data = JSON.parse(para);
             var Jsondata = JSON.parse(data);
@@ -1395,7 +1395,7 @@
                    // }
                 }
                 $("#statusModal").find(".selectedPackages").empty().append(selectDOM);
-
+        //---------------hide the payment divs----------
                 var firstOption = $("#statusModal").find(".selectedPackages option:first");
                  if (firstOption.length > 0) {
                      var defaultAmount = firstOption.attr("amount"); 
@@ -1405,11 +1405,19 @@
                      amountFetchedFromServer=parseFloat(defaultAmount);
                      $("#statusModal").find(".expiryDate").val(defaultExpiryDate); 
 
-
-                      $(".payment-methods").remove();
-               $(".PaymentDiv").attr("hidden",true);
+                     if(firstOption.attr("data-IsPaidBased") === "false"){
+                         $(".payment-methods").remove();
+                         $(".PaymentDiv").attr("hidden",true);
+                     }else{
+                       
+                         $(".payment-methods").show();
+                         $(".PaymentDiv").removeAttr("hidden");
+                     }
+                      // $(".payment-methods").remove();
+                      // $(".PaymentDiv").attr("hidden",true);
                  }
             } else {
+                
                 toastr.error("No Subscription Setup is done!!!");
             }
         }
@@ -2430,11 +2438,15 @@
     });
 
         $(document).on('change', '.selectedPackages', function () {
+            debugger
+               if ($(".selectedPackages :selected").attr("data-IsPaidBased") === "false") {
+                    $(".payment-methods").remove();
+                    $(".PaymentDiv").attr("hidden", true);
+                } else {
+                         $(".payment-methods").show();
+                         $(".PaymentDiv").removeAttr("hidden"); 
+                }
 
-            if($(".selectedPackages :selected").attr("data-IsPaidBased")=="false"){
-                $(".payment-methods").remove();
-               $(".PaymentDiv").attr("hidden",true);
-            }
 
         var CurrentExpirydate = $("#statusModal").find(".currentPlanEdate").text();
         var noOfDays = parseInt($(".selectedPackages option:selected").attr("data-noday"), 10);
