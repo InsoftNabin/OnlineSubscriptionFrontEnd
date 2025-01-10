@@ -809,14 +809,6 @@
                                             </div>
                                         </div>
 
-
-
-
-
-
-
-
-
                                         <div class="row" id="file-upload" style="display:none; margin-bottom: 15px;">
                                             <input type="file" class="file" id="fileInput" data-filename="" style="padding: 10px;"  hidden/>
                                             <p id="fileError" style="color:red; display:none;"></p>
@@ -2438,7 +2430,7 @@
     });
 
         $(document).on('change', '.selectedPackages', function () {
-            debugger
+            
                if ($(".selectedPackages :selected").attr("data-IsPaidBased") === "false") {
                     $(".payment-methods").remove();
                     $(".PaymentDiv").attr("hidden", true);
@@ -2577,96 +2569,14 @@
              }
           }
 
-
-            //e.preventDefault();
-            //var paymentSelected = $('input[name="payment"]:checked').length > 0;
-            // if($("#statusModal .selectedPackages :selected").attr("data-ispaidbased")=="false"){
-            //    if ($("#statusModal .rem").val() == "") {
-            //            toastr.warning("Please fill in a Remarks!!!");
-            //              $(this).attr("checked",false);
-            //            return;
-            //        }
-            //     var parm = {
-            //        SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
-            //        ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
-            //        PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
-            //        Remarks: $("#statusModal").find(".rem").val(),
-            //        CustomerId: parseInt($("#custid").val()),
-            //        ProductId: parseInt($("#prodid").val()),
-            //        TransactionId: 0,
-            //        PaymentMethod: 'cash',
-            //        ReferenceId: 0,
-            //        PaymentPartner: 'none',
-            //        GeneratedSerialNo: 'sn001',
-            //        VoucherImage:  null, 
-            //        IsVerifiedPayment: 0,
-            //        Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
-            //    }
-            //    var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-            //    if (cpp!='Success') {
-            //          toastr.error("Plan extension not successful");
-            //    }
-            //    else {
-            //        toastr.success("Plan extension successful");
-            //          $("#statusModal").modal('hide');
-            //         $(".rem").val('');
-            //         GetOrganizations();
-            //    }
-            //      return;
-            //}
-            //if (!paymentSelected) {
-            //    toastr.warning('Please select a payment method before proceeding.');
-            //    $(this).attr("checked",false);
-            //    return;
-            //}
-            //if ($(".rem").val() == "") {
-            //    toastr.warning("Please fill in a Remarks!!!");
-            //   $(this).attr("checked",false);
-
-            //}
-            //else if ($("#fileInput").attr("data-filename") == "") {
-            //    toastr.warning("Please attach a voucher or pay through QR!!!");
-            //   $(this).attr("checked",false);
-
-            //}
-            //else if($("#statusModal").find(".MachineKey").val()==""){
-            //    toastr.warning("Please Enter a Machine Key");
-            // $(this).attr("checked",false);
-
-            //}
-            //else {
-            //    var parm = {
-            //        SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
-            //        ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
-            //        PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
-            //        Remarks: $("#statusModal").find(".rem").val(),
-            //        CustomerId: parseInt($("#custid").val()),
-            //        ProductId: parseInt($("#prodid").val()),
-            //        TransactionId: 0,
-            //        PaymentMethod: 'cash',
-            //        ReferenceId: 0,
-            //        PaymentPartner: 'none',
-            //        GeneratedSerialNo: 'sn001',
-            //        VoucherImage:  $("#fileInput").attr("data-filename"),
-            //        IsVerifiedPayment: 0,
-            //        Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
-            //    }
-
-            //    var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
-            //    if (cpp!='Success') {
-            //        toastr.error("Plan extension  not successful");
-            //    }
-            //    else {
-            //         toastr.success("Plan extension successful");
-            //        $("#statusModal").modal('hide');
-            //    }
-            //}
         });
-        $('#QRModal').on('hidden.bs.modal', function () {
+
+
+    $('#QRModal').on('hidden.bs.modal', function () {
         $("#fileInput").val("");
         $("#upload").prop("checked", false);
         $("#fonepay").prop("checked", false);
-    });
+     });
 
     $('#statusModal').on('hidden.bs.modal', function () {
         $("#fileInput").val("");

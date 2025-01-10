@@ -39,6 +39,49 @@
         font-size: 14px;
     }
 
+    .row {
+        margin: 20px;
+    }
+
+    .payment-methods {
+        display: flex;
+        gap: 15px;
+        vertical-align: middle;
+    }
+
+    .payment-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        padding: 10px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+        .payment-option input[type="radio"] {
+            display: none;
+        }
+
+        .payment-option img {
+            width: 50px;
+            vertical-align: middle;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .payment-option:hover {
+            border-color: #007BFF; /* Change border color on hover */
+        }
+
+        .payment-option input[type="radio"]:checked + label {
+            border-color: #007BFF; /* Highlight selected option */
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional shadow */
+        }
+
+
 </style>
 
 
@@ -245,7 +288,7 @@
                                                                 <div class="payment-methods d-flex flex-wrap justify-content-center gap-3 col-12">
                                                                     <!-- Bank Deposit with Drag-and-Drop Upload -->
                                                                     <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="0" style="border: 1px solid black; text-align: center;">
-                                                                        <input type="radio" class="form-control d-none" name="payment" id="upload" />
+                                                                        <input type="radio" class="form-control d-none" value="file" name="payment" id="upload" />
                                                                         <label for="upload" class="w-100" style="font-size: 14px; color: #333; display: block; margin-bottom: 10px;">
                                                                             Bank Deposit
                                                                         </label>
@@ -258,7 +301,7 @@
 
                                                                     <!-- FonePay Option -->
                                                                     <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="3" style="border: 1px solid black; text-align: center;">
-                                                                        <input type="radio" class="form-control d-none" name="payment" id="fonepay" />
+                                                                        <input type="radio" class="form-control d-none" value="fonepay" name="payment" id="fonepay" />
                                                                         <label for="fonepay" class="w-100" style="font-size: 14px; color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                                                                             <img src="~/files/assets/images/fonepay_payments_fatafat.png" alt="Fonepay" style="width: 180px; height: 100px; vertical-align:middle;" />
                                                                             <span>FonePay</span>
@@ -533,6 +576,7 @@
         }else{
               toastr.error("Please wait until your previous vouchers are checked!!!");
               $("#fileInput").attr("data-filename","");
+               $("#fileInput").val("");
                 $uploadArea.find(".uploadedinfo").text("Pending Voucher !!!");
                 $("#statusModal").modal('hide');
         }
@@ -1137,17 +1181,30 @@
             $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
         }
     }
+       $(".payment-option").on("click",function(){
 
+       if($("#ExtendModal .rem").val() == "")
+       {
+             $("#ExtendModal #upload").prop("checked", false);
+             $("#ExtendModal #fonepay").prop("checked", false);
+             $("#ExtendModal #fileInput").val("");
+         toastr.warning("Please Fill Remarks First !!!");
+       }
+    });
     $(document).on('click', '#ExtendModal .btnExtendPlan', async function (e) {
-              e.preventDefault();
-            var paymentSelected = $('#ExtendModal input[name="payment"]:checked').length > 0;
-            if($("#ExtendModal .selectedPackages :selected").attr("data-IsPaidBased")=="false"){
-                if ($("#ExtendModal .rem").val() == "") {
-                        toastr.warning("Please fill in a Remarks!!!");
-                          $(this).attr("checked",false);
-                        return;
-                    }
-                 var parm = {
+             e.preventDefault();
+        debugger
+          var PaymentType=$('#ExtendModal input[name="payment"]:checked').val();
+
+          if(PaymentType==undefined){
+          toastr.warning("Please Select Payment Method!!!");
+          }
+          else if($("#ExtendModal .rem").val() == ""){
+          toastr.warning("Please Fill Remarks First !!!");
+          }
+          else if(PaymentType=="fonepay")
+          {
+              var parm = {
                     SubscriptionType: parseInt($("#ExtendModal").find(".selectedPackages :selected").val()),
                     ExpiryDate: $("#ExtendModal").find(".selectedPackages :selected").attr("data-expiredate"),
                     PaidAmount: parseFloat($("#ExtendModal").find(".Amount").val()),
@@ -1159,73 +1216,81 @@
                     ReferenceId: 0,
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
-                    VoucherImage:  null,   // '930930471930930471-1543-sagar1_bg.jpg',
+                    VoucherImage:  null,
                     IsVerifiedPayment: 0,
                     Machinekey:$("#ExtendModal").find(".MachineKey").val()||"Online"
                 }
-                //insert the extension manually
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                 if (cpp!='Success') {
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
+
                       toastr.error("Plan extension not successful");
                 }
                 else {
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
+
+
                     toastr.success("Plan extension successful");
                       $("#ExtendModal").modal('hide');
-                     $("#showButton").trigger('click');
                      $(".rem").val('');
+                     GetOrganizations();
                 }
-                  return;
-            }
-
-            else if (!paymentSelected) {
-                toastr.warning('Please select a payment method before proceeding.', 'Warning');
-                $(this).attr("checked",false);
-                return;
-            }
-            if ($("#ExtendModal .rem").val() == "") {
-                toastr.warning("Please fill in a Remarks!!!");
-                  $(this).attr("checked",false);
-                return;
-            }
-            else if ($("#ExtendModal #fileInput").attr("data-filename") == "") {
-                toastr.warning("Please attach a voucher or pay through QR!!!");
-                  $(this).attr("checked",false);
-                return;
-            }
-            else if($("#ExtendModal").find(".MachineKey").val()==""){
-                toastr.warning("Please Enter a Machine Key");
-                  $(this).attr("checked",false);
-                return;
-            }
-             else   {
+          }
+           else if(PaymentType=="file")
+           {
+              if($("#fileInput").val()==""){
+               toastr.warning("Please Select Image First !!!");
+              }
+              else
+              {
                 var parm = {
                     SubscriptionType: parseInt($("#ExtendModal").find(".selectedPackages :selected").val()),
                     ExpiryDate: $("#ExtendModal").find(".selectedPackages :selected").attr("data-expiredate"),
                     PaidAmount: parseFloat($("#ExtendModal").find(".Amount").val()),
                     Remarks: $("#ExtendModal").find(".rem").val(),
-                    CustomerId: parseInt($("#custid").val()),
-                    ProductId: parseInt($("#prodid").val()),
+                    CustomerId: parseInt($("#ExtendModal #custid").val()),
+                    ProductId: parseInt($("#ExtendModal #prodid").val()),
                     TransactionId: 0,
                     PaymentMethod: 'cash',
                     ReferenceId: 0,
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
-                    VoucherImage:  $("#ExtendModal").find("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
+                    VoucherImage:  $("#ExtendModal #fileInput").attr("data-filename"),
                     IsVerifiedPayment: 0,
                     Machinekey:$("#ExtendModal").find(".MachineKey").val()||"Online"
                 }
-                //insert the extension manually
+
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                 if (cpp!='Success') {
-                      toastr.error("Plan extension  not successful");
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
+
+                    toastr.error("Plan extension  not successful");
                 }
                 else {
-                    toastr.success("Plan extension successful");
-                      $("#ExtendModal").modal('hide');
-                      getTableData();
+                     toastr.success("Plan extension successful");
+                    $("#ExtendModal").modal('hide');
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
+
                 }
-            }
+             }
+          }
+
         });
+       $('#QRModal').on('hidden.bs.modal', function () {
+        debugger;
+        $("#showButton").trigger('click');
+        $("#upload").prop("checked", false);
+        $("#fonepay").prop("checked", false);
+        $("#fileInput").val("");
+    });
 
     $(document).on('click', '#statusModal .btnExtendPlan', async function (event) {
         
@@ -1349,6 +1414,7 @@
     });
      // Payment method change event
         $('#ExtendModal input[name="payment"]').change(async function (event) {
+            
                  var $fileUpload = $('#file-upload');
                 var $qrCode = $('#qr-code');
                 var $fileInput = $('#fileInput');
@@ -1391,7 +1457,10 @@
                         var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
                         var response = JSON.parse(aahaha);
                           $("#ExtendModal").modal('hide');
-
+                           $("#showButton").trigger('click');
+                             $("#upload").prop("checked", false);
+                             $("#fonepay").prop("checked", false);
+                             $("#fileInput").val("");
                         $("#QRModal").modal('show');
 
                         // Ensure response contains hashKey and prn
@@ -1639,10 +1708,7 @@
                $(".PaymentDiv").attr("hidden",true);
             }
         });
-    $('#ExtendModal').on('hidden.bs.modal', function () {
-       $("#showButton").trigger('click');
-                 
-     });
+   
       $('#statusModal').on('hidden.bs.modal', function () {
             $("#showButton").trigger('click');
 
