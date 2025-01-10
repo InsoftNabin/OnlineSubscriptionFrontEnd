@@ -787,7 +787,7 @@
                                             <div class="payment-methods d-flex flex-wrap justify-content-center gap-3 col-12">
                                                 <!-- Bank Deposit with Drag-and-Drop Upload -->
                                                 <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="0" style="border: 1px solid black; text-align: center;">
-                                                    <input type="radio" class="form-control d-none" name="payment" id="upload" />
+                                                    <input type="radio" class="form-control d-none" value="file" name="payment" id="upload" />
                                                     <label for="upload" class="w-100" style="font-size: 14px; color: #333; display: block; margin-bottom: 10px;">
                                                         Bank Deposit
                                                     </label>
@@ -800,7 +800,7 @@
 
                                                 <!-- FonePay Option -->
                                                 <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="3" style="border: 1px solid black; text-align: center;">
-                                                    <input type="radio" class="form-control d-none" name="payment" id="fonepay" />
+                                                    <input type="radio" class="form-control d-none" value="fonepay" name="payment" id="fonepay" />
                                                     <label for="fonepay" class="w-100" style="font-size: 14px; color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                                                         <img src="~/files/assets/images/fonepay_payments_fatafat.png" alt="Fonepay" style="width: 180px; height: 100px; vertical-align:middle;" />
                                                         <span>FonePay</span>
@@ -2469,16 +2469,36 @@
         }
     });
 
+
+
+   $(".payment-option").on("click",function(){
+
+      if($("#statusModal .rem").val() == "")
+      {
+            $("#upload").prop("checked", false);
+            $("#fonepay").prop("checked", false);
+            $("#fileInput").val("");
+        toastr.warning("Please Fill Remarks First !!!");
+      }
+   });
+
+
+
+
       $(document).on('click', '#statusModal .btnExtendPlan', async function (e) {
-            e.preventDefault();
-            var paymentSelected = $('input[name="payment"]:checked').length > 0;
-             if($("#statusModal .selectedPackages :selected").attr("data-ispaidbased")=="false"){
-                if ($("#statusModal .rem").val() == "") {
-                        toastr.warning("Please fill in a Remarks!!!");
-                          $(this).attr("checked",false);
-                        return;
-                    }
-                 var parm = {
+        e.preventDefault();
+        debugger
+          var PaymentType=$('input[name="payment"]:checked').val();
+
+          if(PaymentType==undefined){
+          toastr.warning("Please Select Payment Method!!!");
+          }
+          else if($("#statusModal .rem").val() == ""){
+          toastr.warning("Please Fill Remarks First !!!");
+          }
+          else if(PaymentType=="fonepay")
+          {
+              var parm = {
                     SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
                     ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
                     PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
@@ -2490,44 +2510,37 @@
                     ReferenceId: 0,
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
-                    VoucherImage:  null,   // '930930471930930471-1543-sagar1_bg.jpg',
+                    VoucherImage:  null, 
                     IsVerifiedPayment: 0,
                     Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
                 }
-                //insert the extension manually
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                 if (cpp!='Success') {
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
+
                       toastr.error("Plan extension not successful");
                 }
                 else {
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
+
+
                     toastr.success("Plan extension successful");
                       $("#statusModal").modal('hide');
                      $(".rem").val('');
                      GetOrganizations();
                 }
-                  return;
-            }
-            if (!paymentSelected) {
-                toastr.warning('Please select a payment method before proceeding.');
-                $(this).attr("checked",false);
-                return;
-            }
-            if ($(".rem").val() == "") {
-                toastr.warning("Please fill in a Remarks!!!");
-               $(this).attr("checked",false);
-
-            }
-            else if ($("#fileInput").attr("data-filename") == "") {
-                toastr.warning("Please attach a voucher or pay through QR!!!");
-               $(this).attr("checked",false);
-
-            }
-            else if($("#statusModal").find(".MachineKey").val()==""){
-                toastr.warning("Please Enter a Machine Key");
-             $(this).attr("checked",false);
-
-            }
-            else {
+          }
+           else if(PaymentType=="file")
+           {
+              if($("#fileInput").val()==""){
+               toastr.warning("Please Select Image First !!!");
+              }
+              else
+              {
                 var parm = {
                     SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
                     ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
@@ -2540,22 +2553,125 @@
                     ReferenceId: 0,
                     PaymentPartner: 'none',
                     GeneratedSerialNo: 'sn001',
-                    VoucherImage:  $("#fileInput").attr("data-filename"),   // '930930471930930471-1543-sagar1_bg.jpg',
+                    VoucherImage:  $("#fileInput").attr("data-filename"),
                     IsVerifiedPayment: 0,
                     Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
                 }
-           
-                //insert the extension manually
+
                 var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
                 if (cpp!='Success') {
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
+
                     toastr.error("Plan extension  not successful");
                 }
                 else {
                      toastr.success("Plan extension successful");
                     $("#statusModal").modal('hide');
-                }
-            }
-        });
+                    $("#upload").prop("checked",false);
+                    $("#fonepay").prop("checked", false);
+                    $("#fileInput").val("");
 
+                }
+             }
+          }
+
+
+            //e.preventDefault();
+            //var paymentSelected = $('input[name="payment"]:checked').length > 0;
+            // if($("#statusModal .selectedPackages :selected").attr("data-ispaidbased")=="false"){
+            //    if ($("#statusModal .rem").val() == "") {
+            //            toastr.warning("Please fill in a Remarks!!!");
+            //              $(this).attr("checked",false);
+            //            return;
+            //        }
+            //     var parm = {
+            //        SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+            //        ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
+            //        PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
+            //        Remarks: $("#statusModal").find(".rem").val(),
+            //        CustomerId: parseInt($("#custid").val()),
+            //        ProductId: parseInt($("#prodid").val()),
+            //        TransactionId: 0,
+            //        PaymentMethod: 'cash',
+            //        ReferenceId: 0,
+            //        PaymentPartner: 'none',
+            //        GeneratedSerialNo: 'sn001',
+            //        VoucherImage:  null, 
+            //        IsVerifiedPayment: 0,
+            //        Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
+            //    }
+            //    var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+            //    if (cpp!='Success') {
+            //          toastr.error("Plan extension not successful");
+            //    }
+            //    else {
+            //        toastr.success("Plan extension successful");
+            //          $("#statusModal").modal('hide');
+            //         $(".rem").val('');
+            //         GetOrganizations();
+            //    }
+            //      return;
+            //}
+            //if (!paymentSelected) {
+            //    toastr.warning('Please select a payment method before proceeding.');
+            //    $(this).attr("checked",false);
+            //    return;
+            //}
+            //if ($(".rem").val() == "") {
+            //    toastr.warning("Please fill in a Remarks!!!");
+            //   $(this).attr("checked",false);
+
+            //}
+            //else if ($("#fileInput").attr("data-filename") == "") {
+            //    toastr.warning("Please attach a voucher or pay through QR!!!");
+            //   $(this).attr("checked",false);
+
+            //}
+            //else if($("#statusModal").find(".MachineKey").val()==""){
+            //    toastr.warning("Please Enter a Machine Key");
+            // $(this).attr("checked",false);
+
+            //}
+            //else {
+            //    var parm = {
+            //        SubscriptionType: parseInt($("#statusModal").find(".selectedPackages :selected").val()),
+            //        ExpiryDate: $("#statusModal").find(".selectedPackages :selected").attr("data-expiredate"),
+            //        PaidAmount: parseFloat($("#statusModal").find(".Amount").val()),
+            //        Remarks: $("#statusModal").find(".rem").val(),
+            //        CustomerId: parseInt($("#custid").val()),
+            //        ProductId: parseInt($("#prodid").val()),
+            //        TransactionId: 0,
+            //        PaymentMethod: 'cash',
+            //        ReferenceId: 0,
+            //        PaymentPartner: 'none',
+            //        GeneratedSerialNo: 'sn001',
+            //        VoucherImage:  $("#fileInput").attr("data-filename"),
+            //        IsVerifiedPayment: 0,
+            //        Machinekey:$("#statusModal").find(".MachineKey").val()||"Online"
+            //    }
+
+            //    var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdate", parm);
+            //    if (cpp!='Success') {
+            //        toastr.error("Plan extension  not successful");
+            //    }
+            //    else {
+            //         toastr.success("Plan extension successful");
+            //        $("#statusModal").modal('hide');
+            //    }
+            //}
+        });
+        $('#QRModal').on('hidden.bs.modal', function () {
+        $("#fileInput").val("");
+        $("#upload").prop("checked", false);
+        $("#fonepay").prop("checked", false);
+    });
+
+    $('#statusModal').on('hidden.bs.modal', function () {
+        $("#fileInput").val("");
+        $("#upload").prop("checked", false);
+        $("#fonepay").prop("checked", false);
+    });
          
 </script>
