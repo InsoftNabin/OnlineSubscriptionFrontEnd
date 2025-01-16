@@ -799,7 +799,7 @@
                                                 </div>
 
                                                 <!-- FonePay Option -->
-                                                <div class="payment-option col-lg-4 col-md-6 col-sm-12 p-3" data-value="3" style="border: 1px solid black; text-align: center;">
+                                                <div class="payment-option pyFonepay col-lg-4 col-md-6 col-sm-12 p-3" data-value="3" style="border: 1px solid black; text-align: center;">
                                                     <input type="radio" class="form-control d-none" value="fonepay" name="payment" id="fonepay" />
                                                     <label for="fonepay" class="w-100" style="font-size: 14px; color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                                                         <img src="~/files/assets/images/fonepay_payments_fatafat.png" alt="Fonepay" style="width: 180px; height: 100px; vertical-align:middle;" />
@@ -1010,6 +1010,7 @@
     for (var i = 0; i < IncludeData.length; i++) {
         
         if(IncludeData[i]["Error"]!=-202){
+           
 
         let chartId = "ChartCircular" + (i + 1);
         let imageUrl = IncludeData[i].ImageData || '/files/assets/images/employee.png';
@@ -1190,6 +1191,10 @@
 
         // Load the plans for this specific organization (unique chartId)
         loadplansforcustomerandproduct(IncludeData[i].custId, IncludeData[i].ProductId, chartId);
+
+              if(IncludeData[i].OrganizationMotto!='Nepal'){
+                   $(".pyFonepay").hide();
+             }
     }
     }
 
@@ -1259,6 +1264,7 @@
                     $(".viewSub[data-custid='" + customerId + "'][data-productid='" + productId + "']").click();
                     $("#statusModal").find(".MachineKey").val('@ViewBag.MachineKey');
 
+                 
                     
         });
 
