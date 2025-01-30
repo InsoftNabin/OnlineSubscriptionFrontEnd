@@ -2212,7 +2212,7 @@
                             Remarks1: $("#statusModal").find(".rem").val(),
                             Remarks2: "Insoft Subscription"
                         };
-
+                        
                         // Call the backend to generate QR code and get the PRN
                         var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
                         var response = JSON.parse(aahaha);
@@ -2536,6 +2536,8 @@
            {
               if($("#fileInput").val()==""){
                toastr.warning("Please Select Image First !!!");
+               // $(".btnExtendPlan").attr("disabled",true);
+               return;
               }
               else
               {
