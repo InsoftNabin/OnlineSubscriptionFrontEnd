@@ -128,8 +128,8 @@
                                     <th class="center hideme">Customer Name</th>
                                     <th class="center">Initial</th>
                                     <th class="center">Product</th>
-                                    <th class="center"> Upcoming Due Date</th>
                                     <th class="center">Last Renewal Date</th>
+                                    <th class="center"> Upcoming Due Date</th>
                                     <th class="center">Remaining Days</th>
                                     <th class="center">SMS</th>
                                 </tr>
@@ -189,8 +189,8 @@
                                     <td class="center custCode">${jsondata[i]['CustomerName']}</td>
                                     <td class="center custName">${jsondata[i]['Initial']}</td>
                                     <td class="center custName">${jsondata[i]['ProductName']}</td>
-                                    <td class="center prodName" style="background-color:#ffc8dd;">${jsondata[i]['ExpiryDate']}</td>
                                     <td class="center prodName">${jsondata[i]['LastRenewDate']}</td>
+                                     <td class="center prodName" style="background-color:#ffc8dd;">${jsondata[i]['ExpiryDate']}</td>
                                     <td class="center prodName">${jsondata[i]['RemainingDays']}</td>
                                    <td class="center">
                                         <button class="btn btn-success btn-sm sendSMS" data-Phone="${jsondata[i]['Contact']}" data-remDays="${jsondata[i]['RemainingDays']}" data-product="${jsondata[i]['ProductName']}">SMS</button>

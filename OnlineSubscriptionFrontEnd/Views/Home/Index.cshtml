@@ -2216,6 +2216,7 @@
                         // Call the backend to generate QR code and get the PRN
                         var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
                         var response = JSON.parse(aahaha);
+                        debugger
                         $("#statusModal").modal('hide');
                         $("#QRModal").modal('show');
 
@@ -2422,8 +2423,11 @@
                                 $("#generated-qr-container").find("#generated-qr").empty();
                             });
 
-                        } else {
+                        }
+                        else {
                             $qrCode.hide();
+
+                            toastr.error(""+response.message+"");
                         }
                     } else {
                         $qrCode.hide();
@@ -2568,6 +2572,7 @@
                 }
                 else {
                      toastr.success("Plan extension successful");
+                    await GetOrganizations();
                     $("#statusModal").modal('hide');
                     $("#upload").prop("checked",false);
                     $("#fonepay").prop("checked", false);
@@ -2582,6 +2587,8 @@
 
     $('#QRModal').on('hidden.bs.modal', function () {
         $("#fileInput").val("");
+        $("#fileInput").attr("data-filename","");
+        $("#uploadArea").find(".uploadedinfo").text("");
         $("#upload").prop("checked", false);
         $("#fonepay").prop("checked", false);
      });

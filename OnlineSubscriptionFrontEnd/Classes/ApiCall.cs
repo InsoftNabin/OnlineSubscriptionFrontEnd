@@ -30,7 +30,8 @@ namespace OnlineSubscriptionFrontEnd.Classes
             var client = new HttpClient();
             client.Timeout = TimeSpan.FromMinutes(10);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string baseurl = "https://devapi.inschoolerp.com/";
+           string baseurl = "https://qr.intradeplus.com/";
+           // string baseurl = "http://202.51.74.37:5354/";
            // string baseurl = "http://localhost:2039/";
             client.BaseAddress = new Uri(baseurl);
             return client;

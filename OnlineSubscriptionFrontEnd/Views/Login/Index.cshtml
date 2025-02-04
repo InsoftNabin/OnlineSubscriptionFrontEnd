@@ -42,13 +42,46 @@
     </div>
 </div>
 
+@* <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+</button> *@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">OTP Verification for Agent</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row col-12">
+                    <label>Enter the OTP sent to <b>"<span class="regEmail"></span>"</b> here.</label>
+                    <input type="text" class="form-control" placeholder="OTP" id="AgentOTP"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="VerifyOTP">Verify OTP</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script type="text/javascript">
+var agentLandingPage="";
+var sessionTokeen="";
+var OTP="";
     $(document).ready(() => {
         LoadData(window.location.href);
 
         $(document).on("keydown", function (e) {
             if (e.keyCode === 13) {
-                $("#LoginBtn").trigger('click');
+                //$("#LoginBtn").trigger('click');
             }
         });
     });
@@ -71,8 +104,9 @@
         }
     }
 
+   
     $("#LoginBtn").on("click", async (e) => {
-        
+        e.preventDefault();
         if ($("input[name='Email']").val() == '') {
             toastr.error("Please enter your username!");
             return;
@@ -86,14 +120,99 @@
             UserName: $("input[name='Email']").val(),
             Password: $("input[name='Password']").val(),
         };
-        debugger
+        
         const result = await AjaxCall("/Login/VerifyUser", data);
         var JSonResult=JSON.parse(result);
-
+        debugger
         if (JSonResult.message== 'Success') {
-            window.location.href = "/"+JSonResult.landingPage;
+            //------------------------if agent send OTP to verify-----------------
+            if(JSonResult.role=="Agent"||JSonResult.role=="Insoft"){
+                agentLandingPage=JSonResult.landingPage;
+                sessionTokeen=JSonResult.tokenNo;
+                OTP = (Math.floor(10000 + Math.random() * 90000)).toString();
+
+                var parm={
+                         SessionToken:sessionTokeen,
+                         OTP:OTP
+                };
+                var request=await AjaxCall("/Agent/StoreOTPBeforeLogin",parm);
+                var OTPResponse=JSON.parse(request);
+                //-------------otp is stored in databse-------------
+              if(OTPResponse>0){
+                  //--------------send sms to the user------------
+                    //  var phoneNumber =JSonResult.phoneNo;
+                    //  var parm = {
+                    //     SMS_Message: `${OTP} is your OTP to login to Insoft subscription Portal.`,
+                    //     MobileNo: phoneNumber
+                    //  };
+                    // var successmsg = await AjaxCall("/Dashboard/SendSMS", parm);
+                    // var ResponseSuccess=JSON.parse(successmsg);
+
+                    //  if (ResponseSuccess!=null){
+                    //      toastr.success("OTP sent to the registered number successfully!!!");
+                    //     $("#exampleModal").modal('show');
+                    //  }else{
+                    //     toastr.error("Erroor while sending OTP to the registered number");
+                    //  }
+
+
+                    //-------------------send email to the user-------------
+                            $(".regEmail").text(JSonResult.email);
+                   const codeBody = `${OTP} is your OTP to login to Insoft subscription Portal. For your security, do not share this code.`;
+                            const toUser = {
+                                ReceiverEmail: JSonResult.email,
+                                Subject: "OTP For Login to the Insoft Subscription Portal.",
+                                EmailBody: codeBody,
+                            };
+
+                   var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+                       var res=JSON.parse(successEmail);
+                       var jsonDatass=JSON.parse(res);
+                       var jsonData=JSON.parse(jsonDatass);
+
+                       if(jsonData.Status=="Success"){
+                        toastr.success("OTP sent to the registered email successfully!!!");
+                        $("#exampleModal").modal('show');
+                       }else{
+                           toastr.error("Error sending the OTP to the registered email address.");
+                       }
+              }
+              else{
+                   toastr.error("Problem while storing the OTP in the database.");
+              }
+            }else{
+                 window.location.href = "/"+JSonResult.landingPage;
+            }
         } else {
             toastr.error("Invalid Username or Password! Please try again.");
         }
     });
+
+    //-----------------verifies OTP of the agent-------------
+    $("#VerifyOTP").on("click", async (e) => {
+        
+     var OTP=$("#AgentOTP").val();
+     if(OTP==""||OTP==null||OTP==undefined){
+        toastr.warning("Please Enter OTP before proceeding!!!");
+     }
+     else{
+         var parm={
+                   SessionToken  :sessionTokeen,
+                   OTP:OTP
+         }
+         var checkOTP=await AjaxCall("/Agent/CheckOTP",parm);
+         var ValidAgent=JSON.parse(checkOTP);
+         var Response=JSON.parse(ValidAgent);
+
+         if(Response[0].SuccessCode=='200'){
+             toastr.success("OTP Validated successfully!!!");
+                 window.location.href = "/"+agentLandingPage;
+         }else{
+             toastr.warning("OTP didnot matched!!!");
+         }
+
+     }
+
+    });
+
 </script>

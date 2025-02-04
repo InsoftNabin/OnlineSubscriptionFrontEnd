@@ -520,6 +520,16 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getProducts();
+
+    $('#QRModal').on('hidden.bs.modal', function () {
+        debugger;
+     $("#fileInput").val("");
+        $("#fileInput").attr("data-filename","");
+        $("#uploadArea").find(".uploadedinfo").text("");
+        $("#upload").prop("checked", false);
+        $("#fonepay").prop("checked", false);
+        $("#fileInput").val("");
+    });
     });
         $(document).ready(function () {
         const $uploadArea = $("#uploadArea");
@@ -1242,7 +1252,7 @@
           }
            else if(PaymentType=="file")
            {
-              if($("#fileInput").val()==""){
+              if($("#fileInput").attr("data-filename")==""||$("#fileInput").attr("data-filename")==undefined){
                toastr.warning("Please Select Image First !!!");
               }
               else
@@ -1284,13 +1294,7 @@
           }
 
         });
-       $('#QRModal').on('hidden.bs.modal', function () {
-        debugger;
-        $("#showButton").trigger('click');
-        $("#upload").prop("checked", false);
-        $("#fonepay").prop("checked", false);
-        $("#fileInput").val("");
-    });
+
 
     $(document).on('click', '#statusModal .btnExtendPlan', async function (event) {
         
@@ -1711,7 +1715,7 @@
    
       $('#statusModal').on('hidden.bs.modal', function () {
             $("#showButton").trigger('click');
-
-        
      });
+     
+
 </script>

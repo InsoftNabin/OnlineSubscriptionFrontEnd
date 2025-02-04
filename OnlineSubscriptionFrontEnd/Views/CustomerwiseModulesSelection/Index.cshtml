@@ -169,13 +169,7 @@
     }
     
  
-    $(document).on('click', '.SelectModules', function () {
-        var customerId = $(this).data('unkidctable');
-        $("#CustomerId").val(customerId);
-        loadProducts(customerId);
-        getAgents();
-     
-    });
+  
 
   async  function loadProducts(customerId) {
 
@@ -285,7 +279,7 @@
                                 </div>
                             </div>
                             <div class="accordion-footer center" style="text-align:center; border-top:1px solid black;padding-top:8px;">
-                                    <button type="button" class="center btn btn-success saveeachData" data-custid="`+customerId+`" data-productid="${product.Id}" style="margin-bottom:5px;">Save &nbsp;<i class="feather icon-save"></i></button>
+                                        <button type="button" class="center btn btn-success hideforagent disableLinksForAgent saveeachData" data-custid="`+customerId+`" data-productid="${product.Id}" style="margin-bottom:5px;">Save &nbsp;<i class="feather icon-save"></i></button>
                             </div>
                         </div>
                     </div>`;
@@ -443,6 +437,11 @@
 
 
     async function LoadSubProductsbyCustomerandProduct(ProductId) {
+          if ('@ViewBag.Role.ToString()' === "Agent") {
+                   $(".saveeachData").remove();
+
+              }
+
         var parmdata = {
             CustomerId: parseInt($("#CustomerId").val()),
             ProductId: ProductId
@@ -560,5 +559,11 @@
               $(".PlansInTable").val(-1);
         }
     });
-
+      $(document).on('click', '.SelectModules', function () {
+          debugger
+          var customerId = $(this).data('unkidctable');
+          $("#CustomerId").val(customerId);
+          loadProducts(customerId);
+          getAgents();
+      });
 </script>

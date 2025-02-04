@@ -323,9 +323,9 @@
                                     <tr style="background-color:#0b3b56; color:white;">
                                         <th class="center">S.N</th>
                                         <th class="center hideme">Edit</th>
-                                        <th class="center hideme">Delete</th>
+                                        <th class="center hideme hideforagent">Delete</th>
                                         <th class="center hideme">Statement</th>
-                                        <th class="center">Company Code</th>
+                                        <th class="center" hidden>Company Code</th>
                                         <th class="center">Company Name</th>
                                         <th class="center">initial</th>
                                         <th class="center">Login Id</th>
@@ -477,7 +477,7 @@
                         <div class="col-third">
                             <label for="CustName">Company Name</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" id="CustName" placeholder="Customer Name" name="customername" required>
+                                <input type="text" class="disableLinksForAgent" id="CustName" placeholder="Customer Name" name="customername" required>
                                 <div class="input-icon">
                                     <i class="feather icon-user"></i>
                                 </div>
@@ -486,7 +486,7 @@
                         <div class="col-third">
                             <label for="CustAddress">Address</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" id="CustAddress" placeholder="Address" name="address" required>
+                                <input type="text" class="disableLinksForAgent" id="CustAddress" placeholder="Address" name="address" required>
                                 <div class="input-icon">
                                     <i class="feather icon-map-pin"></i>
                                 </div>
@@ -497,7 +497,7 @@
                         <div class="col-third">
                             <label for="panvat">PAN/VAT No</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
+                                <input type="text" class="disableLinksForAgent" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
                                 <div class="input-icon">
                                     <i class="feather icon-credit-card"></i>
                                 </div>
@@ -506,7 +506,7 @@
                         <div class="col-third">
                             <label for="Custcontact">Contact Number</label>
                             <div class="input-group input-group-icon">
-                                <input type="number" id="Custcontact" placeholder="Contact Number" name="contact" required>
+                                <input type="number" class="disableLinksForAgent" id="Custcontact" placeholder="Contact Number" name="contact" required>
                                 <div class="input-icon">
                                     <i class="feather icon-phone"></i>
                                 </div>
@@ -604,7 +604,7 @@
                         <div class="col-third">
                             <label for="CompanyCode">Company Code</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
+                                <input type="text" class="disableLinksForAgent" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
                                 <div class="input-icon">
                                     <i class="feather icon-briefcase"></i>
                                 </div>
@@ -648,10 +648,19 @@
 
 
 <script type="text/javascript">
+ 
     $(document).ready(function () {
-     
-       
-        
+         if ('@ViewBag.Role.ToString()' === "Agent") {
+        $(".hideforagent").hide();
+        $(".todaytrans").removeClass("col-xl-6 col-md-12 ");
+        $(".todaytrans").addClass("col-xl-12 col-md-12 ");
+        $(".disableLinksForAgent")
+                .attr("href", "javascript:void(0);")
+                .css({
+                    "pointer-events": "none",
+                    "opacity": "0.6"
+                });
+    }
         getTableData();
         LoadCountries();
           function LoadCountries() {
@@ -855,10 +864,10 @@
                 tableDOM += `<tr data-id=` + jsondata[i]["Id"] + `>
                                     <td class="center">` + (i + 1) + `</td>
                                     <td class="center"><button class="hideme btn btn-edit btn-success" data-bs-toggle="modal" data-bs-target="#editOrgModal"><i class="feather icon-edit"></i></button></td>
-                                    <td class="center"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
+                                    <td class="center hideforagent"><button class="hideme btn btn-danger btn-delete"><i class="feather icon-trash"></i></button></td>
                                     <td class="center"><button class="hideme btn btn-warning btn-statement" data-id=` + jsondata[i]["Id"] + ` data-bs-toggle="modal" data-bs-target="#StatementModal">Statement</button></td>
 
-                                    <td class="center custCode">` + jsondata[i]["CompanyCode"] + `</td>
+                                    <td class="center custCode" hidden>` + jsondata[i]["CompanyCode"] + `</td>
                                     <td class="center custName">` + jsondata[i]["CustomerName"] + `</td>
                                     <td class="center custName">` + jsondata[i]["initial"] + `</td>
                                     <td class="center custName">` + jsondata[i]["UserEmail"] + `</td>

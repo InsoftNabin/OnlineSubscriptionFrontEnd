@@ -63,7 +63,7 @@
                         </a>
 
                         <!-- Total Users -->
-                        <a href="/Dashboard/Index" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4 disableLinksForAgent">
+                        <a href="/Dashboard/Index" style="text-decoration:none;" class="col-xl-3 col-md-6 mb-4 disableLinksForAgent hideforagent">
                             <div class="card bg-c-lite-green update-card">
                                 <div class="card-block">
                                     <div class="row align-items-center">
@@ -240,15 +240,15 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-           if ('@ViewBag.Role.ToString()' === "Agent") {
+      if ('@ViewBag.Role.ToString()' === "Agent") {
         $(".hideforagent").hide();
         $(".todaytrans").removeClass("col-xl-6 col-md-12 ");
         $(".todaytrans").addClass("col-xl-12 col-md-12 ");
-                $(".disableLinksForAgent")
-                .attr("href", "javascript:void(0);") // Remove navigation functionality
+        $(".disableLinksForAgent")
+                .attr("href", "javascript:void(0);") 
                 .css({
-                    "pointer-events": "none", // Disable click events
-                    "opacity": "0.6"         // Add a visually "disabled" look
+                    "pointer-events": "none", 
+                    "opacity": "0.6"        
                 });
     }
 

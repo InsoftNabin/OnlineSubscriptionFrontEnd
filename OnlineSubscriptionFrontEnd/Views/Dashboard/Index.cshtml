@@ -292,12 +292,17 @@
     var value = JSON.parse(JSON.parse(JSON.parse(result)));
     orgData = value;
     var showOrg = ``;
-    value.forEach((element, Index) => {
-        let imageData = element.ImageData;
+              let imageData1="";
 
-        if (imageData === "https://incloud.academeplus.com/fileuploads/Subscription/") {
-                imageData = '/files/assets/images/employee.png';
-        }
+     value.forEach((element, Index) => {
+      let imageData = element.ImageData;
+      let imageData1 = '';
+
+      if (imageData === "https://incloud.academeplus.com/fileuploads/Subscription/") {
+          imageData1 = '/files/assets/images/employee.png';
+      } else {
+          imageData1 = imageData; 
+      }
       showOrg += `
     <label class=" nav-link btn btn-outline btn-outline-dashed btn-color-dark  d-flex flex-stack text-start p-6 active mb-6" style="border:1px solid black;margin:5px;">
       <!--end::Description-->
@@ -316,7 +321,7 @@
         <div class="d-flex">
           <!--begin::Avatar-->
           <div>
-              <img src="${element.ImageData}" width="100px" height="60px" />
+                 <img src="${imageData1}" width="100px" height="100px" />
 
           </div>
           <!--end::Avatar-->

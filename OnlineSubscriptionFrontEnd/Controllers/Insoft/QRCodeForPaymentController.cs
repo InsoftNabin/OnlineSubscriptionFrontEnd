@@ -48,18 +48,24 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 };
 
                 string reqData = await ApiCall.FonePayApiCallWithObject("/DynamicQR/GetQrCode", fpr, "Post");
-
-               
-                var response = JsonConvert.DeserializeObject<List<FonePayResponse>>(reqData);
-                var responseData = response.FirstOrDefault();
-
-               
-                if (responseData != null)
+                if (reqData=="Null")
                 {
-                    responseData.prn = fpr.prn; 
-                }
+                    return Ok(new { status = "error", message = "Received null or empty response from FonePay API." });
 
-                return Ok(responseData);  
+                }
+                else
+                {
+                    var response = JsonConvert.DeserializeObject<List<FonePayResponse>>(reqData);
+                    var responseData = response.FirstOrDefault();
+
+
+                    if (responseData != null)
+                    {
+                        responseData.prn = fpr.prn;
+                    }
+
+                    return Ok(responseData);
+                }
             }
             catch (Exception ex)
             {

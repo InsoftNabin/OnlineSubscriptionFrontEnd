@@ -35,6 +35,46 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 return RedirectToAction("Index", "UnexpectedError");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> StoreOTPBeforeLogin([FromBody] Agents ai)
+        {
+            try
+            {
+                string tokenNo = HttpContext.Session.GetString("TokenNo");
+                if (tokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                ai.TokenNo = tokenNo;
+                var result = await ApiCall.ApiCallWithObject("Agent/StoreOTPBeforeLogin", ai, "Post");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                TempData["Exception"] = ex.ToString();
+                return RedirectToAction("Index", "UnexpectedError");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> CheckOTP([FromBody] Agents ai)
+        {
+            try
+            {
+                string tokenNo = HttpContext.Session.GetString("TokenNo");
+                if (tokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                ai.TokenNo = tokenNo;
+                var result = await ApiCall.ApiCallWithObject("Agent/CheckOTP", ai, "Post");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                TempData["Exception"] = ex.ToString();
+                return RedirectToAction("Index", "UnexpectedError");
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> getAgents()
