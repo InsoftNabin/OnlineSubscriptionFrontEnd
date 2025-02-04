@@ -2,7 +2,9 @@
     ViewData["Title"] = "IndexforDashboard";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <div class="main-body">
@@ -232,7 +234,7 @@
                 </div>
             </div>
 
-            <div id="styleSelector"></div>
+           @*  <div id="styleSelector"></div> *@
         </div>
     </div>
 </div>
@@ -319,17 +321,16 @@
             for (var i = 0; i < jsondata.length; i++) {
                 tableDOM += `<tr data-id="${jsondata[i]['ukid']}" >
                                     <td class="center"><b>${i + 1}.</b></td>
-                                    <td class="center custCode">${jsondata[i]['CustomerName']}</td>
-                                   
-                                    <td class="center custName">${jsondata[i]['ProductName']}</td>
+                                    <td class="center custCode name">${jsondata[i]['CustomerName']}</td>
+                                    <td class="center custName pname">${jsondata[i]['ProductName']}</td>
                                      <td class="center">${jsondata[i]['Contact']}</td>
-                                    <td class="center">${jsondata[i]['EmailAddress']}</td>
-                                   
-
-                                    <td class="center prodName">${jsondata[i]['RemainingDays']}</td>
+                                    <td class="center email">${jsondata[i]['EmailAddress']}</td>
+                                    <td class="center prodName rdays">${jsondata[i]['RemainingDays']}</td>
                                    <td class="center">
                                         <button class="btn btn-success btn-sm sendSMS" data-Phone="${jsondata[i]['Contact']}" data-remDays="${jsondata[i]['RemainingDays']}" data-product="${jsondata[i]['ProductName']}">SMS</button>
-                                    </td>
+                                        <button class="btn btn-danger btn-sm sendEmail"  data-remDays="${jsondata[i]['RemainingDays']}" data-product="${jsondata[i]['ProductName']}">Email</button>
+                                    
+                                        </td>
                                 </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
@@ -405,7 +406,9 @@
         const id = $(this).data('id');
         window.location.href = `/Dashboard/Index?id=${id}`;
     });
-         $(document).on("click", ".sendSMS", async function () {
+        
+    
+    $(document).on("click", ".sendSMS", async function () {
             var phoneNumber = $(this).attr("data-Phone");
             var remDays = $(this).attr("data-remDays");
             var Product=$(this).attr("data-product")
@@ -435,5 +438,48 @@
                 }
             });
         });
+
+
+
+ $(document).on('click', '.sendEmail', async function () {
+            var Customer = $(this).parents("tr").find(".name").text();
+            var Product = $(this).parents("tr").find(".pname").text();
+            var rdays = $(this).parents("tr").find(".rdays").text();
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to send a reminder email to the customer that their plan will expire in ${rdays} days.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, send Email!',
+                cancelButtonText: 'No, cancel',
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+
+                    const codeBody = `Dear ${Customer}, your subscription of ${Product} is about to expire in ${rdays} Days. Please recharge in time to have uninterrupted service. Thank you for choosing Insoft R&D.`;
+                    const toUser = {
+                        ReceiverEmail: $(this).parents("tr").find(".email").text(),
+                        Subject: "About to expire Subscription",
+                        EmailBody: codeBody,
+                    };
+
+                    var successEmail = await AjaxCall("/Dashboard/SendEmail", toUser);
+                    var res = JSON.parse(successEmail);
+                    var jj=JSON.parse(res);
+                    var jsonData = JSON.parse(jj);
+
+                    if (jsonData.Status == "Success") {
+                        Swal.fire('Sent!', 'The SMS has been sent successfully.', 'success');
+                    } else {
+                        toastr.error("Error sending the email to the Customer.");
+                        Swal.fire('Cancelled', 'The email was not sent.', 'info');
+                    }
+                } else {
+                    Swal.fire('Cancelled', 'The SMS was not sent.', 'info');
+                }
+            });
+        });
+
+
 </script>
 
