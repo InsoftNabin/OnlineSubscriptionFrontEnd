@@ -33,18 +33,18 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         }
 
         [HttpPost]
-        public async Task<IActionResult> getSubscriptionVoucher()
+        public async Task<IActionResult> getSubscriptionVoucher([FromBody] AllActivities aa)
         {
             try
             {
-                string TokenNo = HttpContext.Session.GetString("TokenNo");
-                if (TokenNo == null)
+                aa.TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (aa.TokenNo == null)
                 {
-                    return Ok("-21");
+                    return Unauthorized();
                 }
                 else
                 {
-                    string i = await ApiCall.ApiCallWithString("Subscription/getVouchersForVerification", TokenNo, "Post");
+                    string i = await ApiCall.ApiCallWithObject("Subscription/getVouchersForVerification", aa, "Post");
                     return Ok(i);
                 }
 

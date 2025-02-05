@@ -52,7 +52,25 @@
             <div class="page-wrapper">
                 <div class="page-body ">
 
-                    <div class="card" style="height:80vh; ">
+                  <div class="row m-t-10 m-l-0 " style="border:1px solid black; background-color:white; border-radius:12px; padding:10px;">
+                    <div class=" col-sm-6 col-md-4" style="padding-right: 5px;">
+                        <label>Products</label>
+                        <select class="Products form-control">
+                            <option class="default" value="0">----All----</option>
+                        </select>
+                    </div>
+                        <div class=" col-sm-6 col-md-4" style="padding-right: 5px;">
+                            <label>Payment Mode</label>
+                            <select class="PaymentMode form-control">
+                                <option class="default" value="0">----All----</option>
+                                <option class="DigitalPayment" value="1">Digital Payment</option>
+                                <option class="Voucher" value="2">Voucher</option>
+                              <option class="Voucher" value="3">Admin</option>
+                            </select>
+                        </div>
+                  </div>
+
+                    <div class="card" style="height:80vh; margin:10px;">
 
 
                         <div class="containerr" style="max-width: 120em; margin:10px;">
@@ -83,6 +101,7 @@
                                     <th class="center">Issued Date</th>
                                     <th class="center">Amount </th>
                                     <th class="center">Plan</th>
+                                    <th class="center">Payment Mode</th>
                                     <th class="center">Voucher Image </th>
                                     <th class="center">Payment Remarks </th>
                                     <th class="center hideme">Subscription</th>
@@ -166,13 +185,33 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+          getProducts();
         getTableData();
     });
 
-    $(document).on('click', '#printButton', function () {
-        debugger
-        const imageSrc = $('#voucherImagePreview').attr('src');
+    $(".Products").on("change",async function () {
+        await getTableData();
+    });
+     $(".PaymentMode").on("change",async function () {
+        await getTableData();
+    });
+     function getProducts() {
+        var paa = AjaxCallWithoutDataNoAsync("/Products/getProducts");
+        var aaha = JSON.parse(paa);
+        var jsonD = JSON.parse(aaha);
 
+        var ProductsD = "";
+        if (jsonD.length > 0) {
+            for (var a = 0; a < jsonD.length; a++) {
+                ProductsD += `<option value="${jsonD[a]['Id']}">${jsonD[a]['Name']} (V .${jsonD[a]['Version']})</option>`;
+            }
+            $(".Products").not(".default").append(ProductsD);
+        } else {
+            toastr.error("No Products have been added!!!");
+        }
+    }
+    $(document).on('click', '#printButton', function () {
+        const imageSrc = $('#voucherImagePreview').attr('src');
         // Create a new window for printing
         const printWindow = window.open('', '_blank');
         printWindow.document.open();
@@ -183,8 +222,12 @@
 
 
 
-    function getTableData() {
-        var request = AjaxCallWithoutDataNoAsync("/VerifySubscriptionVoucher/getSubscriptionVoucher");
+   async function getTableData() {
+        var parm={
+            Product:$(".Products").val(),
+            PaymentMode:parseInt($(".PaymentMode").val())
+        };
+        var request =await AjaxCall("/VerifySubscriptionVoucher/getSubscriptionVoucher",parm);
         var dataa = JSON.parse(request);
         var data = JSON.parse(dataa);
 
@@ -208,7 +251,6 @@
                     rejectButton = `<button data-expdate="`+data[i]["ActualExpiryDate"]+`" data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-danger" data-type="reject" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-x"></i>&nbsp;Reject</button>`;
                     verifyButton = `<button data-expdate="`+data[i]["ActualExpiryDate"]+`" data-status="` + data[i]["IsVerifiedPayment"] + `" class="VorR btn btn-outline-success" data-type="verify" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="feather icon-check-square"></i>&nbsp;Verify</button>`;
                 }
-
                 tableDom += `<tr data-ukid="` + data[i]["ukid"] + `" class="` + rowClass + `">
                         <td class="center"><b>`+(i+1)+`</b></td>
                         <td class="center">`+ data[i]["CustomerName"] + `</td>
@@ -216,10 +258,14 @@
                         <td class="center">`+ data[i]["IssuedDate"] + `</td>
                         <td class="center">`+ data[i]["PaidAmount"] + `</td>
                         <td class="center">`+ data[i]["SPlan"] + `</td>
-                       
-                            <td class="center">
-                                <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />
-                             </td>
+                        <td class="center">`+ data[i]["PaymentMode"] + `</td>
+
+                              <td class="center">
+                                   ` + (data[i]["VoucherImagee"] ? `<img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" />` : '--') + `
+                               </td>
+
+                           <!-- <img src="` + data[i]["VoucherImagee"] + `" class="voucher-image-preview" /> -->
+                          
                           <td class="center">`+ data[i]["PaymentRemarks"] + `</td>
                         <td class="center">
                             ` + rejectButton + `
@@ -242,12 +288,10 @@
 
 
     $(document).on("click", ".VorR", async function () {
-      
         $("#exampleModal").find("#ActualExpiryDate").val($(this).attr("data-expdate"));
         $("#exampleModal").find(".verifyorRejectSubs").text($(this).attr("data-type"));
         $("#exampleModal").find(".btnSaveStatus").attr("data-status",$(this).attr("data-type"));
         $("#exampleModal").find(".btnSaveStatus").attr("data-ukid",$(this).parents("tr").attr("data-ukid"));
-        debugger
     });
 
     $(document).on("click", ".voucher-image-preview", function () {
@@ -274,7 +318,6 @@
                 Remarks: $("#exampleModal").find(".remarksStatus").val(),
                 ActualExpiryDate: $("#exampleModal").find("#ActualExpiryDate").val()
             };
-            debugger
             var requestVerification = await AjaxCall("/CustomerPlanDetails/VerifyorRejectSubscription", parm);
             toastr.success("Operation Successful!!!");
           
