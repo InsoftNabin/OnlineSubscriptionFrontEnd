@@ -11,6 +11,7 @@
         public string Email { get; set; }
         public string Website { get; set; }
         public string Bank { get; set; }
+        public int Country { get; set; }
         public string AccountNo { get; set; }
         public string ContactNo { get; set; }
         public string PanNo { get; set; }
