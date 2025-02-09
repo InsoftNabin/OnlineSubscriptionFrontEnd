@@ -1,0 +1,633 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    p{
+        font-size:15px;
+    }
+    .PlanDetails {
+        text-align: center;
+        color: white;
+        background-image: url('~/assets/images/erp.png');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .card {
+        background-color: #f4f9ff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+            .card ul li {
+                margin-bottom: 8px;
+                font-size: 14px;
+                color: #555;
+            }
+
+                .card ul li span {
+                    font-weight: bold;
+                    color: #333;
+                }
+
+    .plan {
+        text-align: center;
+        background-color: #034F75;
+        color: white;
+    }
+
+    label {
+        color: #034F75;
+        font-weight: 400;
+        height: 14px;
+        font-family: Courier New, Courier, monospace;
+    }
+
+    .infotext {
+        color: #034F75;
+        font-weight: 400;
+        height: 14px;
+        font-family: Courier New, Courier, monospace;
+    }
+
+    .labelp {
+        color: white;
+        font-weight: 400;
+        height: 14px;
+        font-family: Courier New, Courier, monospace;
+    }
+</style>
+
+<div class="py-3 py-lg-6">
+    <div class="container-xxl d-flex flex-wrap justify-content-between align-items-center">
+        <!-- Page title section -->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-md-3 mb-3 mb-md-0">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <img src="~/assets/media/logos/LogoInsoft.png"
+                     class="theme-light-show w-100px"
+                     alt="Logo" />
+            </h1>
+        </div>
+
+        <!-- Right section (Buttons and User Menu) -->
+        <div class="d-flex align-items-center">
+            <!-- New Organization Button -->
+            <h6 class="fs-xl fw-bold mb-4 lead">
+                <button type="button" class="btn btn-primary addOrganization d-flex align-items-center">
+                    <span class="svg-icon svg-icon-2 me-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
+                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"></rect>
+                        </svg>
+                    </span>
+                    New Organization
+                </button>
+            </h6>
+
+            <!-- User Account Menu -->
+            <div class="app-navbar-item ms-1 ms-md-3 ml-md-4" id="kt_header_user_menu_toggle">
+                <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+                    <i class="fa-solid fa-gear fs-1 mt-3 mx-8">
+                        &nbsp;
+                        <span style="font-family:'Times New Roman', Times, serif;" class="UserName" hidden></span>
+                    </i>
+                </div>
+
+                <!-- User Account Menu Dropdown -->
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold fs-6 w-100px" data-kt-menu="true">
+                    <div class="menu-item">
+                        <a class="menu-link signoutBtn">
+                            <i class="feather icon-log-out"></i>&nbsp; Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateOrganization" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="kt_modal_update_Organization" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+                    Edit Your Organization details
+                </h2>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="row-12 mb-3">
+
+                                <label for="newcompanyName" class=" required form-label mb-3">Company Name</label>
+                                <input type="text"
+                                       class="form-control form-control-sm border border-dark rounded  "
+                                       id="newcompanyName" />
+                            </div>
+                            <div class="row-12">
+
+                                <label for="contact" class="required form-label mb-3">Contact No.</label>
+                                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newContactNumber" />
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="newcompanyLogo" class=" required form-label mb-3">Company Logo:</label>
+                            <div class="d-block">
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+                                    <div class="image-input-wrapper w-125px h-125px rounded">
+                                        <img src="~/assets/media/logos/logo.png"
+                                             id="logoValue" class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded " data-name="" />
+                                    </div>
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo1" />
+                                        <input type="hidden" name="avatar_remove" />
+                                    </label>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded NewCountrySelect" id="NewCountrySelect">
+                            </select>
+                        </div>
+
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Display Name</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newdisplayName" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12 no-wrap col-12">
+                            <label for="newinitial" class="required form-label mb-3">Initial</label>
+                            <div class="flex-row input-group">
+                                <div class="col-lg-3 col-sm-2 shrink-1 col-4">
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="newinitial" />
+                                </div>
+                                <div class="col-lg-4 col-sm-3 shrink-1 col-4">
+                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradepos.com" />
+
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4">
+
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="newmoduleSelect">
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newvat" class="required form-label mb-3">TPIN/PAN</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newvat" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newaddress" class="required form-label mb-3">Address</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newaddress" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newphone" class="required form-label mb-3">Phone No.</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newphone" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newEmail" class="required form-label mb-3">Email</label>
+                            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="newEmail" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12" style="display:none;">
+                            <label for="newmotto" class="required form-label mb-3">Organization Motto</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="newmotto" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="newWebsite" class="form-label mb-3">Website</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="newWebsite" />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-stack pt-10">
+                        <div class="me-2">
+                            <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <span class="svg-icon svg-icon-3 me-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+                                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                                Back
+                            </button>
+                        </div>
+
+                        <div>
+                            <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
+                                <span class="indicator-label">
+                                    Update
+                                    <span class="svg-icon svg-icon-3 ms-2 me-0">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="indicator-progress">
+                                        Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </span>
+                            </button>@*
+                                <button type="submit" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">Submit
+                                <span class="svg-icon svg-icon-3 ms-1 me-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                </svg> *@
+                            @* </span> *@
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fw-bold d-flex align-items-center text-dark">
+                    Add Your Organization details
+                </h2>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="row-12 mb-3">
+
+                                <label for="companyName" class=" required form-label mb-3">Company Name</label>
+                                <input type="text"
+                                       class="form-control form-control-sm border border-dark rounded  "
+                                       id="companyName" />
+                            </div>
+                            <div class="row-12">
+
+                                <label for="contact" class="required form-label mb-3">Contact No.</label>
+                                <input type="text" class="form-control form-control-sm border border-dark rounded  " id="ContactNumber" />
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="companyLogo" class="form-label mb-3">Company Logo:</label>
+                            <div class="d-block">
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder " data-kt-image-input="true">
+                                    <div class="image-input-wrapper w-125px h-125px rounded">
+                                        <img src="~/assets/media/logos/logo.png"
+                                             class="logoValue theme-light-show img-thumbnail h-100 img-fluid w-100 rounded "
+                                             data-name="" required />
+                                    </div>
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" id="inputLogo" />
+                                        <input type="hidden" name="avatar_remove" />
+                                    </label>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Country</label>
+                            <select class="form-select form-select-sm border border-dark rounded CountrySelect" id="CountrySelect">
+                                <option value="">----Select Country---</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="displayName" class="required form-label mb-3">Display Name</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="displayName" />
+                        </div>
+                        <div class="col-lg-12 col-sm-12 no-wrap col-12">
+                            <label for="initial" class="required form-label mb-3">Initial</label>
+                            <div class="flex-row input-group">
+                                <div class="col-lg-2 col-sm-3 shrink-1 col-4" style="margin-left:2px;">
+                                    <input type="text" class="form-control form-control-sm  rounded border border-dark " id="initial" />
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
+                                    <input disabled type="text" class="form-control form-control-sm border border-dark rounded text-dark defaultModuleValue" id="basic-addon2" value=".intradepos.com" />
+
+                                </div>
+                                <div class="col-lg-4 col-sm-4 shrink-1 col-4" style="margin-left:2px;">
+
+                                    <select class="form-select form-select-sm border border-dark rounded moduleSelect" id="moduleSelect">
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="vat" class="required form-label mb-3">TPIN/PAN</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="vat" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="address" class="required form-label mb-3">Address</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="address" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="phone" class="required form-label mb-3">Phone No.</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="phone" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="Email" class="required form-label mb-3">Email</label>
+                            <input type="email" class="form-control form-control-sm border border-dark rounded  " id="Email" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12" style="display:none;">
+                            <label for="motto" class="required form-label mb-3">Organization Motto</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded  " id="motto" />
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label for="Website" class="form-label mb-3">Website</label>
+                            <input type="text" class="form-control form-control-sm border border-dark rounded " id="Website" />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-stack pt-10">
+                        <div class="me-2">
+                            <button type="button" class="btn btn-lg btn-light-primary me-3" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <span class="svg-icon svg-icon-3 me-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
+                                        <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                                Back
+                            </button>
+                        </div>
+
+                        <div>
+                            @* <button type="button" class="btn btn-lg btn-primary d-inline-block" id="updateDetails">
+                                <span class="indicator-label">
+                                Update
+                                <span class="svg-icon svg-icon-3 ms-2 me-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                </svg>
+                                </span>
+                                <span class="indicator-progress">
+                                Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                                </button> *@
+                            <button class="btn btn-lg btn-primary" id="submitDetails" data-kt-stepper-action="next">
+                                Submit
+                                <span class="svg-icon svg-icon-3 ms-1 me-0">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="payinvoice">
+
+</div>
+
+
+<div class="OrgCard card p-5">
+    <div class="card-header" style="background-color:#E4DBFF;">
+        <div class="SchoolInfo center" style="display: flex; align-items: center; ">
+            <!-- Circular image with border -->
+            <div class="imageinfo" style="flex-shrink: 0; width: 72px; height: 72px; border-radius: 50%;display: flex; justify-content: center; align-items: center; background-color: lightgray;">
+                <!-- Placeholder for image -->
+                <img src="~/files/assets/images/employee.png" class="img-fluid" style="max-width: 100px;" />
+            </div>
+            <!-- Main info with centered text -->
+            <div class="mainInfo" style="margin-left: 20px; text-align: center; flex-grow: 1;">
+                <h3 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 72px;">HIMALAYAN ENGLISH ACADEMY S.S</h3>
+                <h4 style="font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 18px;">Mechinagar-10, Jhapa, Nepal</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="buttonsDiv p-5" style="text-align:right;float:right;">
+        <button class="btn btn-success btn-xs"><i class="fa fa-circle-check"></i>Verified</button>
+        <button class="btn btn-danger btn-xs"><i class="fa fa-square"></i><i class="fa fa-square"></i> <i class="fa fa-play"></i> Extend</button>
+    </div>
+
+    <div class="PlanDetails border border-danger p-3 container-fluid">
+        <div class="row g-3">
+            <!-- Info Card -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card h-100 border border-dark p-3">
+                    <h3 class="text-center border border-dark rounded p-2">Your Info</h3>
+                    <div class="card-body text-center">
+                        <img src="~/files/assets/images/employee.png" class="img-fluid mb-3" style="max-width: 80px;" />
+                        <div class="text-start">
+                            <p class="infotext text-wrap"><strong>Username:</strong> sagar</p>
+                            <p class="infotext text-wrap"><strong>Email:</strong> sagar@insoftnepal.com</p>
+                            <p class="infotext text-wrap"><strong>Contact:</strong> +977 9864253402</p>
+                            <p class="infotext text-wrap"><strong>Address:</strong> Pokhara-33, Kaski</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plan Details Card -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card plan h-100 text-white p-3">
+                    <h2 class="text-center border border-white rounded p-2" style="color:white;">Plan Details</h2>
+                    <div class="card-body text-center">
+                        <div class="d-flex justify-content-center mb-3">
+                            <div class="circularchart bg-light rounded-circle d-flex align-items-center justify-content-center"
+                                 style="width: 100px; height: 100px;">
+                                <canvas id="subscriptionChart"></canvas>
+                            </div>
+                        </div>
+                        <h5 style="color:white;"><span class="RemainingPlan" style="color:white;font-size:28px;font-weight:700;"></span></h5>
+                        <div class="text-start">
+                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Product:</strong> schoolERP</p>
+                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Type:</strong> Online</p>
+                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Current Plan:</strong> Three Months</p>
+                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Next Due Date:</strong> 2027-10-10</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- School Profile Card -->
+            <div class="col-lg-4 col-md-12 col-12">
+                <div class="card h-100 border border-dark p-3">
+                    <h3 class="text-center border border-dark rounded p-2">School Profile</h3>
+                    <div class="card-body text-center">
+                        <img src="~/files/assets/images/employee.png" class="img-fluid mb-3" style="max-width: 80px;" />
+                        <div class="text-start">
+                            <p class="infotext text-wrap"><strong>Display Name:</strong> Himalayan Higher S.S</p><br>
+                            <p class="infotext text-wrap"><strong>Email:</strong> hea@gmail.com</p>
+                            <p class="infotext text-wrap"><strong>Country:</strong> Nepal</p>
+                            <p class="infotext text-wrap"><strong>Phone:</strong> 06154322</p>
+                            <p class="infotext text-wrap"><strong>Website:</strong> www.hea.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(async function () {
+            debugger
+            loadplansforcustomerandproduct(51, 7, 'subscriptionChart');  //hea
+        });
+
+        async function loadplansforcustomerandproduct(CustomerId, ProductId, chartId) {
+            var parm = {
+                CustomerId: parseInt(CustomerId),
+                ProductId: parseInt(ProductId)
+            };
+
+            var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
+            var response = JSON.parse(ddd);
+            var planData = JSON.parse(response);
+
+            var remainingDays = planData[0].RemainingDays;
+            var totalDays = planData[0].TotalDaysofPlan;
+            var expiredDays = totalDays - remainingDays;
+            var expiryDate = new Date(planData[0].CurrentSubExpiryDate);  
+
+            $(".RemainingPlan").text(remainingDays+'Days');
+
+            var ctx = document.getElementById(chartId).getContext('2d');
+
+            // Create the chart
+            var subscriptionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Remaining Days', 'Expired Days'],
+                    datasets: [{
+                        data: [remainingDays, expiredDays],
+                        backgroundColor: ['#28a745', '#dc3545'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutoutPercentage: 70, // Make the center empty for a donut chart
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                // Custom tooltip content
+                                label: function (tooltipItem) {
+                                    let label = tooltipItem.label;
+                                    let value = tooltipItem.raw;
+                                    if (label === 'Remaining Days') {
+                                        return   remainingDays ;
+                                    } else if (label === 'Expired Days') {
+                                        return  expiredDays ;
+                                    }
+                                    return label + ': ' + value + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false // Optional: Hide legend if not needed
+                        }
+                    }
+                }
+            });
+        }
+    </script>

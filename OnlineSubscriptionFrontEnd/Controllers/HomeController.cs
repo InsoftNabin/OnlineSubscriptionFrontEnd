@@ -73,7 +73,21 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
         }
+        public IActionResult Index1()
+        {
+            var token = HttpContext.Session.GetString("TokenNo");
+            // var UserName = HttpContext.Session.GetString("UserName");
 
+            if (token != null)
+            {
+                //TempData["UserName"] = UserName;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> getInvoiceForPrint([FromBody] InvoiceData org)
