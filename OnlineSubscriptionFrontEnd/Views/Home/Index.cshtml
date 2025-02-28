@@ -1920,11 +1920,6 @@
             }
         });
 
-      
-
-
-
-
         //update the organization
         $(document).on("click", "#updateDetails", async (event) => {
             event.preventDefault();
@@ -2469,8 +2464,6 @@
         }
     });
 
-
-
    $(".payment-option").on("click",function(){
 
       if($("#statusModal .rem").val() == "")
@@ -2481,9 +2474,6 @@
         toastr.warning("Please Fill Remarks First !!!");
       }
    });
-
-
-
 
       $(document).on('click', '#statusModal .btnExtendPlan', async function (e) {
         e.preventDefault();
@@ -2581,7 +2571,6 @@
           }
 
         });
-
 
     $('#QRModal').on('hidden.bs.modal', function () {
         $("#fileInput").val("");

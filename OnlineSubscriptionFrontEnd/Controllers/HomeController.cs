@@ -123,7 +123,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
                 ViewBag.Customer = result.Customer;
                 ViewBag.Product = result.Product;
                 ViewBag.MachineKey = MachineKey;
-                return View("Index");
+                return View("Index1");
             }
             else
             {

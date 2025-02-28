@@ -477,7 +477,7 @@
                         <div class="col-third">
                             <label for="CustName">Company Name</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" class="disableLinksForAgent" id="CustName" placeholder="Customer Name" name="customername" required>
+                                <input type="text" class="disableLinksForAgent1" id="CustName" placeholder="Customer Name" name="customername" required>
                                 <div class="input-icon">
                                     <i class="feather icon-user"></i>
                                 </div>
@@ -486,7 +486,7 @@
                         <div class="col-third">
                             <label for="CustAddress">Address</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" class="disableLinksForAgent" id="CustAddress" placeholder="Address" name="address" required>
+                                <input type="text" class="disableLinksForAgent1" id="CustAddress" placeholder="Address" name="address" required>
                                 <div class="input-icon">
                                     <i class="feather icon-map-pin"></i>
                                 </div>
@@ -497,7 +497,7 @@
                         <div class="col-third">
                             <label for="panvat">PAN/VAT No</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" class="disableLinksForAgent" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
+                                <input type="text" class="disableLinksForAgent1" id="panvat" placeholder="PAN/VAT No" name="panvat" required>
                                 <div class="input-icon">
                                     <i class="feather icon-credit-card"></i>
                                 </div>
@@ -506,7 +506,7 @@
                         <div class="col-third">
                             <label for="Custcontact">Contact Number</label>
                             <div class="input-group input-group-icon">
-                                <input type="number" class="disableLinksForAgent" id="Custcontact" placeholder="Contact Number" name="contact" required>
+                                <input type="number" class="disableLinksForAgent1" id="Custcontact" placeholder="Contact Number" name="contact" required>
                                 <div class="input-icon">
                                     <i class="feather icon-phone"></i>
                                 </div>
@@ -604,7 +604,7 @@
                         <div class="col-third">
                             <label for="CompanyCode">Company Code</label>
                             <div class="input-group input-group-icon">
-                                <input type="text" class="disableLinksForAgent" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
+                                <input type="text" class="disableLinksForAgent1" id="CompanyCode" placeholder="Company Code" name="CompanyCode">
                                 <div class="input-icon">
                                     <i class="feather icon-briefcase"></i>
                                 </div>
@@ -917,6 +917,8 @@
     }
 
     $(document).on("click", ".btn-edit", async function () {
+        debugger
+       $(".disableLinksForAgent1").attr("readonly", true);
         const row = $(this).parents("tr");
         var parm={
             Id: row.data("id")
