@@ -95,7 +95,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
 
         [HttpPost]
-        public async Task<IActionResult> getSubscription()
+        public async Task<IActionResult> getSubscription([FromBody] string abc)
         {
             try
             {

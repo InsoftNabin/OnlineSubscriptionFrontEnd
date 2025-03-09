@@ -39,7 +39,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
 
         [HttpPost]
-        public async Task<IActionResult> getProducts()
+        public async Task<IActionResult> getProducts([FromBody] string abc)
         {
             try
             {

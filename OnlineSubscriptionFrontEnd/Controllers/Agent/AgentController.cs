@@ -77,7 +77,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         }
 
         [HttpPost]
-        public async Task<IActionResult> getAgents()
+        public async Task<IActionResult> getAgents([FromBody] string abc)
         {
             try
             {

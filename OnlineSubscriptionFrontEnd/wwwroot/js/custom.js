@@ -237,92 +237,92 @@ async function AjaxCallNoReturn(url, data) {
 };
 
 async function AjaxCallWithoutData(url) {
-    var result;
-    await $.ajax({
-        type: "Post",
-        url: url,
-        dataType: "Text",
-        cache: false,
-        async: true,
-        contentType: "application/json;charset=utf-8",
-        beforeSend: function () {
-            Swal.fire({
-                html: '<div class="loader" id="loader-6">' +
-                    '<span></span>' +
-                    '<span></span>' +
-                    '<span></span>' +
-                    '<span></span>' +
-                    '</div>' +
-                    '<div>' +
-                    '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
-                    '</div>',
-                background: 'unset',
-                allowOutsideClick: false,
-                showConfirmButton: false,
-            });
-        },
-        success: function (responce) {
-            if (responce == "504") {
-                //  window.location.href = "/SessionExpired";
-                Swal.close();
-                const { value: Pasword } = Swal.fire({
-                    title: 'Session Expired',
-                    inputLabel: 'Enter Password to Continue',
-                    input: 'password',
-                    inputAttributes: {
-                        id: "Pasword",
-                        autocapitalize: 'off',
-                        autocomplete: 'false'
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Verify <i class="fa fa-arrow-right"></i>',
-                    showLoaderOnConfirm: true,
-                    allowOutsideClick: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var Psword = result.value;
-                        var UserName = $(".Logonid1").text();
-                        var initial = $(".UserName1").attr("data-id");
-                        var initialURL = $(".Logonid1").attr("data-id");
+    var result = AjaxCall(url);
+    //await $.ajax({
+    //    type: "Post",
+    //    url: url,
+    //    dataType: "Text",
+    //    cache: false,
+    //    async: true,
+    //    contentType: "application/json;charset=utf-8",
+    //    beforeSend: function () {
+    //        Swal.fire({
+    //            html: '<div class="loader" id="loader-6">' +
+    //                '<span></span>' +
+    //                '<span></span>' +
+    //                '<span></span>' +
+    //                '<span></span>' +
+    //                '</div>' +
+    //                '<div>' +
+    //                '<p style="color:#fff; font-size:20px;">PLEASE WAIT...</p>' +
+    //                '</div>',
+    //            background: 'unset',
+    //            allowOutsideClick: false,
+    //            showConfirmButton: false,
+    //        });
+    //    },
+    //    success: function (responce) {
+    //        if (responce == "504") {
+    //            //  window.location.href = "/SessionExpired";
+    //            Swal.close();
+    //            const { value: Pasword } = Swal.fire({
+    //                title: 'Session Expired',
+    //                inputLabel: 'Enter Password to Continue',
+    //                input: 'password',
+    //                inputAttributes: {
+    //                    id: "Pasword",
+    //                    autocapitalize: 'off',
+    //                    autocomplete: 'false'
+    //                },
+    //                showCancelButton: true,
+    //                confirmButtonText: 'Verify <i class="fa fa-arrow-right"></i>',
+    //                showLoaderOnConfirm: true,
+    //                allowOutsideClick: false,
+    //            }).then((result) => {
+    //                if (result.isConfirmed) {
+    //                    var Psword = result.value;
+    //                    var UserName = $(".Logonid1").text();
+    //                    var initial = $(".UserName1").attr("data-id");
+    //                    var initialURL = $(".Logonid1").attr("data-id");
 
-                        var data = {
-                            InitialURL: initialURL,
-                            Initial: initial,
-                            UserName: UserName,
-                            UserPass: Psword
-                        }
-                        var Status = AjaxCallNoAsync("/Login/ReLogin", data);
-                        var JsonStatus = JSON.parse(Status)
-                        if (JsonStatus == 1) {
-                            toastr.success('Success');
-                        }
-                        else {
-                            toastr.error('Invalid Data, Try Again ');
-                            location.reload();
-                        }
+    //                    var data = {
+    //                        InitialURL: initialURL,
+    //                        Initial: initial,
+    //                        UserName: UserName,
+    //                        UserPass: Psword
+    //                    }
+    //                    var Status = AjaxCallNoAsync("/Login/ReLogin", data);
+    //                    var JsonStatus = JSON.parse(Status)
+    //                    if (JsonStatus == 1) {
+    //                        toastr.success('Success');
+    //                    }
+    //                    else {
+    //                        toastr.error('Invalid Data, Try Again ');
+    //                        location.reload();
+    //                    }
 
 
-                    }
-                    else {
-                        window.location.href = "/SessionExpired";
-                    }
-                })
+    //                }
+    //                else {
+    //                    window.location.href = "/SessionExpired";
+    //                }
+    //            })
 
-            }
-            else if (responce == "401") {
-                window.location.href = "/Dashboard";
-                Swal.close();
-            }
-            else {
-                result = responce;
-                Swal.close();
-            }
-        },
-        error: function (error) {
-            alert("Error:" + error);
-            Swal.close();
-        }
-    });
+    //        }
+    //        else if (responce == "401") {
+    //            window.location.href = "/Dashboard";
+    //            Swal.close();
+    //        }
+    //        else {
+    //            result = responce;
+    //            Swal.close();
+    //        }
+    //    },
+    //    error: function (error) {
+    //        alert("Error:" + error);
+    //        Swal.close();
+    //    }
+    //});
     return result;
 };
 

@@ -60,7 +60,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         }
 
         [HttpPost]
-        public async Task<IActionResult> getRecentTransactions()
+        public async Task<IActionResult> getRecentTransactions([FromBody] string abc)
         {
             try
             {

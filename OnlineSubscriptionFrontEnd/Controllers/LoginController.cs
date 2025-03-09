@@ -132,7 +132,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult LogOut()
+        public IActionResult LogOut([FromBody] string abc)
         {
             var token = HttpContext.Session.GetString("TokenNo");
             if (token != null)

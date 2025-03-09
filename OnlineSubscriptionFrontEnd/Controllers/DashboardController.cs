@@ -29,7 +29,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromBody] string abc)
         {
             var tokenval = HttpContext.Session.GetString("TokenNo");
             if (tokenval != null)
@@ -65,7 +65,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> GetUnverifiedOrganizations()
+        public async Task<IActionResult> GetUnverifiedOrganizations([FromBody] string abc)
         {
             try
             {
