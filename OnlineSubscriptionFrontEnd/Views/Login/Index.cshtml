@@ -120,10 +120,8 @@ var OTP="";
             UserName: $("input[name='Email']").val(),
             Password: $("input[name='Password']").val(),
         };
-        
         const result = await AjaxCall("/Login/VerifyUser", data);
         var JSonResult=JSON.parse(result);
-        debugger
         if (JSonResult.message== 'Success') {
             //------------------------if agent send OTP to verify-----------------
             if(JSonResult.role=="Agent"||JSonResult.role=="Insoft"){

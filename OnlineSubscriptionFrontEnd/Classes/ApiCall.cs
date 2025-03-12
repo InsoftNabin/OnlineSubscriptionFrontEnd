@@ -76,6 +76,32 @@ namespace OnlineSubscriptionFrontEnd.Classes
 
 
 
+        //public static async Task<string> ApiCallWithString(string URl, string _GetString, string Action)
+        //{
+        //    try
+        //    {
+        //        HttpClient client = Initial();
+        //        HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetString), UTF8Encoding.UTF8, "application/json");
+        //        HttpResponseMessage res = await client.PostAsync(URl, httpContent);
+        //        if (res.IsSuccessStatusCode) 
+
+
+        //        {
+        //            string result = await res.Content.ReadAsStringAsync();
+        //            return result;
+        //        }
+        //        else
+        //        {
+        //            return "Null";
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
+        //    }
+        //}
+
         public static async Task<string> ApiCallWithString(string URl, string _GetString, string Action)
         {
             try
@@ -83,9 +109,8 @@ namespace OnlineSubscriptionFrontEnd.Classes
                 HttpClient client = Initial();
                 HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetString), UTF8Encoding.UTF8, "application/json");
                 HttpResponseMessage res = await client.PostAsync(URl, httpContent);
-                if (res.IsSuccessStatusCode) 
 
-
+                if (res.IsSuccessStatusCode)
                 {
                     string result = await res.Content.ReadAsStringAsync();
                     return result;
@@ -94,14 +119,14 @@ namespace OnlineSubscriptionFrontEnd.Classes
                 {
                     return "Null";
                 }
-
             }
             catch (Exception ex)
             {
-                string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
+                string exceptionString = ex.ToString();
+                var exceptionSubstring = exceptionString.Length > 1500 ? exceptionString.Substring(0, 1500) : exceptionString;
+                return RedirectToAction("Exception", "Helper", new { ExceptionString = exceptionSubstring });
             }
         }
-
 
 
         internal static Task<string> ApiCallWithString(string v, string tokenNo)
@@ -114,30 +139,71 @@ namespace OnlineSubscriptionFrontEnd.Classes
             throw new NotImplementedException();
         }
 
+        //public static async Task<string> ApiCallWithObject(string URl, object _GetObject, string Action)
+        //{
+        //    try
+        //    {
+        //        HttpClient client = Initial();
+        //        HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetObject), UTF8Encoding.UTF8, "application/json");
+               
+        //        //check
+        //        httpContent.Headers.ContentLength = httpContent.ReadAsByteArrayAsync().Result.Length;
+
+        //        HttpResponseMessage res = await client.PostAsync(URl, httpContent);
+        //        if (res.IsSuccessStatusCode)
+        //        {
+        //            string result = await res.Content.ReadAsStringAsync();
+        //            return result;
+        //        }
+        //        else
+        //        {
+        //            return "Null";
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
+        //    }
+        //}
+
         public static async Task<string> ApiCallWithObject(string URl, object _GetObject, string Action)
         {
             try
             {
                 HttpClient client = Initial();
                 HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(_GetObject), UTF8Encoding.UTF8, "application/json");
+
+              
+                var byteArray = await httpContent.ReadAsByteArrayAsync();
+                if (byteArray != null)
+                {
+                    httpContent.Headers.ContentLength = byteArray.Length;
+                }
+                else
+                {
+                    httpContent.Headers.ContentLength = 0; 
+                }
+
                 HttpResponseMessage res = await client.PostAsync(URl, httpContent);
+
                 if (res.IsSuccessStatusCode)
                 {
-                    string result =  res.Content.ReadAsStringAsync().Result;
+                    string result = await res.Content.ReadAsStringAsync();
                     return result;
                 }
                 else
                 {
                     return "Null";
                 }
-
             }
             catch (Exception ex)
             {
-                string Exception = ex.ToString(); var ExceptionSubstring = Exception.Substring(0, 1500); return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
+                string Exception = ex.ToString();
+                var ExceptionSubstring = Exception.Length > 1500 ? Exception.Substring(0, 1500) : Exception;
+                return RedirectToAction("Exception", "Helper", new { ExceptionString = ExceptionSubstring });
             }
         }
-
 
 
         public static async Task<string> FonePayApiCallWithObject(string URl, object _GetObject, string Action)
