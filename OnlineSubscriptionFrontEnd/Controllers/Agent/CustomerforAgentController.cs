@@ -15,7 +15,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Agent
 
                 if (tokenNo == null)
                 {
-                    return Ok("-21");  
+                    return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
                 }
                 else
                 {
@@ -56,9 +56,18 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Agent
 
         public IActionResult SubscriptionExtensionByAgent()
         {
-            string AgentId = HttpContext.Session.GetString("AgentId");
-            ViewBag.AgentId = AgentId;
-            return View();
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
+
+            if (tokenNo == null)
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else
+            {
+                string AgentId = HttpContext.Session.GetString("AgentId");
+                ViewBag.AgentId = AgentId;
+                return View();
+            }
         }
 
 

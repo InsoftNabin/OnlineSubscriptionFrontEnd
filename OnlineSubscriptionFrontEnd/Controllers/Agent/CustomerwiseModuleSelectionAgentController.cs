@@ -15,7 +15,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Agent
 
                 if (tokenNo == null)
                 {
-                    return Ok("-21");
+                    return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
                 }
                 else
                 {

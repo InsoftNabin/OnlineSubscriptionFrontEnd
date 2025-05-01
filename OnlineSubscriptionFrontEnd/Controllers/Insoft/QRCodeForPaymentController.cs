@@ -13,7 +13,15 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult Index()
         {
-            return View();
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
+
+            if (tokenNo == null)
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else {
+                return View();
+            }
         }
 
 

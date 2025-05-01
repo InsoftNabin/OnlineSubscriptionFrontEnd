@@ -8,9 +8,18 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult Index()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
- 
-            return View();
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
+            if (tokenNo == null)
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else
+            {
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
         }
 
         [HttpPost]

@@ -916,7 +916,6 @@
 
     <script>
         $(document).ready(async function () {
-            debugger
          $(".defaultModuleValue").val('inschoolerp.com');
           LoadCountries();
         // Update value on change event
@@ -939,7 +938,7 @@
                 });
             }
             await GetOrganizations();
-            loadplansforcustomerandproduct(51, 7);  //hea
+            //loadplansforcustomerandproduct(51,7);  //hea
 
              $('.viewSub').each(async function () {
                 var id = $(this).attr("data-custid");
@@ -956,7 +955,6 @@
 
                 await loadsubscriptionLog(id, ProductId);
                 await loadplansforcustomerandproduct(id, ProductId);
-
             });
 
             var customerId = '@ViewBag.Customer';
@@ -1169,6 +1167,7 @@
         }
 
         async function loadplansforcustomerandproduct(CustomerId, ProductId) {
+            debugger
             var parm = {
                 CustomerId: parseInt(CustomerId),
                 ProductId: parseInt(ProductId)
@@ -1231,7 +1230,6 @@
                 CustomerId: parseInt(CustomerId),
                 ProductId: parseInt(ProductId)
             };
-
             // Fetch current plan details
             var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
             var response = JSON.parse(ddd);

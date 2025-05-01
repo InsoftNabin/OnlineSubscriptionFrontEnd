@@ -9,9 +9,18 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult IndexforDashboard()
         {
-            ViewBag.UserName = HttpContext.Session.GetString("UserName");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            return View();
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
+
+            if (tokenNo == null)
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("UserName");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+            }
         }
 
 
@@ -23,7 +32,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
                 if (tokenNo == null)
                 {
-                    return Ok("-21");
+                    return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
                 }
                 else
                 {

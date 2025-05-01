@@ -10,9 +10,16 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
     {
         public IActionResult Index()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
 
-            return View();
+            if (tokenNo == null) {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+            }
         }
 
         [HttpPost]

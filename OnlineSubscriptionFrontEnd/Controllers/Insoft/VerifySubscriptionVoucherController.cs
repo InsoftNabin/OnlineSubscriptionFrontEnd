@@ -10,10 +10,10 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         {
             try
             {
-                string TokenNo = HttpContext.Session.GetString("TokenNo");
-                if (TokenNo == null)
+                string tokenNo = HttpContext.Session.GetString("TokenNo");
+                if (tokenNo == null)
                 {
-                    return Ok("-21");
+                    return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
                 }
                 else
                 {
