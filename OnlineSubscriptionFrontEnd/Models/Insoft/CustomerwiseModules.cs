@@ -15,6 +15,7 @@
         public int IsPaidBased { get; set; }
         public string SerialNumber { get; set; }
         public string SiteURL { get; set; }
+        public string Sukey { get; set; }
         public bool Active { get; set; }
         public List<SubProduct> subProducts { get; set; }
     }

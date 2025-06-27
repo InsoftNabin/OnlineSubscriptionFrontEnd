@@ -80,10 +80,10 @@ $("#btnsubmit").click(async function (e) {
     Gcode:code,
     ReceiverEmail:email
   }
+
   var result = await AjaxCall("/SendCode/GetCode",data);
-  var JsonData =JSON.parse(JSON.parse(result));
-  debugger;
-  if(JsonData[0].VerificationCode =="true"){
+  var resultt=JSON.parse(result);
+  if (resultt.success) {
     window.location.href = "/Register/Index?email="+email;
   }
   else{

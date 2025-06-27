@@ -103,7 +103,6 @@
                 Gcode: code
             }
             // try {
-
             const returnData = await AjaxCall("/SendCode/VerifyEmailAndSendCode", data)
             const result = JSON.parse(JSON.parse(returnData));
             console.log(result.Status);

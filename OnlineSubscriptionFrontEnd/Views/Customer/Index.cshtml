@@ -892,8 +892,6 @@
                                 </tr>`;
             }
             $("#agentTable tbody").empty().append(tableDOM);
-
-            // Add event listener for toggling password visibility
             $(".toggle-password").on("click", function () {
                 var passwordSpan = $(this).siblings(".password");
                 var isHidden = passwordSpan.text() === "***";

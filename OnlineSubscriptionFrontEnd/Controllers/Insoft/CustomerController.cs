@@ -15,7 +15,8 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
             {
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
-            else {
+            else
+            {
                 ViewBag.Role = HttpContext.Session.GetString("Role");
                 return View();
             }
@@ -27,7 +28,39 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
             {
                 return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
             }
-            else {
+            else
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+            }
+        }
+
+
+        public IActionResult Keysetup()
+        {
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
+            if (tokenNo == null)
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+            }
+        }
+
+
+
+        public IActionResult KeySearch()
+        {
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
+            if (tokenNo == null)
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else
+            {
                 ViewBag.Role = HttpContext.Session.GetString("Role");
                 return View();
             }

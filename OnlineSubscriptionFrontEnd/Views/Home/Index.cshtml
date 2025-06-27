@@ -2209,7 +2209,6 @@
                         // Call the backend to generate QR code and get the PRN
                         var aahaha = await AjaxCall("/QRCodeForPayment/FonePayProceed", bankDetails);
                         var response = JSON.parse(aahaha);
-                        debugger
                         $("#statusModal").modal('hide');
                         $("#QRModal").modal('show');
 
@@ -2477,7 +2476,6 @@
 
       $(document).on('click', '#statusModal .btnExtendPlan', async function (e) {
         e.preventDefault();
-        debugger
           var PaymentType=$('input[name="payment"]:checked').val();
 
           if(PaymentType==undefined){

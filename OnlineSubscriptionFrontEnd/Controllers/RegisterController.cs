@@ -20,7 +20,15 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string RefOTPToken = HttpContext.Session.GetString("RegOTPToken");
+            if (string.IsNullOrEmpty(RefOTPToken))
+            {
+                return RedirectToAction("Index", "SendCode");
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterModel rg)
