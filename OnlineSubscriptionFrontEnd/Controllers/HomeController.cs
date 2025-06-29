@@ -132,7 +132,21 @@ namespace OnlineSubscriptionFrontEnd.Controllers
 
         }
 
-
+        [HttpPost]
+        public async Task<IActionResult> SaveSerialKey([FromBody] orgData org)
+        {
+            var token = HttpContext.Session.GetString("TokenNo");
+            if (token != null)
+            {
+                org.TokenNo = HttpContext.Session.GetString("TokenNo");
+                var result = await ApiCall.ApiCallWithObject("User/SaveSerialKey", org, "Post");
+                return Ok(result);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> UploadOrganizationData([FromBody] orgData org)

@@ -18,7 +18,7 @@ namespace OnlineSubscriptionFrontEnd.Classes
             var client = new HttpClient();
             client.Timeout = TimeSpan.FromMinutes(10);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string baseurl = Startup.baseapiurl;
+            string baseurl = "https://localhost:44334/";//Startup.baseapiurl;
             client.BaseAddress = new Uri(baseurl);
             return client;
         }

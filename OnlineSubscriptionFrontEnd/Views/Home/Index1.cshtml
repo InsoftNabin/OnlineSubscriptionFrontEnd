@@ -966,8 +966,7 @@
         var body = ``;
         var buttons=``;
 
-
-               async function GetOrganizations() {
+     async function GetOrganizations() {
             const result = await AjaxCall("/Home/GetOrganizations");
             let IncludeData = JSON.parse(JSON.parse(JSON.parse(result)));
 
@@ -999,27 +998,51 @@
                                         </div>
                                     </div>  -->
 
-                                    <!-- Plan Details Card -->
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="card plan h-100 text-white p-3">
-                                            <h2 class="text-center border border-white rounded p-2" style="color:white;">Plan Details</h2>
-                                            <div class="card-body text-center">
-                                                <div class="d-flex justify-content-center mb-3">
-                                                    <div class="circularchart bg-light rounded-circle d-flex align-items-center justify-content-center"
-                                                        style="width: 100px; height: 100px;">
-                                                        <canvas id="subscriptionChart"></canvas>
+                                           <!-- Plan Details Card -->
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="card plan h-100 text-white p-3">
+                                                    <h2 class="text-center border border-white rounded p-2" style="color:white;">Plan Details</h2>
+                                                    <div class="card-body text-center">
+                                                        <div class="d-flex justify-content-center mb-3">
+                                                            <div class="circularchart bg-light rounded-circle d-flex align-items-center justify-content-center"
+                                                                style="width: 100px; height: 100px;">
+                                                                    <canvas id="subscriptionChart${IncludeData[i].custId}"></canvas>
+                                                            </div>
+                                                        </div>
+                                                        <h5 style="color:white;">
+                                                            <span id="RemainingPlan" style="color:white;font-size:28px;font-weight:700;"></span>
+                                                        </h5>
+                                                        <div class="text-start">
+                                                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Product:</strong> ${IncludeData[i].ModuleName}</p>
+                                                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Type:</strong> ${IncludeData[i].Type}</p>
+                                                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Current Plan:</strong> <span class="CurrentlySubscription"></span></p>
+                                                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Next Due Date:</strong> <span class="CurrentlySubscriptionEndDate"></span></p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <h5 style="color:white;"><span id="RemainingPlan" style="color:white;font-size:28px;font-weight:700;"></span></h5>
-                                                <div class="text-start">
-                                                    <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Product:</strong>${IncludeData[i].ModuleName}</p>
-                                                    <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Type:</strong> ${IncludeData[i].Type}</p>
-                                                    <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Current Plan:</strong> <span class="CurrentlySubscription"></span></p>
-                                                    <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Next Due Date:</strong><span class="CurrentlySubscriptionEndDate"></span></p>
+
+                                                    <!-- Show Serial Key Input only if Type is Desktop -->
+                                                    ${IncludeData[i].Type === 'Desktop' ? `
+                                                    <div class="card-footer bg-secondary text-white rounded">
+                                                        <div class="p-3 border border-white rounded" style="background-color: #0b3b56;">
+                                                            <div class="row align-items-center">
+                                                                <div class="col-md-8 mb-2 mb-md-0">
+                                                                    <label for="serialKey${i}" class="form-label fw-bold white" style="color:white;">🔑 Enter Serial Key</label>
+                                                                    <input type="text" id="serialKey${i}" class="form-control bg-light text-dark shadow-sm" placeholder="Enter your serial key here" value="${IncludeData[i].Sukey}">
+                                                                </div>
+                                                                <div class="col-md-4 text-md-start text-center">
+                                                                <label>&nbsp;</label>
+                                                                <button class="btn btn-success w-100 BtnSaveSerialKey mt-2 mt-md-0" data-custid="${IncludeData[i].custId}" onclick="SaveSerialKey(${IncludeData[i].custId}, 'serialKey${i}')">
+                                                                   Save <i class="fa fa-save ms-1"></i>
+                                                                </button>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    ` : ''}
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+
 
                                     <!-- School Profile Card -->
                                     <div class="col-lg-6 col-md-12 col-12">
@@ -1050,9 +1073,14 @@
                                     <div class="imageinfo" style="flex-shrink: 0; width: 72px; height: 72px; border-radius: 50%;display: flex; justify-content: center; align-items: center; background-color: lightgray;">
                                         <img src="/files/assets/images/employee.png" class="img-fluid" style="max-width: 100px;" />
                                     </div>
-                                    <div class="mainInfo" style="margin-left: 20px; text-align: center; flex-grow: 1;">
-                                        <p style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 72px;">${IncludeData[i].CompanyName}</p>
-                                        <p style="font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 18px;">${IncludeData[i].Address}</p>
+                                    <div class="mainInfo" style="margin-left: 50px; text-align: left; flex-grow: 1;">
+                                        <div class="row">
+                                             <p style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 72px;">${IncludeData[i].CompanyName}</p>
+                                        </div>
+                                        <div class="row">
+                                            <p style="font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 18px;">${IncludeData[i].Address}</p>
+                                        </div>
+                                    <div class="row"></div>
                                         <span style="font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 18px;"><a class="UserOrgurl" href="${IncludeData[i].ReturnURL}"></a>${IncludeData[i].ReturnURL}</span>
                                     </div>
                                 </div>
@@ -1167,7 +1195,6 @@
         }
 
         async function loadplansforcustomerandproduct(CustomerId, ProductId) {
-            debugger
             var parm = {
                 CustomerId: parseInt(CustomerId),
                 ProductId: parseInt(ProductId)
@@ -1182,7 +1209,7 @@
             var expiredDays = totalDays - remainingDays;
             var expiryDate = new Date(planData[0].CurrentSubExpiryDate);
             $(".OrgCard" + ProductId).find(".PlanDetails" + ProductId).find("#RemainingPlan").text(remainingDays + ' Days');
-            var subscriptionChart = "subscriptionChart";  // The id of the canvas
+            var subscriptionChart = "subscriptionChart"+CustomerId;  // The id of the canvas
             var ctx = document.getElementById(subscriptionChart).getContext('2d');
 
             //Create the chart
@@ -1234,7 +1261,7 @@
             var ddd = await AjaxCall("/CustomerPlanDetails/getCurrentPlan", parm);
             var response = JSON.parse(ddd);
             var responsefr = JSON.parse(response);
-
+            debugger
             if (responsefr[0]["ErrorMessage"] == -202) {
                 toastr.error("You are not subscribed to the subscription Plan yet!!!");
 
@@ -1242,59 +1269,22 @@
                 if (responsefr.length > 0) {
                     // If a current plan exists
                     $(".currentPlan").text(responsefr[0]["CurrentlySubscription"]);
-
-
-                    //  if($("#statusModal").find(".MachineKey").val()=="")
-                    //  {
-                    // $("#statusModal").find(".MachineKey").val(responsefr[0]["MachineKey"]||"Online");
-
-                    //  }
-                    // var dateParts=responsefr[0]["CurrentSubExpiryDate"].split(" ");
-                    // const formattedDate = `${dateParts[0]} ${dateParts[1]} ${dateParts[2]}`;
                     $(".currentPlanEdate").text(responsefr[0]["CurrentSubExpiryDate"]);
                     var remainingDays =  parseInt(responsefr[0]["RemainingDays"]);
                     var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
                     $(".remainingDaysinCPlan").text(remainingDays);
                     $(".TotalDaysInCurrentPlan").text(totalDays);
-
-
-
-                     // $("#" + chartId).parents(".card").find("#NextDueDate").text(responsefr[0]["CurrentSubExpiryDate"]);
-                     // $("#" + chartId).parents(".card").find("#CurrentPlan").text(responsefr[0]["CurrentlySubscription"]);
-
                      $(".CurrentlySubscription").text(responsefr[0]["CurrentlySubscription"]);
                      $(".CurrentlySubscriptionEndDate").text(responsefr[0]["CurrentSubExpiryDate"]);
-
-
 
                     if (remainingDays < 5) {
                         toastr.error("Remaining days in the current plan are less than 5!");
                         var qrText = `Your plan has ${remainingDays} days remaining!`;
-                        // var qrModal5 = $("#QRModal5").find("#generated-qr");
-
-                        // qrModal5.empty();  // Clear any previous QR code
-                        // new QRCode(qrModal5[0], {
-                        //     text: qrText,
-                        //     width: 250,
-                        //     height: 250,
-                        //     colorDark: "#000000",
-                        //     colorLight: "#ffffff",
-                        //     correctLevel: QRCode.CorrectLevel.H
-                        // });
-                        // $("#QRModal5").modal('show');
-                        //     $("#statusModal").modal('close');
+                        
 
                     }
-
-                    // Update the circular progress for the specific organization
-                    // $("#" + chartId).attr("data-label", `${remainingDays}D`);
-                    // var percentage = (remainingDays / totalDays) * 100;
-                    // var roundedPercentage = percentage.toFixed(1);
-                    // updateCircularProgress(chartId, roundedPercentage, remainingDays);
-
                 } else {
-                    // $("#" + chartId).attr("data-label", `0/0`);
-                    // resetCircularProgress(chartId);
+                   
                 }
             }
             // New/existing plan logic
@@ -2226,5 +2216,44 @@
          $("#upload").prop("checked", false);
          $("#fonepay").prop("checked", false);
      });
-       
+
+
+       //  $(document).off("click").on("click", ".BtnSaveSerialKey",async function (e) {
+        async function SaveSerialKey(CustomerId, serialkeyid) {
+            debugger
+            const inputSelector = `#${serialkeyid}`;
+            const inputEl = $(inputSelector);
+            const serialKey = inputEl.val().trim();
+
+            if (serialKey === '') {
+                toastr.warning("Please Enter Serial Key !!!");
+                inputEl.focus();
+                return;
+            }
+
+            const parm = {
+                SerialKey: serialKey,
+                OrgId: parseInt(CustomerId)
+            };
+
+            try {
+                const request = await AjaxCall("/Home/SaveSerialKey", parm);
+
+                if (request && request !== 'Null' && request !== 'undefined') {
+                    const response = JSON.parse(request);
+
+                    if (response > 0) {
+                        toastr.success("Serial Key Saved Successfully !!!");
+                        inputEl.val(serialKey); 
+                    } else {
+                        toastr.error("Error in saving Serial Key !!!");
+                    }
+                } else {
+                    toastr.error("No response from backend!");
+                }
+            } catch (e) {
+                console.error(e);
+                toastr.error("An error occurred while saving the Serial Key.");
+            }
+        }
     </script>
