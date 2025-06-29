@@ -18,7 +18,7 @@
             <div class="row m-t-10 m-l-0 " style="border:1px solid black; background-color:white; border-radius:12px; padding:10px;">
 
                 <div class=" col-sm-6 col-md-4" style="padding-right:5px;" class="form-control">
-                    Enter Serial Key : &nbsp;&nbsp; <input type="text" id="searchInput" style=" height: 41px;border-radius :5px"  placeholder="xxxxxxxxxxxxxxxx">
+                    Enter Serial Key : &nbsp;&nbsp; <input type="text" id="searchInput" style=" height: 41px;border-radius :5px" placeholder="xxxxxxxxxxxxxxxx">
                 </div>
                 <div class=" col-sm-6 col-md-2" style="padding-left: 5px;" class="form-control">
                     <button class="btn btn-insoft btn-sm" type="button" id="btnsearch">
@@ -55,38 +55,38 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
-        $("#btnsearch").on("click", async function () {
-            $("#skeytable").find("tbody").empty();
-            var parameters = {
-                SKey: $("#searchInput").val().trim()
-            };
-                var Reqdata = await AjaxCall("/CustomerPlanDetails/GetCustomerbyskey", parameters);
-                var jsonData = JSON.parse(JSON.parse(Reqdata));
-                var subDOM = "";
+<script>
+    $("#btnsearch").on("click", async function () {
+        $("#skeytable").find("tbody").empty();
+        var parameters = {
+            SKey: $("#searchInput").val().trim()
+        };
+        var Reqdata = await AjaxCall("/CustomerPlanDetails/GetCustomerbyskey", parameters);
+        var jsonData = JSON.parse(JSON.parse(Reqdata));
+        var subDOM = "";
 
-                if (jsonData.length > 0) {
-                    for (var i = 0; i < jsonData.length; i++) {
-                        var issuedate = jsonData[i]["Createddate"];
-                        subDOM += "<tr>" +
-                            "<td class='center'>" + (i + 1) + "</td>" +
-                            "<td class='center' data-cid='" + jsonData[i]["CustomerId"] + "'>" + jsonData[i]["CustomerName"] + "</td>" +
-                            "<td class='center' data-pid='" + jsonData[i]["ProductId"] + "'>" + jsonData[i]["productname"] + "</td>" +
-                            "<td class='center'>" + jsonData[i]["Address"] + "</td>" +
-                            "<td class='center'>" + jsonData[i]["Contact"] + "</td>" +
-                            "<td class='center'>" + jsonData[i]["SubKey"] + "</td>" +
-                            "<td class='center'>" + jsonData[i]["Remarks"] + "</td>" +
-                            "<td class='center'>" + issuedate + "</td>" +
-                            "</tr>";
-                    }
-                    $("#skeytable").find("tbody").empty().append(subDOM);
-                } else {
-                    $("#skeytable").find("tbody").empty().append("<tr><td colspan='9' class='center'><span class='red' style='font-size:24px;'>No Customer Found Having this Serial key !!!</span></td></tr>");
-                }
+        if (jsonData.length > 0) {
+            for (var i = 0; i < jsonData.length; i++) {
+                var issuedate = jsonData[i]["Createddate"];
+                subDOM += "<tr>" +
+                    "<td class='center'>" + (i + 1) + "</td>" +
+                    "<td class='center' data-cid='" + jsonData[i]["CustomerId"] + "'>" + jsonData[i]["CustomerName"] + "</td>" +
+                    "<td class='center' data-pid='" + jsonData[i]["ProductId"] + "'>" + jsonData[i]["productname"] + "</td>" +
+                    "<td class='center'>" + jsonData[i]["Address"] + "</td>" +
+                    "<td class='center'>" + jsonData[i]["Contact"] + "</td>" +
+                    "<td class='center'>" + jsonData[i]["SubKey"] + "</td>" +
+                    "<td class='center'>" + jsonData[i]["Remarks"] + "</td>" +
+                    "<td class='center'>" + issuedate + "</td>" +
+                    "</tr>";
+            }
+            $("#skeytable").find("tbody").empty().append(subDOM);
+        } else {
+            $("#skeytable").find("tbody").empty().append("<tr><td colspan='9' class='center'><span class='red' style='font-size:24px;'>No Customer Found Having this Serial key !!!</span></td></tr>");
+        }
 
 
 
-        })
-       
+    })
 
-    </script>
+
+</script>

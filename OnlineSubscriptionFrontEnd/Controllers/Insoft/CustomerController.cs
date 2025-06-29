@@ -70,6 +70,19 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
             return View();
         }
 
+        public IActionResult Keysearchsetup()
+        {
+            string tokenNo = HttpContext.Session.GetString("TokenNo");
+            if (tokenNo == null)
+            {
+                return RedirectToAction("Index", "Login", new { msg = "sessionExpired" });
+            }
+            else
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> InsertUpdateCustomer([FromBody] Customer ai)
