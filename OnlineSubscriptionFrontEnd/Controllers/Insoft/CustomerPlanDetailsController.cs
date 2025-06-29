@@ -207,6 +207,34 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
 
 
         [HttpPost]
+        public async Task<IActionResult> Getcustomerforserialkey([FromBody] SerialKey abc)
+        {
+            try
+            {
+                string TokenNo = HttpContext.Session.GetString("TokenNo");
+                if (TokenNo == null)
+                {
+                    return Ok("-21");
+                }
+                else
+                {
+                    string i = await ApiCall.ApiCallWithObject("Subscription/Getcustomerforserialkey", abc, "Post");
+                    return Ok(i);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string Exception = ex.ToString();
+                TempData["Exception"] = Exception;
+                return RedirectToAction("Index", "UnexpectedError");
+
+            }
+        }
+
+
+
+        [HttpPost]
         public async Task<IActionResult> GetVoucherEntryStatus([FromBody] CustomerPlan abc)
         {
             try

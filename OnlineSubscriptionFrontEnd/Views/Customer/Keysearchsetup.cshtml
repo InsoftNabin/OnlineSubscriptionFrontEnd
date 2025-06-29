@@ -1,0 +1,389 @@
+﻿@{
+    ViewData["Title"] = "Keysearchsetup";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<!-- jQuery & jQuery UI (for AD) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="~/assets/plugins/custom/Datepicker/nepali.datepicker.v4.0.8.min.css" />
+<script src="~/assets/plugins/custom/Datepicker/nepali.datepicker.v4.0.8.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<style>
+    .cardProceed {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin: auto;
+    }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .row {
+        margin: 20px;
+    }
+
+    .payment-methods {
+        display: flex;
+        gap: 15px;
+        vertical-align: middle;
+    }
+
+    .payment-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        padding: 10px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+        .payment-option input[type="radio"] {
+            display: none;
+        }
+
+        .payment-option img {
+            width: 50px;
+            vertical-align: middle;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .payment-option:hover {
+            border-color: #007BFF;
+        }
+
+        .payment-option input[type="radio"]:checked + label {
+            border-color: #007BFF;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+    .modal {
+        z-index: 50000 !important;
+    }
+
+
+    #ui-datepicker-div, #ndp-nepali-box {
+        z-index: 2147483647 !important;
+    }
+</style>
+
+<div class="pcoded-content">
+    <div class="page-header-breadcrumb" style="margin-left: 10px;">
+        <ul class="breadcrumb-title">
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!"><i class="feather icon-home"></i></a>
+            </li>
+            <li class="breadcrumb-item" style="float: left;">
+                <a href="#!">Serial key search</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+
+                    <div class="row m-t-10 m-l-0 " style="border:1px solid black; background-color:white; border-radius:12px; padding:10px;">
+
+                        <div class=" col-sm-6 col-md-4" style="padding-right:5px;" class="form-control">
+                            Enter Serial Key : &nbsp;&nbsp; <input type="text" id="searchInput" style=" height: 41px;border-radius :5px" placeholder="xxxxxxxxxxxxxxxx">
+                        </div>
+                        <div class=" col-sm-6 col-md-2" style="padding-left:5px; margin-top:22px" class="form-control">
+                            <button class="btn btn-insoft btn-sm" type="button" id="btnsearch">
+                                <i class="feather icon-search"></i> Show
+                            </button>
+                        </div>
+                        <div class=" col-sm-6 col-md-6" style="padding-left:5px; margin-top:22px;font-size: large; ">
+                            <span>Customer Name: <strong class="customername"></strong> </span> &nbsp;<span>Product Name: <strong class="Productname"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row  col-md-12">
+                                <div class="col-md-4">
+
+                                    <div class="cardProceed">
+                                        <form>
+                                            <div class="row">
+                                                <label>Enter Serial Key:</label>
+                                                <input type="text" id="serialkey" class="Serialkey form-control" placeholder="xxxxxxxxxxxxxxxxxx" />
+                                            </div>
+
+                                            <div class="row">
+                                                <label for="calendarType">Enter Expiry Date:</label>
+                                                <div class="col">
+                                                    <select id="calendarType" class="form-control">
+                                                        <option value="AD">AD</option>
+                                                        <option value="BS">BS</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" id="expiryDateAD" class="form-control" style="margin-top: -4px;" />
+                                                    <input type="text" id="expiryDateBS" class="form-control ndp-nepali-calendar" onfocus="showNdpCalendarBox('DateNepaliE')" style="display:none; margin-top: -4px;" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label>Remarks:</label>
+                                                <input type="text" class="rem form-control" required />
+                                                <input type="text" id="custid" hidden />
+                                                <input type="text" id="prodid" hidden />
+                                            </div>
+                                            <div class="row">
+                                                <button class="btn btn-sm btn-success btnExtendPlan">Proceed &nbsp;<i class="feather icon-save"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-8">
+
+                                    <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; position: relative;">
+                                        <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                            <thead>
+                                                customer's log
+                                                <tr style="background-color: #0b3b56; color: white;">
+                                                    <th class="center">S.N.</th>
+                                                    <th class="center">Product Name</th>
+                                                    <th class="center">Serial Key</th>
+                                                    <th class="center">Remarks</th>
+                                                    <th class="center">Issue Date</th>
+                                                    <th class="center">Expiry Date</th>
+                                                    <th class="center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Are you sure?</h5>
+                <button type="button" class="closedeletebtn" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this record?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on('click', '#btnsearch', async function () {
+        var skey = $("#searchInput").val();
+        if (skey == "") {
+            toastr.warning("Please Enter main Serial Key !!!");
+            return;
+        }
+
+        var parameters = {
+            SKey: $("#searchInput").val().trim()
+        };
+        debugger;
+        var Reqdata = await AjaxCall("/CustomerPlanDetails/Getcustomerforserialkey", parameters);
+        var jsonData = JSON.parse(JSON.parse(Reqdata));
+
+
+        debugger;
+        var id = jsonData[0]["CustomerId"];
+        var CustomerId = jsonData[0]["CustomerId"];
+        var ProductId = jsonData[0]["ProductId"];
+        var customername = jsonData[0]["CustomerName"];
+        var productname = jsonData[0]["productname"];
+        $(".customername").text(customername);
+        $(".Productname").text(productname);
+
+        $(".Customerr").text(customername);
+        $(".selectedProduct").val(productname);
+        $("#custid").val(CustomerId);
+        $("#prodid").val(ProductId);
+
+
+        await loadsubscriptionLog(CustomerId, ProductId);
+        var Type = $(this).attr("data-type");
+    });
+
+    $(function () {
+        $("#expiryDateAD").datepicker({
+            dateFormat: "yy-mm-dd",
+            autoclose: true
+        }).datepicker('setDate', new Date());
+
+        $("#expiryDateBS").nepaliDatePicker({
+            ndpEnglishInput: 'expiryDateAD'
+        });
+        const adDate = $("#expiryDateAD").val();
+        if (adDate) {
+            $("#expiryDateBS").val(NepaliFunctions.AD2BS(adDate, "YYYY-MM-DD"));
+        }
+        $(document).on('change', "#expiryDateAD", function () {
+            const adDate = $(this).val();
+            if (adDate) {
+                $("#expiryDateBS").val(NepaliFunctions.AD2BS(adDate, "YYYY-MM-DD"));
+            }
+        });
+        $(document).on('change', "#expiryDateBS", function () {
+            const adDate = $(this).val();
+            if (adDate) {
+                $("#expiryDateAD").val(NepaliFunctions.BS2AD(adDate, "YYYY-MM-DD"));
+            }
+        });
+        let previousBS = $("#expiryDateBS").val();
+        const currentBS = $("#expiryDateBS").val();
+        if (currentBS && currentBS !== previousBS) {
+            previousBS = currentBS;
+            const convertedAD = NepaliFunctions.BS2AD(currentBS);
+            $("#expiryDateAD").val(convertedAD);
+        }
+    });
+
+    $("#calendarType").on("change", function () {
+        if ($(this).val() === "AD") {
+            $("#expiryDateAD").show();
+            $("#expiryDateBS").hide();
+        } else {
+            $("#expiryDateAD").hide();
+            $("#expiryDateBS").show();
+        }
+    });
+
+
+
+    async function loadsubscriptionLog(CustomerId, ProductId) {
+        debugger;
+        var parm = {
+            CustomerId: parseInt(CustomerId),
+            ProductId: parseInt(ProductId)
+        };
+        var jsub = await AjaxCall("/CustomerPlanDetails/GetSerialKeyLog", parm);
+        var sub = JSON.parse(jsub);
+        var jsonData = JSON.parse(sub);
+
+        var subDOM = "";
+        if (jsonData.length > 0) {
+            for (var i = 0; i < jsonData.length; i++) {
+                var issuedate = jsonData[i]["Createddate"].split("T")[0];
+                subDOM += `<tr>
+                            <td class="center">`+ (i + 1) + `</td>
+                                                <td class="center">`+ jsonData[i]["productName"] + `</td>
+                                                <td class="center">`+ jsonData[i]["SubKey"] + `</td>
+                                                <td class="center">`+ jsonData[i]["Remarks"] + `</td>
+                                                <td class="center">`+ issuedate + `</td>
+                                                <td class="center ">`+ jsonData[i]["ExpiryDate"] + `</td>
+                                                       <td> <button class="btn btn-danger deletebtn" data-id =" `+ jsonData[i]["ukid"] + `" data-cid =" ` + parm.CustomerId + `" data-pid =" ` + parm.ProductId + `"> <i class="feather icon-trash"></i></button></td>
+                                        `;
+            }
+            $("#cLogTable tbody").empty().append(subDOM);
+        } else {
+            toastr.warning("No Log Found!!!");
+            $("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
+        }
+    }
+    $(document).on('click', '.btnExtendPlan', async function (e) {
+        e.preventDefault();
+        debugger
+        var parm = {
+            CustomerID: parseInt($("#custid").val()),
+            productKey: parseInt($("#prodid").val()),
+            SKey: $("#serialkey ").val(),
+            Remarks: $(".rem").val(),
+            ExpiryDate: $("#expiryDateAD").val()
+        }
+
+        if (parm.SKey == "") {
+            toastr.warning("Please Enter an Serial Key !!!");
+            return;
+        }
+
+        if (parm.Remarks == "") {
+            toastr.warning("Please Enter any  Remarks !!!");
+            return;
+        }
+        var cpp = await AjaxCall("/CustomerPlanDetails/InsertUpdateSerialkEY", parm);
+        if (cpp != 'Success') {
+            toastr.error("Serial key is not saved !!!");
+        }
+        else {
+            $("#closemodel").trigger("click");
+            $(".rem").val("");
+            $("#serialkey").val("");
+            toastr.success("Key Saved sucessfully");
+            loadsubscriptionLog(parm.CustomerID, parm.productKey);
+        }
+    });
+    var selectedIdToDelete, cid, pid;
+    $(document).on("click", ".deletebtn", function () {
+        cid = $(this).data("cid");
+        pid = $(this).data("pid");
+        selectedIdToDelete = $(this).data("id");
+        $("#confirmDeleteModal").modal("show");
+    });
+
+    $("#confirmDeleteBtn").on("click", async function () {
+
+        if (selectedIdToDelete !== null) {
+            var parm = {
+                productKey: parseInt(selectedIdToDelete)
+            }
+            var cpp = await AjaxCall("/CustomerPlanDetails/DeleteSerialkEY", parm);
+            if (cpp != 'Success') {
+                toastr.error("Serial key is not deleted!!!");
+            }
+            else {
+                toastr.success("Key Deleted sucessfully");
+                $("#confirmDeleteModal").modal("hide");
+                $("#confirmDeleteModal").modal("hide");
+                loadsubscriptionLog(cid, pid);
+            }
+        }
+        else {
+            toastr.success("Key has not been deleted !");
+        }
+    });
+</script>
+
