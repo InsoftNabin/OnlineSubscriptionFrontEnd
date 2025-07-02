@@ -1010,13 +1010,13 @@
                                                             </div>
                                                         </div>
                                                         <h5 style="color:white;">
-                                                            <span id="RemainingPlan" style="color:white;font-size:28px;font-weight:700;"></span>
+                                                            <span id="RemainingPlan" style="color:white;font-size:28px;font-weight:700;">${IncludeData[i].RemainingDays}</span>
                                                         </h5>
                                                         <div class="text-start">
                                                             <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Product:</strong> ${IncludeData[i].ModuleName}</p>
                                                             <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Type:</strong> ${IncludeData[i].Type}</p>
-                                                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Current Plan:</strong> <span class="CurrentlySubscription"></span></p>
-                                                            <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Next Due Date:</strong> <span class="CurrentlySubscriptionEndDate"></span></p>
+                                                                    <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Current Plan:</strong> <span class="CurrentlySubscription"> ${IncludeData[i].CurrentPlan}</span></p>
+                                                                    <p class="text-wrap"><i class="fa fa-circle-check text-success"></i> <strong>Next Due Date:</strong> <span class="CurrentlySubscriptionEndDate"> ${IncludeData[i].NextDueDate}</span></p>
                                                         </div>
                                                     </div>
 
@@ -1193,6 +1193,7 @@
                 $("#statusModal").find("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
             }
         }
+                            var chartInstances = {};
 
         async function loadplansforcustomerandproduct(CustomerId, ProductId) {
             var parm = {
@@ -1208,46 +1209,48 @@
             var totalDays = planData[0].TotalDaysofPlan;
             var expiredDays = totalDays - remainingDays;
             var expiryDate = new Date(planData[0].CurrentSubExpiryDate);
-            $(".OrgCard" + ProductId).find(".PlanDetails" + ProductId).find("#RemainingPlan").text(remainingDays + ' Days');
-            var subscriptionChart = "subscriptionChart"+CustomerId;  // The id of the canvas
-            var ctx = document.getElementById(subscriptionChart).getContext('2d');
+            //$(".OrgCard" + ProductId).find(".PlanDetails" + ProductId).find("#RemainingPlan").text(remainingDays + ' Days');
 
-            //Create the chart
-            var subscriptionChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Remaining Days', 'Expired Days'],
-                    datasets: [{
-                        data: [remainingDays, expiredDays],
-                        backgroundColor: ['#28a745', '#dc3545'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    cutoutPercentage: 70, // Make the center empty for a donut chart
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                // Custom tooltip content
-                                label: function (tooltipItem) {
-                                    let label = tooltipItem.label;
-                                    let value = tooltipItem.raw;
-                                    if (label === 'Remaining Days') {
-                                        return remainingDays;
-                                    } else if (label === 'Expired Days') {
-                                        return expiredDays;
-                                    }
-                                    return label + ': ' + value + '%';
-                                }
+
+                   var chartId = "subscriptionChart" + CustomerId;
+        var ctx = document.getElementById(chartId).getContext('2d');
+
+        // Destroy existing chart if it exists
+        if (chartInstances[chartId]) {
+            chartInstances[chartId].destroy();
+        }
+
+        // Create and store new chart
+        chartInstances[chartId] = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Remaining Days', 'Expired Days'],
+                datasets: [{
+                    data: [remainingDays, expiredDays],
+                    backgroundColor: ['#28a745', '#dc3545'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                cutoutPercentage: 70,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                let label = tooltipItem.label;
+                                let value = tooltipItem.raw;
+                                return label + ": " + value + " days";
                             }
-                        },
-                        legend: {
-                            display: false // Optional: Hide legend if not needed
                         }
+                    },
+                    legend: {
+                        display: false
                     }
                 }
-            });
+            }
+        });
+
              $(".currentPlan").text('----None---');
             $(".currentPlanEdate").text('__//__//____');
             $(".remainingDaysinCPlan").text('0');
@@ -1274,17 +1277,39 @@
                     var totalDays = parseInt(responsefr[0]["TotalDaysofPlan"]);
                     $(".remainingDaysinCPlan").text(remainingDays);
                     $(".TotalDaysInCurrentPlan").text(totalDays);
-                     $(".CurrentlySubscription").text(responsefr[0]["CurrentlySubscription"]);
-                     $(".CurrentlySubscriptionEndDate").text(responsefr[0]["CurrentSubExpiryDate"]);
+                   
+                    //$(".CurrentlySubscription").text(responsefr[0]["CurrentlySubscription"]);
+                    // $(".CurrentlySubscriptionEndDate").text(responsefr[0]["CurrentSubExpiryDate"]);
+
 
                     if (remainingDays < 5) {
                         toastr.error("Remaining days in the current plan are less than 5!");
                         var qrText = `Your plan has ${remainingDays} days remaining!`;
-                        
+                        // var qrModal5 = $("#QRModal5").find("#generated-qr");
+
+                        // qrModal5.empty();  // Clear any previous QR code
+                        // new QRCode(qrModal5[0], {
+                        //     text: qrText,
+                        //     width: 250,
+                        //     height: 250,
+                        //     colorDark: "#000000",
+                        //     colorLight: "#ffffff",
+                        //     correctLevel: QRCode.CorrectLevel.H
+                        // });
+                        // $("#QRModal5").modal('show');
+                        //     $("#statusModal").modal('close');
 
                     }
+
+                    // Update the circular progress for the specific organization
+                    // $("#" + chartId).attr("data-label", `${remainingDays}D`);
+                    // var percentage = (remainingDays / totalDays) * 100;
+                    // var roundedPercentage = percentage.toFixed(1);
+                    // updateCircularProgress(chartId, roundedPercentage, remainingDays);
+
                 } else {
-                   
+                    // $("#" + chartId).attr("data-label", `0/0`);
+                    // resetCircularProgress(chartId);
                 }
             }
             // New/existing plan logic
@@ -1342,6 +1367,8 @@
                 toastr.error("No Subscription Setup is done!!!");
             }
         }
+
+
          async function getModuleValues() {
             const result = await AjaxCallWithoutData("/Home/GetModuleValues");
 
