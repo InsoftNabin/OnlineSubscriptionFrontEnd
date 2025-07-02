@@ -33,6 +33,9 @@ Layout = "_Layout"; }
           alt=""
         />
       </div>
+
+            <h2 class="otpdisplay fs-2x fw-bold mb-10"></h2>
+
       <h2 class="fs-2x fw-bold mb-10">Enter Code</h2>
       <p class="text-gray-800 fs-4 fw-semibold mb-10">
         Enter the code sent to your email.
@@ -64,6 +67,7 @@ Layout = "_Layout"; }
 <script type="text/javascript">
 $(document).ready(()=>{
   LaodData(window.location.href)
+  getotp(window.location.href);
 })
 var email;
 function  LaodData(url) {
@@ -91,4 +95,28 @@ $("#btnsubmit").click(async function (e) {
     
   }
 });
+
+
+async function getotp(url){
+        debugger
+    var email;
+
+        var url = new URL(url);
+        if (window.location.href.indexOf('?') > 0) {
+            email = url.searchParams.get("email");
+        }
+
+        var data = {
+            ReceiverEmail: email
+        }
+
+        var result = await AjaxCall("/SendCode/GetOTPCode", data);
+
+        var jsonresult = JSON.parse(JSON.parse(result));
+        
+        $(".otpdisplay").text(jsonresult[0]["VerificationCode"]);
+
+
+}
+
 </script>

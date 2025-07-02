@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewData["Title"] = "Keysearchsetup";
+}
+<!-- jQuery & jQuery UI (for AD) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="~/assets/plugins/custom/Datepicker/nepali.datepicker.v4.0.8.min.css" />
+<script src="~/assets/plugins/custom/Datepicker/nepali.datepicker.v4.0.8.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+   <link rel="stylesheet" type="text/css" href="~/files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/files/assets/icon/feather/css/feather.css">
+
+<style>
+    .cardProceed {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin: auto;
+    }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .row {
+        margin: 20px;
+    }
+
+    <style >
+    .center {
+        text-align: center;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .card1 {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .pcoded-hasmenun::after {
+        content: none !important; /* Removes the arrow */
+    }
+
+    .pcoded-hasmenun a {
+        position: relative;
+    }
+
+        .pcoded-hasmenun a::after {
+            content: none !important; /* Ensure no extra content after the anchor */
+        }
+
+    .btn {
+        border-radius: 12px;
+        text-decoration-color: white;
+        font-size: 1em;
+        vertical-align: middle;
+    }
+
+        .btn i {
+            font-size: 1.5em;
+        }
+
+    .card-header h2 {
+        font-size: 0.5em;
+    }
+
+    .btn-insoft {
+        background-color: #0b3b56;
+        color: white;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #0b3b56; /* Dark blue background */
+        color: white; /* White text */
+        border: 1px solid black; /* Black border */
+        border-bottom: none; /* Optional: Avoid double borders */
+    }
+
+    td, th {
+        vertical-align: middle;
+    }
+    table{
+        border:collapse;
+        border: 2px solid black;
+
+    }
+    .modal-header {
+        background: #80ed99;
+    }
+
+</style>
+
+</style>
+
+<div class="pcoded-content" style="margin-top:40px">
+
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body well">
+
+                    <div class="row m-t-10 m-l-0 " style="border:1px solid black; background-color:aliceblue; border-radius:12px; padding:10px;">
+
+                        <div class=" col-sm-6 col-md-4" style="padding-right:5px;" class="form-control">
+                            Enter Serial Key : &nbsp;&nbsp; <input type="text" id="searchInput" style=" height: 41px;border-radius :5px" placeholder="xxxxxxxxxxxxxxxx">
+                        </div>
+                        <div class=" col-sm-6 col-md-2" style="padding-left:5px; margin-top:22px" class="form-control">
+                            <button class="btn btn-insoft btn-sm" type="button" id="btnsearch">
+                                <i class="feather icon-search"></i> Show
+                            </button>
+                        </div>
+                        <div class=" col-sm-6 col-md-6" style="padding-left:5px; margin-top:22px;font-size: large; ">
+                            <span>Customer Name: <strong class="customername"></strong> </span> &nbsp;<span>Product Name: <strong class="Productname"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row  col-md-12">
+                                <div class="col-md-12">
+
+                                    <div class="TableDiv table-responsive" style="width: 100%; overflow-x: scroll; overflow-y: scroll; position: relative;">
+                                        <table id="cLogTable" class="table-fixed table DGV table-striped table-bordered table-hover tblclear" style="width: 100%; border-collapse: separate; padding: 0px;">
+                                            <thead>
+                                                customer's log
+                                                <tr style="background-color: #0b3b56; color: white;">
+                                                    <th class="center">S.N.</th>
+                                                    <th class="center">Product Name</th>
+                                                    <th class="center">Serial Key</th>
+                                                    <th class="center">Remarks</th>
+                                                    <th class="center">Issue Date</th>
+                                                    <th class="center">Expiry Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on('click', '#btnsearch', async function () {
+        var skey = $("#searchInput").val();
+        if (skey == "") {
+            toastr.warning("Please Enter main Serial Key !!!");
+            return;
+        }
+        var parameters = {
+            SKey: $("#searchInput").val().trim()
+        };
+        debugger;
+        var Reqdata = await AjaxCall("/CustomerPlanDetails/Getcustomerforserialkey", parameters);
+        var jsonData = JSON.parse(JSON.parse(Reqdata));
+        debugger;
+        var id = jsonData[0]["CustomerId"];
+        var CustomerId = jsonData[0]["CustomerId"];
+        var ProductId = jsonData[0]["ProductId"];
+        var customername = jsonData[0]["CustomerName"];
+        var productname = jsonData[0]["productname"];
+        $(".customername").text(customername);
+        $(".Productname").text(productname);
+        $(".Customerr").text(customername);
+        $(".selectedProduct").val(productname);
+        $("#custid").val(CustomerId);
+        $("#prodid").val(ProductId);
+
+
+        await loadsubscriptionLog(CustomerId, ProductId);
+        var Type = $(this).attr("data-type");
+    });
+    async function loadsubscriptionLog(CustomerId, ProductId) {
+        debugger;
+        var parm = {
+            CustomerId: parseInt(CustomerId),
+            ProductId: parseInt(ProductId)
+        };
+        var jsub = await AjaxCall("/CustomerPlanDetails/GetSerialKeyLog", parm);
+        var sub = JSON.parse(jsub);
+        var jsonData = JSON.parse(sub);
+
+        var subDOM = "";
+        if (jsonData.length > 0) {
+            for (var i = 0; i < jsonData.length; i++) {
+                var issuedate = jsonData[i]["Createddate"].split("T")[0];
+                subDOM += `<tr>
+                                <td class="center">`+ (i + 1) + `</td>
+                                                    <td class="center">`+ jsonData[i]["productName"] + `</td>
+                                                    <td class="center">`+ jsonData[i]["SubKey"] + `</td>
+                                                    <td class="center">`+ jsonData[i]["Remarks"] + `</td>
+                                                    <td class="center">`+ issuedate + `</td>
+                                                    <td class="center ">`+ jsonData[i]["ExpiryDate"] + `</td>
+                                            `;
+            }
+            $("#cLogTable tbody").empty().append(subDOM);
+        } else {
+            toastr.warning("No Log Found!!!");
+            $("#cLogTable tbody").empty().append(`<tr><td colspan="9" class="center"><span class="red" style="font-size:24px;">No Log Found !!!</span></td></tr>`);
+        }
+    }
+</script>
+

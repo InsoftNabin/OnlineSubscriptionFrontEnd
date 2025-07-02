@@ -156,18 +156,12 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         {
             try
             {
-                string TokenNo = HttpContext.Session.GetString("TokenNo");
-                if (TokenNo == null)
-                {
-                    return Ok("-21");
-                }
-                else
-                {
-                    abc.TokenNo = TokenNo;
+             
+           
                     string i = await ApiCall.ApiCallWithObject("Subscription/GetSerialKeyLog", abc, "Post");
                     //string i = await ApiCall.ApiCallWithObject("Subscription/GetSubscriptionLogByCustandprodId", p, "Post");
                     return Ok(i);
-                }
+                
 
             }
             catch (Exception ex)
@@ -211,16 +205,16 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
         {
             try
             {
-                string TokenNo = HttpContext.Session.GetString("TokenNo");
-                if (TokenNo == null)
-                {
-                    return Ok("-21");
-                }
-                else
-                {
+                //string TokenNo = HttpContext.Session.GetString("TokenNo");
+                //if (TokenNo == null)
+                //{
+                //    return Ok("-21");
+                //}
+                //else
+                //{
                     string i = await ApiCall.ApiCallWithObject("Subscription/Getcustomerforserialkey", abc, "Post");
                     return Ok(i);
-                }
+                //}
 
             }
             catch (Exception ex)

@@ -382,7 +382,7 @@
 
         var initial = selectedAccordion.find(".initial").val();
         var siteURL = selectedAccordion.find(".siteURL").val();
-        var Sukey = selectedAccordion.find(".Sukey").val() || null;
+        var Sukey = selectedAccordion.find(".Sukey").val().trim() || null;
         var serialNumber = selectedAccordion.find(".serialNumber").val();
         var InitialPaymentAmount = parseFloat(selectedAccordion.find(".InitialPaymentAmount").val());
         var agentId = selectedAccordion.find(".AgentsinModalTable :selected").attr("data-agentid");

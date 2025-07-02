@@ -69,6 +69,22 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         }
 
 
+
+        [HttpPost]
+        public async Task<IActionResult> GetOTPCode([FromBody] SendCode sc)
+        {
+            try
+            {
+                var result = await ApiCall.ApiCallWithObject("EmailMessaging/GetOTPCode", sc, "POST");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error: " + ex.Message);
+            }
+        }
+
+
     }
 }
 

@@ -45,7 +45,12 @@ namespace OnlineSubscriptionFrontEnd.Controllers
         {
             return View();
         }
-       
+        [AllowAnonymous]
+        public IActionResult Keysearch()
+        {
+            return View();
+        }
+
         public ActionResult GetQR()
         {
             var name = User.FindFirst(ClaimTypes.Hash).Value;
