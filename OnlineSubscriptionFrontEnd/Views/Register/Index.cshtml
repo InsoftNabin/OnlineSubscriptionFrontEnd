@@ -1,21 +1,10 @@
 @{ ViewData["Title"] = "Index"; }
 
 <div  class=" py-3 py-lg-6">
-  <div
-   
-    class=" container-xxl d-flex flex-stack"
-  >
-    <div
-      class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
-    >
-      <h1
-        class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
-      >
-        <img
-          src="~/assets/media/logos/LogoInsoft.png"
-          class="theme-light-show w-100px"
-          alt=""
-        />
+  <div class=" container-xxl d-flex flex-stack">
+    <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3" >
+      <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+        <img src="~/assets/media/logos/LogoInsoft.png" class="theme-light-show w-100px" alt=""/>
       </h1>
     </div>
     <div class="d-flex">
@@ -42,79 +31,31 @@
        Enter your Credentials to create an account.
       </p>
 
-            <form id="registerForm" >
+    <form id="registerForm" >
       <div class="input-group mb-2">
-       
-        <input
-          type="text"
-          class="form-control border border-dark rounded"
-          placeholder="Full Name"
-          aria-label="Username"
-          name="Name"
-          aria-describedby="basic-addon1"
-        />
+        <input type="text" class="FullName form-control border border-dark rounded" placeholder="Full Name" aria-label="Username" name="Name"aria-describedby="basic-addon1" />
+      </div>
+      <div class="input-group mb-2">
+        <input type="text" class=" form-control border border-dark rounded" placeholder="email" aria-label="email" name="Email" aria-describedby="email" hidden disabled/>
       </div>
       <div class="input-group mb-2">
        
-        <input
-          type="text"
-          class="form-control border border-dark rounded"
-          placeholder="email"
-          aria-label="email"
-          name="Email"
-          aria-describedby="email"
-          hidden
-          disabled
-        />
+        <input type="text" class="Contact form-control border border-dark rounded" placeholder="Contact" aria-label="Contact" name="Contact" aria-describedby="contact"/>
       </div>
       <div class="input-group mb-2">
        
-        <input
-          type="text"
-          class="form-control border border-dark rounded"
-          placeholder="Contact"
-          aria-label="Contact"
-          name="Contact"
-          aria-describedby="contact"
-        />
+        <input type="text" class="Address form-control border border-dark rounded" placeholder="Address" aria-label="Address" name="Address" aria-describedby="address"/>
       </div>
       <div class="input-group mb-2">
        
-        <input
-          type="text"
-          class="form-control border border-dark rounded"
-          placeholder="Address"
-          aria-label="Address"
-          name="Address"
-          aria-describedby="address"
-        />
+        <input type="password" class="Password form-control border border-dark rounded" placeholder="Password" aria-label="Password" name="Password"aria-describedby="password"/>
       </div>
       <div class="input-group mb-2">
        
-        <input
-          type="password"
-          class="form-control border border-dark rounded"
-          placeholder="Password"
-          aria-label="Password"
-          name="Password"
-          aria-describedby="password"
-        />
-      </div>
-      <div class="input-group mb-2">
-       
-        <input
-          type="password"
-          class="form-control border border-dark rounded"
-          placeholder="Retype Password"
-          aria-label="Retype-password"
-          name="ConfirmPassword"
-          aria-describedby="retype-password"
-        />
+        <input type="password" class="ReTypePassword form-control border border-dark rounded" placeholder="Retype Password" aria-label="Retype-password" name="ConfirmPassword"aria-describedby="retype-password"/>
       </div>
 
-        <button  type="submit" class="btn btn-primary form-control" id="registerButton" name="submit">
-          Add User
-        </button>
+        <button  type="submit" class="btn btn-primary form-control" id="registerButton" name="submit"> Add User </button>
       </form>
 
     </div>
@@ -124,7 +65,6 @@
 <script type="text/javascript">
   $(document).ready(()=>{
     LaodData(window.location.href)
-
   })
   async function LaodData(url) {
 var url = new URL(url);
@@ -139,7 +79,31 @@ if (window.location.href.indexOf('?') > 0) {
 
   $("#registerForm").submit(async function (e) {
     e.preventDefault();
-    if($(this).find("input[name='Password']").val()!=$(this).find("input[name='ConfirmPassword']").val()){
+    if($(this).find(".FullName ").val().trim()==""){
+       toastr.warning("Please enter Full Name !")
+       $(".FullName").focus();
+       return false;
+    }else if($(this).find("input[name='Email']").val().trim()==""){
+       toastr.warning("Please enter Email !")
+       $(this).find("input[name='Email']").focus();
+       return false;
+    }else if($(this).find(".Contact").val().trim()==""){
+       toastr.warning("Please enter Contact !")
+       $(this).find(".Contact").focus();
+       return false;
+    }else if($(this).find(".Address").val().trim()==""){
+       toastr.warning("Please enter Address !")
+       $(this).find(".Address").focus();
+       return false;
+    }else if($(this).find(".Password").val().trim()==""){
+       toastr.warning("Please enter Password !")
+       $(this).find(".Password").focus();
+       return false;
+    }else if($(this).find(".ReTypePassword").val().trim()==""){
+       toastr.warning("Please enter Retype Password !")
+       $(this).find(".ReTypePassword").focus();
+       return false;
+    }else if($(this).find("input[name='Password']").val()!=$(this).find("input[name='ConfirmPassword']").val()){
       toastr.warning("Password doesnot match ! Please try again")
       return false;
     }
