@@ -59,7 +59,7 @@ namespace OnlineSubscriptionFrontEnd.Controllers.Insoft
                 }
                 else
                 {
-                    string i = await ApiCall.ApiCallWithString("Products/getDesktopProducts", TokenNo, "Post");
+                    string i = await ApiCall.ApiCallWithString("Products/getProducts", TokenNo, "Post");
                     return Ok(i);
                 }
 

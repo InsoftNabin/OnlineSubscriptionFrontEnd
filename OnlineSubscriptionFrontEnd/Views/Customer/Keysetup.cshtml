@@ -316,7 +316,10 @@
 
 
     function getProducts() {
-        var paa = AjaxCallWithoutDataNoAsync("/Products/getProducts");
+
+        debugger
+
+        var paa = AjaxCallWithoutDataNoAsync("/Products/getDesktopProducts");
         var aaha = JSON.parse(paa);
         var jsonD = JSON.parse(aaha);
 

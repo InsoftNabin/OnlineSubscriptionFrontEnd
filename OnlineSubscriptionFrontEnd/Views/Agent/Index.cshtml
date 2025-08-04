@@ -341,13 +341,16 @@
             };
 
             var data = await AjaxCall("/Agent/InsertUpdate", parm);
+
+            debugger
+
             var jsondataresponse = JSON.parse(data);
-            if (jsondataresponse == 1) {
+            if (jsondataresponse == "New Agent Success !!!" || jsondataresponse == "Agent Update Success !!!") {
 
                 resetForm();
                 getTableData();
                 location.reload();
-                toastr.success("Agent action successfully!");
+                toastr.success(jsondataresponse);
             } else {
                 toastr.error("Failed to insert agent.");
             }

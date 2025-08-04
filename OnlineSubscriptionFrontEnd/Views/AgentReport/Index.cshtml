@@ -94,19 +94,19 @@
 
                 <div class="containerr" >
                     <div class="button-container" style="margin-bottom: 10px;">
-                        <button onclick="exportToCSV()" class="btn rounded btn-sm btn-primary">
+                        <button onclick="exportToCSV()" class="btn rounded btn-xs btn-primary">
                             <i class="feather icon-file-text"></i> CSV
                         </button>
-                        <button onclick="copyTable()" class="btn rounded btn-sm btn-warning">
+                        <button onclick="copyTable()" class="btn rounded btn-xs btn-warning">
                             <i class="feather icon-copy"></i> Copy
                         </button>
-                        <button onclick="exportToExcel()" class="btn rounded btn-sm btn-success">
+                        <button onclick="exportToExcel()" class="btn rounded btn-xs btn-success">
                             <i class="fa fa-regular fa-file-excel"></i> Excel
                         </button>
-                        <button onclick="exportToPDF()" class="btn rounded btn-sm btn-danger">
+                        <button onclick="exportToPDF()" class="btn rounded btn-xs btn-danger">
                             <i class="feather icon-file"></i> PDF
                         </button>
-                        <button onclick="printTable()" class="btn rounded btn-sm btn-info">
+                        <button onclick="printTable()" class="btn rounded btn-xs btn-info">
                             <i class="feather icon-printer"></i> Print
                         </button>
                     </div>
@@ -162,7 +162,7 @@
     }
 
     function GetAgents() {
-        var a = AjaxCallWithoutDataNoAsync("/Agent/getAgents");
+        var a = AjaxCallWithoutDataNoAsync("/Agent/getAgentsforcustomer");
         var ab = JSON.parse(a);
         var jsondata = JSON.parse(ab);
 
@@ -176,7 +176,6 @@
     }
 
     $("#showButton").on("click", async function () {
-        debugger;
         var param = {
             ProductId: parseInt($(".Products option:selected").val()),
             AgentId: parseInt($(".Agents option:selected").val())
